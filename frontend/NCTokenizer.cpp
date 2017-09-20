@@ -123,6 +123,18 @@ bool NCTokenizer::tokenize(string&str){
                 status = Unknown;
             }
         }
+        else if(c == '.'){
+            if (status == Number){
+                if (token.length()>0) {
+                    if (token.back() != '.') {
+                        token += c;
+                    }
+                    else {
+                        return false;
+                    }
+                }
+            }
+        }
         
         if (i == str.length()-1) {
             tokens.push_back(token);
