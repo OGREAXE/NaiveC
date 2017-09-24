@@ -59,6 +59,14 @@ private:
 private:
     //top-down parsing functions
     
+    MCParserReturnType class_definition();
+    
+    bool class_body(vector<shared_ptr<NCBodyDeclaration>> & members);
+    
+    shared_ptr<NCBodyDeclaration> class_body_declaration();
+    
+    shared_ptr<NCConstructorDeclaration> constructor_definition();
+    
     //function_definition-> type_specifier argumentlist compound_statement
     MCParserReturnType function_definition();
     

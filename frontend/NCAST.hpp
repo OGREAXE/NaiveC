@@ -325,6 +325,7 @@ public:
 
 class NCASTRoot:public NCASTNode {
 public:
+    vector<shared_ptr<NCASTNode>> classList;
     vector<shared_ptr<NCASTNode>> functionList;
 };
 
@@ -333,16 +334,14 @@ public:
 //      class definition
 //
 /////////////////////////////////////////////////////////
-class NCClassDeclaration:public NCASTNode {
-    
-};
 
 class NCBodyDeclaration:public NCASTNode {
     
 };
 
 class NCFieldDeclaration:public NCBodyDeclaration {
-    
+public:
+    shared_ptr<NCExpression> declarator;
 };
 
 class NCMethodDeclaration:public NCBodyDeclaration {
@@ -352,6 +351,16 @@ public:
 
 class NCConstructorDeclaration:public NCBodyDeclaration {
     
+};
+
+class NCClassDeclaration:public NCASTNode {
+public:
+    string name;
+    
+//    shared_ptr<NCClassDeclaration> parent;
+    string parent;
+    
+    vector<shared_ptr<NCBodyDeclaration>> members;
 };
 
 #endif /* MCAST_hpp */

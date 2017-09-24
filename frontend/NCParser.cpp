@@ -59,17 +59,29 @@ NCParser::NCParser(vector<string>& tokens):index(0){
     
     pRoot = shared_ptr<NCASTRoot>(new NCASTRoot());
     
-    while (1) {
+    bool parseOK = false;
+    do{
+        parseOK = false;
+        pushIndex();
+        
         auto pFunc = function_definition();
         if (pFunc) {
-//            auto funcDef = dynamic_cast<NCASTFunctionDefinition*>(pFunc.get());
             pRoot->functionList.push_back(pFunc);
+            parseOK = true;
+            continue;
         }
-        else {
-            break;
+        
+        popIndex();
+        auto pClass = class_definition();
+        if (pClass) {
+            pRoot->classList.push_back(pClass);
+            parseOK = true;
+            continue;
         }
-    }
+
+    }while (parseOK);
     
+    printf("parse %lu classes\n", pRoot->classList.size());
     printf("parse %lu functions", pRoot->functionList.size());
     
 //    if (pFunc) {
@@ -97,6 +109,81 @@ void NCParser::popIndex(){
     word = tokens[index];
 }
 
+MCParserReturnType NCParser::class_definition(){
+    auto functionDecl = new NCClassDeclaration();
+    
+    if (word != "class") {
+        return nullptr;
+    }
+    word = nextWord();
+    
+    if (!isIdentifier(word)) {
+        return nullptr;
+    }
+    functionDecl->name = word;
+    word = nextWord();
+    
+    if (word == ":") {
+        word = nextWord();
+        
+        if (!isIdentifier(word)) {
+            return nullptr;
+        }
+        functionDecl->parent = word;
+        word = nextWord();
+    }
+    
+    if (!class_body(functionDecl->members)) {
+        return nullptr;
+    }
+    
+    return shared_ptr<NCClassDeclaration>(functionDecl);
+}
+
+bool NCParser::class_body(vector<shared_ptr<NCBodyDeclaration>> & members){
+    if (word != "{") {
+        return false;
+    }
+    
+    word = nextWord();
+    while (word!="}") {
+        auto member = class_body_declaration();
+        if (!member) {
+            return false;
+        }
+    }
+    
+    word = nextWord();
+    return true;
+}
+
+shared_ptr<NCBodyDeclaration> NCParser::class_body_declaration(){
+    pushIndex();
+    auto funcDef = function_definition();
+    if (funcDef) {
+        auto methodDef = new NCMethodDeclaration();
+        methodDef->method = funcDef;
+        return shared_ptr<NCMethodDeclaration>(methodDef);
+    }
+    
+    popIndex();
+    auto fieldDecl = variable_declaration_expression();
+    if (fieldDecl) {
+        auto field = new NCFieldDeclaration();
+        field->declarator = fieldDecl;
+        return shared_ptr<NCFieldDeclaration>(field);
+    }
+    
+    popIndex();
+    return constructor_definition();
+}
+
+shared_ptr<NCConstructorDeclaration> NCParser::constructor_definition(){
+    //todo
+    return nullptr;
+}
+
+
 //function_definition-> type_specifier argumentlist compound_statement
 AstNodePtr NCParser::function_definition(){
     
@@ -121,18 +208,18 @@ AstNodePtr NCParser::function_definition(){
         word = nextWord();
     }
     
-    vector<NCParameter> plist;
-    if (!parameterlist(plist)) {
-        return (nullptr);
+    if (word != ")") {
+        vector<NCParameter> plist;
+        if (!parameterlist(plist)) {
+            return (nullptr);
+        }
+        function->parameters = plist;
+        
+        if (word!=")") {
+            return (nullptr);
+        }
     }
-    function->parameters = plist;
-    
-    if (word!=")") {
-        return (nullptr);
-    }
-    else {
-        word = nextWord();
-    }
+    word = nextWord();
     
 //    vector<AstNodePtr> statements;
     auto block_ = block();
@@ -287,7 +374,7 @@ shared_ptr<NCExpression> NCParser::variable_declarator(){
     variableDeclarator->id = varDecId;
     
     if (word!="=") {
-        return nullptr;
+        return shared_ptr<VariableDeclarator>(variableDeclarator);
     }
     word = nextWord();
     auto expr = variable_initializer();
