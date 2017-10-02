@@ -93,19 +93,24 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
         
         string type = stackPopString(frame);
         
-        walkTree(node->expression, frame);
-        
-        if (type == "int") {
-            int value = stackPopInt(frame);
-            frame.insertVariable(node->id.first, value);
-        }
-        else if (type == "float") {
-            float value = stackPopFloat(frame);
-            frame.insertVariable(node->id.first, value);
-        }
-        else if (type == "string") {
-            string value = stackPopString(frame);
-            frame.insertVariable(node->id.first, value);
+        if (node->expression) {
+            walkTree(node->expression, frame);
+            
+            if (type == "int") {
+                int value = stackPopInt(frame);
+                frame.insertVariable(node->id.first, value);
+            }
+            else if (type == "float") {
+                float value = stackPopFloat(frame);
+                frame.insertVariable(node->id.first, value);
+            }
+            else if (type == "string") {
+                string value = stackPopString(frame);
+                frame.insertVariable(node->id.first, value);
+            }
+            else if (type == "array") {
+                
+            }
         }
     }
     else if (dynamic_cast<NCMethodCallExpr*>(currentNode.get())) {
