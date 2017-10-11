@@ -32,6 +32,12 @@ public:
     NCStackPointerElement(shared_ptr<NCClassInstance> &pObject):pObject(pObject){type="pointer";}
     
     shared_ptr<NCClassInstance> getObjectPointer(){return pObject;}
+    
+    virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
+    virtual int toInt();
+    virtual float toFloat();
+    virtual string toString();
+    virtual shared_ptr<NCStackElement> copy();
 };
 
 #endif /* NCClassInstance_hpp */

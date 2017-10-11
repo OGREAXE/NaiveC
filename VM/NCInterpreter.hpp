@@ -14,6 +14,7 @@
 #include "NCAST.hpp"
 #include "NCBuiltinFunction.hpp"
 #include "NCStackElement.hpp"
+#include "NCClassInstance.hpp"
 
 using namespace std;
 
@@ -61,7 +62,7 @@ private:
     int stackPopInt(NCFrame & frame);
     float stackPopFloat(NCFrame & frame);
     string stackPopString(NCFrame & frame);
-    
+    NCStackPointerElement stackPopObjectPointer(NCFrame & frame);
 public:
     NCInterpreter(shared_ptr<NCASTRoot> root);
     

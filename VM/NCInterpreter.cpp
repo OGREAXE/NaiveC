@@ -109,7 +109,7 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
                 frame.insertVariable(node->id.first, value);
             }
             else if (type == "array") {
-                
+                NCStackPointerElement arrayPointerElement = stackPopObjectPointer(frame);
             }
         }
     }
