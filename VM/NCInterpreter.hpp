@@ -43,6 +43,7 @@ public:
     void insertVariable(string&name, int value);
     void insertVariable(string&name, float value);
     void insertVariable(string&name, string& value);
+    void insertVariable(string&name, NCStackPointerElement & pObject);
 
     unordered_map<string, shared_ptr<NCStackElement>> localVariableMap;
     vector<shared_ptr<NCStackElement>> stack;

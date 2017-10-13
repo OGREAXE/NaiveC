@@ -185,6 +185,9 @@ class NCArrayBracketPair{
 class VariableDeclarator:public NCExpression{
 public:
     pair<string, vector<NCArrayBracketPair>> id;
+    
+    string id_str(){return id.first;}
+    
     shared_ptr<NCExpression> expression;
 };
 

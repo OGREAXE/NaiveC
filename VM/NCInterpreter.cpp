@@ -17,7 +17,10 @@ void NCFrame::insertVariable(string&name, float value){
 }
 void NCFrame::insertVariable(string&name, string& value){
     localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackStringElement(value));
-    
+}
+
+void NCFrame::insertVariable(string&name, NCStackPointerElement & pObject){
+    localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackPointerElement(pObject.getRawObjectPointer()));
 }
 
 NCInterpreter::NCInterpreter(shared_ptr<NCASTRoot> root){
@@ -95,21 +98,22 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
         
         if (node->expression) {
             walkTree(node->expression, frame);
-            
+            string name = node->id_str();
             if (type == "int") {
                 int value = stackPopInt(frame);
-                frame.insertVariable(node->id.first, value);
+                frame.insertVariable(name, value);
             }
             else if (type == "float") {
                 float value = stackPopFloat(frame);
-                frame.insertVariable(node->id.first, value);
+                frame.insertVariable(name, value);
             }
             else if (type == "string") {
                 string value = stackPopString(frame);
-                frame.insertVariable(node->id.first, value);
+                frame.insertVariable(name, value);
             }
             else if (type == "array") {
                 NCStackPointerElement arrayPointerElement = stackPopObjectPointer(frame);
+                frame.insertVariable(name, arrayPointerElement);
             }
         }
     }
@@ -269,6 +273,9 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
             }
         }
         
+    }
+    else if(dynamic_cast<NCArrayAccessExpr*>(currentNode.get())){
+        auto node = dynamic_cast<NCArrayAccessExpr*>(currentNode.get());
     }
     else if(dynamic_cast<NCNameExpression*>(currentNode.get())){
         auto node = dynamic_cast<NCNameExpression*>(currentNode.get());
@@ -432,4 +439,14 @@ string NCInterpreter::stackPopString(NCFrame & frame){
     
     frame.stack.pop_back();
     return ret;
+}
+
+NCStackPointerElement NCInterpreter::stackPopObjectPointer(NCFrame & frame){
+    auto pStackTop = (frame.stack.back()).get();
+    frame.stack.pop_back();
+    if (dynamic_cast<NCStackPointerElement*>(pStackTop)) {
+        auto pRet = dynamic_cast<NCStackPointerElement*>(pStackTop);
+        return *pRet;
+    }
+    return NCStackPointerElement(nullptr);
 }

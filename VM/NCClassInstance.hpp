@@ -25,13 +25,15 @@ public:
     vector<shared_ptr<NCStackElement>> fields;
 };
 
-class NCStackPointerElement:NCStackElement{
+struct NCStackPointerElement:NCStackElement{
 private:
-    shared_ptr<NCClassInstance> pObject;
+    NCClassInstance * pObject;
 public:
-    NCStackPointerElement(shared_ptr<NCClassInstance> &pObject):pObject(pObject){type="pointer";}
+    NCStackPointerElement(NCClassInstance *pObject):pObject(pObject){type="pointer";}
+    ~NCStackPointerElement(){delete pObject;}
     
-    shared_ptr<NCClassInstance> getObjectPointer(){return pObject;}
+    shared_ptr<NCClassInstance> getObjectPointer(){return shared_ptr<NCClassInstance>(pObject);}
+    NCClassInstance* getRawObjectPointer(){return pObject;}
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
     virtual int toInt();
