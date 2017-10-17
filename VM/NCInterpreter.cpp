@@ -23,6 +23,8 @@ void NCFrame::insertVariable(string&name, NCStackPointerElement & pObject){
     localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackPointerElement(pObject.getRawObjectPointer()));
 }
 
+
+
 NCInterpreter::NCInterpreter(shared_ptr<NCASTRoot> root){
     auto functionDefList = root->functionList;
     for (auto funcDef :functionDefList) {
@@ -33,12 +35,24 @@ NCInterpreter::NCInterpreter(shared_ptr<NCASTRoot> root){
     intBuiltiFunctionMap();
 }
 
+bool NCInterpreter::isClassName(const string & name){
+    if (name == "array") {
+        return true;
+    }
+    
+    return false;
+}
+
 void NCInterpreter::intBuiltiFunctionMap(){
     auto printFunction = new NCBuiltinPrint();
     builtinFunctionMap[printFunction->name] = shared_ptr<NCBuiltinFunction>(printFunction);
 }
 
 bool NCInterpreter::invoke(string function, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
+    if (isClassName(function)) {
+        return invoke_constructor(function, arguments, lastStack);
+    }
+    
     auto findFunc = functionMap.find(function);
     if (findFunc == functionMap.end()) {
         return false;
@@ -62,6 +76,16 @@ bool NCInterpreter::invoke(string function, vector<shared_ptr<NCStackElement>> &
         lastStack.push_back((frame->stack.back()));
     }
     return true;
+}
+
+
+bool NCInterpreter::invoke_constructor(string function, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
+    //todo
+    if (function == "array") {
+        
+        
+    }
+    return false;
 }
 
 bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame){
@@ -276,6 +300,9 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
     }
     else if(dynamic_cast<NCArrayAccessExpr*>(currentNode.get())){
         auto node = dynamic_cast<NCArrayAccessExpr*>(currentNode.get());
+        
+        walkTree(node->expression, frame);
+        walkTree(node->scope, frame);
     }
     else if(dynamic_cast<NCNameExpression*>(currentNode.get())){
         auto node = dynamic_cast<NCNameExpression*>(currentNode.get());
@@ -447,6 +474,7 @@ NCStackPointerElement NCInterpreter::stackPopObjectPointer(NCFrame & frame){
     if (dynamic_cast<NCStackPointerElement*>(pStackTop)) {
         auto pRet = dynamic_cast<NCStackPointerElement*>(pStackTop);
         return *pRet;
-    }
-    return NCStackPointerElement(nullptr);
+    } 
+    NCStackPointerElement ret;
+    return ret;
 }

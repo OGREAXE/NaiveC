@@ -54,6 +54,8 @@ private:
     unordered_map<string, shared_ptr<NCASTNode>> functionMap;
     unordered_map<string, shared_ptr<NCBuiltinFunction>> builtinFunctionMap;
 
+    unordered_map<string, shared_ptr<NCClassDeclaration>> classDefinitionMap;
+    
     void intBuiltiFunctionMap();
     
     bool isStackTopInt(NCFrame & frame);
@@ -64,16 +66,20 @@ private:
     float stackPopFloat(NCFrame & frame);
     string stackPopString(NCFrame & frame);
     NCStackPointerElement stackPopObjectPointer(NCFrame & frame);
+    
+    bool isClassName(const string & name);
 public:
     NCInterpreter(shared_ptr<NCASTRoot> root);
+    
+    bool invoke(string function, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+    
+    bool invoke_constructor(string function, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
     
     void invoke_main(){
         vector<shared_ptr<NCStackElement>> arguments;
         vector<shared_ptr<NCStackElement>> stack;
         invoke("main", arguments, stack);
     }
-    
-    bool invoke(string function, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
     
     bool walkTree(shared_ptr<NCASTNode> node, NCFrame & frame);
     bool walkTree(shared_ptr<NCASTNode> node, NCFrame & frame, bool * shouldReturn);  //recursive method

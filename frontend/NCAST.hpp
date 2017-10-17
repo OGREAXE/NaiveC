@@ -124,10 +124,11 @@ public:
 };
 
 class NCArrayAccessExpr:public NCPrimarySuffix{
-    shared_ptr<NCExpression> scope;
-    shared_ptr<NCExpression> expression;
 public:
     NCArrayAccessExpr(shared_ptr<NCExpression> scope,shared_ptr<NCExpression> expression):scope(scope),expression(expression){};
+    
+    shared_ptr<NCExpression> scope;
+    shared_ptr<NCExpression> expression;
 };
 
 class NCNameExpression:public NCExpression{

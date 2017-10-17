@@ -26,3 +26,19 @@ string NCStackPointerElement::toString(){
 shared_ptr<NCStackElement> NCStackPointerElement::copy(){
     return shared_ptr<NCStackElement>(nullptr);
 }
+
+bool NCArrayInstance::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
+    
+    if (methodName == "get") {
+        auto res = innerArray[arguments[0]->toInt()];
+        lastStack.push_back(res);
+    }
+    else if (methodName == "add") {
+        innerArray.push_back(arguments[0]);
+    }
+    else if(methodName == "set"){
+        innerArray[arguments[0]->toInt()] = arguments[1];
+    }
+    
+    return true;
+}

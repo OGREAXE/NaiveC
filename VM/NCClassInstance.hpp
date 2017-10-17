@@ -16,20 +16,44 @@
 class NCClassInstance {
 public:
     
-    uint32_t referenceCount;
-    
-    shared_ptr<NCClassDeclaration> classDefinition;
+//    uint32_t referenceCount;
     
     shared_ptr<NCClassInstance> super;
     
     vector<shared_ptr<NCStackElement>> fields;
+    
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack)=0;
 };
+
+class NCCustomClassInstance : NCClassInstance{
+public:
+    shared_ptr<NCClassDeclaration> classDefinition;
+    
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+};
+
+///////
+//predefined class instance (STL)
+
+class NCArrayInstance : NCClassInstance{
+private:
+    vector<shared_ptr<NCStackElement>> innerArray;
+public:
+    
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+    
+};
+
+///////
 
 struct NCStackPointerElement:NCStackElement{
 private:
     NCClassInstance * pObject;
 public:
+    NCStackPointerElement():pObject(nullptr){type="pointer";}
+    
     NCStackPointerElement(NCClassInstance *pObject):pObject(pObject){type="pointer";}
+    
     ~NCStackPointerElement(){delete pObject;}
     
     shared_ptr<NCClassInstance> getObjectPointer(){return shared_ptr<NCClassInstance>(pObject);}
