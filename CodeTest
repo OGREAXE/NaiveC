@@ -1,6 +1,9 @@
 void main(int a){
     array arr = array()
     arr.add(100)
-    arr[0] = 5
-    print(arr[0])
+    arr.add(1)
+    int x = arr[0]+arr[1]
+    arr[1] = 5
+    x = arr[0]+arr[1]
+    print(x)
 }

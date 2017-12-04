@@ -24,6 +24,7 @@ NCParser::NCParser(vector<string>& tokens):index(0){
         "string",
         "void",
         //operator
+        "=",
         "+",
         "-",
         "*",

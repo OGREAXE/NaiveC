@@ -66,7 +66,7 @@ int NCArrayAccessor::toInt(){
     return arrayInstance->getElementAt(index)->toInt();
 }
 float NCArrayAccessor::toFloat(){
-    return 0;
+    return arrayInstance->getElementAt(index)->toFloat();
 }
 string NCArrayAccessor::toString(){
     return arrayInstance->getElementAt(index)->toString();
