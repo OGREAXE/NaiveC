@@ -17,15 +17,17 @@ class NCClassInstance {
 public:
     
 //    uint32_t referenceCount;
+    virtual ~NCClassInstance(){}
     
     shared_ptr<NCClassInstance> super;
     
     vector<shared_ptr<NCStackElement>> fields;
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack)=0;
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments){return true;}
 };
 
-class NCCustomClassInstance : NCClassInstance{
+class NCCustomClassInstance : public NCClassInstance{
 public:
     shared_ptr<NCClassDeclaration> classDefinition;
     
@@ -35,18 +37,19 @@ public:
 ///////
 //predefined class instance (STL)
 
-class NCArrayInstance : NCClassInstance{
+class NCArrayInstance : public NCClassInstance{
 private:
     vector<shared_ptr<NCStackElement>> innerArray;
 public:
-    
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments);
     
+    shared_ptr<NCStackElement> getElementAt(int i){return innerArray[i];}
 };
 
 ///////
 
-struct NCStackPointerElement:NCStackElement{
+struct NCStackPointerElement:public NCStackElement{
 private:
     NCClassInstance * pObject;
 public:
@@ -54,9 +57,10 @@ public:
     
     NCStackPointerElement(NCClassInstance *pObject):pObject(pObject){type="pointer";}
     
-    ~NCStackPointerElement(){delete pObject;}
+    virtual ~NCStackPointerElement(){delete pObject;}
     
-    shared_ptr<NCClassInstance> getObjectPointer(){return shared_ptr<NCClassInstance>(pObject);}
+//    shared_ptr<NCClassInstance> getObjectPointer(){return shared_ptr<NCClassInstance>(pObject);}
+    
     NCClassInstance* getRawObjectPointer(){return pObject;}
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
@@ -65,5 +69,23 @@ public:
     virtual string toString();
     virtual shared_ptr<NCStackElement> copy();
 };
+
+struct NCArrayAccessor:NCStackElement{
+private:
+    NCArrayInstance * arrayInstance;
+    int index;
+public:
+    NCArrayAccessor(NCArrayInstance*arrInst, int index):arrayInstance(arrInst),index(index){}
+    
+    virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
+    virtual int toInt();
+    virtual float toFloat();
+    virtual string toString();
+    virtual shared_ptr<NCStackElement> copy();
+    
+    void set(int index,shared_ptr<NCStackElement> value);
+    void set(shared_ptr<NCStackElement> value);
+};
+
 
 #endif /* NCClassInstance_hpp */

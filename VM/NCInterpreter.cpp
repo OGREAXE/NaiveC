@@ -7,6 +7,7 @@
 //
 
 #include "NCInterpreter.hpp"
+#include "NCStackElement.hpp"
 
 void NCFrame::insertVariable(string&name, int value){
     localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackIntElement(value));
@@ -17,6 +18,10 @@ void NCFrame::insertVariable(string&name, float value){
 }
 void NCFrame::insertVariable(string&name, string& value){
     localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackStringElement(value));
+}
+
+void NCFrame::insertVariable(string&name, shared_ptr<NCStackElement> pObject){
+    localVariableMap[name] = pObject;
 }
 
 void NCFrame::insertVariable(string&name, NCStackPointerElement & pObject){
@@ -136,85 +141,19 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
                 frame.insertVariable(name, value);
             }
             else if (type == "array") {
-                NCStackPointerElement arrayPointerElement = stackPopObjectPointer(frame);
+                auto arrayPointerElement = stackPopObjectPointer(frame);
                 frame.insertVariable(name, arrayPointerElement);
             }
         }
     }
     else if (dynamic_cast<NCMethodCallExpr*>(currentNode.get())) {
         auto node = dynamic_cast<NCMethodCallExpr*>(currentNode.get());
-        auto findFunc = functionMap.find(node->name);
-        if (findFunc!=functionMap.end()) {
-            auto functionDef = (dynamic_cast<NCASTFunctionDefinition*>((*findFunc).second.get()));
-            
-            vector<shared_ptr<NCStackElement>> arguments;
-            
-            auto parameters = functionDef->parameters;
-            for (int i = 0; i<parameters.size(); i++) {
-                auto & parameter = parameters[i];
-                
-                auto argExp = node->args[i];
-                walkTree(argExp, frame);
-                
-                if (parameter.type == "int") {
-                    auto value = stackPopInt(frame);
-                    auto argValue = new NCStackIntElement(value);
-                    arguments.push_back(shared_ptr<NCStackElement>(argValue));
-                }
-                else if (parameter.type == "float") {
-                    auto value = stackPopFloat(frame);
-                    auto argValue = new NCStackFloatElement(value);
-                    arguments.push_back(shared_ptr<NCStackElement>(argValue));
-                }
-                else if (parameter.type == "string") {
-                    auto value = stackPopString(frame);
-                    auto argValue = new NCStackStringElement(value);
-                    arguments.push_back(shared_ptr<NCStackElement>(argValue));
-                }
-            }
-            
-            return invoke(functionDef->name, arguments, frame.stack);
+        
+        if (node->scope) {
+            tree_doClassMehothodCall(frame, node);
         }
         else {
-            //no user-defined function found, try system library
-            auto find = builtinFunctionMap.find(node->name);
-            if (find != builtinFunctionMap.end()) {
-                auto funcDef = (*find).second;
-                
-                auto parameters = funcDef->parameters;
-                
-                vector<shared_ptr<NCStackElement>> arguments;
-                
-                for (int i = 0; i<parameters.size(); i++) {
-                    auto & parameter = parameters[i];
-                    
-                    auto argExp = node->args[i];
-                    walkTree(argExp, frame);
-                    
-                    if (parameter->type == "int") {
-                        auto value = stackPopInt(frame);
-                        auto argValue = new NCStackIntElement(value);
-                        arguments.push_back(shared_ptr<NCStackElement>(argValue));
-                    }
-                    else if (parameter->type == "float") {
-                        auto value = stackPopFloat(frame);
-                        auto argValue = new NCStackFloatElement(value);
-                        arguments.push_back(shared_ptr<NCStackElement>(argValue));
-                    }
-                    else if (parameter->type == "string") {
-                        auto value = stackPopString(frame);
-                        auto argValue = new NCStackStringElement(value);
-                        arguments.push_back(shared_ptr<NCStackElement>(argValue));
-                    }
-                }
-                
-                if (funcDef->hasReturn) {
-                    
-                }
-                else {
-                    funcDef->invoke(arguments);
-                }
-            }
+            tree_doStaticMehothodCall(frame, node);
         }
     }
     else if(dynamic_cast<NCBinaryExpression*>(currentNode.get())){
@@ -283,26 +222,52 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
         if (dynamic_cast<NCStackVariableElement*>(stackTop.get())) {
             auto var = dynamic_cast<NCStackVariableElement*>(stackTop.get());
             walkTree(node->value,frame);
-            if (!var->isArray) {
-                if (var->valueElement->type == "int") {
-                    frame.insertVariable(var->name, stackPopInt(frame));
-                }
-                else if (var->valueElement->type == "float") {
-                    frame.insertVariable(var->name, stackPopFloat(frame));
-                }
-                else if (var->valueElement->type == "string") {
-                    string str = stackPopString(frame);
-                    frame.insertVariable(var->name, str);
-                }
+            if (var->valueElement->type == "int") {
+                frame.insertVariable(var->name, stackPopInt(frame));
             }
+            else if (var->valueElement->type == "float") {
+                frame.insertVariable(var->name, stackPopFloat(frame));
+            }
+            else if (var->valueElement->type == "string") {
+                string str = stackPopString(frame);
+                frame.insertVariable(var->name, str);
+            }
+            else if (var->valueElement->type == "array") {
+                auto pStackTop = frame.stack.back();
+                auto obj = frame.localVariableMap[var->name].get();
+                if (dynamic_cast<NCArrayInstance*>(obj)) {
+                    frame.stack.pop_back();
+                    auto arrayInst = dynamic_cast<NCArrayInstance*>(obj);
+                    auto scope = frame.stack.back();
+                    vector<shared_ptr<NCStackElement> > arguments = {scope};
+                    arrayInst->invokeMethod("set", arguments, frame.stack);
+                }
+            
+            }
+        }
+        else if (dynamic_cast<NCArrayAccessor*>(stackTop.get())) {
+            auto accessor = dynamic_cast<NCArrayAccessor*>(stackTop.get());
+            walkTree(node->value,frame);
+            auto value = frame.stack.back();
+            frame.stack.pop_back();
+            accessor->set(value);
         }
         
     }
     else if(dynamic_cast<NCArrayAccessExpr*>(currentNode.get())){
         auto node = dynamic_cast<NCArrayAccessExpr*>(currentNode.get());
         
-        walkTree(node->expression, frame);
         walkTree(node->scope, frame);
+        walkTree(node->expression, frame);
+        
+        int index = stackPopInt(frame);
+        auto  _arrayPointer = stackPopObjectPointer(frame)->getRawObjectPointer();
+        if (dynamic_cast<NCArrayInstance*>(_arrayPointer) ) {
+            auto pArr = dynamic_cast<NCArrayInstance*>(_arrayPointer);
+            auto accessor = new NCArrayAccessor(pArr,index);
+            
+            frame.stack.push_back(shared_ptr<NCStackElement>(accessor));
+        }
     }
     else if(dynamic_cast<NCNameExpression*>(currentNode.get())){
         auto node = dynamic_cast<NCNameExpression*>(currentNode.get());
@@ -313,7 +278,11 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
         }
         else {
             auto var = (*findValue).second;
-            auto varElement = new NCStackVariableElement(node->name, var->copy());
+
+            //wild pointer ???
+            printf("%d",var->toInt());
+            auto varElement = new NCStackVariableElement(node->name, var);
+//            auto varElement = new NCStackVariableElement(node->name, var->copy());
             frame.stack.push_back(shared_ptr<NCStackElement>(varElement));
         }
     }
@@ -329,6 +298,150 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
         auto exp = node->expression;
         walkTree(exp, frame);
     }
+    return true;
+}
+
+bool NCInterpreter::tree_composeArgmemnts(NCFrame & frame,NCMethodCallExpr*node,vector<NCParameter> &parameters, vector<shared_ptr<NCStackElement>>&arguments){
+    for (int i = 0; i<parameters.size(); i++) {
+        auto & parameter = parameters[i];
+        
+        auto argExp = node->args[i];
+        walkTree(argExp, frame);
+        
+        if (parameter.type == "int") {
+            auto value = stackPopInt(frame);
+            auto argValue = new NCStackIntElement(value);
+            arguments.push_back(shared_ptr<NCStackElement>(argValue));
+        }
+        else if (parameter.type == "float") {
+            auto value = stackPopFloat(frame);
+            auto argValue = new NCStackFloatElement(value);
+            arguments.push_back(shared_ptr<NCStackElement>(argValue));
+        }
+        else if (parameter.type == "string") {
+            auto value = stackPopString(frame);
+            auto argValue = new NCStackStringElement(value);
+            arguments.push_back(shared_ptr<NCStackElement>(argValue));
+        }
+    }
+    
+    return true;
+}
+
+bool NCInterpreter::tree_doStaticMehothodCall(NCFrame & frame,NCMethodCallExpr*node){
+    auto findFunc = functionMap.find(node->name);
+    if (findFunc!=functionMap.end()) {
+        auto functionDef = (dynamic_cast<NCASTFunctionDefinition*>((*findFunc).second.get()));
+        
+        vector<shared_ptr<NCStackElement>> arguments;
+        
+        auto parameters = functionDef->parameters;
+//        for (int i = 0; i<parameters.size(); i++) {
+//            auto & parameter = parameters[i];
+//
+//            auto argExp = node->args[i];
+//            walkTree(argExp, frame);
+//
+//            if (parameter.type == "int") {
+//                auto value = stackPopInt(frame);
+//                auto argValue = new NCStackIntElement(value);
+//                arguments.push_back(shared_ptr<NCStackElement>(argValue));
+//            }
+//            else if (parameter.type == "float") {
+//                auto value = stackPopFloat(frame);
+//                auto argValue = new NCStackFloatElement(value);
+//                arguments.push_back(shared_ptr<NCStackElement>(argValue));
+//            }
+//            else if (parameter.type == "string") {
+//                auto value = stackPopString(frame);
+//                auto argValue = new NCStackStringElement(value);
+//                arguments.push_back(shared_ptr<NCStackElement>(argValue));
+//            }
+//        }
+        
+        tree_composeArgmemnts(frame,node, parameters, arguments);
+        
+        return invoke(functionDef->name, arguments, frame.stack);
+    }
+    else {
+        //no user-defined function found, try system library
+        auto find = builtinFunctionMap.find(node->name);
+        if (find != builtinFunctionMap.end()) {
+            auto funcDef = (*find).second;
+            
+            auto parameters = funcDef->parameters;
+            
+            vector<shared_ptr<NCStackElement>> arguments;
+            
+            for (int i = 0; i<parameters.size(); i++) {
+                auto & parameter = parameters[i];
+
+                auto argExp = node->args[i];
+                walkTree(argExp, frame);
+
+                if (parameter->type == "int") {
+                    auto value = stackPopInt(frame);
+                    auto argValue = new NCStackIntElement(value);
+                    arguments.push_back(shared_ptr<NCStackElement>(argValue));
+                }
+                else if (parameter->type == "float") {
+                    auto value = stackPopFloat(frame);
+                    auto argValue = new NCStackFloatElement(value);
+                    arguments.push_back(shared_ptr<NCStackElement>(argValue));
+                }
+                else if (parameter->type == "string") {
+                    auto value = stackPopString(frame);
+                    auto argValue = new NCStackStringElement(value);
+                    arguments.push_back(shared_ptr<NCStackElement>(argValue));
+                }
+            }
+            
+            if (funcDef->hasReturn) {
+                
+            }
+            else {
+                funcDef->invoke(arguments);
+            }
+        }
+        else {
+            //constructor?
+            if (node->name == "array") {
+                auto pArray = new NCArrayInstance();
+                frame.stack.push_back(shared_ptr<NCStackPointerElement> ( new NCStackPointerElement(pArray)));
+            }
+        }
+    }
+    return true;
+}
+
+bool NCInterpreter::tree_doClassMehothodCall(NCFrame & frame, NCMethodCallExpr*node){
+    walkTree(node->scope, frame);
+    
+    auto scope = stackPopObjectPointer(frame);
+    
+//    auto pPointer = scope.get()->getObjectPointer().get();
+    auto pPointer = scope.get()->getRawObjectPointer();
+    
+    if (dynamic_cast<NCClassInstance*>(pPointer)) {
+        auto classInst = dynamic_cast<NCClassInstance*>(pPointer);
+        
+        auto parametersExpr = node->args;
+        
+        vector<shared_ptr<NCStackElement>> arguments;
+        
+        for (int i = 0; i<parametersExpr.size(); i++) {
+            auto argExp = node->args[i];
+            walkTree(argExp, frame);
+            
+            auto val = frame.stack.back();
+            arguments.push_back(shared_ptr<NCStackElement>(val));
+            val->toInt();
+            frame.stack.pop_back();
+        }
+        
+        return classInst->invokeMethod(node->name, arguments, frame.stack);
+    }
+    
     return true;
 }
 
@@ -462,19 +575,40 @@ string NCInterpreter::stackPopString(NCFrame & frame){
             ret = varElement->toString();
             break;
         }
+        
+        auto arrayAccessorElement = dynamic_cast<NCArrayAccessor*>(pStackTop);
+        if(arrayAccessorElement){
+            ret = arrayAccessorElement->toString();
+            break;
+        }
     }while (0);
     
     frame.stack.pop_back();
     return ret;
 }
 
-NCStackPointerElement NCInterpreter::stackPopObjectPointer(NCFrame & frame){
+shared_ptr<NCStackPointerElement>  NCInterpreter::stackPopObjectPointer(NCFrame & frame){
     auto pStackTop = (frame.stack.back()).get();
-    frame.stack.pop_back();
+    
+    //fix smart pointer released
     if (dynamic_cast<NCStackPointerElement*>(pStackTop)) {
-        auto pRet = dynamic_cast<NCStackPointerElement*>(pStackTop);
-        return *pRet;
-    } 
-    NCStackPointerElement ret;
-    return ret;
+        
+        auto pRet = dynamic_pointer_cast<NCStackPointerElement> (frame.stack.back());
+        frame.stack.pop_back();
+        
+        pRet->toInt();
+        return pRet;
+    }
+    else if (dynamic_cast<NCStackVariableElement*>(pStackTop)) {
+        auto pVar = dynamic_cast<NCStackVariableElement*>(pStackTop);
+        if (dynamic_cast<NCStackPointerElement*>(pVar->valueElement.get())) {
+            auto pRet = dynamic_pointer_cast<NCStackPointerElement> (pVar->valueElement);
+            
+            frame.stack.pop_back();
+            
+            return pRet;
+        }
+    }
+    
+    return shared_ptr<NCStackPointerElement> (nullptr);
 }

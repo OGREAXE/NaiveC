@@ -101,6 +101,7 @@ public:
     shared_ptr<NCExpression> value;
 };
 
+//class.method(...)
 class NCMethodCallExpr:public NCPrimarySuffix{
 public:
     vector<shared_ptr<NCExpression>> args;

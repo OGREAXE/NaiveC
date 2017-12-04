@@ -82,7 +82,7 @@ NCParser::NCParser(vector<string>& tokens):index(0){
     }while (parseOK);
     
     printf("parse %lu classes\n", pRoot->classList.size());
-    printf("parse %lu functions", pRoot->functionList.size());
+    printf("parse %lu functions\n", pRoot->functionList.size());
     
 //    if (pFunc) {
 //        auto funcDef = dynamic_cast<NCASTFunctionDefinition*>(pFunc.get());
@@ -318,10 +318,10 @@ bool NCParser::statements(vector<AstNodePtr>& statements){
 }
 
 shared_ptr<NCStatement> NCParser::blockStatement(){
-    int t = index;
+    pushIndex();
     auto varDecStmt = variable_declaration_expression();
     if (!varDecStmt) {
-        t = index;
+        popIndex();
         return statement();
     }
     
@@ -522,11 +522,12 @@ shared_ptr<NCExpression> NCParser::primary_expression(){
     
     while (1) {
         pushIndex();
+        auto tmpRet = ret;
         ret = primary_suffix(ret);
         
         if (!ret) {
             popIndex();
-            return ret;
+            return tmpRet;
         }
     }
 }
@@ -574,6 +575,12 @@ bool NCParser::arguments_expression(vector<shared_ptr<NCExpression>> & args){
         return false;
     }
     word = nextWord();
+    if (word == ")") {
+        //empty arguments
+        word = nextWord();
+        return true;
+    }
+    
     if (!arguments(args)) {
         return false;
     }
@@ -830,6 +837,13 @@ shared_ptr<NCStatement> NCParser::expression_statement(){
 //type_specifier-> string|int|float|void
 MCType NCParser::type_specifier(){
     if (word == "string"||word == "int"||word == "float"||word == "void") {
+        auto ret = word;
+        
+        word = nextWord();
+        
+        return ret;
+    }
+    else if((word[0] >= 'a' && word[0] <= 'z')||(word[0] >= 'A' && word[0] <= 'Z') || word[0] == '_'){
         auto ret = word;
         
         word = nextWord();

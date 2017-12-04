@@ -1,15 +1,6 @@
-class NCObject{
-    int value
-    void say(){
-       print(value)
-    }
-}
-
 void main(int a){
-    int a = add(1,2)
-    print("result is " + a)
-}
-
-int add(int a, int b){
-    return a + b
+    array arr = array()
+    arr.add(100)
+    arr[0] = 5
+    print(arr[0])
 }

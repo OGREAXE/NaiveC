@@ -134,6 +134,11 @@ bool NCTokenizer::tokenize(string&str){
                     }
                 }
             }
+            else {
+                tokens.push_back(token);
+                token = ".";
+                status = Unknown;
+            }
         }
         
         if (i == str.length()-1) {

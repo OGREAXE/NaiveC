@@ -43,6 +43,7 @@ public:
     void insertVariable(string&name, int value);
     void insertVariable(string&name, float value);
     void insertVariable(string&name, string& value);
+    void insertVariable(string&name, shared_ptr<NCStackElement> pObject);
     void insertVariable(string&name, NCStackPointerElement & pObject);
 
     unordered_map<string, shared_ptr<NCStackElement>> localVariableMap;
@@ -65,9 +66,13 @@ private:
     int stackPopInt(NCFrame & frame);
     float stackPopFloat(NCFrame & frame);
     string stackPopString(NCFrame & frame);
-    NCStackPointerElement stackPopObjectPointer(NCFrame & frame);
+    shared_ptr<NCStackPointerElement> stackPopObjectPointer(NCFrame & frame);
     
     bool isClassName(const string & name);
+    
+    bool tree_doStaticMehothodCall(NCFrame & frame,NCMethodCallExpr*);
+    bool tree_doClassMehothodCall(NCFrame & frame,NCMethodCallExpr*);
+    bool tree_composeArgmemnts(NCFrame & frame,NCMethodCallExpr*node,vector<NCParameter>& parametersExpr, vector<shared_ptr<NCStackElement>>&args);
 public:
     NCInterpreter(shared_ptr<NCASTRoot> root);
     
