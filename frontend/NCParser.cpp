@@ -448,6 +448,30 @@ shared_ptr<NCExpression> NCParser::logical_or_expression(){
     return parseBinExpr({"||"}, std::bind(&NCParser::logical_and_expression, this));
 }
 
+shared_ptr<NCExpression> NCParser::conditional_expression(){
+    //currently not support A?B:C
+    auto expr = logical_or_expression();
+    if (!expr) {
+        return nullptr;
+    }
+    
+    if (isAssignOperator(word)) {
+        string op = word;
+        word = nextWord();
+        auto value = expression();
+        
+        if (!value) {
+            return nullptr;
+        }
+        
+        auto assignmentExpr = new NCAssignExpr(expr,op, value);
+        return shared_ptr<NCExpression>(assignmentExpr);
+    }
+    else {
+        return expr;
+    }
+}
+
 shared_ptr<NCExpression> NCParser::parseBinExpr(vector<string> operators, BinParserFunc nextParseFunc){
     auto left = nextParseFunc();
     if (!left) {
@@ -681,11 +705,6 @@ shared_ptr<NCBinaryExpression> NCParser::addRight(shared_ptr<NCExpression> left,
     return shared_ptr<NCBinaryExpression>(binExpr);
 }
 
-shared_ptr<NCExpression> NCParser::conditional_expression(){
-    //currently not support A?B:C
-    return logical_or_expression();
-}
-
 shared_ptr<NCStatement> NCParser::statement(){
     
     pushIndex();
@@ -702,6 +721,12 @@ shared_ptr<NCStatement> NCParser::statement(){
     
     popIndex();
     stmt = while_statement();
+    if (stmt) {
+        return stmt;
+    }
+    
+    popIndex();
+    stmt = for_statement();
     if (stmt) {
         return stmt;
     }
@@ -818,30 +843,39 @@ shared_ptr<NCStatement> NCParser::for_statement(){
     auto forStmt = new ForStatement();
     word = nextWord();
     
+    if (word != "(") {
+        return nullptr;
+    }
+    word = nextWord();
+    
     if(!for_init(forStmt->init)){
         return nullptr;
     }
     
-    if (word != ";") {
-        return nullptr;
-    }
-    word = nextWord();
+//    if (word != ";") {
+//        return nullptr;
+//    }
+//    word = nextWord();
     
     auto expr = expression();
     if (!expr) {
         return nullptr;
     }
     forStmt->expr = expr;
-    word = nextWord();
     
-    if (word != ";") {
-        return nullptr;
-    }
-    word = nextWord();
+//    if (word != ";") {
+//        return nullptr;
+//    }
+//    word = nextWord();
     
     if(!for_update(forStmt->update)){
         return nullptr;
     }
+    
+    if (word != ")") {
+        return nullptr;
+    }
+    word = nextWord();
     
     auto stmt = statement();
     if (!stmt) {
