@@ -98,6 +98,16 @@ bool NCTokenizer::tokenize(string&str){
                 token += "|";
                 status = Unknown;
             }
+            else if (token =="+"|token =="-"|token =="*"|token =="/"){
+                if (c == '=') {
+                    token += "=";
+                    status = Unknown;
+                }
+                else if (c == '+') {
+                    token += "+";
+                    status = Unknown;
+                }
+            }
             else {
                 printf("operator not matched\n");
                 return false;

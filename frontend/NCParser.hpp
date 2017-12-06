@@ -56,6 +56,8 @@ private:
     bool isIntegerLiteral(string&word, int*);
     bool isFloatLiteral(string&word, float*);
     bool isStringLiteral(string&word, string& parsed);
+    
+    bool isAssignOperator(string&word);
 private:
     //top-down parsing functions
     
@@ -140,6 +142,12 @@ private:
     
     shared_ptr<NCStatement> while_statement();
     
+    shared_ptr<NCStatement> for_statement();
+    
+    bool for_init(vector<shared_ptr<NCExpression>>& init);
+    
+    bool for_update(vector<shared_ptr<NCExpression>>& update);
+    
     shared_ptr<NCStatement> return_statement();
     
     shared_ptr<NCStatement> expression_statement();
@@ -152,6 +160,8 @@ private:
     
     //expression-> assignment_expression| expression ',' assignment_expression
     shared_ptr<NCExpression> expression();
+    
+    bool expression_list(vector<shared_ptr<NCExpression>>& exprList);
     
     //multiplicative_expression-> cast_expression| multiplicative_expression '*' cast_expression| multiplicative_expression '/' cast_expression| multiplicative_expression '%' cast_expression
     shared_ptr<NCExpression> multiplicative_expression();

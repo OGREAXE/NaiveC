@@ -228,6 +228,20 @@ public:
     shared_ptr<NCStatement> statement;
 };
 
+class ForStatement:public NCStatement{
+public:
+    vector<shared_ptr<NCExpression>> init;
+    vector<shared_ptr<NCExpression>> update;
+    shared_ptr<NCExpression> expr;
+    shared_ptr<NCStatement> body;
+
+    ForStatement(){};
+    ForStatement(vector<shared_ptr<NCExpression>> &init,
+                 vector<shared_ptr<NCExpression>> &update,
+                 shared_ptr<NCExpression> expr,
+                 shared_ptr<NCStatement> body):update(update),init(init),expr(expr),body(body){}
+};
+
 //class NCExpressionStatement:public NCStatement{
 //    
 //};

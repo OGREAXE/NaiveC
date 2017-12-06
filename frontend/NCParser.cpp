@@ -19,39 +19,19 @@ NCParser::NCParser(vector<string>& tokens):index(0){
     keywords =
     {
         //types
-        "int",
-        "float",
-        "string",
-        "void",
+        "int","float","string","void",
         //operator
-        "=",
-        "+",
-        "-",
-        "*",
-        "/",
-        "%",
-        ".",
-        "|",
-        "&",
-        "||",
-        "&&",
-        "!",
+        "=","+=","-=","*=","/=","++",
+        "+","-","*","/",
+        "%",".","|","&","||","&&","!",
         //paren
-        "{",
-        "}",
-        "(",
-        ")",
-        "[",
-        "]",
+        "{","}","(",")","[","]",
         //comma
         ",",
         //statement
-        "if",
-        "else",
-        "while",
-        "for",
-        "break",
-        "continue",
+        "if","else",
+        "while","for",
+        "break","continue",
         "return",
     };
     
@@ -403,6 +383,28 @@ shared_ptr<NCExpression> NCParser::variable_initializer(){
 
 shared_ptr<NCExpression> NCParser::expression(){
     return conditional_expression();
+}
+
+bool NCParser::expression_list(vector<shared_ptr<NCExpression>>& exprList){
+    auto ret = expression();
+    if (!ret) {
+        return false;
+    }
+    
+    exprList.push_back(ret);
+    while (1) {
+        if (word != ",") {
+            return true;
+        }
+        word = nextWord();
+        ret = expression();
+        if (!ret) {
+            return false;
+        }
+        exprList.push_back(ret);
+    }
+    
+    return true;
 }
 
 shared_ptr<NCExpression> NCParser::multiplicative_expression(){
@@ -809,13 +811,73 @@ shared_ptr<NCStatement> NCParser::while_statement(){
     return nullptr;
 }
 
+shared_ptr<NCStatement> NCParser::for_statement(){
+    if (word != "for") {
+        return nullptr;
+    }
+    auto forStmt = new ForStatement();
+    word = nextWord();
+    
+    if(!for_init(forStmt->init)){
+        return nullptr;
+    }
+    
+    if (word != ";") {
+        return nullptr;
+    }
+    word = nextWord();
+    
+    auto expr = expression();
+    if (!expr) {
+        return nullptr;
+    }
+    forStmt->expr = expr;
+    word = nextWord();
+    
+    if (word != ";") {
+        return nullptr;
+    }
+    word = nextWord();
+    
+    if(!for_update(forStmt->update)){
+        return nullptr;
+    }
+    
+    auto stmt = statement();
+    if (!stmt) {
+        return nullptr;
+    }
+    
+    forStmt->body = stmt;
+    return shared_ptr<NCStatement>(forStmt);
+}
+
+bool NCParser::for_init(vector<shared_ptr<NCExpression>>& init){
+    pushIndex();
+    auto expr = variable_declaration_expression();
+    if (expr) {
+        init.push_back(expr);
+        return true;
+    }
+    popIndex();
+    
+    if (!expression_list(init)) {
+        return false;
+    }
+    return true;
+}
+
+bool NCParser::for_update(vector<shared_ptr<NCExpression>>& update){
+    return expression_list(update);
+}
+
 shared_ptr<NCStatement> NCParser::expression_statement(){
     auto expr = primary_expression();
     if (!expr) {
         return nullptr;
     }
     
-    if (word == "=") {
+    if (isAssignOperator(word)) {
         word = nextWord();
         
         auto value = expression();
@@ -823,7 +885,7 @@ shared_ptr<NCStatement> NCParser::expression_statement(){
             return nullptr;
         }
         
-        auto assignExpr = new NCAssignExpr(expr,"=",value);
+        auto assignExpr = new NCAssignExpr(expr,word,value);
         auto expStmt = new NCExpressionStatement();
         expStmt->expression = shared_ptr<NCExpression>(assignExpr);
         return shared_ptr<NCStatement>(expStmt);
@@ -833,6 +895,10 @@ shared_ptr<NCStatement> NCParser::expression_statement(){
         expStmt->expression = expr;
         return shared_ptr<NCStatement>(expStmt);
     }
+}
+
+bool NCParser::isAssignOperator(string&op){
+    return op == "="|op == "+="|op == "-="|op == "*="|op == "="|op == "/=";
 }
 
 //type_specifier-> string|int|float|void
