@@ -210,6 +210,35 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
             }
         }
     }
+    else if(dynamic_cast<ForStatement*>(currentNode.get())){
+        auto node = dynamic_cast<ForStatement*>(currentNode.get());
+        
+        for(auto aInit:node->init){
+            walkTree(aInit, frame);
+        }
+        
+        while (1) {
+            walkTree(node->expr, frame);
+            
+            auto stackTop = (frame.stack.back());
+            frame.stack.pop_back();
+            
+            if (stackTop->toInt()) {
+                auto & block = node->body;
+                walkTree(block, frame, shouldReturn);
+                if (*shouldReturn) {
+                    break;
+                }
+                
+                for(auto aUpdate:node->update){
+                    walkTree(aUpdate, frame);
+                }
+            }
+            else {
+                break;
+            }
+        }
+    }
     else if(dynamic_cast<NCAssignExpr*>(currentNode.get())){
         auto node = dynamic_cast<NCAssignExpr*>(currentNode.get());
         //todo
