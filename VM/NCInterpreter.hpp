@@ -88,6 +88,7 @@ public:
     
     bool walkTree(shared_ptr<NCASTNode> node, NCFrame & frame);
     bool walkTree(shared_ptr<NCASTNode> node, NCFrame & frame, bool * shouldReturn);  //recursive method
+    bool walkTree(shared_ptr<NCASTNode> node, NCFrame & frame, bool * shouldReturn, bool * shouldBreak);
 };
 
 #endif /* NCInterpreter_hpp */

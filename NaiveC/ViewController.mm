@@ -71,7 +71,7 @@
 -(void)didReceivePrintNotification:(NSNotification*)notification{
     NSString * str = notification.object;
     
-    self.outputView.text = [[self.outputView.text stringByAppendingString:str]stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+    self.outputView.text = [[[self.outputView.text stringByAppendingString:str]stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"] stringByAppendingString:@"\n"];
 }
 
 

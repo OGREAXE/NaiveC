@@ -242,6 +242,12 @@ public:
                  shared_ptr<NCStatement> body):update(update),init(init),expr(expr),body(body){}
 };
 
+class BreakStatement:public NCStatement{
+};
+
+class ContinueStatement:public NCStatement{
+};
+
 //class NCExpressionStatement:public NCStatement{
 //    
 //};

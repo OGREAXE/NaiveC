@@ -98,13 +98,27 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame)
     return walkTree(currentNode, frame, &boolVal);
 }
 
-bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bool * shouldReturn){
+bool NCInterpreter::walkTree(shared_ptr<NCASTNode> node, NCFrame & frame, bool * shouldReturn){
+    return walkTree(node, frame,shouldReturn,nullptr);
+}
+
+bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bool * shouldReturn, bool * shouldBreak){
     if(dynamic_cast<NCBlock*>(currentNode.get())) {
         auto node = dynamic_cast<NCBlock*>(currentNode.get());
         for (auto stmt : node->statement_list) {
             *shouldReturn = false;
-            walkTree(stmt, frame, shouldReturn);
+            
+            if (shouldBreak) {
+                *shouldBreak = false;
+            }
+            
+            walkTree(stmt, frame, shouldReturn,shouldBreak);
+            
             if (*shouldReturn) {
+                break;
+            }
+            
+            if (shouldBreak && *shouldBreak) {
                 break;
             }
         }
@@ -180,11 +194,11 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
         
         if (stackTop->toInt()) {
             auto & thenBlock = node->thenStatement;
-            walkTree(thenBlock, frame, shouldReturn);
+            walkTree(thenBlock, frame, shouldReturn,shouldBreak);
         }
         else {
             auto & elseBlock = node->elseStatement;
-            walkTree(elseBlock, frame,shouldReturn);
+            walkTree(elseBlock, frame,shouldReturn,shouldBreak);
         }
     }
     else if(dynamic_cast<WhileStatement*>(currentNode.get())){
@@ -200,8 +214,16 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
             
             if (stackTop->toInt()) {
                 auto & block = node->statement;
-                walkTree(block, frame, shouldReturn);
+                
+                bool shouldBreakLocal = false;
+                
+                walkTree(block, frame, shouldReturn, &shouldBreakLocal);
+                
                 if (*shouldReturn) {
+                    break;
+                }
+                
+                if (shouldBreakLocal) {
                     break;
                 }
             }
@@ -225,8 +247,16 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
             
             if (stackTop->toInt()) {
                 auto & block = node->body;
-                walkTree(block, frame, shouldReturn);
+                
+                bool shouldBreakLocal = false;
+                
+                walkTree(block, frame, shouldReturn,&shouldBreakLocal);
+                
                 if (*shouldReturn) {
+                    break;
+                }
+                
+                if (shouldBreakLocal) {
                     break;
                 }
                 
@@ -237,6 +267,11 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
             else {
                 break;
             }
+        }
+    }
+    else if(dynamic_cast<BreakStatement*>(currentNode.get())){
+        if (shouldBreak) {
+            *shouldBreak = true;
         }
     }
     else if(dynamic_cast<NCAssignExpr*>(currentNode.get())){

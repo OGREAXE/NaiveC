@@ -148,6 +148,10 @@ private:
     
     bool for_update(vector<shared_ptr<NCExpression>>& update);
     
+    shared_ptr<NCStatement> break_statement();
+    
+    shared_ptr<NCStatement> continue_statement();
+    
     shared_ptr<NCStatement> return_statement();
     
     shared_ptr<NCStatement> expression_statement();

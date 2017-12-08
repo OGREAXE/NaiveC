@@ -738,6 +738,12 @@ shared_ptr<NCStatement> NCParser::statement(){
     }
     
     popIndex();
+    stmt = break_statement();
+    if (stmt) {
+        return stmt;
+    }
+    
+    popIndex();
     stmt = return_statement();
     if (stmt) {
         return stmt;
@@ -903,6 +909,22 @@ bool NCParser::for_init(vector<shared_ptr<NCExpression>>& init){
 
 bool NCParser::for_update(vector<shared_ptr<NCExpression>>& update){
     return expression_list(update);
+}
+
+shared_ptr<NCStatement> NCParser::break_statement(){
+    if (word == "break") {
+        word = nextWord();
+        return shared_ptr<NCStatement>(new BreakStatement());
+    }
+    return nullptr;
+}
+
+shared_ptr<NCStatement> NCParser::continue_statement(){
+    if (word == "continue") {
+        word = nextWord();
+        return shared_ptr<NCStatement>(new ContinueStatement());
+    }
+    return nullptr;
 }
 
 shared_ptr<NCStatement> NCParser::expression_statement(){
