@@ -961,16 +961,16 @@ bool NCParser::isAssignOperator(string&op){
 MCType NCParser::type_specifier(){
     if (word == "string"||word == "int"||word == "float"||word == "void") {
         auto ret = word;
-        
         word = nextWord();
-        
         return ret;
     }
     else if((word[0] >= 'a' && word[0] <= 'z')||(word[0] >= 'A' && word[0] <= 'Z') || word[0] == '_'){
+        if(keywords.find(word) != keywords.end()){
+            return "";
+        }
+        
         auto ret = word;
-        
         word = nextWord();
-        
         return ret;
     }
     return "";
