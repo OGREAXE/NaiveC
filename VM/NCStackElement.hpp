@@ -60,6 +60,9 @@ struct NCStackStringElement:NCStackElement{
     virtual float toFloat();
     virtual string toString();
     virtual shared_ptr<NCStackElement> copy();
+    
+    bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+    bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments);
 };
 
 struct NCStackVariableElement:NCStackElement{

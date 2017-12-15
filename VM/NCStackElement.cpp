@@ -137,6 +137,13 @@ string NCStackStringElement::toString(){
     return this->value;
 }
 
+bool NCStackStringElement::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
+    return true;
+}
+bool NCStackStringElement::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments){
+    return true;
+}
+
 shared_ptr<NCStackElement> NCStackIntElement::copy(){
     return shared_ptr<NCStackElement>(new NCStackIntElement(this->value));
 }

@@ -481,6 +481,27 @@ bool NCInterpreter::tree_doStaticMehothodCall(NCFrame & frame,NCMethodCallExpr*n
 bool NCInterpreter::tree_doClassMehothodCall(NCFrame & frame, NCMethodCallExpr*node){
     walkTree(node->scope, frame);
     
+    auto parametersExpr = node->args;
+    
+    vector<shared_ptr<NCStackElement>> arguments;
+    
+    for (int i = 0; i<parametersExpr.size(); i++) {
+        auto argExp = node->args[i];
+        walkTree(argExp, frame);
+        
+        auto val = frame.stack.back();
+        arguments.push_back(shared_ptr<NCStackElement>(val));
+        val->toInt();
+        frame.stack.pop_back();
+    }
+    
+    auto pStackTop = (frame.stack.back()).get();
+    auto stringElement = dynamic_cast<NCStackStringElement*>(pStackTop);
+    if(stringElement){
+        //string is not pointer, require dealing with specially
+        return stringElement->invokeMethod(node->name, arguments, frame.stack);;
+    }
+    
     auto scope = stackPopObjectPointer(frame);
     
 //    auto pPointer = scope.get()->getObjectPointer().get();
@@ -488,20 +509,6 @@ bool NCInterpreter::tree_doClassMehothodCall(NCFrame & frame, NCMethodCallExpr*n
     
     if (dynamic_cast<NCClassInstance*>(pPointer)) {
         auto classInst = dynamic_cast<NCClassInstance*>(pPointer);
-        
-        auto parametersExpr = node->args;
-        
-        vector<shared_ptr<NCStackElement>> arguments;
-        
-        for (int i = 0; i<parametersExpr.size(); i++) {
-            auto argExp = node->args[i];
-            walkTree(argExp, frame);
-            
-            auto val = frame.stack.back();
-            arguments.push_back(shared_ptr<NCStackElement>(val));
-            val->toInt();
-            frame.stack.pop_back();
-        }
         
         return classInst->invokeMethod(node->name, arguments, frame.stack);
     }
