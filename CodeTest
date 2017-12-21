@@ -1,7 +1,5 @@
 void main(int a){
-    print("well done!"+myName())
+    string s = "well done!"
+    print("length is " + s.length())
 }
 
-string myName(){
-    return "ogreaxe"
-}

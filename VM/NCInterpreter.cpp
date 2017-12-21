@@ -344,7 +344,7 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
             auto var = (*findValue).second;
 
             //wild pointer ???
-            printf("%d",var->toInt());
+//            printf("%d",var->toInt());
             auto varElement = new NCStackVariableElement(node->name, var);
 //            auto varElement = new NCStackVariableElement(node->name, var->copy());
             frame.stack.push_back(shared_ptr<NCStackElement>(varElement));
@@ -496,10 +496,13 @@ bool NCInterpreter::tree_doClassMehothodCall(NCFrame & frame, NCMethodCallExpr*n
     }
     
     auto pStackTop = (frame.stack.back()).get();
-    auto stringElement = dynamic_cast<NCStackStringElement*>(pStackTop);
-    if(stringElement){
-        //string is not pointer, require dealing with specially
-        return stringElement->invokeMethod(node->name, arguments, frame.stack);;
+    auto varElement = dynamic_cast<NCStackVariableElement*>(pStackTop);
+    if(varElement){
+        auto strElement = dynamic_cast<NCStackStringElement*>(varElement->valueElement.get());
+        if(strElement){
+            //string is not pointer, require dealing with specially
+            return strElement->invokeMethod(node->name, arguments, frame.stack);;
+        }
     }
     
     auto scope = stackPopObjectPointer(frame);

@@ -138,6 +138,27 @@ string NCStackStringElement::toString(){
 }
 
 bool NCStackStringElement::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
+    if (methodName == "length") {
+        lastStack.push_back(shared_ptr<NCStackElement>(new NCStackIntElement(value.size())));
+    }
+    else if (methodName == "charAt") {
+        auto indx = arguments[0]->toInt();
+        string res;
+        res.push_back(value[indx]);
+        lastStack.push_back(shared_ptr<NCStackElement>(new NCStackStringElement(res)));
+    }
+    else if (methodName == "subString") {
+        if (arguments.size() == 1) {
+            
+        }
+        else if (arguments.size() == 2) {
+            auto start = arguments[0]->toInt();
+            auto count = arguments[1]->toInt();
+            string res = value.substr(start,count);
+            lastStack.push_back(shared_ptr<NCStackElement>(new NCStackStringElement(res)));
+        }
+    }
+    
     return true;
 }
 bool NCStackStringElement::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments){
