@@ -491,7 +491,7 @@ bool NCInterpreter::tree_doClassMehothodCall(NCFrame & frame, NCMethodCallExpr*n
         
         auto val = frame.stack.back();
         arguments.push_back(shared_ptr<NCStackElement>(val));
-        val->toInt();
+        
         frame.stack.pop_back();
     }
     

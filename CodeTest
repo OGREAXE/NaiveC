@@ -1,5 +1,9 @@
 void main(int a){
-    string s = "well done!"
-    print("length is " + s.length())
+    array a = array()
+    a.add("ok")
+    array b = a
+    b[0] = "YES"
+    print(b[0])
+    print(a[0])
 }
 
