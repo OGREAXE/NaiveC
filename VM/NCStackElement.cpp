@@ -197,3 +197,7 @@ shared_ptr<NCStackElement> NCStackVariableElement::copy(){
     aCopy->isArray = this->isArray;
     return shared_ptr<NCStackElement>(aCopy);
 }
+
+bool NCStackVariableElement::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
+    return this->valueElement->invokeMethod(methodName, arguments, lastStack);
+}

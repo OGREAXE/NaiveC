@@ -4,6 +4,6 @@ void main(int a){
     array b = a
     b[0] = "YES"
     print(b[0])
-    print(a[0])
+    print(a[0].charAt(1))
 }
 

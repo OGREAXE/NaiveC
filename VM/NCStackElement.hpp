@@ -26,6 +26,9 @@ struct NCStackElement{
     static shared_ptr<NCStackElement> createStackElement(NCLiteral* literal);
     
     virtual shared_ptr<NCStackElement> copy()=0;
+    
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){return false;}
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments){return false;}
 };
 
 struct NCStackIntElement:NCStackElement{
@@ -61,8 +64,8 @@ struct NCStackStringElement:NCStackElement{
     virtual string toString();
     virtual shared_ptr<NCStackElement> copy();
     
-    bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
-    bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments);
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments);
 };
 
 struct NCStackVariableElement:NCStackElement{
@@ -77,6 +80,8 @@ struct NCStackVariableElement:NCStackElement{
     virtual float toFloat();
     virtual string toString();
     virtual shared_ptr<NCStackElement> copy();
+    
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
 };
 
 #endif /* NCStackElement_hpp */

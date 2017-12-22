@@ -68,6 +68,8 @@ public:
     virtual float toFloat();
     virtual string toString();
     virtual shared_ptr<NCStackElement> copy();
+    
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
 };
 
 struct NCArrayAccessor:NCStackElement{
@@ -85,6 +87,8 @@ public:
     
     void set(int index,shared_ptr<NCStackElement> value);
     void set(shared_ptr<NCStackElement> value);
+    
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
 };
 
 

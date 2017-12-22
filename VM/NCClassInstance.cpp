@@ -27,6 +27,42 @@ shared_ptr<NCStackElement> NCStackPointerElement::copy(){
     return shared_ptr<NCStackElement>(new NCStackPointerElement(pObject));
 }
 
+bool NCStackPointerElement::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
+    auto pStackTop = (lastStack.back()).get();
+    
+    //fix smart pointer released
+    if (dynamic_cast<NCStackPointerElement*>((lastStack.back()).get())) {
+        
+        auto pPointerElement = dynamic_pointer_cast<NCStackPointerElement> (lastStack.back());
+        lastStack.pop_back();
+        
+        auto pPointer = pPointerElement.get()->getRawObjectPointer();
+        
+        if (dynamic_cast<NCClassInstance*>(pPointer)) {
+            auto classInst = dynamic_cast<NCClassInstance*>(pPointer);
+            
+            return classInst->invokeMethod(methodName, arguments, lastStack);
+        }
+    }
+    else if (dynamic_cast<NCStackVariableElement*>(pStackTop)) {
+        auto pVar = dynamic_cast<NCStackVariableElement*>(pStackTop);
+        if (dynamic_cast<NCStackPointerElement*>(pVar->valueElement.get())) {
+            auto pPointerElement = dynamic_pointer_cast<NCStackPointerElement> (pVar->valueElement);
+            lastStack.pop_back();
+            
+            auto pPointer = pPointerElement.get()->getRawObjectPointer();
+            
+            if (dynamic_cast<NCClassInstance*>(pPointer)) {
+                auto classInst = dynamic_cast<NCClassInstance*>(pPointer);
+                
+                return classInst->invokeMethod(methodName, arguments, lastStack);
+            }
+        }
+    }
+    
+    return true;
+}
+
 bool NCArrayInstance::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
     
     if (methodName == "get") {
@@ -84,4 +120,8 @@ void NCArrayAccessor::set(int index,shared_ptr<NCStackElement> value){
     argments.push_back(shared_ptr<NCStackElement>(new NCStackIntElement(index)));
     argments.push_back(value);
     arrayInstance->invokeMethod("set", argments);
+}
+
+bool NCArrayAccessor::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
+    return arrayInstance->getElementAt(index)->invokeMethod(methodName, arguments, lastStack);
 }

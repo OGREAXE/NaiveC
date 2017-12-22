@@ -495,26 +495,33 @@ bool NCInterpreter::tree_doClassMehothodCall(NCFrame & frame, NCMethodCallExpr*n
         frame.stack.pop_back();
     }
     
-    auto pStackTop = (frame.stack.back()).get();
-    auto varElement = dynamic_cast<NCStackVariableElement*>(pStackTop);
-    if(varElement){
-        auto strElement = dynamic_cast<NCStackStringElement*>(varElement->valueElement.get());
-        if(strElement){
-            //string is not pointer, require dealing with specially
-            return strElement->invokeMethod(node->name, arguments, frame.stack);;
-        }
-    }
+//    auto pStackTop = (frame.stack.back()).get();
+//    auto varElement = dynamic_cast<NCStackVariableElement*>(pStackTop);
+//    if(varElement){
+//        auto strElement = dynamic_cast<NCStackStringElement*>(varElement->valueElement.get());
+//        if(strElement){
+//            //string is not pointer, require dealing with specially
+//            return strElement->invokeMethod(node->name, arguments, frame.stack);;
+//        }
+//    }
+//
+//    auto pArrayAccessor = dynamic_cast<NCArrayAccessor*>(pStackTop);
+//    if (pArrayAccessor) {
+//        //???
+//    }
+//
+//    auto scope = stackPopObjectPointer(frame);
+//
+////    auto pPointer = scope.get()->getObjectPointer().get();
+//    auto pPointer = scope.get()->getRawObjectPointer();
+//
+//    if (dynamic_cast<NCClassInstance*>(pPointer)) {
+//        auto classInst = dynamic_cast<NCClassInstance*>(pPointer);
+//
+//        return classInst->invokeMethod(node->name, arguments, frame.stack);
+//    }
     
-    auto scope = stackPopObjectPointer(frame);
-    
-//    auto pPointer = scope.get()->getObjectPointer().get();
-    auto pPointer = scope.get()->getRawObjectPointer();
-    
-    if (dynamic_cast<NCClassInstance*>(pPointer)) {
-        auto classInst = dynamic_cast<NCClassInstance*>(pPointer);
-        
-        return classInst->invokeMethod(node->name, arguments, frame.stack);
-    }
+    (frame.stack.back())->invokeMethod(node->name, arguments, frame.stack);
     
     return true;
 }
@@ -670,7 +677,6 @@ shared_ptr<NCStackPointerElement>  NCInterpreter::stackPopObjectPointer(NCFrame 
         auto pRet = dynamic_pointer_cast<NCStackPointerElement> (frame.stack.back());
         frame.stack.pop_back();
         
-        pRet->toInt();
         return pRet;
     }
     else if (dynamic_cast<NCStackVariableElement*>(pStackTop)) {
