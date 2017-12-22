@@ -521,9 +521,9 @@ bool NCInterpreter::tree_doClassMehothodCall(NCFrame & frame, NCMethodCallExpr*n
 //        return classInst->invokeMethod(node->name, arguments, frame.stack);
 //    }
     
-    (frame.stack.back())->invokeMethod(node->name, arguments, frame.stack);
+    bool res = frame.stack.back()->invokeMethod(node->name, arguments, frame.stack);
     
-    return true;
+    return res;
 }
 
 bool NCInterpreter::isStackTopInt(NCFrame & frame){

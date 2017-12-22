@@ -31,7 +31,7 @@ bool NCTokenizer::tokenize(string&str){
 //            }
 //        }
 //        else
-        if (c == ',') {
+        if (c == ',' && status != String) {
             if (token.length() > 0){
                 tokens.push_back(token);
             }
@@ -108,6 +108,12 @@ bool NCTokenizer::tokenize(string&str){
                     status = Unknown;
                 }
             }
+            else if (token =="!"){
+                if (c == '=') {
+                    token += "=";
+                    status = Unknown;
+                }
+            }
             else {
                 printf("operator not matched\n");
                 return false;
@@ -174,7 +180,7 @@ bool NCTokenizer::isNumber(char c) {
 
 bool NCTokenizer::isOperator(char c) {
     return c == '*' || c == '/' || c == '+' || c == '-' || c == '='
-    ||c == '>' || c == '<'|| c == '&'|| c == '|' ;
+    ||c == '>' || c == '<'|| c == '&'|| c == '|'|| c == '!' ;
 }
 
 bool NCTokenizer::isParenthesis(char c) {

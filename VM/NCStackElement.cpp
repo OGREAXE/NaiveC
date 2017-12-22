@@ -47,6 +47,12 @@ int doRelationalOperator(T left, T right, const string&op){
     else if (op == "<=") {
         return left <= right;
     }
+    else if (op == "!=") {
+        return left <= right;
+    }
+    else if (op == "==") {
+        return left <= right;
+    }
     else {
         return left;
     }
@@ -75,7 +81,7 @@ shared_ptr<NCStackElement> NCStackIntElement::doOperator(const string&op, shared
         return shared_ptr<NCStackElement>(new NCStackIntElement(result));
         
     }
-    else if (op == "&&"||op == "||"||op == ">"||op == "<"||op == ">="||op == "<=") {
+    else if (op == "&&"||op == "||"||op == ">"||op == "<"||op == ">="||op == "<="||op == "!="||op == "==") {
         int result = doRelationalOperator(this->value, rightOperand->toInt(),op);
         return shared_ptr<NCStackElement>(new NCStackIntElement(result));
     }
@@ -88,7 +94,7 @@ shared_ptr<NCStackElement> NCStackFloatElement::doOperator(const string&op, shar
         return shared_ptr<NCStackElement>(new NCStackIntElement(result));
         
     }
-    else if (op == "&&"||op == "||") {
+    else if (op == "&&"||op == "||"||op == ">"||op == "<"||op == ">="||op == "<="||op == "!="||op == "==") {
         int result = doRelationalOperator(this->value, rightOperand->toFloat(),op);
         return shared_ptr<NCStackElement>(new NCStackIntElement(result));
     }
@@ -99,6 +105,16 @@ shared_ptr<NCStackElement> NCStackStringElement::doOperator(const string&op, sha
     if (op == "+") {
         string ret = this->value + rightOperand->toString();
         return shared_ptr<NCStackElement>(new NCStackStringElement(ret));
+        
+    }
+    else if (op == "==") {
+        bool equal = (this->value == rightOperand->toString());
+        return shared_ptr<NCStackElement>(new NCStackIntElement((int)equal));
+        
+    }
+    else if (op == "!=") {
+        bool equal = (this->value == rightOperand->toString());
+        return shared_ptr<NCStackElement>(new NCStackIntElement((int)!equal));
         
     }
     else if (op == "&&") {
