@@ -23,6 +23,8 @@
 		ED219CD91F6D16370015293A /* NCInterpreter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED219CD01F6D16370015293A /* NCInterpreter.cpp */; };
 		ED219CDA1F6D16370015293A /* NCStackElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED219CD21F6D16370015293A /* NCStackElement.cpp */; };
 		ED219CE01F6D1B610015293A /* CodeTest in Resources */ = {isa = PBXBuildFile; fileRef = ED219CDF1F6D1B610015293A /* CodeTest */; };
+		EDBB6D2D1FEF62FD003CB5C5 /* NCTextDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBB6D2C1FEF62FD003CB5C5 /* NCTextDataSource.m */; };
+		EDBB6D301FEF64E0003CB5C5 /* NCTextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBB6D2F1FEF64E0003CB5C5 /* NCTextManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,10 @@
 		ED219CD21F6D16370015293A /* NCStackElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NCStackElement.cpp; sourceTree = "<group>"; };
 		ED219CD31F6D16370015293A /* NCStackElement.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NCStackElement.hpp; sourceTree = "<group>"; };
 		ED219CDF1F6D1B610015293A /* CodeTest */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CodeTest; sourceTree = "<group>"; };
+		EDBB6D2B1FEF62FD003CB5C5 /* NCTextDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCTextDataSource.h; sourceTree = "<group>"; };
+		EDBB6D2C1FEF62FD003CB5C5 /* NCTextDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NCTextDataSource.m; sourceTree = "<group>"; };
+		EDBB6D2E1FEF64E0003CB5C5 /* NCTextManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCTextManager.h; sourceTree = "<group>"; };
+		EDBB6D2F1FEF64E0003CB5C5 /* NCTextManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NCTextManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +118,10 @@
 			children = (
 				ED219CA11F6D15CB0015293A /* AppDelegate.h */,
 				ED219CA21F6D15CB0015293A /* AppDelegate.m */,
+				EDBB6D2E1FEF64E0003CB5C5 /* NCTextManager.h */,
+				EDBB6D2F1FEF64E0003CB5C5 /* NCTextManager.m */,
+				EDBB6D2B1FEF62FD003CB5C5 /* NCTextDataSource.h */,
+				EDBB6D2C1FEF62FD003CB5C5 /* NCTextDataSource.m */,
 				ED219CA41F6D15CB0015293A /* ViewController.h */,
 				ED219CA51F6D15CB0015293A /* ViewController.mm */,
 				ED219CA71F6D15CB0015293A /* Main.storyboard */,
@@ -281,8 +291,10 @@
 				ED219CA31F6D15CB0015293A /* AppDelegate.m in Sources */,
 				ED219CA01F6D15CB0015293A /* main.m in Sources */,
 				ED219CD71F6D16370015293A /* NCBuiltinFunction.mm in Sources */,
+				EDBB6D2D1FEF62FD003CB5C5 /* NCTextDataSource.m in Sources */,
 				ED219CD51F6D16370015293A /* NCParser.cpp in Sources */,
 				ED219CDA1F6D16370015293A /* NCStackElement.cpp in Sources */,
+				EDBB6D301FEF64E0003CB5C5 /* NCTextManager.m in Sources */,
 				ED219CD91F6D16370015293A /* NCInterpreter.cpp in Sources */,
 				ED219CD41F6D16370015293A /* NCAST.cpp in Sources */,
 				ED219CD81F6D16370015293A /* NCCode.cpp in Sources */,
