@@ -14,6 +14,7 @@
 #include <string>
 #include <set>
 #include "NCAST.hpp"
+#include "NCTokenizer.hpp"
 
 using namespace std;
 
@@ -21,14 +22,14 @@ typedef AstNodePtr MCParserReturnType ;
 
 class NCParser{
 public:
-    NCParser(vector<string>& tokens);
+    NCParser(vector<NCToken>& tokens);
     
     shared_ptr<NCASTRoot> getRoot(){return pRoot;}
 private:
     
     shared_ptr<NCASTRoot> pRoot;
     
-    vector<string> tokens;
+    vector<NCToken> tokens;
     
     multiset<string> keywords;
     

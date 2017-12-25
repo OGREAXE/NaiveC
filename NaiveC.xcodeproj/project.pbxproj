@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4716E621FF11269000797B1 /* NCInterpreterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4716E611FF11269000797B1 /* NCInterpreterController.m */; };
 		ED2040361F77A6D300734821 /* NCClassInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED2040341F77A6D300734821 /* NCClassInstance.cpp */; };
 		ED219CA01F6D15CB0015293A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ED219C9F1F6D15CB0015293A /* main.m */; };
 		ED219CA31F6D15CB0015293A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ED219CA21F6D15CB0015293A /* AppDelegate.m */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D4716E601FF11269000797B1 /* NCInterpreterController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCInterpreterController.h; sourceTree = "<group>"; };
+		D4716E611FF11269000797B1 /* NCInterpreterController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NCInterpreterController.m; sourceTree = "<group>"; };
 		ED2040341F77A6D300734821 /* NCClassInstance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NCClassInstance.cpp; sourceTree = "<group>"; };
 		ED2040351F77A6D300734821 /* NCClassInstance.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NCClassInstance.hpp; sourceTree = "<group>"; };
 		ED219C9B1F6D15CB0015293A /* NaiveC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NaiveC.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,6 +121,8 @@
 			children = (
 				ED219CA11F6D15CB0015293A /* AppDelegate.h */,
 				ED219CA21F6D15CB0015293A /* AppDelegate.m */,
+				D4716E601FF11269000797B1 /* NCInterpreterController.h */,
+				D4716E611FF11269000797B1 /* NCInterpreterController.m */,
 				EDBB6D2E1FEF64E0003CB5C5 /* NCTextManager.h */,
 				EDBB6D2F1FEF64E0003CB5C5 /* NCTextManager.m */,
 				EDBB6D2B1FEF62FD003CB5C5 /* NCTextDataSource.h */,
@@ -230,8 +235,8 @@
 				TargetAttributes = {
 					ED219C9A1F6D15CB0015293A = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 6D5TSDN2CR;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = KLS72L88F6;
+						ProvisioningStyle = Manual;
 					};
 					ED219CB31F6D15CB0015293A = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -298,6 +303,7 @@
 				ED219CD91F6D16370015293A /* NCInterpreter.cpp in Sources */,
 				ED219CD41F6D16370015293A /* NCAST.cpp in Sources */,
 				ED219CD81F6D16370015293A /* NCCode.cpp in Sources */,
+				D4716E621FF11269000797B1 /* NCInterpreterController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,7 +441,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 6D5TSDN2CR;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = KLS72L88F6;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INPUT_FILETYPE = automatic;
 				INFOPLIST_FILE = NaiveC/Info.plist;
@@ -443,6 +450,8 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = Ogreaxe.NaiveC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "0159eb3c-a481-4da3-abbc-dc18f39be42f";
+				PROVISIONING_PROFILE_SPECIFIER = 20171109;
 			};
 			name = Debug;
 		};
@@ -450,7 +459,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 6D5TSDN2CR;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INPUT_FILETYPE = automatic;
 				INFOPLIST_FILE = NaiveC/Info.plist;
@@ -458,6 +468,7 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = Ogreaxe.NaiveC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

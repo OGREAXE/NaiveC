@@ -11,13 +11,11 @@
 
 @class NCTextDataSource;
 
-@protocol NCTextDataResponderDelegate
+@protocol NCTextDataResponderDelegate<NSObject>
 
--(void)dataSource:(NCTextDataSource*)dataSource textDidLoad:(NSString*)text;
-
--(void)dataSource:(NCTextDataSource*)dataSource didInputText:(NSString*)text;
-
--(void)dataSource:(NCTextDataSource*)dataSource didDeleteText:(NSString*)text range:(NSRange)range;
+-(void)textDidLoad:(NCTextDataSource*)dataSource;
+-(void)textDidChange:(NCTextDataSource*)dataSource;
+- (BOOL)dataSource:(NCTextDataSource *)dataSource shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text;
 
 @end
 
@@ -25,6 +23,8 @@
 
 -(id)initWithTextView:(UITextView*)textView;
 
-@property (nonatomic) id<NCTextDataResponderDelegate> delegate;
+@property (nonatomic,weak) id<NCTextDataResponderDelegate> delegate;
+
+@property (nonatomic) NSString * text;
 
 @end

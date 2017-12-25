@@ -14,7 +14,7 @@
 
 #define MAKE_SMART_PTR(ret) ret
 
-NCParser::NCParser(vector<string>& tokens):index(0){
+NCParser::NCParser(vector<NCToken>& tokens):index(0){
 //    vector<string> keywords_  =
     keywords =
     {
@@ -36,7 +36,7 @@ NCParser::NCParser(vector<string>& tokens):index(0){
     };
     
     this->tokens = tokens;
-    word = tokens[0];
+    word = tokens[0].token;
     
     pRoot = shared_ptr<NCASTRoot>(new NCASTRoot());
     
@@ -75,11 +75,11 @@ NCParser::NCParser(vector<string>& tokens):index(0){
 }
 
 string NCParser::nextWord(){
-     return tokens[++index];
+     return tokens[++index].token;
 }
 
 string NCParser::priviousWord(){
-    return tokens[--index];
+    return tokens[--index].token;
 }
 
 void NCParser::pushIndex(){
@@ -87,7 +87,7 @@ void NCParser::pushIndex(){
 }
 void NCParser::popIndex(){
     index = tempIndex;
-    word = tokens[index];
+    word = tokens[index].token;
 }
 
 MCParserReturnType NCParser::class_definition(){

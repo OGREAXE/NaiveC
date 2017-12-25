@@ -11,4 +11,6 @@
 
 @interface NCTextManager : NSObject<NCTextDataResponderDelegate>
 
+-(id)initWithDataSource:(NCTextDataSource*)dataSource;
+
 @end

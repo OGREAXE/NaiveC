@@ -27,14 +27,21 @@ typedef enum TokenizerStatus {
     Brace,     // {}
 } TokenizerStatus;
 
+struct NCToken{
+    string token;
+    int start;
+    int length;
+};
+
 class NCTokenizer{
 private:
-    vector<string> tokens;
+//    vector<string> tokens;
+    vector<NCToken> tokens;
     string token;
     TokenizerStatus status;
 public:
     NCTokenizer(string&str);
-    const vector<string> & getTokens();
+    const vector<NCToken> & getTokens();
 protected:
     bool tokenize(string&str);
     

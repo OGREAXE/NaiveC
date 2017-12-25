@@ -10,12 +10,15 @@
 #include "NCTokenizer.hpp"
 #include "NCParser.hpp"
 #include "NCInterpreter.hpp"
+#include "NCTextManager.h"
 
 @interface ViewController ()
 
 @property (weak, nonatomic) IBOutlet  UITextView * textView;
 
 @property (weak, nonatomic) IBOutlet  UITextView * outputView;
+
+@property (nonatomic) NCTextManager * textManager;
 
 @end
 
@@ -27,6 +30,8 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     //    string str = "int i=0 \n if(i==0)i=2+1";
+    
+    _textManager = [[NCTextManager alloc] initWithDataSource:[[NCTextDataSource alloc] initWithTextView:self.textView]];
     
     NSError * error = nil;
     NSString * filepath = [[NSBundle mainBundle] pathForResource:@"CodeTest" ofType:nil];
@@ -45,13 +50,13 @@
     
     string str = self.textView.text.UTF8String;
     NCTokenizer tokenizer(str);
-    const vector<string> & tokens = tokenizer.getTokens();
+    const vector<NCToken> & tokens = tokenizer.getTokens();
     for (int i=0; i<tokens.size(); i++) {
-        const string & token = tokens[i];
-        NSLog(@"%s",token.c_str());
+        const auto & aToken = tokens[i];
+        NSLog(@"%s",aToken.token.c_str());
     }
     
-    vector<string> _tokens = tokens;
+    vector<NCToken> _tokens = tokens;
     auto parser =  shared_ptr<NCParser>(new NCParser(_tokens));
     
     auto interpreter = shared_ptr<NCInterpreter>(new NCInterpreter(parser->getRoot()));

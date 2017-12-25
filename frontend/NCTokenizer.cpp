@@ -8,6 +8,14 @@
 
 #include "NCTokenizer.hpp"
 
+void addToken(vector<NCToken> &tokens,string token, int i){
+    NCToken aToken;
+    aToken.token = token;
+    aToken.start = i -token.length();
+    aToken.length = token.length();
+    
+    tokens.push_back(aToken);
+}
 
 NCTokenizer::NCTokenizer(string&str){
     status = Unknown;
@@ -33,9 +41,11 @@ bool NCTokenizer::tokenize(string&str){
 //        else
         if (c == ',' && status != String) {
             if (token.length() > 0){
-                tokens.push_back(token);
+//                tokens.push_back(token);
+                addToken(tokens, token, i);
             }
-            tokens.push_back(",");
+//            tokens.push_back(",");
+            addToken(tokens, ",", i);
             token = "";
             status = Unknown;
         }
@@ -44,14 +54,16 @@ bool NCTokenizer::tokenize(string&str){
         }
         else if (c == ' ') {
             if (token.length() > 0){
-                tokens.push_back(token);
+//                tokens.push_back(token);
+                addToken(tokens, token, i);
             }
             token = "";
             status = Unknown;
         }
         else if (isCharForIdentifier(c)) {
             if (status != Identifier && token.length() > 0) {
-                tokens.push_back(token);
+//                tokens.push_back(token);
+                addToken(tokens, token, i);
                 token = c;
             }
             else{
@@ -65,7 +77,8 @@ bool NCTokenizer::tokenize(string&str){
             }
             else {
                 if (status!=Number && token.length() > 0) {
-                    tokens.push_back(token);
+//                    tokens.push_back(token);
+                    addToken(tokens, token, i);
                     token = c;
                 }
                 else {
@@ -77,7 +90,8 @@ bool NCTokenizer::tokenize(string&str){
         else if(isOperator(c)){
             if (status != Operator ) {
                 if (token.length() > 0) {
-                    tokens.push_back(token);
+//                    tokens.push_back(token);
+                    addToken(tokens, token, i);
                 }
                 token = c;
                 status = Operator;
@@ -121,7 +135,8 @@ bool NCTokenizer::tokenize(string&str){
         }
         else if(isParenthesis(c)){
             if (token.length() > 0) {
-                tokens.push_back(token);
+//                tokens.push_back(token);
+                addToken(tokens, token, i);
             }
             token = c;
             status = Parenthesis;
@@ -129,7 +144,8 @@ bool NCTokenizer::tokenize(string&str){
         else if(c == '"'){
             if (status != String){
                 if(token.length() > 0) {
-                    tokens.push_back(token);
+//                    tokens.push_back(token);
+                    addToken(tokens, token, i);
                 }
                 token = c;
                 status = String;
@@ -151,22 +167,25 @@ bool NCTokenizer::tokenize(string&str){
                 }
             }
             else {
-                tokens.push_back(token);
+//                tokens.push_back(token);
+                addToken(tokens, token, i);
                 token = ".";
                 status = Unknown;
             }
         }
         
         if (i == str.length()-1) {
-            tokens.push_back(token);
-            tokens.push_back(" ");
+//            tokens.push_back(token);
+            addToken(tokens, token, i);
+//            tokens.push_back(" ");
+            addToken(tokens, token, i);
         }
     }
     
     return true;
 }
 
-const vector<string> & NCTokenizer::getTokens(){
+const vector<NCToken> & NCTokenizer::getTokens(){
     return tokens;
 }
 

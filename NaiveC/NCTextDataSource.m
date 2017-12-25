@@ -21,27 +21,43 @@
     if (self) {
         self.textView = textView;
         self.textView.delegate = self;
+        
+        [self addObserver:self forKeyPath:@"textView.text" options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }
 
+-(void)dealloc{
+    [self removeObserver:self forKeyPath:@"textView.text"];
+}
 
--(void)countParensisPairArrayWithText:(NSString*)text{
-    for (int i = 0; i<text.length; i++) {
-        
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
+    if ([keyPath isEqualToString:@"textView.text"]) {
+        if ([self.delegate respondsToSelector:@selector(textDidLoad:)]) {
+            [self.delegate textDidLoad:self];
+        }
     }
 }
 
+-(NSString*)text{
+    return _textView.text;
+}
+
+-(void)setText:(NSString *)text{
+    _textView.text = text;
+}
 
 #pragma mark textView delegate
 -(void)textViewDidChange:(UITextView *)textView{
-    
+    if ([self.delegate respondsToSelector:@selector(textDidChange:)]) {
+        [self.delegate textDidChange:self];
+    }
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    if ([text isEqualToString:@"\n"]) {
-        
+    if ([self.delegate respondsToSelector:@selector(dataSource:shouldChangeTextInRange:replacementText:)]) {
+        return [self.delegate dataSource:self shouldChangeTextInRange:range replacementText:text];
     }
     
     return YES;
