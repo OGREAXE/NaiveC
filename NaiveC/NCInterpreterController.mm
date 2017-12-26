@@ -13,20 +13,27 @@
 #include "Common.h"
 
 @interface NCInterpreterController()
+
+@property (nonatomic) NSMutableDictionary * parserDict;
+
 @end
 
 @implementation NCInterpreterController{
     NCTokenizer *_tokenizer;
-    NCParser * _parser;
+//    NCParser * _parser;
     NCInterpreter * _interpreter;
 }
 
--(id)initWithDataSource:(NCDataSource*)dataSource{
+-(id)init{
     self = [super init];
     if (self) {
-        
+        [self doInit];
     }
     return self;
+}
+
+-(void)doInit{
+    _parserDict = [NSMutableDictionary dictionary];
 }
 
 -(void)textDidLoad:(NCDataSource*)dataSource{
@@ -45,30 +52,24 @@
         return;
     }
     
-    NSMutableArray * tokArray = [NSMutableArray array];
+    auto tokens = _tokenizer->getTokens();
     
-    const vector<NCToken> & tokens = _tokenizer->getTokens();
-    for (int i=0; i<tokens.size(); i++) {
-        const auto & aToken = tokens[i];
-        NSValue *tokValue = [NSValue valueWithBytes:&aToken objCType:@encode(struct NCToken)];
-        [tokArray addObject:tokValue];
+    NCParser * parser = nullptr;
+    NSValue * parserValue = [self.parserDict objectForKey:dataSource.sourceId];
+    if (!parserValue) {
+        parser = new NCParser();
+        self.parserDict[dataSource.sourceId] = [NSValue valueWithPointer:parser];
     }
-    _tokenArray = tokArray;
-    
-    if ([self.delegate respondsToSelector:@selector(didFinishTokenization:)]) {
-        [self.delegate didFinishTokenization:self];
+    else {
+        parser = (NCParser *)parserValue.pointerValue;
     }
-    
-    if (!_parser) {
-        _parser = new NCParser();
-    }
-    if(!_parser->parse(tokens)){
+
+    if(!parser->parse(tokens)){
         NCLog(@"parse fail %@");
         return;
     }
-    
-    if ([self.delegate respondsToSelector:@selector(didFinishParsing:)]) {
-        [self.delegate didFinishParsing:self];
+    if ([self.delegate respondsToSelector:@selector(interpreterController:didFinishParsingDataSource:WithParser:)]) {
+        [self.delegate interpreterController:self didFinishParsingDataSource:dataSource WithParser:parser];
     }
 }
 

@@ -1,15 +1,6 @@
-void main(int a){
-    string str = "NAIVE C"
-    print(trim(str))
-}
-
-string trim(string str){
-    string res = ""
-    for (int i=0;i<str.length();i=i+1){
-        string chr = str.charAt(i)
-        if(chr != " "){
-            res = res + chr
+{
+    {
+        {
         }
     }
-    return res
 }

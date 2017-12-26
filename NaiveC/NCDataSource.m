@@ -8,13 +8,28 @@
 
 #import "NCDataSource.h"
 
-@interface NCDataSource()<UITextViewDelegate>
+@implementation NCDataSource
+
+-(void)addDelegate:(id<NCDataSourceDelegate>)aDelegate{
+    [self.delegateArray addObject:aDelegate];
+}
+
+-(NSMutableArray<id<NCDataSourceDelegate>> *)delegateArray{
+    if (!_delegateArray) {
+        _delegateArray = [NSMutableArray array];
+    }
+    return _delegateArray;
+}
+
+@end
+
+@interface NCTextViewDataSource()<UITextViewDelegate>
 
 @property (nonatomic) UITextView * textView;
 
 @end
 
-@implementation NCDataSource
+@implementation NCTextViewDataSource
 
 -(id)initWithTextView:(UITextView*)textView{
     self = [super init];
@@ -22,9 +37,15 @@
         self.textView = textView;
         self.textView.delegate = self;
         
+        self.delegateArray = [NSMutableArray array];
+        
         [self addObserver:self forKeyPath:@"textView.text" options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
+}
+
+-(NSString*)sourceId{
+    return @"NCTextViewDataSource";  //only one textView per App so return constant
 }
 
 -(void)dealloc{
@@ -33,9 +54,11 @@
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
     if ([keyPath isEqualToString:@"textView.text"]) {
-        if ([self.delegate respondsToSelector:@selector(textDidLoad:)]) {
-            [self.delegate textDidLoad:self];
-        }
+        [self.delegateArray enumerateObjectsUsingBlock:^(id<NCDataSourceDelegate>  delegate, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([delegate respondsToSelector:@selector(textDidLoad:)]) {
+                [delegate textDidLoad:self];
+            }
+        }];
     }
 }
 
@@ -47,18 +70,30 @@
     _textView.text = text;
 }
 
+-(NSRange)selectedRange{
+    return _textView.selectedRange;
+}
+
+-(void)setSelectedRange:(NSRange)selectedRange{
+    _textView.selectedRange = selectedRange;
+}
+
 #pragma mark textView delegate
 -(void)textViewDidChange:(UITextView *)textView{
-    if ([self.delegate respondsToSelector:@selector(textDidChange:)]) {
-        [self.delegate textDidChange:self];
-    }
+    [self.delegateArray enumerateObjectsUsingBlock:^(id<NCDataSourceDelegate>  delegate, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([delegate respondsToSelector:@selector(textDidChange:)]) {
+            [delegate textDidChange:self];
+        }
+    }];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    if ([self.delegate respondsToSelector:@selector(dataSource:shouldChangeTextInRange:replacementText:)]) {
-        return [self.delegate dataSource:self shouldChangeTextInRange:range replacementText:text];
-    }
+    [self.delegateArray enumerateObjectsUsingBlock:^(id<NCDataSourceDelegate>  delegate, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([delegate respondsToSelector:@selector(dataSource:shouldChangeTextInRange:replacementText:)]) {
+            [delegate dataSource:self shouldChangeTextInRange:range replacementText:text];
+        }
+    }];
     
     return YES;
 }

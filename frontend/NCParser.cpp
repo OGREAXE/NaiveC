@@ -35,15 +35,15 @@ static unordered_set<string> keywords =
 
 #define MAKE_SMART_PTR(ret) ret
 
-NCParser::NCParser(const vector<NCToken>& tokens):index(0){
+NCParser::NCParser(shared_ptr<const vector<NCToken>>& tokens):index(0){
     bool res = parse(tokens);
 }
     
-bool NCParser::parse(const vector<NCToken>& tokens){
+bool NCParser::parse(shared_ptr<const vector<NCToken>>& tokens){
     index = 0;
     
     this->tokens = tokens;
-    word = tokens[0].token;
+    word = (*tokens)[0].token;
     
     pRoot = shared_ptr<NCASTRoot>(new NCASTRoot());
     
@@ -76,11 +76,11 @@ bool NCParser::parse(const vector<NCToken>& tokens){
 }
 
 string NCParser::nextWord(){
-     return tokens[++index].token;
+     return (*tokens)[++index].token;
 }
 
 string NCParser::priviousWord(){
-    return tokens[--index].token;
+    return (*tokens)[--index].token;
 }
 
 void NCParser::pushIndex(){
@@ -88,7 +88,7 @@ void NCParser::pushIndex(){
 }
 void NCParser::popIndex(){
     index = tempIndex;
-    word = tokens[index].token;
+    word = (*tokens)[index].token;
 }
 
 MCParserReturnType NCParser::class_definition(){

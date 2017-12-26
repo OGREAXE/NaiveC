@@ -36,14 +36,15 @@ struct NCToken{
 class NCTokenizer{
 private:
 //    vector<string> tokens;
-    vector<NCToken> tokens;
+    shared_ptr<vector<NCToken>> tokens;
     string token;
     TokenizerStatus status;
 public:
-    NCTokenizer():status(Unknown){};
+    NCTokenizer():status(Unknown){tokens = shared_ptr<vector<NCToken>>(new vector<NCToken>());};
     NCTokenizer(string&str);
     bool tokenize(string&str);
-    const vector<NCToken> & getTokens();
+    shared_ptr<const vector<NCToken>> getTokens();
+//    const vector<NCToken> & getTokens();
 protected:
     
     bool isCharForIdentifier(char c);

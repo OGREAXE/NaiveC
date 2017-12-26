@@ -23,16 +23,18 @@ typedef AstNodePtr MCParserReturnType ;
 class NCParser{
 public:
     NCParser(){};
-    NCParser(const vector<NCToken>& tokens);
+    NCParser(shared_ptr<const vector<NCToken>>& tokens);
     
     shared_ptr<NCASTRoot> getRoot(){return pRoot;}
     
-    bool parse(const vector<NCToken>& tokens);
+    bool parse(shared_ptr<const vector<NCToken>>& tokens);
+    
+    shared_ptr<const vector<NCToken>> getTokens(){return tokens;}
 private:
     
     shared_ptr<NCASTRoot> pRoot;
     
-    vector<NCToken> tokens;
+    shared_ptr<const vector<NCToken>> tokens;
     
 //    multiset<string> keywords;
     

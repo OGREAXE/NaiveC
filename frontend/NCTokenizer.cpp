@@ -8,18 +8,18 @@
 
 #include "NCTokenizer.hpp"
 
-void addToken(vector<NCToken> &tokens,string token, int i){
+void addToken(shared_ptr<vector<NCToken>> &tokens,string token, int i){
     NCToken aToken;
     aToken.token = token;
     aToken.start = i -token.length();
     aToken.length = token.length();
     
-    tokens.push_back(aToken);
+    tokens->push_back(aToken);
 }
 
 NCTokenizer::NCTokenizer(string&str){
     status = Unknown;
-    
+    tokens = shared_ptr<vector<NCToken>>(new vector<NCToken>());
     tokenize(str);
 }
 
@@ -185,7 +185,7 @@ bool NCTokenizer::tokenize(string&str){
     return true;
 }
 
-const vector<NCToken> & NCTokenizer::getTokens(){
+shared_ptr<const vector<NCToken>> NCTokenizer::getTokens(){
     return tokens;
 }
 

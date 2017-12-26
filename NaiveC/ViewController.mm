@@ -11,6 +11,7 @@
 #include "NCParser.hpp"
 #include "NCInterpreter.hpp"
 #include "NCTextManager.h"
+#import "NCInterpreterController.h"
 
 @interface ViewController ()
 
@@ -19,6 +20,12 @@
 @property (weak, nonatomic) IBOutlet  UITextView * outputView;
 
 @property (nonatomic) NCTextManager * textManager;
+
+@property (nonatomic) NCInterpreterController * interpreter;
+
+@property (nonatomic) NCTextViewDataSource * textViewDataSource;  //only one
+
+@property (nonatomic) NSMutableArray * fileDataSourceArray;  //could be many
 
 @end
 
@@ -30,38 +37,41 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     //    string str = "int i=0 \n if(i==0)i=2+1";
+    _textViewDataSource  = [[NCTextViewDataSource alloc] initWithTextView:self.textView];
     
-    _textManager = [[NCTextManager alloc] initWithDataSource:[[NCDataSource alloc] initWithTextView:self.textView]];
+    _textManager = [[NCTextManager alloc] initWithDataSource:self.textViewDataSource];
+    _interpreter = [[NCInterpreterController alloc] init];
+    self.interpreter.delegate  = self.textManager;
+    
+    [self.textViewDataSource addDelegate:self.interpreter];
     
     NSError * error = nil;
     NSString * filepath = [[NSBundle mainBundle] pathForResource:@"CodeTest" ofType:nil];
     NSString * fileContent = [NSString stringWithContentsOfFile:filepath encoding:NSUTF8StringEncoding error:&error];
     
     if (!error) {
-        string str = fileContent.UTF8String;
-        
-        self.textView.text = [NSString stringWithUTF8String:str.c_str()];
+        self.textViewDataSource.text = fileContent;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceivePrintNotification:) name:@"NCPrintStringNotification" object:nil];
     }
 }
 
--(void)testNC{
-    
-    string str = self.textView.text.UTF8String;
-    NCTokenizer tokenizer(str);
-    const vector<NCToken> & tokens = tokenizer.getTokens();
-    for (int i=0; i<tokens.size(); i++) {
-        const auto & aToken = tokens[i];
-        NSLog(@"%s",aToken.token.c_str());
-    }
-    
-    vector<NCToken> _tokens = tokens;
-    auto parser =  shared_ptr<NCParser>(new NCParser(_tokens));
-    
-    auto interpreter = shared_ptr<NCInterpreter>(new NCInterpreter(parser->getRoot()));
-    interpreter->invoke_main();
-}
+//-(void)testNC{
+//
+//    string str = self.textView.text.UTF8String;
+//    NCTokenizer tokenizer(str);
+//    auto  tokens = tokenizer.getTokens();
+//    for (int i=0; i<tokens->size(); i++) {
+//        const auto & aToken = (*tokens)[i];
+//        NSLog(@"%s",aToken.token.c_str());
+//    }
+//
+//    auto _tokens = tokens;
+//    auto parser =  shared_ptr<NCParser>(new NCParser(_tokens));
+//
+//    auto interpreter = shared_ptr<NCInterpreter>(new NCInterpreter(parser->getRoot()));
+//    interpreter->invoke_main();
+//}
 
 
 - (void)didReceiveMemoryWarning {
@@ -71,7 +81,7 @@
 
 -(IBAction)didTapCompile:(id)sender{
     self.outputView.text = @"";
-    [self testNC];
+//    [self testNC];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "NCDataSource.h"
+#import "NCInterpreterController.h"
 
-@interface NCTextManager : NSObject<NCDataSourceDelegate>
+@interface NCTextManager : NSObject<NCDataSourceDelegate,NCInterpreterControllerDelegate>
 
 -(id)initWithDataSource:(NCDataSource*)dataSource;
 

@@ -13,17 +13,13 @@
 
 @protocol NCInterpreterControllerDelegate<NSObject>
 
--(void)didFinishTokenization:(NCInterpreterController*)controller;
+-(void)interpreterController:(NCInterpreterController*)controller didFinishParsingDataSource:(NCDataSource*)dataSource WithParser:(void*)parser;
 
--(void)didFinishParsing:(NCInterpreterController*)controller;
+//-(void)didFinishParsing:(NCInterpreterController*)controller;
 
 @end
 
 @interface NCInterpreterController : NSObject<NCDataSourceDelegate>
-
--(id)initWithDataSource:(NCDataSource*)dataSource;
-
-@property (nonatomic) NSArray * tokenArray;
 
 @property (nonatomic) id<NCInterpreterControllerDelegate> delegate;
 

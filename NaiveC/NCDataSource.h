@@ -21,10 +21,22 @@
 
 @interface NCDataSource : NSObject
 
--(id)initWithTextView:(UITextView*)textView;
+@property (nonatomic, readonly) NSString * sourceId;
 
-@property (nonatomic,weak) id<NCDataSourceDelegate> delegate;
+@property (nonatomic) NSMutableArray<id<NCDataSourceDelegate>> *delegateArray;
 
 @property (nonatomic) NSString * text;
 
+@property (nonatomic) NSRange selectedRange;
+
+@property (nonatomic) BOOL isEntryPoint;
+
+-(void)addDelegate:(id<NCDataSourceDelegate>)aDelegate;
+
+-(void)deleteDelegate:(id<NCDataSourceDelegate>)aDelegate;
+
+@end
+ 
+@interface NCTextViewDataSource:NCDataSource
+-(id)initWithTextView:(UITextView*)textView;
 @end
