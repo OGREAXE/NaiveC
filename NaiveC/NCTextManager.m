@@ -10,7 +10,7 @@
 
 @interface NCTextManager()
 
-@property (nonatomic) NCTextDataSource* dataSource;
+@property (nonatomic) NCDataSource* dataSource;
 
 @property (nonatomic) NSMutableArray* parensisArray;
 
@@ -18,7 +18,7 @@
 
 @implementation NCTextManager
 
--(id)initWithDataSource:(NCTextDataSource*)dataSource{
+-(id)initWithDataSource:(NCDataSource*)dataSource{
     self = [super init];
     if (self) {
         _dataSource = dataSource;
@@ -28,15 +28,16 @@
 }
 
 #pragma mark dataSource
--(void)textDidLoad:(NCTextDataSource*)dataSource{
+-(void)textDidLoad:(NCDataSource*)dataSource{
     
 }
 
--(void)textDidChange:(NCTextDataSource*)dataSource{
+-(void)textDidChange:(NCDataSource*)dataSource{
     
 }
 
-- (BOOL)dataSource:(NCTextDataSource *)dataSource shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+- (BOOL)dataSource:(NCDataSource *)dataSource shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    
     return YES;
 }
 

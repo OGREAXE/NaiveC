@@ -9,31 +9,38 @@
 #include "NCParser.hpp"
 #include <functional>
 #include <sstream>
+#include <unordered_set>
+
+
+static unordered_set<string> keywords =
+{
+    //types
+    "int","float","string","void",
+    //operator
+    "=","+=","-=","*=","/=","++",
+    "+","-","*","/",
+    "%",".","|","&","||","&&","!",
+    //paren
+    "{","}","(",")","[","]",
+    //comma
+    ",",
+    //statement
+    "if","else",
+    "while","for",
+    "break","continue",
+    "return",
+};
 
 #define SE "\n"
 
 #define MAKE_SMART_PTR(ret) ret
 
-NCParser::NCParser(vector<NCToken>& tokens):index(0){
-//    vector<string> keywords_  =
-    keywords =
-    {
-        //types
-        "int","float","string","void",
-        //operator
-        "=","+=","-=","*=","/=","++",
-        "+","-","*","/",
-        "%",".","|","&","||","&&","!",
-        //paren
-        "{","}","(",")","[","]",
-        //comma
-        ",",
-        //statement
-        "if","else",
-        "while","for",
-        "break","continue",
-        "return",
-    };
+NCParser::NCParser(const vector<NCToken>& tokens):index(0){
+    bool res = parse(tokens);
+}
+    
+bool NCParser::parse(const vector<NCToken>& tokens){
+    index = 0;
     
     this->tokens = tokens;
     word = tokens[0].token;
@@ -65,13 +72,7 @@ NCParser::NCParser(vector<NCToken>& tokens):index(0){
     printf("parse %lu classes\n", pRoot->classList.size());
     printf("parse %lu functions\n", pRoot->functionList.size());
     
-//    if (pFunc) {
-//        auto funcDef = dynamic_cast<NCASTFunctionDefinition*>(pFunc.get());
-//        printf("parse OK \n");
-//    }
-//    else {
-//        printf("parse fail \n");
-//    }
+    return true;
 }
 
 string NCParser::nextWord(){

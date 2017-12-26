@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D4716E621FF11269000797B1 /* NCInterpreterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4716E611FF11269000797B1 /* NCInterpreterController.m */; };
+		D4716E621FF11269000797B1 /* NCInterpreterController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4716E611FF11269000797B1 /* NCInterpreterController.mm */; };
+		D4716E651FF1E97C000797B1 /* NCConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = D4716E641FF1E97C000797B1 /* NCConsole.m */; };
 		ED2040361F77A6D300734821 /* NCClassInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED2040341F77A6D300734821 /* NCClassInstance.cpp */; };
 		ED219CA01F6D15CB0015293A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ED219C9F1F6D15CB0015293A /* main.m */; };
 		ED219CA31F6D15CB0015293A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ED219CA21F6D15CB0015293A /* AppDelegate.m */; };
@@ -24,7 +25,7 @@
 		ED219CD91F6D16370015293A /* NCInterpreter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED219CD01F6D16370015293A /* NCInterpreter.cpp */; };
 		ED219CDA1F6D16370015293A /* NCStackElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED219CD21F6D16370015293A /* NCStackElement.cpp */; };
 		ED219CE01F6D1B610015293A /* CodeTest in Resources */ = {isa = PBXBuildFile; fileRef = ED219CDF1F6D1B610015293A /* CodeTest */; };
-		EDBB6D2D1FEF62FD003CB5C5 /* NCTextDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBB6D2C1FEF62FD003CB5C5 /* NCTextDataSource.m */; };
+		EDBB6D2D1FEF62FD003CB5C5 /* NCDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBB6D2C1FEF62FD003CB5C5 /* NCDataSource.m */; };
 		EDBB6D301FEF64E0003CB5C5 /* NCTextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBB6D2F1FEF64E0003CB5C5 /* NCTextManager.m */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +41,10 @@
 
 /* Begin PBXFileReference section */
 		D4716E601FF11269000797B1 /* NCInterpreterController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCInterpreterController.h; sourceTree = "<group>"; };
-		D4716E611FF11269000797B1 /* NCInterpreterController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NCInterpreterController.m; sourceTree = "<group>"; };
+		D4716E611FF11269000797B1 /* NCInterpreterController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCInterpreterController.mm; sourceTree = "<group>"; };
+		D4716E631FF1E97C000797B1 /* NCConsole.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCConsole.h; sourceTree = "<group>"; };
+		D4716E641FF1E97C000797B1 /* NCConsole.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NCConsole.m; sourceTree = "<group>"; };
+		D4716E671FF1EDBE000797B1 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		ED2040341F77A6D300734821 /* NCClassInstance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NCClassInstance.cpp; sourceTree = "<group>"; };
 		ED2040351F77A6D300734821 /* NCClassInstance.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NCClassInstance.hpp; sourceTree = "<group>"; };
 		ED219C9B1F6D15CB0015293A /* NaiveC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NaiveC.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,8 +75,8 @@
 		ED219CD21F6D16370015293A /* NCStackElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NCStackElement.cpp; sourceTree = "<group>"; };
 		ED219CD31F6D16370015293A /* NCStackElement.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NCStackElement.hpp; sourceTree = "<group>"; };
 		ED219CDF1F6D1B610015293A /* CodeTest */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CodeTest; sourceTree = "<group>"; };
-		EDBB6D2B1FEF62FD003CB5C5 /* NCTextDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCTextDataSource.h; sourceTree = "<group>"; };
-		EDBB6D2C1FEF62FD003CB5C5 /* NCTextDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NCTextDataSource.m; sourceTree = "<group>"; };
+		EDBB6D2B1FEF62FD003CB5C5 /* NCDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCDataSource.h; sourceTree = "<group>"; };
+		EDBB6D2C1FEF62FD003CB5C5 /* NCDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NCDataSource.m; sourceTree = "<group>"; };
 		EDBB6D2E1FEF64E0003CB5C5 /* NCTextManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCTextManager.h; sourceTree = "<group>"; };
 		EDBB6D2F1FEF64E0003CB5C5 /* NCTextManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NCTextManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -95,6 +99,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D4716E661FF1E98A000797B1 /* runtime */ = {
+			isa = PBXGroup;
+			children = (
+				D4716E631FF1E97C000797B1 /* NCConsole.h */,
+				D4716E641FF1E97C000797B1 /* NCConsole.m */,
+				D4716E601FF11269000797B1 /* NCInterpreterController.h */,
+				D4716E611FF11269000797B1 /* NCInterpreterController.mm */,
+				EDBB6D2E1FEF64E0003CB5C5 /* NCTextManager.h */,
+				EDBB6D2F1FEF64E0003CB5C5 /* NCTextManager.m */,
+				EDBB6D2B1FEF62FD003CB5C5 /* NCDataSource.h */,
+				EDBB6D2C1FEF62FD003CB5C5 /* NCDataSource.m */,
+				D4716E671FF1EDBE000797B1 /* Common.h */,
+			);
+			name = runtime;
+			sourceTree = "<group>";
+		};
 		ED219C921F6D15CB0015293A = {
 			isa = PBXGroup;
 			children = (
@@ -119,16 +139,11 @@
 		ED219C9D1F6D15CB0015293A /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				ED219CA11F6D15CB0015293A /* AppDelegate.h */,
-				ED219CA21F6D15CB0015293A /* AppDelegate.m */,
-				D4716E601FF11269000797B1 /* NCInterpreterController.h */,
-				D4716E611FF11269000797B1 /* NCInterpreterController.m */,
-				EDBB6D2E1FEF64E0003CB5C5 /* NCTextManager.h */,
-				EDBB6D2F1FEF64E0003CB5C5 /* NCTextManager.m */,
-				EDBB6D2B1FEF62FD003CB5C5 /* NCTextDataSource.h */,
-				EDBB6D2C1FEF62FD003CB5C5 /* NCTextDataSource.m */,
+				D4716E661FF1E98A000797B1 /* runtime */,
 				ED219CA41F6D15CB0015293A /* ViewController.h */,
 				ED219CA51F6D15CB0015293A /* ViewController.mm */,
+				ED219CA11F6D15CB0015293A /* AppDelegate.h */,
+				ED219CA21F6D15CB0015293A /* AppDelegate.m */,
 				ED219CA71F6D15CB0015293A /* Main.storyboard */,
 				ED219CAA1F6D15CB0015293A /* Assets.xcassets */,
 				ED219CAC1F6D15CB0015293A /* LaunchScreen.storyboard */,
@@ -290,20 +305,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4716E651FF1E97C000797B1 /* NCConsole.m in Sources */,
 				ED219CD61F6D16370015293A /* NCTokenizer.cpp in Sources */,
 				ED219CA61F6D15CB0015293A /* ViewController.mm in Sources */,
 				ED2040361F77A6D300734821 /* NCClassInstance.cpp in Sources */,
 				ED219CA31F6D15CB0015293A /* AppDelegate.m in Sources */,
 				ED219CA01F6D15CB0015293A /* main.m in Sources */,
 				ED219CD71F6D16370015293A /* NCBuiltinFunction.mm in Sources */,
-				EDBB6D2D1FEF62FD003CB5C5 /* NCTextDataSource.m in Sources */,
+				EDBB6D2D1FEF62FD003CB5C5 /* NCDataSource.m in Sources */,
 				ED219CD51F6D16370015293A /* NCParser.cpp in Sources */,
 				ED219CDA1F6D16370015293A /* NCStackElement.cpp in Sources */,
 				EDBB6D301FEF64E0003CB5C5 /* NCTextManager.m in Sources */,
 				ED219CD91F6D16370015293A /* NCInterpreter.cpp in Sources */,
 				ED219CD41F6D16370015293A /* NCAST.cpp in Sources */,
 				ED219CD81F6D16370015293A /* NCCode.cpp in Sources */,
-				D4716E621FF11269000797B1 /* NCInterpreterController.m in Sources */,
+				D4716E621FF11269000797B1 /* NCInterpreterController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

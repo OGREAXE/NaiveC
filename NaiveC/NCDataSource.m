@@ -1,20 +1,20 @@
 //
-//  NCTextDataSource.m
+//  NCDataSource.m
 //  NaiveC
 //
 //  Created by 梁志远 on 24/12/2017.
 //  Copyright © 2017 Ogreaxe. All rights reserved.
 //
 
-#import "NCTextDataSource.h"
+#import "NCDataSource.h"
 
-@interface NCTextDataSource()<UITextViewDelegate>
+@interface NCDataSource()<UITextViewDelegate>
 
 @property (nonatomic) UITextView * textView;
 
 @end
 
-@implementation NCTextDataSource
+@implementation NCDataSource
 
 -(id)initWithTextView:(UITextView*)textView{
     self = [super init];

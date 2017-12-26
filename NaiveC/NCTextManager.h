@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NCTextDataSource.h"
+#import "NCDataSource.h"
 
-@interface NCTextManager : NSObject<NCTextDataResponderDelegate>
+@interface NCTextManager : NSObject<NCDataSourceDelegate>
 
--(id)initWithDataSource:(NCTextDataSource*)dataSource;
+-(id)initWithDataSource:(NCDataSource*)dataSource;
 
 @end

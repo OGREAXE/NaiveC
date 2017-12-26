@@ -7,10 +7,28 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NCTextDataSource.h"
+#import "NCDataSource.h"
 
-@interface NCInterpreterController : NSObject
+@class NCInterpreterController;
 
--(id)initWithDataSource:(NCTextDataSource*)dataSource;
+@protocol NCInterpreterControllerDelegate<NSObject>
+
+-(void)didFinishTokenization:(NCInterpreterController*)controller;
+
+-(void)didFinishParsing:(NCInterpreterController*)controller;
+
+@end
+
+@interface NCInterpreterController : NSObject<NCDataSourceDelegate>
+
+-(id)initWithDataSource:(NCDataSource*)dataSource;
+
+@property (nonatomic) NSArray * tokenArray;
+
+@property (nonatomic) id<NCInterpreterControllerDelegate> delegate;
+
+-(BOOL)reinterprete;
+
+-(BOOL)reparse;
 
 @end

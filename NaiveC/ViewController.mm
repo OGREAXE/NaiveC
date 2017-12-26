@@ -31,7 +31,7 @@
     
     //    string str = "int i=0 \n if(i==0)i=2+1";
     
-    _textManager = [[NCTextManager alloc] initWithDataSource:[[NCTextDataSource alloc] initWithTextView:self.textView]];
+    _textManager = [[NCTextManager alloc] initWithDataSource:[[NCDataSource alloc] initWithTextView:self.textView]];
     
     NSError * error = nil;
     NSString * filepath = [[NSBundle mainBundle] pathForResource:@"CodeTest" ofType:nil];

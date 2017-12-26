@@ -40,10 +40,11 @@ private:
     string token;
     TokenizerStatus status;
 public:
+    NCTokenizer():status(Unknown){};
     NCTokenizer(string&str);
+    bool tokenize(string&str);
     const vector<NCToken> & getTokens();
 protected:
-    bool tokenize(string&str);
     
     bool isCharForIdentifier(char c);
     bool isNumber(char c);
