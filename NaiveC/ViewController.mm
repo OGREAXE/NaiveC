@@ -79,11 +79,6 @@
     // Dispose of any resources that can be recreated.
 }
 
--(IBAction)didTapCompile:(id)sender{
-    self.outputView.text = @"";
-//    [self testNC];
-}
-
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
@@ -95,5 +90,38 @@
     self.outputView.text = [[[self.outputView.text stringByAppendingString:str]stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"] stringByAppendingString:@"\n"];
 }
 
+#pragma mark shortcut input
+-(IBAction)didTapFor:(id)sender{
+    
+}
 
+-(IBAction)didTapWhile:(id)sender{
+    
+}
+-(IBAction)didTapIf:(id)sender{
+    
+}
+-(IBAction)didTapIfElse:(id)sender{
+    
+}
+-(IBAction)didTapFunction:(id)sender{
+    
+}
+//{
+-(IBAction)didTapPar1:(id)sender{
+    
+}
+//(
+-(IBAction)didTapPar2:(id)sender{
+    
+}
+
+-(IBAction)didTapCompile:(id)sender{
+    self.outputView.text = @"";
+    //    [self testNC];
+}
+
+-(IBAction)didTapUndo:(id)sender{
+    
+}
 @end

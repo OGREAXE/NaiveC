@@ -101,13 +101,14 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
+    __block BOOL shouldChange = YES;
     [self.delegateArray enumerateObjectsUsingBlock:^(id<NCDataSourceDelegate>  delegate, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([delegate respondsToSelector:@selector(dataSource:shouldChangeTextInRange:replacementText:)]) {
-            [delegate dataSource:self shouldChangeTextInRange:range replacementText:text];
+            shouldChange = [delegate dataSource:self shouldChangeTextInRange:range replacementText:text];
         }
     }];
     
-    return YES;
+    return shouldChange;
 }
 
 @end

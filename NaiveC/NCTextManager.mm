@@ -126,11 +126,11 @@
             }
             
             range.length += 1;
-            [dataSource replaceRange:range withText:formatedEnter];
+//            [dataSource replaceRange:range withText:formatedEnter];
 
-//            dispatch_async(dispatch_get_main_queue(), ^{
-////                dataSource.selectedRange = selectedRange;
-//            });
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [dataSource replaceRange:range withText:formatedEnter];
+            });
             
             //change pos after a short time or cursor is not right
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
