@@ -11,6 +11,7 @@
 		D4716E651FF1E97C000797B1 /* NCConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = D4716E641FF1E97C000797B1 /* NCConsole.m */; };
 		D4716E691FF26F24000797B1 /* CodeTest in Resources */ = {isa = PBXBuildFile; fileRef = D4716E681FF26F24000797B1 /* CodeTest */; };
 		D4716E6C1FF3980A000797B1 /* NCCodeTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = D4716E6B1FF3980A000797B1 /* NCCodeTemplate.m */; };
+		D4716E6E1FF3C231000797B1 /* image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4716E6D1FF3C231000797B1 /* image.xcassets */; };
 		ED2040361F77A6D300734821 /* NCClassInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED2040341F77A6D300734821 /* NCClassInstance.cpp */; };
 		ED219CA01F6D15CB0015293A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ED219C9F1F6D15CB0015293A /* main.m */; };
 		ED219CA31F6D15CB0015293A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ED219CA21F6D15CB0015293A /* AppDelegate.m */; };
@@ -50,6 +51,7 @@
 		D4716E681FF26F24000797B1 /* CodeTest */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CodeTest; sourceTree = "<group>"; };
 		D4716E6A1FF3980A000797B1 /* NCCodeTemplate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCCodeTemplate.h; sourceTree = "<group>"; };
 		D4716E6B1FF3980A000797B1 /* NCCodeTemplate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NCCodeTemplate.m; sourceTree = "<group>"; };
+		D4716E6D1FF3C231000797B1 /* image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = image.xcassets; sourceTree = "<group>"; };
 		ED2040341F77A6D300734821 /* NCClassInstance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NCClassInstance.cpp; sourceTree = "<group>"; };
 		ED2040351F77A6D300734821 /* NCClassInstance.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NCClassInstance.hpp; sourceTree = "<group>"; };
 		ED219C9B1F6D15CB0015293A /* NaiveC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NaiveC.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,6 +159,7 @@
 				ED219CAC1F6D15CB0015293A /* LaunchScreen.storyboard */,
 				ED219CAF1F6D15CB0015293A /* Info.plist */,
 				ED219C9E1F6D15CB0015293A /* Supporting Files */,
+				D4716E6D1FF3C231000797B1 /* image.xcassets */,
 			);
 			name = iOS;
 			path = NaiveC;
@@ -295,6 +298,7 @@
 				ED219CAE1F6D15CB0015293A /* LaunchScreen.storyboard in Resources */,
 				ED219CAB1F6D15CB0015293A /* Assets.xcassets in Resources */,
 				D4716E691FF26F24000797B1 /* CodeTest in Resources */,
+				D4716E6E1FF3C231000797B1 /* image.xcassets in Resources */,
 				ED219CA91F6D15CB0015293A /* Main.storyboard in Resources */,
 				ED219CE01F6D1B610015293A /* CodeTestX in Resources */,
 			);
