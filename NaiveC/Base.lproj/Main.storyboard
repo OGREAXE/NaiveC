@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="F97-O9-NfO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="F97-O9-NfO">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -131,20 +131,42 @@
                                             <action selector="didTapCompile:" destination="F97-O9-NfO" eventType="touchUpInside" id="Noc-I2-CPG"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="phk-lv-foH">
+                                        <rect key="frame" x="91" y="30" width="30" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="eai-sJ-zZk"/>
+                                        </constraints>
+                                        <state key="normal" image="arrow_left"/>
+                                        <connections>
+                                            <action selector="didTapMoveLeft:" destination="F97-O9-NfO" eventType="touchUpInside" id="O5c-C5-vE9"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Fo-ZO-kHG">
+                                        <rect key="frame" x="124" y="30" width="30" height="24"/>
+                                        <state key="normal" image="arrow_right"/>
+                                        <connections>
+                                            <action selector="didTapMoveRight:" destination="F97-O9-NfO" eventType="touchUpInside" id="O0Z-Bc-DXJ"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="Nlh-0c-7FO" firstAttribute="height" secondItem="Lr9-nc-GEP" secondAttribute="height" id="0Ab-Js-JOF"/>
+                                    <constraint firstItem="5Fo-ZO-kHG" firstAttribute="height" secondItem="phk-lv-foH" secondAttribute="height" id="0ml-Ue-tB9"/>
                                     <constraint firstItem="b8E-Wc-Oue" firstAttribute="centerY" secondItem="Lr9-nc-GEP" secondAttribute="centerY" id="25z-8y-iMe"/>
                                     <constraint firstItem="Hmr-FJ-tLn" firstAttribute="leading" secondItem="iI8-4C-x9n" secondAttribute="trailing" constant="5" id="9Uq-XC-WVY"/>
                                     <constraint firstItem="Hmr-FJ-tLn" firstAttribute="centerY" secondItem="Lr9-nc-GEP" secondAttribute="centerY" id="ALW-2g-H7p"/>
+                                    <constraint firstItem="phk-lv-foH" firstAttribute="height" secondItem="sQn-dU-a9a" secondAttribute="height" id="Csc-ig-bJt"/>
+                                    <constraint firstItem="phk-lv-foH" firstAttribute="centerY" secondItem="sQn-dU-a9a" secondAttribute="centerY" id="FEP-G8-JFB"/>
                                     <constraint firstItem="iI8-4C-x9n" firstAttribute="centerY" secondItem="Lr9-nc-GEP" secondAttribute="centerY" id="FSw-UA-2ei"/>
                                     <constraint firstItem="Nlh-0c-7FO" firstAttribute="leading" secondItem="Dvf-JE-JVP" secondAttribute="trailing" constant="5" id="FTd-hM-TFv"/>
                                     <constraint firstItem="b8E-Wc-Oue" firstAttribute="leading" secondItem="8n0-ld-0Km" secondAttribute="trailing" constant="5" id="G3i-4W-S4G"/>
+                                    <constraint firstItem="5Fo-ZO-kHG" firstAttribute="width" secondItem="phk-lv-foH" secondAttribute="width" id="L3b-uq-f1I"/>
                                     <constraint firstItem="8n0-ld-0Km" firstAttribute="height" secondItem="Lr9-nc-GEP" secondAttribute="height" id="LwR-bh-eX4"/>
                                     <constraint firstItem="sQn-dU-a9a" firstAttribute="height" secondItem="esU-m8-bsM" secondAttribute="height" id="Lxc-rc-Osn"/>
                                     <constraint firstAttribute="height" constant="67" id="OKz-Qg-l5D"/>
                                     <constraint firstItem="sQn-dU-a9a" firstAttribute="centerY" secondItem="esU-m8-bsM" secondAttribute="centerY" id="PcG-hI-3px"/>
+                                    <constraint firstItem="5Fo-ZO-kHG" firstAttribute="leading" secondItem="phk-lv-foH" secondAttribute="trailing" constant="3" id="QEU-KE-Nsa"/>
                                     <constraint firstItem="esU-m8-bsM" firstAttribute="top" secondItem="Lr9-nc-GEP" secondAttribute="bottom" constant="3" id="QIc-0p-ixV"/>
                                     <constraint firstItem="Dvf-JE-JVP" firstAttribute="leading" secondItem="Lr9-nc-GEP" secondAttribute="trailing" constant="5" id="V37-ax-6cU"/>
                                     <constraint firstItem="Dvf-JE-JVP" firstAttribute="centerY" secondItem="Lr9-nc-GEP" secondAttribute="centerY" id="WR0-Cj-l24"/>
@@ -156,8 +178,10 @@
                                     <constraint firstItem="Hmr-FJ-tLn" firstAttribute="height" secondItem="Lr9-nc-GEP" secondAttribute="height" id="gry-Dp-T7P"/>
                                     <constraint firstItem="Nlh-0c-7FO" firstAttribute="centerY" secondItem="Lr9-nc-GEP" secondAttribute="centerY" id="mFd-5m-7Au"/>
                                     <constraint firstItem="esU-m8-bsM" firstAttribute="leading" secondItem="qFB-I2-GhJ" secondAttribute="leading" constant="5" id="o80-Sg-Zac"/>
+                                    <constraint firstItem="phk-lv-foH" firstAttribute="leading" secondItem="sQn-dU-a9a" secondAttribute="trailing" constant="5" id="oAu-7M-5tL"/>
                                     <constraint firstItem="Lr9-nc-GEP" firstAttribute="leading" secondItem="qFB-I2-GhJ" secondAttribute="leading" constant="5" id="uqq-w7-Iw4"/>
                                     <constraint firstItem="8n0-ld-0Km" firstAttribute="centerY" secondItem="Lr9-nc-GEP" secondAttribute="centerY" id="vya-kT-cV7"/>
+                                    <constraint firstItem="5Fo-ZO-kHG" firstAttribute="centerY" secondItem="phk-lv-foH" secondAttribute="centerY" id="x2N-D7-tB6"/>
                                     <constraint firstItem="Lr9-nc-GEP" firstAttribute="top" secondItem="qFB-I2-GhJ" secondAttribute="top" constant="3" id="xnm-sh-t9G"/>
                                     <constraint firstItem="iI8-4C-x9n" firstAttribute="leading" secondItem="b8E-Wc-Oue" secondAttribute="trailing" constant="5" id="zdg-am-D11"/>
                                 </constraints>
@@ -193,4 +217,8 @@
             <point key="canvasLocation" x="140" y="115.59220389805098"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="arrow_left" width="32" height="32"/>
+        <image name="arrow_right" width="32" height="32"/>
+    </resources>
 </document>

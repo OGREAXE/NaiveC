@@ -127,4 +127,18 @@
 -(IBAction)didTapUndo:(id)sender{
     
 }
+
+-(IBAction)didTapMoveLeft:(id)sender{
+    NSRange range = self.textViewDataSource.selectedRange;
+    range.location --;
+    self.textViewDataSource.selectedRange = range;
+}
+
+-(IBAction)didTapMoveRight:(id)sender{
+    NSRange range = self.textViewDataSource.selectedRange;
+    range.location ++;
+    self.textViewDataSource.selectedRange = range;
+}
+
+
 @end
