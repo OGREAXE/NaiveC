@@ -82,6 +82,9 @@
     UITextPosition *beginning = self.textView.beginningOfDocument;
     UITextPosition *start = [self.textView positionFromPosition:beginning offset:range.location];
     UITextPosition *end = [self.textView positionFromPosition:start offset:range.length];
+    if (end == nil) {
+        end = self.textView.endOfDocument;
+    }
     UITextRange *textRange = [self.textView textRangeFromPosition:start toPosition:end];
     
     [self.textView replaceRange:textRange withText:text];
