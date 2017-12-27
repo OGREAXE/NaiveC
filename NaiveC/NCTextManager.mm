@@ -24,6 +24,8 @@
 
 @property (nonatomic) NSMutableArray* parensisBalanceArray;
 
+@property (nonatomic) BOOL shouldRecaculateParensis;
+
 @end
 
 @implementation NCTextManager
@@ -34,6 +36,7 @@
         _dataSource = dataSource;
         [_dataSource addDelegate:self];
         
+        _shouldRecaculateParensis = NO;
         _parensisBalanceArray = [NSMutableArray array];
     }
     return self;
@@ -45,27 +48,22 @@
 }
 
 -(void)textDidChange:(NCDataSource*)dataSource{
-    [self countParensisPairArrayWithText:dataSource.text];
+    if (self.shouldRecaculateParensis) {
+        [self countParensisPairArrayWithText:dataSource.text];
+        self.shouldRecaculateParensis = NO;
+    }
 }
 
 - (BOOL)dataSource:(NCDataSource *)dataSource shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    if ([text isEqualToString:@"\n"]) {
-//        NSUInteger balance = 0;
-//        if (range.location == dataSource.text.length) {
-//            balance = ((NSNumber*)[self.parensisBalanceArray lastObject]).unsignedIntegerValue;
-//        }
-//        else {
-//            balance = ((NSNumber*)[self.parensisBalanceArray objectAtIndex:range.location]).unsignedIntegerValue;
-//        }
-//
-//        NSMutableString * formatedEnter = [NSMutableString stringWithString:@"\n"];
-//        for (int i = 0; i<balance-1; i++) {
-//            //4 space
-//            [formatedEnter appendString:@"    "];
-//        }
-//        [formatedEnter appendString:@"}"];
-//
-//        dataSource.text = [dataSource.text stringByReplacingCharactersInRange:range withString:formatedEnter];
+    if ([text length] == 0){
+        //backspace
+        NSString * deletedText = [dataSource.text substringWithRange:range];
+        if ([deletedText isEqualToString:@"{"]|| [deletedText isEqualToString:@"}"]){
+            //recalculate parensis pair
+            _shouldRecaculateParensis = YES;
+        }
+    }
+    else if ([text isEqualToString:@"\n"]) {
         int lBalance = 0, totalBalance = 0;
         int insertPos = -1;
         BOOL insertAfterLeftParensis = NO;
@@ -118,6 +116,9 @@
                     selectedRange.location += formatedEnter.length+1;
                     [formatedEnter appendString:@"}"];
                 }
+                
+                //recalculate parensis pair
+                _shouldRecaculateParensis = YES;
             }
             else {
                 selectedRange.location = selectedRange.location  + formatedEnter.length + 4;
@@ -130,6 +131,8 @@
 //            dispatch_async(dispatch_get_main_queue(), ^{
 ////                dataSource.selectedRange = selectedRange;
 //            });
+            
+            //change pos after a short time or cursor is not right
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 dataSource.selectedRange = selectedRange;
             });
@@ -138,7 +141,8 @@
         }
     }
     else if ([text isEqualToString:@"{"]|| [text isEqualToString:@"}"]){
-    
+        //recalculate parensis pair
+        _shouldRecaculateParensis = YES;
     }
     
     return YES;
