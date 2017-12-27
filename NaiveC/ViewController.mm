@@ -119,6 +119,8 @@
 -(IBAction)didTapCompile:(id)sender{
     self.outputView.text = @"";
     //    [self testNC];
+    
+    [self.interpreter runWithDataSource:self.textViewDataSource];
 }
 
 -(IBAction)didTapUndo:(id)sender{

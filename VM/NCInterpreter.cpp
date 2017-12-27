@@ -28,9 +28,11 @@ void NCFrame::insertVariable(string&name, NCStackPointerElement & pObject){
     localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackPointerElement(pObject.getRawObjectPointer()));
 }
 
-
-
 NCInterpreter::NCInterpreter(shared_ptr<NCASTRoot> root){
+    this->initWithRoot(root);
+}
+
+bool NCInterpreter::initWithRoot(shared_ptr<NCASTRoot> root){
     auto functionDefList = root->functionList;
     for (auto funcDef :functionDefList) {
         auto func = dynamic_cast<NCASTFunctionDefinition*>(funcDef.get());
@@ -38,6 +40,7 @@ NCInterpreter::NCInterpreter(shared_ptr<NCASTRoot> root){
     }
     
     intBuiltiFunctionMap();
+    return true;
 }
 
 bool NCInterpreter::isClassName(const string & name){

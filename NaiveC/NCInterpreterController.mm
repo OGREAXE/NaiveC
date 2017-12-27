@@ -34,6 +34,7 @@
 
 -(void)doInit{
     _parserDict = [NSMutableDictionary dictionary];
+    _interpreter = new NCInterpreter();
 }
 
 -(void)textDidLoad:(NCDataSource*)dataSource{
@@ -54,15 +55,7 @@
     
     auto tokens = _tokenizer->getTokens();
     
-    NCParser * parser = nullptr;
-    NSValue * parserValue = [self.parserDict objectForKey:dataSource.sourceId];
-    if (!parserValue) {
-        parser = new NCParser();
-        self.parserDict[dataSource.sourceId] = [NSValue valueWithPointer:parser];
-    }
-    else {
-        parser = (NCParser *)parserValue.pointerValue;
-    }
+    NCParser * parser = [self parserForDataSource:dataSource];
 
     if(!parser->parse(tokens)){
         NCLog(@"parse fail %@");
@@ -73,11 +66,31 @@
     }
 }
 
+-(NCParser*)parserForDataSource:(NCDataSource*)dataSource{
+    NCParser * parser = nullptr;
+    NSValue * parserValue = [self.parserDict objectForKey:dataSource.sourceId];
+    if (!parserValue) {
+        parser = new NCParser();
+        self.parserDict[dataSource.sourceId] = [NSValue valueWithPointer:parser];
+    }
+    else {
+        parser = (NCParser *)parserValue.pointerValue;
+    }
+    return parser;
+}
+
 -(void)textDidChange:(NCDataSource*)dataSource{
     
 }
 
 - (BOOL)dataSource:(NCDataSource *)dataSource shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    return YES;
+}
+
+-(BOOL)runWithDataSource:(NCDataSource*)source{
+    auto parser = [self parserForDataSource:source];
+    _interpreter->initWithRoot(parser->getRoot());
+    _interpreter->invoke_main();
     return YES;
 }
 

@@ -75,6 +75,9 @@ private:
     bool tree_composeArgmemnts(NCFrame & frame,NCMethodCallExpr*node,vector<NCParameter>& parametersExpr, vector<shared_ptr<NCStackElement>>&args);
 public:
     NCInterpreter(shared_ptr<NCASTRoot> root);
+    NCInterpreter(){}
+    
+    bool initWithRoot(shared_ptr<NCASTRoot> root);
     
     bool invoke(string function, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
     

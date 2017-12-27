@@ -25,6 +25,8 @@
 
 -(BOOL)reinterprete;
 
+-(BOOL)runWithDataSource:(NCDataSource*)source;
+
 -(BOOL)reparse;
 
 @end
