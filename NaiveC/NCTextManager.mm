@@ -67,6 +67,8 @@
 //
 //        dataSource.text = [dataSource.text stringByReplacingCharactersInRange:range withString:formatedEnter];
         int lBalance = 0, totalBalance = 0;
+        int insertPos = -1;
+        BOOL insertAfterLeftParensis = NO;
         for (int i=0; i<self.parensisBalanceArray.count; i++) {
             ParensisInfo * pInfo = self.parensisBalanceArray[i];
             if (pInfo.position < range.location) {
@@ -80,6 +82,13 @@
                 }
             }
             else {
+                if (insertPos == -1) {
+                    insertPos = i;
+                    if (i>0 && ((ParensisInfo *)self.parensisBalanceArray[i-1]).charactor == '{') {
+                        insertAfterLeftParensis = YES;
+                    }
+                }
+                
                 if (pInfo.charactor == '{') {
                     totalBalance ++;
                 }
@@ -93,29 +102,43 @@
             return YES;
         }
         else {
+            NSRange selectedRange = dataSource.selectedRange;
             NSMutableString * formatedEnter = [NSMutableString stringWithString:@"\n"];
             for (int i = 0; i<lBalance-1; i++) {
                 //4 space
                 [formatedEnter appendString:@"    "];
             }
             if (totalBalance>0) {
-                [formatedEnter appendString:@"}"];
+                //balance not met, need to add '}'
+                if (insertAfterLeftParensis) {
+                    selectedRange.location = selectedRange.location  + formatedEnter.length + 4;
+                    formatedEnter = [NSMutableString stringWithFormat:@"%@    %@}",formatedEnter,formatedEnter];
+                }
+                else {
+                    selectedRange.location += formatedEnter.length+1;
+                    [formatedEnter appendString:@"}"];
+                }
             }
             else {
+                selectedRange.location = selectedRange.location  + formatedEnter.length + 4;
                 [formatedEnter appendString:@"    "];
             }
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                            dataSource.text = [dataSource.text stringByReplacingCharactersInRange:range withString:formatedEnter];
+            range.length += 1;
+            [dataSource replaceRange:range withText:formatedEnter];
 
+//            dispatch_async(dispatch_get_main_queue(), ^{
+////                dataSource.selectedRange = selectedRange;
+//            });
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                dataSource.selectedRange = selectedRange;
             });
-//            dataSource.text = [dataSource.text stringByReplacingCharactersInRange:range withString:formatedEnter];
             
             return NO;
         }
     }
     else if ([text isEqualToString:@"{"]|| [text isEqualToString:@"}"]){
-        
+    
     }
     
     return YES;

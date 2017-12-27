@@ -78,6 +78,15 @@
     _textView.selectedRange = selectedRange;
 }
 
+-(void)replaceRange:(NSRange)range withText:(NSString*)text{
+    UITextPosition *beginning = self.textView.beginningOfDocument;
+    UITextPosition *start = [self.textView positionFromPosition:beginning offset:range.location];
+    UITextPosition *end = [self.textView positionFromPosition:start offset:range.length];
+    UITextRange *textRange = [self.textView textRangeFromPosition:start toPosition:end];
+    
+    [self.textView replaceRange:textRange withText:text];
+}
+
 #pragma mark textView delegate
 -(void)textViewDidChange:(UITextView *)textView{
     [self.delegateArray enumerateObjectsUsingBlock:^(id<NCDataSourceDelegate>  delegate, NSUInteger idx, BOOL * _Nonnull stop) {

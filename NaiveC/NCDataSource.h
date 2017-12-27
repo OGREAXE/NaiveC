@@ -35,6 +35,8 @@
 
 -(void)deleteDelegate:(id<NCDataSourceDelegate>)aDelegate;
 
+-(void)replaceRange:(NSRange)range withText:(NSString*)text;
+
 @end
  
 @interface NCTextViewDataSource:NCDataSource
