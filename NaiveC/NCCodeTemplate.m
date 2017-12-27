@@ -16,22 +16,22 @@
 
 @implementation NCCodeTemplate
 
-+(NSString*)insertTemplate:(NCCodeTemplateType)template baseIndent:(NSString*)indent{
++(NSString*)templateWithType:(NCCodeTemplateType)template baseIndent:(NSString*)indent{
     switch (template) {
         case NCCodeTemplateIf:
-            return [self.class insertTemplateString:TEMPLATE_IF_STR baseIndent:indent];
+            return [self.class templateString:TEMPLATE_IF_STR baseIndent:indent];
             break;
         case NCCodeTemplateIfElse:
-            return [self.class insertTemplateString:TEMPLATE_IFELSE_STR baseIndent:indent];
+            return [self.class templateString:TEMPLATE_IFELSE_STR baseIndent:indent];
             break;
         case NCCodeTemplateFor:
-            return [self.class insertTemplateString:TEMPLATE_FOR_STR baseIndent:indent];
+            return [self.class templateString:TEMPLATE_FOR_STR baseIndent:indent];
             break;
         case NCCodeTemplateWhile:
-            return [self.class insertTemplateString:TEMPLATE_WHILE_STR baseIndent:indent];
+            return [self.class templateString:TEMPLATE_WHILE_STR baseIndent:indent];
             break;
         case NCCodeTemplateFunc:
-            return [self.class insertTemplateString:TEMPLATE_FUNC_STR baseIndent:indent];
+            return [self.class templateString:TEMPLATE_FUNC_STR baseIndent:indent];
             break;
         default:
             break;
@@ -39,14 +39,18 @@
     return nil;
 }
 
-+(NSString*)insertTemplateString:(NSString*)templateString baseIndent:(NSString*)indent{
++(NSString*)templateString:(NSString*)templateString baseIndent:(NSString*)indent{
     NSMutableString * finalString = [NSMutableString new];
     
     NSArray * components = [templateString componentsSeparatedByString:@"\n"];
     [components enumerateObjectsUsingBlock:^(id  obj, NSUInteger idx, BOOL * stop) {
         NSString * part = obj;
-        [finalString appendString:indent];
+        if (idx!=0) {
+            [finalString appendString:indent];
+        }
+        
         [finalString appendString:part];
+        
         if (idx != components.count-1) {
             [finalString appendString:@"\n"];
         }

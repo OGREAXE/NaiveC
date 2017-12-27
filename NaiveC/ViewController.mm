@@ -12,6 +12,7 @@
 #include "NCInterpreter.hpp"
 #include "NCTextManager.h"
 #import "NCInterpreterController.h"
+#import "NCCodeTemplate.h"
 
 @interface ViewController ()
 
@@ -92,20 +93,20 @@
 
 #pragma mark shortcut input
 -(IBAction)didTapFor:(id)sender{
-    
+    [self.textManager insertCodeTemplate:NCCodeTemplateFor];
 }
 
 -(IBAction)didTapWhile:(id)sender{
-    
+    [self.textManager insertCodeTemplate:NCCodeTemplateWhile];
 }
 -(IBAction)didTapIf:(id)sender{
-    
+    [self.textManager insertCodeTemplate:NCCodeTemplateIf];
 }
 -(IBAction)didTapIfElse:(id)sender{
-    
+    [self.textManager insertCodeTemplate:NCCodeTemplateIfElse];
 }
 -(IBAction)didTapFunction:(id)sender{
-    
+    [self.textManager insertCodeTemplate:NCCodeTemplateFunc];
 }
 //{
 -(IBAction)didTapPar1:(id)sender{
