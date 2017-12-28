@@ -82,7 +82,7 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self.view endEditing:YES];
+//    [self.view endEditing:YES];
 }
 
 -(void)didReceivePrintNotification:(NSNotification*)notification{
@@ -138,6 +138,31 @@
     NSRange range = self.textViewDataSource.selectedRange;
     range.location ++;
     self.textViewDataSource.selectedRange = range;
+}
+
+-(IBAction)didTapMoveUp:(id)sender{
+    CGRect rec = [self.textView firstRectForRange:self.textView.selectedTextRange];
+    CGPoint currentPoint = rec.origin;
+    currentPoint.y -= self.textView.font.pointSize;
+    UITextRange * newrange = [_textView characterRangeAtPoint:currentPoint];
+    
+    const NSInteger location = [_textView offsetFromPosition:_textView.beginningOfDocument toPosition:newrange.start];
+    
+    
+    self.textView.selectedRange = NSMakeRange(location, 0);
+}
+
+-(IBAction)didTapMoveDown:(id)sender{
+    CGRect rec = [self.textView firstRectForRange:self.textView.selectedTextRange];
+    CGPoint currentPoint = rec.origin;
+    currentPoint.y += self.textView.font.pointSize * 2;
+    UITextRange * newrange = [_textView characterRangeAtPoint:currentPoint];
+    
+    const NSInteger location = [_textView offsetFromPosition:_textView.beginningOfDocument toPosition:newrange.start];
+    
+    
+    self.textView.selectedRange = NSMakeRange(location, 0);
+    
 }
 
 
