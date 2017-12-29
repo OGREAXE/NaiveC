@@ -40,9 +40,14 @@ NCParser::NCParser(shared_ptr<const vector<NCToken>>& tokens):index(0){
 }
     
 bool NCParser::parse(shared_ptr<const vector<NCToken>>& tokens){
-    index = 0;
-    
     this->tokens = tokens;
+    
+    for (int i=0; i<tokens->size(); i++) {
+        auto tok = (*tokens)[i];
+        printf("%s  ",tok.token.c_str());
+    }
+    
+    index = 0;
     word = (*tokens)[0].token;
     
     pRoot = shared_ptr<NCASTRoot>(new NCASTRoot());

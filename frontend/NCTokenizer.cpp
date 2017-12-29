@@ -25,6 +25,9 @@ NCTokenizer::NCTokenizer(string&str){
 
 bool NCTokenizer::tokenize(string&str){
     
+    tokens->clear();
+    token = "";
+    
     for (int i=0; i<str.size(); i++) {
         char c = str[i];
         

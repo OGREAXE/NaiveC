@@ -38,8 +38,12 @@
 }
 
 -(void)textDidLoad:(NCDataSource*)dataSource{
+    [self reparseSource:dataSource];
+}
+
+-(NCParser *)reparseSource:(NCDataSource*)dataSource{
     if (!dataSource.text || dataSource.text.length == 0) {
-        return;
+        return nil;
     }
     
     string str = dataSource.text.UTF8String;
@@ -50,20 +54,21 @@
     
     if (!_tokenizer->tokenize(str)) {
         NCLog(@"tokenization fail %@");
-        return;
+        return nil;
     }
     
     auto tokens = _tokenizer->getTokens();
     
     NCParser * parser = [self parserForDataSource:dataSource];
-
+    
     if(!parser->parse(tokens)){
         NCLog(@"parse fail %@");
-        return;
+        return nil;
     }
     if ([self.delegate respondsToSelector:@selector(interpreterController:didFinishParsingDataSource:WithParser:)]) {
         [self.delegate interpreterController:self didFinishParsingDataSource:dataSource WithParser:parser];
     }
+    return parser;
 }
 
 -(NCParser*)parserForDataSource:(NCDataSource*)dataSource{
@@ -88,7 +93,7 @@
 }
 
 -(BOOL)runWithDataSource:(NCDataSource*)source{
-    auto parser = [self parserForDataSource:source];
+    auto parser = [self reparseSource:source];
     _interpreter->initWithRoot(parser->getRoot());
     _interpreter->invoke_main();
     return YES;

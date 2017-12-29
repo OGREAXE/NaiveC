@@ -7,9 +7,10 @@ string trim(string str){
     string res = ""
     for (int i=0;i<str.length();i=i+1){
         string chr = str.charAt(i)
-        if(chr != " "){
-            res = res + chr
+        if(chr == " "){
+            chr = "_"
         }
+        res = res + chr
     }
     return res
 }
