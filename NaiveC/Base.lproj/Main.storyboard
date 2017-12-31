@@ -1,19 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="F97-O9-NfO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="J6D-9c-wuh">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="lZ9-EW-mKg">
+            <objects>
+                <navigationController id="J6D-9c-wuh" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QBe-Mq-POQ">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="A2q-2n-sFF" kind="relationship" relationship="rootViewController" id="p9t-H9-k1R"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KgS-gf-Kao" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1821" y="97"/>
+        </scene>
+        <!--Project Content View Controller-->
+        <scene sceneID="1dD-FV-56c">
+            <objects>
+                <viewController storyboardIdentifier="NCProjectContentViewController" id="A2q-2n-sFF" customClass="NCProjectContentViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4hf-IR-4my"/>
+                        <viewControllerLayoutGuide type="bottom" id="1x0-0m-MaB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZjL-74-d9x">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4aC-qT-VcJ">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
+                                <color key="backgroundColor" red="0.96852558850000003" green="0.9686878324" blue="0.96850281949999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="A2q-2n-sFF" id="wZI-M1-uBg"/>
+                                    <outlet property="delegate" destination="A2q-2n-sFF" id="nAY-SE-30s"/>
+                                </connections>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rU5-qR-8Gt">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h0b-4X-1eS">
+                                        <rect key="frame" x="137" y="0.0" width="100" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="Y1y-YV-b6Q"/>
+                                        </constraints>
+                                        <state key="normal" title="New File"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="h0b-4X-1eS" firstAttribute="centerX" secondItem="rU5-qR-8Gt" secondAttribute="centerX" id="NG8-VL-LZW"/>
+                                    <constraint firstItem="h0b-4X-1eS" firstAttribute="top" secondItem="rU5-qR-8Gt" secondAttribute="top" id="dOj-8p-acJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="h0b-4X-1eS" secondAttribute="bottom" id="qVo-Jl-kfN"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="rU5-qR-8Gt" firstAttribute="leading" secondItem="ZjL-74-d9x" secondAttribute="leading" id="1Ra-qh-cBO"/>
+                            <constraint firstItem="1x0-0m-MaB" firstAttribute="top" secondItem="4aC-qT-VcJ" secondAttribute="bottom" constant="50" id="7pm-08-QTQ"/>
+                            <constraint firstItem="1x0-0m-MaB" firstAttribute="top" secondItem="rU5-qR-8Gt" secondAttribute="bottom" id="8GE-Tc-p1O"/>
+                            <constraint firstItem="rU5-qR-8Gt" firstAttribute="top" secondItem="4aC-qT-VcJ" secondAttribute="bottom" id="WUs-PW-ZGg"/>
+                            <constraint firstItem="4aC-qT-VcJ" firstAttribute="top" secondItem="ZjL-74-d9x" secondAttribute="top" id="iYg-wO-YvH"/>
+                            <constraint firstAttribute="trailing" secondItem="4aC-qT-VcJ" secondAttribute="trailing" id="jYW-Gd-UmB"/>
+                            <constraint firstAttribute="trailing" secondItem="rU5-qR-8Gt" secondAttribute="trailing" id="lHZ-3l-opl"/>
+                            <constraint firstItem="4aC-qT-VcJ" firstAttribute="leading" secondItem="ZjL-74-d9x" secondAttribute="leading" id="mDa-hC-d1q"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="JrZ-gs-L80"/>
+                    <connections>
+                        <outlet property="tableView" destination="4aC-qT-VcJ" id="NzZ-af-9qI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mdc-pQ-ffK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-832.79999999999995" y="102.99850074962519"/>
+        </scene>
+        <!--Editor View Controller-->
         <scene sceneID="NLz-xH-bCf">
             <objects>
-                <viewController id="F97-O9-NfO" customClass="ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NCEditorViewController" id="F97-O9-NfO" customClass="NCEditorViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ipa-zg-2n2"/>
                         <viewControllerLayoutGuide type="bottom" id="XI3-JN-nHL"/>

@@ -1,20 +1,22 @@
 //
-//  ViewController.m
+//  NCEditorViewController.m
 //  NaiveC
 //
 //  Created by 梁志远 on 16/09/2017.
 //  Copyright © 2017 Ogreaxe. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "NCEditorViewController.h"
+#import "NCInterpreterController.h"
+#import "NCCodeTemplate.h"
+#import "NCProject.h"
+
 #include "NCTokenizer.hpp"
 #include "NCParser.hpp"
 #include "NCInterpreter.hpp"
 #include "NCTextManager.h"
-#import "NCInterpreterController.h"
-#import "NCCodeTemplate.h"
 
-@interface ViewController ()
+@interface NCEditorViewController ()
 
 @property (weak, nonatomic) IBOutlet  UITextView * textView;
 
@@ -30,11 +32,11 @@
 
 @end
 
-@implementation ViewController
+@implementation NCEditorViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.navigationController.navigationBarHidden = YES;
     // Do any additional setup after loading the view, typically from a nib.
     
     //    string str = "int i=0 \n if(i==0)i=2+1";
@@ -47,7 +49,8 @@
     [self.textViewDataSource addDelegate:self.interpreter];
     
     NSError * error = nil;
-    NSString * filepath = [[NSBundle mainBundle] pathForResource:@"CodeTest" ofType:nil];
+//    NSString * filepath = [[NSBundle mainBundle] pathForResource:@"CodeTest" ofType:nil];
+    NSString * filepath = self.sourceFile.filepath;
     NSString * fileContent = [NSString stringWithContentsOfFile:filepath encoding:NSUTF8StringEncoding error:&error];
     
     if (!error) {

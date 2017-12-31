@@ -12,10 +12,13 @@
 		D4716E691FF26F24000797B1 /* CodeTest in Resources */ = {isa = PBXBuildFile; fileRef = D4716E681FF26F24000797B1 /* CodeTest */; };
 		D4716E6C1FF3980A000797B1 /* NCCodeTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = D4716E6B1FF3980A000797B1 /* NCCodeTemplate.m */; };
 		D4716E6E1FF3C231000797B1 /* image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4716E6D1FF3C231000797B1 /* image.xcassets */; };
+		ED08CD021FF90A40001A02FB /* NCProjectContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED08CD011FF90A40001A02FB /* NCProjectContentViewController.m */; };
+		ED08CD091FF91262001A02FB /* NCProjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ED08CD081FF91262001A02FB /* NCProjectManager.m */; };
+		ED08CD0C1FF91277001A02FB /* NCProject.m in Sources */ = {isa = PBXBuildFile; fileRef = ED08CD0B1FF91277001A02FB /* NCProject.m */; };
 		ED2040361F77A6D300734821 /* NCClassInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED2040341F77A6D300734821 /* NCClassInstance.cpp */; };
 		ED219CA01F6D15CB0015293A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ED219C9F1F6D15CB0015293A /* main.m */; };
 		ED219CA31F6D15CB0015293A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ED219CA21F6D15CB0015293A /* AppDelegate.m */; };
-		ED219CA61F6D15CB0015293A /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED219CA51F6D15CB0015293A /* ViewController.mm */; };
+		ED219CA61F6D15CB0015293A /* NCEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED219CA51F6D15CB0015293A /* NCEditorViewController.mm */; };
 		ED219CA91F6D15CB0015293A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED219CA71F6D15CB0015293A /* Main.storyboard */; };
 		ED219CAB1F6D15CB0015293A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED219CAA1F6D15CB0015293A /* Assets.xcassets */; };
 		ED219CAE1F6D15CB0015293A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED219CAC1F6D15CB0015293A /* LaunchScreen.storyboard */; };
@@ -52,14 +55,20 @@
 		D4716E6A1FF3980A000797B1 /* NCCodeTemplate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCCodeTemplate.h; sourceTree = "<group>"; };
 		D4716E6B1FF3980A000797B1 /* NCCodeTemplate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NCCodeTemplate.m; sourceTree = "<group>"; };
 		D4716E6D1FF3C231000797B1 /* image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = image.xcassets; sourceTree = "<group>"; };
+		ED08CD001FF90A40001A02FB /* NCProjectContentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCProjectContentViewController.h; sourceTree = "<group>"; };
+		ED08CD011FF90A40001A02FB /* NCProjectContentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NCProjectContentViewController.m; sourceTree = "<group>"; };
+		ED08CD071FF91262001A02FB /* NCProjectManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NCProjectManager.h; path = Model/NCProjectManager.h; sourceTree = "<group>"; };
+		ED08CD081FF91262001A02FB /* NCProjectManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = NCProjectManager.m; path = Model/NCProjectManager.m; sourceTree = "<group>"; };
+		ED08CD0A1FF91277001A02FB /* NCProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NCProject.h; path = Model/NCProject.h; sourceTree = "<group>"; };
+		ED08CD0B1FF91277001A02FB /* NCProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NCProject.m; path = Model/NCProject.m; sourceTree = "<group>"; };
 		ED2040341F77A6D300734821 /* NCClassInstance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NCClassInstance.cpp; sourceTree = "<group>"; };
 		ED2040351F77A6D300734821 /* NCClassInstance.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NCClassInstance.hpp; sourceTree = "<group>"; };
 		ED219C9B1F6D15CB0015293A /* NaiveC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NaiveC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED219C9F1F6D15CB0015293A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		ED219CA11F6D15CB0015293A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		ED219CA21F6D15CB0015293A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		ED219CA41F6D15CB0015293A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		ED219CA51F6D15CB0015293A /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
+		ED219CA41F6D15CB0015293A /* NCEditorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCEditorViewController.h; sourceTree = "<group>"; };
+		ED219CA51F6D15CB0015293A /* NCEditorViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCEditorViewController.mm; sourceTree = "<group>"; };
 		ED219CA81F6D15CB0015293A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		ED219CAA1F6D15CB0015293A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ED219CAD1F6D15CB0015293A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -124,6 +133,29 @@
 			name = Coding;
 			sourceTree = "<group>";
 		};
+		ED08CCFF1FF9098B001A02FB /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				ED08CD001FF90A40001A02FB /* NCProjectContentViewController.h */,
+				ED08CD011FF90A40001A02FB /* NCProjectContentViewController.m */,
+				ED219CA41F6D15CB0015293A /* NCEditorViewController.h */,
+				ED219CA51F6D15CB0015293A /* NCEditorViewController.mm */,
+				ED219CA71F6D15CB0015293A /* Main.storyboard */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		ED08CD031FF90ADB001A02FB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				ED08CD0A1FF91277001A02FB /* NCProject.h */,
+				ED08CD0B1FF91277001A02FB /* NCProject.m */,
+				ED08CD071FF91262001A02FB /* NCProjectManager.h */,
+				ED08CD081FF91262001A02FB /* NCProjectManager.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		ED219C921F6D15CB0015293A = {
 			isa = PBXGroup;
 			children = (
@@ -149,12 +181,11 @@
 		ED219C9D1F6D15CB0015293A /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				ED08CD031FF90ADB001A02FB /* Model */,
+				ED08CCFF1FF9098B001A02FB /* UI */,
 				D4716E661FF1E98A000797B1 /* Coding */,
-				ED219CA41F6D15CB0015293A /* ViewController.h */,
-				ED219CA51F6D15CB0015293A /* ViewController.mm */,
 				ED219CA11F6D15CB0015293A /* AppDelegate.h */,
 				ED219CA21F6D15CB0015293A /* AppDelegate.m */,
-				ED219CA71F6D15CB0015293A /* Main.storyboard */,
 				ED219CAA1F6D15CB0015293A /* Assets.xcassets */,
 				ED219CAC1F6D15CB0015293A /* LaunchScreen.storyboard */,
 				ED219CAF1F6D15CB0015293A /* Info.plist */,
@@ -261,8 +292,8 @@
 				TargetAttributes = {
 					ED219C9A1F6D15CB0015293A = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = KLS72L88F6;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = 6FY57Y255B;
+						ProvisioningStyle = Automatic;
 					};
 					ED219CB31F6D15CB0015293A = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -320,13 +351,16 @@
 			files = (
 				D4716E651FF1E97C000797B1 /* NCConsole.m in Sources */,
 				ED219CD61F6D16370015293A /* NCTokenizer.cpp in Sources */,
-				ED219CA61F6D15CB0015293A /* ViewController.mm in Sources */,
+				ED219CA61F6D15CB0015293A /* NCEditorViewController.mm in Sources */,
 				D4716E6C1FF3980A000797B1 /* NCCodeTemplate.m in Sources */,
 				ED2040361F77A6D300734821 /* NCClassInstance.cpp in Sources */,
 				ED219CA31F6D15CB0015293A /* AppDelegate.m in Sources */,
 				ED219CA01F6D15CB0015293A /* main.m in Sources */,
 				ED219CD71F6D16370015293A /* NCBuiltinFunction.mm in Sources */,
 				EDBB6D2D1FEF62FD003CB5C5 /* NCDataSource.m in Sources */,
+				ED08CD091FF91262001A02FB /* NCProjectManager.m in Sources */,
+				ED08CD0C1FF91277001A02FB /* NCProject.m in Sources */,
+				ED08CD021FF90A40001A02FB /* NCProjectContentViewController.m in Sources */,
 				ED219CD51F6D16370015293A /* NCParser.cpp in Sources */,
 				ED219CDA1F6D16370015293A /* NCStackElement.cpp in Sources */,
 				EDBB6D301FEF64E0003CB5C5 /* NCTextManager.mm in Sources */,
@@ -471,8 +505,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = KLS72L88F6;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6FY57Y255B;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INPUT_FILETYPE = automatic;
 				INFOPLIST_FILE = NaiveC/Info.plist;
@@ -480,8 +515,8 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = Ogreaxe.NaiveC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0159eb3c-a481-4da3-abbc-dc18f39be42f";
-				PROVISIONING_PROFILE_SPECIFIER = 20171109;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -489,8 +524,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6FY57Y255B;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INPUT_FILETYPE = automatic;
 				INFOPLIST_FILE = NaiveC/Info.plist;
