@@ -48,6 +48,9 @@ public:
 
     unordered_map<string, shared_ptr<NCStackElement>> localVariableMap;
     vector<shared_ptr<NCStackElement>> stack;
+    
+    shared_ptr<NCStackElement> stack_pop();
+    void stack_push(shared_ptr<NCStackElement> element);
 };
 
 class NCInterpreter{

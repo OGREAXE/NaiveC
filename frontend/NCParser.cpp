@@ -384,7 +384,30 @@ pair<string, vector<NCArrayBracketPair>> NCParser::variable_declarator_id(){
 }
 
 shared_ptr<NCExpression> NCParser::variable_initializer(){
+    auto arrayInitializer = array_initializer();
+    if (arrayInitializer) {
+        return arrayInitializer;
+    }
     return expression();
+}
+
+shared_ptr<NCExpression> NCParser::array_initializer(){
+    if (word != "{") {
+        return nullptr;
+    }
+    word = nextWord();
+    
+    auto arrayInitializer = new NCArrayInitializer();
+    
+    if (!arguments(arrayInitializer->elements)) {
+        return nullptr;
+    }
+    
+    if (word != "}") {
+        return nullptr;
+    }
+    word = nextWord();
+    return shared_ptr<NCExpression>(arrayInitializer);
 }
 
 shared_ptr<NCExpression> NCParser::expression(){

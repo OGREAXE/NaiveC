@@ -171,6 +171,8 @@ private:
     //expression-> assignment_expression| expression ',' assignment_expression
     shared_ptr<NCExpression> expression();
     
+    shared_ptr<NCExpression> array_initializer();
+    
     bool expression_list(vector<shared_ptr<NCExpression>>& exprList);
     
     //multiplicative_expression-> cast_expression| multiplicative_expression '*' cast_expression| multiplicative_expression '/' cast_expression| multiplicative_expression '%' cast_expression

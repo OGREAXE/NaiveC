@@ -45,6 +45,7 @@ public:
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments);
     
     shared_ptr<NCStackElement> getElementAt(int i){return innerArray[i];}
+    void addElement(shared_ptr<NCStackElement>&e){innerArray.push_back(e);};
 };
 
 ///////

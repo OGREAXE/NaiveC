@@ -1,16 +1,4 @@
 void main(int a){
-    string str = "NAIVE C"
-    print(trim(str))
-}
-
-string trim(string str){
-    string res = ""
-    for (int i=0;i<str.length();i=i+1){
-        string chr = str.charAt(i)
-        if(chr == " "){
-            chr = "_"
-        }
-        res = res + chr
-    }
-    return res
+    array num = {6,5,4,3,2,1+1}
+    print(num[2])
 }

@@ -28,6 +28,15 @@ void NCFrame::insertVariable(string&name, NCStackPointerElement & pObject){
     localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackPointerElement(pObject.getRawObjectPointer()));
 }
 
+shared_ptr<NCStackElement> NCFrame::stack_pop(){
+    auto stackTop = this->stack.back();
+    this->stack.pop_back();
+    return stackTop;
+}
+void NCFrame::stack_push(shared_ptr<NCStackElement> element){
+    this->stack.push_back(element);
+}
+
 NCInterpreter::NCInterpreter(shared_ptr<NCASTRoot> root){
     this->initWithRoot(root);
 }
@@ -335,6 +344,21 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
             
             frame.stack.push_back(shared_ptr<NCStackElement>(accessor));
         }
+    }
+    else if(dynamic_cast<NCArrayInitializer*>(currentNode.get())){
+        auto node = dynamic_cast<NCArrayInitializer*>(currentNode.get());
+        
+        auto pArray = new NCArrayInstance();
+        
+        for (auto element : node->elements) {
+            walkTree(element, frame);
+            
+            auto value = frame.stack_pop();
+            
+            pArray->addElement(value);
+        }
+        
+        frame.stack_push(shared_ptr<NCStackPointerElement> ( new NCStackPointerElement(pArray)));
     }
     else if(dynamic_cast<NCNameExpression*>(currentNode.get())){
         auto node = dynamic_cast<NCNameExpression*>(currentNode.get());

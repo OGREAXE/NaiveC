@@ -132,6 +132,11 @@ public:
     shared_ptr<NCExpression> expression;
 };
 
+class NCArrayInitializer:public NCExpression{
+public:
+    vector<shared_ptr<NCExpression>> elements;
+};
+
 class NCNameExpression:public NCExpression{
 public:
     NCNameExpression(string&name):name(name){};
