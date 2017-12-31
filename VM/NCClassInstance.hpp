@@ -88,6 +88,7 @@ public:
     
     void set(int index,shared_ptr<NCStackElement> value);
     void set(shared_ptr<NCStackElement> value);
+    shared_ptr<NCStackElement> value(){return arrayInstance->getElementAt(index);}
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
 };

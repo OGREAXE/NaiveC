@@ -292,8 +292,7 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
         auto primary = node->expr;
         walkTree(primary, frame);
         
-        auto stackTop = (frame.stack.back());
-        frame.stack.pop_back();
+        auto stackTop = frame.stack_pop();
         
         if (dynamic_cast<NCStackVariableElement*>(stackTop.get())) {
             auto var = dynamic_cast<NCStackVariableElement*>(stackTop.get());
@@ -324,9 +323,14 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
         else if (dynamic_cast<NCArrayAccessor*>(stackTop.get())) {
             auto accessor = dynamic_cast<NCArrayAccessor*>(stackTop.get());
             walkTree(node->value,frame);
-            auto value = frame.stack.back();
-            frame.stack.pop_back();
-            accessor->set(value);
+            auto value = frame.stack_pop();
+            if (dynamic_cast<NCArrayAccessor*>(value.get())) {
+                auto accessorValue = dynamic_cast<NCArrayAccessor*>(value.get());
+                accessor->set(accessorValue->value());
+            }
+            else {
+                accessor->set(value);
+            }
         }
         
     }
@@ -596,6 +600,13 @@ int NCInterpreter::stackPopInt(NCFrame & frame){
         
         if(varElement){
             ret = varElement->toInt();
+            break;
+        }
+        
+        auto arrayAccessorElement = dynamic_cast<NCArrayAccessor*>(pStackTop);
+        
+        if(arrayAccessorElement){
+            ret = arrayAccessorElement->toInt();
             break;
         }
         

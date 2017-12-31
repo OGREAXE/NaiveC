@@ -75,6 +75,9 @@ bool NCArrayInstance::invokeMethod(string methodName, vector<shared_ptr<NCStackE
     else if(methodName == "set"){
         innerArray[arguments[0]->toInt()] = arguments[1];
     }
+    else if(methodName == "length"){
+        lastStack.push_back(shared_ptr<NCStackElement>(new NCStackIntElement(innerArray.size())));
+    }
     
     return true;
 }
