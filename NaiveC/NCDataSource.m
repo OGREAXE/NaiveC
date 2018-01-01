@@ -7,6 +7,7 @@
 //
 
 #import "NCDataSource.h"
+#import "NCConsole.h"
 
 @implementation NCDataSource
 
@@ -109,6 +110,28 @@
     }];
     
     return shouldChange;
+}
+
+-(BOOL)save:(NSError**)error{
+    [self.textView.text writeToFile:self.linkedStorage atomically:YES encoding:NSUTF8StringEncoding error:error];
+    if (*error) {
+        NCLog(@"save source error: %@",*error);
+        return NO;
+    }
+    return YES;
+}
+
+-(void)setLinkedStorage:(NSString *)linkedStorage{
+    _linkedStorage = linkedStorage;
+    
+    NSError * error = nil;
+    //    NSString * filepath = [[NSBundle mainBundle] pathForResource:@"CodeTest" ofType:nil];
+//    NSString * filepath = self.sourceFile.filepath;
+    NSString * fileContent = [NSString stringWithContentsOfFile:linkedStorage encoding:NSUTF8StringEncoding error:&error];
+    
+    if (!error) {
+        self.text = fileContent;
+    }
 }
 
 @end

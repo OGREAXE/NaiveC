@@ -37,8 +37,14 @@
 
 -(void)replaceRange:(NSRange)range withText:(NSString*)text;
 
+-(BOOL)save:(NSError**)error;
+
 @end
  
 @interface NCTextViewDataSource:NCDataSource
+
+@property (nonatomic) NSString * linkedStorage;
+
 -(id)initWithTextView:(UITextView*)textView;
+
 @end

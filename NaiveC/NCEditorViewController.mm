@@ -16,7 +16,7 @@
 #include "NCInterpreter.hpp"
 #include "NCTextManager.h"
 
-@interface NCEditorViewController ()
+@interface NCEditorViewController ()<UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet  UITextView * textView;
 
@@ -37,6 +37,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = YES;
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
     // Do any additional setup after loading the view, typically from a nib.
     
     //    string str = "int i=0 \n if(i==0)i=2+1";
@@ -47,17 +49,9 @@
     self.interpreter.delegate  = self.textManager;
     
     [self.textViewDataSource addDelegate:self.interpreter];
+    self.textViewDataSource.linkedStorage = self.sourceFile.filepath;
     
-    NSError * error = nil;
-//    NSString * filepath = [[NSBundle mainBundle] pathForResource:@"CodeTest" ofType:nil];
-    NSString * filepath = self.sourceFile.filepath;
-    NSString * fileContent = [NSString stringWithContentsOfFile:filepath encoding:NSUTF8StringEncoding error:&error];
-    
-    if (!error) {
-        self.textViewDataSource.text = fileContent;
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceivePrintNotification:) name:@"NCPrintStringNotification" object:nil];
-    }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceivePrintNotification:) name:@"NCPrintStringNotification" object:nil];
 }
 
 //-(void)testNC{
@@ -83,10 +77,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-//    [self.view endEditing:YES];
-}
+//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+////    [self.view endEditing:YES];
+//}
 
 -(void)didReceivePrintNotification:(NSNotification*)notification{
     NSString * str = notification.object;
@@ -167,6 +161,17 @@
     
     self.textView.selectedRange = NSMakeRange(location, 0);
     
+}
+
+-(IBAction)didTapSave:(id)sender{
+    NSError * error;
+    if([self.textViewDataSource save:&error]){
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"save" message:@"save successfully!" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alert dismissViewControllerAnimated:YES completion:nil];
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 

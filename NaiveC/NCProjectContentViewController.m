@@ -25,7 +25,14 @@
     // Do any additional setup after loading the view.
     self.project = [[NCProjectManager sharedManager] defaultProject];
     
+    self.title= self.project.name;
     [self.tableView reloadData];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBarHidden  = NO;
 }
 
 - (void)didReceiveMemoryWarning {
