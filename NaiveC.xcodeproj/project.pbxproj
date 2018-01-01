@@ -17,6 +17,8 @@
 		ED08CD0C1FF91277001A02FB /* NCProject.m in Sources */ = {isa = PBXBuildFile; fileRef = ED08CD0B1FF91277001A02FB /* NCProject.m */; };
 		ED08CD0F1FF9E041001A02FB /* NCProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED08CD0E1FF9E041001A02FB /* NCProjectTableViewCell.m */; };
 		ED08CD121FF9E550001A02FB /* NCAddNewFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED08CD111FF9E550001A02FB /* NCAddNewFileViewController.m */; };
+		ED08CD141FF9F99F001A02FB /* Common.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED08CD131FF9F99F001A02FB /* Common.mm */; };
+		ED08CD171FFA050D001A02FB /* UIViewController+NCExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = ED08CD161FFA050D001A02FB /* UIViewController+NCExtension.m */; };
 		ED2040361F77A6D300734821 /* NCClassInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED2040341F77A6D300734821 /* NCClassInstance.cpp */; };
 		ED219CA01F6D15CB0015293A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ED219C9F1F6D15CB0015293A /* main.m */; };
 		ED219CA31F6D15CB0015293A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ED219CA21F6D15CB0015293A /* AppDelegate.m */; };
@@ -67,6 +69,9 @@
 		ED08CD0E1FF9E041001A02FB /* NCProjectTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NCProjectTableViewCell.m; sourceTree = "<group>"; };
 		ED08CD101FF9E550001A02FB /* NCAddNewFileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCAddNewFileViewController.h; sourceTree = "<group>"; };
 		ED08CD111FF9E550001A02FB /* NCAddNewFileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NCAddNewFileViewController.m; sourceTree = "<group>"; };
+		ED08CD131FF9F99F001A02FB /* Common.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Common.mm; sourceTree = "<group>"; };
+		ED08CD151FFA050D001A02FB /* UIViewController+NCExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NCExtension.h"; sourceTree = "<group>"; };
+		ED08CD161FFA050D001A02FB /* UIViewController+NCExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NCExtension.m"; sourceTree = "<group>"; };
 		ED2040341F77A6D300734821 /* NCClassInstance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NCClassInstance.cpp; sourceTree = "<group>"; };
 		ED2040351F77A6D300734821 /* NCClassInstance.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NCClassInstance.hpp; sourceTree = "<group>"; };
 		ED219C9B1F6D15CB0015293A /* NaiveC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NaiveC.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,7 +139,6 @@
 				EDBB6D2F1FEF64E0003CB5C5 /* NCTextManager.mm */,
 				EDBB6D2B1FEF62FD003CB5C5 /* NCDataSource.h */,
 				EDBB6D2C1FEF62FD003CB5C5 /* NCDataSource.m */,
-				D4716E671FF1EDBE000797B1 /* Common.h */,
 			);
 			name = Coding;
 			sourceTree = "<group>";
@@ -151,6 +155,8 @@
 				ED219CA41F6D15CB0015293A /* NCEditorViewController.h */,
 				ED219CA51F6D15CB0015293A /* NCEditorViewController.mm */,
 				ED219CA71F6D15CB0015293A /* Main.storyboard */,
+				ED08CD151FFA050D001A02FB /* UIViewController+NCExtension.h */,
+				ED08CD161FFA050D001A02FB /* UIViewController+NCExtension.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -196,6 +202,8 @@
 				D4716E661FF1E98A000797B1 /* Coding */,
 				ED219CA11F6D15CB0015293A /* AppDelegate.h */,
 				ED219CA21F6D15CB0015293A /* AppDelegate.m */,
+				D4716E671FF1EDBE000797B1 /* Common.h */,
+				ED08CD131FF9F99F001A02FB /* Common.mm */,
 				D4716E6D1FF3C231000797B1 /* image.xcassets */,
 				ED219CAA1F6D15CB0015293A /* Assets.xcassets */,
 				ED219CAC1F6D15CB0015293A /* LaunchScreen.storyboard */,
@@ -359,6 +367,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED08CD141FF9F99F001A02FB /* Common.mm in Sources */,
 				D4716E651FF1E97C000797B1 /* NCConsole.m in Sources */,
 				ED219CD61F6D16370015293A /* NCTokenizer.cpp in Sources */,
 				ED219CA61F6D15CB0015293A /* NCEditorViewController.mm in Sources */,
@@ -368,6 +377,7 @@
 				ED219CA01F6D15CB0015293A /* main.m in Sources */,
 				ED219CD71F6D16370015293A /* NCBuiltinFunction.mm in Sources */,
 				EDBB6D2D1FEF62FD003CB5C5 /* NCDataSource.m in Sources */,
+				ED08CD171FFA050D001A02FB /* UIViewController+NCExtension.m in Sources */,
 				ED08CD091FF91262001A02FB /* NCProjectManager.m in Sources */,
 				ED08CD0F1FF9E041001A02FB /* NCProjectTableViewCell.m in Sources */,
 				ED08CD0C1FF91277001A02FB /* NCProject.m in Sources */,

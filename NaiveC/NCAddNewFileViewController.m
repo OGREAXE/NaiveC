@@ -9,6 +9,7 @@
 #import "NCAddNewFileViewController.h"
 #import "Common.h"
 #import "NCEditorViewController.h"
+#import "NCProjectManager.h"
 
 @interface NCAddNewFileViewController ()
 
@@ -31,21 +32,20 @@
 }
 
 -(IBAction)didTapOk:(id)sender{
-    NSString * filename = self.textField.text;
-    NSString * projectPath = self.currentProject.rootDirectory;
-    NSString * filepath = [projectPath stringByAppendingPathComponent:filename];
-    
+//    NSString * filename = self.textField.text;
+//    NSString * projectPath = self.currentProject.rootDirectory;
+//    NSString * filepath = [projectPath stringByAppendingPathComponent:filename];
+//
     NSError * error = nil;
-    [@"" writeToFile:filepath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+//    [@"" writeToFile:filepath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    
+    NCSourceFile * file = [[NCProjectManager sharedManager] createSourceFile:self.textField.text project:self.currentProject error:&error];
+    
     if (error) {
         NSLog(@"write file fail: %@",error);
     }
     else {
         NCEditorViewController * controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:NSStringFromClass([NCEditorViewController class])];
-        
-        NCSourceFile * file = [[NCSourceFile alloc] init];
-        file.filename = filename;
-        file.filepath = filepath;
         
         controller.sourceFile = file;
         

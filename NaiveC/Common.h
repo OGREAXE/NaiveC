@@ -10,6 +10,8 @@
 #define Common_h
 
 #include "NCConsole.h"
+#import <Foundation/Foundation.h>
+#import "UIViewController+NCExtension.h"
 
 #define SAFE_RELEASE(p) if(p){delete p;p=nullptr;}
 

@@ -15,4 +15,8 @@
 
 -(NCProject*)defaultProject;
 
+-(BOOL)removeSourceFile:(NCSourceFile*)file project:(NCProject*)project error:(NSError**)error;
+
+-(NCSourceFile*)createSourceFile:(NSString*)name project:(NCProject*)project error:(NSError**)error;
+
 @end

@@ -10,6 +10,7 @@
 #import "NCInterpreterController.h"
 #import "NCCodeTemplate.h"
 #import "NCProject.h"
+#import "Common.h"
 
 #include "NCTokenizer.hpp"
 #include "NCParser.hpp"
@@ -166,11 +167,7 @@
 -(IBAction)didTapSave:(id)sender{
     NSError * error;
     if([self.textViewDataSource save:&error]){
-        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"save" message:@"save successfully!" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [alert dismissViewControllerAnimated:YES completion:nil];
-        }]];
-        [self presentViewController:alert animated:YES completion:nil];
+        
     }
 }
 

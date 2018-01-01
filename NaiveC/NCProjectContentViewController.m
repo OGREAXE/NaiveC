@@ -11,6 +11,7 @@
 #import "NCEditorViewController.h"
 #import "NCProjectTableViewCell.h"
 #import "NCAddNewFileViewController.h"
+#import "Common.h"
 
 @interface NCProjectContentViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -45,6 +46,7 @@
     self.navigationItem.rightBarButtonItems = @[btn0];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -89,6 +91,31 @@
     controller.sourceFile = self.project.sourceFiles[indexPath.row];
     
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return YES if you want the specified item to be editable.
+    return YES;
+}
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //add code here for when you hit delete
+        
+        NCSourceFile * file = self.project.sourceFiles[indexPath.row] ;
+        
+        [self ShowAlert:[NSString stringWithFormat:@"Are you sure you wnat to delete file \"%@?\"",file.filename] comfirmHandler:^{
+            NSError * error = nil;
+            [[NCProjectManager sharedManager] removeSourceFile:file project:self.project error:&error];
+            if (error) {
+                NSLog(@"error remove file %@,: %@",file.filename, error);
+            }
+            else {
+                [self.tableView reloadData];
+            }
+        }];
+    }
 }
 
 -(void)didTapAddNew{
