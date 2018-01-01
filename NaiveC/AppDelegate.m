@@ -21,7 +21,7 @@
     // Override point for customization after application launch.
     
     if (![[NSUserDefaults standardUserDefaults] boolForKey:kFirstTimeRunKey]) {
-//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kFirstTimeRunKey];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kFirstTimeRunKey];
         
         //copy a sample file to /Document/projects/project0/
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

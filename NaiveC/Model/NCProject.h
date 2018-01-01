@@ -26,4 +26,6 @@
 
 -(id)initWithRoot:(NSString*)rootDirectory;
 
+-(void)reload;
+
 @end

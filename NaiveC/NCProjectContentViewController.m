@@ -9,6 +9,8 @@
 #import "NCProjectContentViewController.h"
 #import "NCProjectManager.h"
 #import "NCEditorViewController.h"
+#import "NCProjectTableViewCell.h"
+#import "NCAddNewFileViewController.h"
 
 @interface NCProjectContentViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -27,12 +29,31 @@
     
     self.title= self.project.name;
     [self.tableView reloadData];
+    
+//    UIButton * addNewButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    addNewButton.imageView.image = [UIImage imageNamed:@"add"];
+//    [addNewButton addTarget:self action:@selector(didTapAddNew) forControlEvents:UIControlEventTouchUpInside];
+//
+//    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:addNewButton];
+//    self.navigationItem.rightBarButtonItems = @[item];
+    
+    UIBarButtonItem *btn0 = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                             style:UIBarButtonItemStylePlain
+                                                            target:self
+                                                            action:@selector(didTapAddNew)];
+    btn0.image = [UIImage imageNamed:@"add"];
+    self.navigationItem.rightBarButtonItems = @[btn0];
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
     self.navigationController.navigationBarHidden  = NO;
+    [self.project reload];
+    
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,9 +70,9 @@
 #define CONTENTVIEWCELL_REUSEIDENTIFIER @"contentViewCell"
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell * cell = [self.tableView dequeueReusableCellWithIdentifier:CONTENTVIEWCELL_REUSEIDENTIFIER];
+    NCProjectTableViewCell * cell = [self.tableView dequeueReusableCellWithIdentifier:CONTENTVIEWCELL_REUSEIDENTIFIER];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CONTENTVIEWCELL_REUSEIDENTIFIER];
+        cell = [[NCProjectTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CONTENTVIEWCELL_REUSEIDENTIFIER];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -67,6 +88,12 @@
     
     controller.sourceFile = self.project.sourceFiles[indexPath.row];
     
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+-(void)didTapAddNew{
+    NCAddNewFileViewController * controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:NSStringFromClass([NCAddNewFileViewController class])];
+    controller.currentProject = self.project;
     [self.navigationController pushViewController:controller animated:YES];
 }
 

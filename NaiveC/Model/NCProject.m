@@ -20,24 +20,28 @@
         self.rootDirectory = rootDirectory;
         self.name = [rootDirectory lastPathComponent];
         
-        NSError * error = nil;
-        NSArray * files = [[NSFileManager defaultManager]  contentsOfDirectoryAtPath:self.rootDirectory error:&error];
-        if (!error) {
-            NSMutableArray * sourceFiles = [NSMutableArray array];
-            [files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                NCSourceFile * file = [[NCSourceFile alloc] init];
-                file.filename = obj;
-                file.filepath = [self.rootDirectory stringByAppendingString:file.filename];
-                
-                [sourceFiles addObject:file];
-            }];
-            self.sourceFiles = sourceFiles;
-        }
-        else {
-            NSLog(@"error create project from directory %@, error:%@",self.rootDirectory,error);
-        }
+        [self reload];
     }
     return self;
+}
+
+-(void)reload{
+    NSError * error = nil;
+    NSArray * files = [[NSFileManager defaultManager]  contentsOfDirectoryAtPath:self.rootDirectory error:&error];
+    if (!error) {
+        NSMutableArray * sourceFiles = [NSMutableArray array];
+        [files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NCSourceFile * file = [[NCSourceFile alloc] init];
+            file.filename = obj;
+            file.filepath = [self.rootDirectory stringByAppendingString:file.filename];
+            
+            [sourceFiles addObject:file];
+        }];
+        self.sourceFiles = sourceFiles;
+    }
+    else {
+        NSLog(@"error create project from directory %@, error:%@",self.rootDirectory,error);
+    }
 }
 
 @end
