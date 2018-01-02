@@ -727,6 +727,18 @@ shared_ptr<NCStackPointerElement>  NCInterpreter::stackPopObjectPointer(NCFrame 
             return pRet;
         }
     }
+    else if (dynamic_cast<NCArrayAccessor*>(pStackTop)) {
+        auto pVar = dynamic_cast<NCArrayAccessor*>(pStackTop);
+        auto value = pVar->value();
+        if (dynamic_cast<NCStackVariableElement*>(value.get())) {
+            auto pVar = dynamic_cast<NCStackVariableElement*>(value.get());
+            if (dynamic_cast<NCStackPointerElement*>(pVar->valueElement.get())) {
+                auto pRet = dynamic_pointer_cast<NCStackPointerElement> (pVar->valueElement);
+                frame.stack.pop_back();
+                return pRet;
+            }
+        }
+    }
     
     return shared_ptr<NCStackPointerElement> (nullptr);
 }
