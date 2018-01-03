@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D429568E1FFCEEE90035C9BB /* NCCodeFastInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D429568D1FFCEEE90035C9BB /* NCCodeFastInputViewController.m */; };
 		D4716E621FF11269000797B1 /* NCInterpreterController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4716E611FF11269000797B1 /* NCInterpreterController.mm */; };
 		D4716E651FF1E97C000797B1 /* NCConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = D4716E641FF1E97C000797B1 /* NCConsole.m */; };
 		D4716E691FF26F24000797B1 /* CodeTest in Resources */ = {isa = PBXBuildFile; fileRef = D4716E681FF26F24000797B1 /* CodeTest */; };
@@ -50,6 +51,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D429568C1FFCEEE90035C9BB /* NCCodeFastInputViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCCodeFastInputViewController.h; sourceTree = "<group>"; };
+		D429568D1FFCEEE90035C9BB /* NCCodeFastInputViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NCCodeFastInputViewController.m; sourceTree = "<group>"; };
 		D4716E601FF11269000797B1 /* NCInterpreterController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCInterpreterController.h; sourceTree = "<group>"; };
 		D4716E611FF11269000797B1 /* NCInterpreterController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCInterpreterController.mm; sourceTree = "<group>"; };
 		D4716E631FF1E97C000797B1 /* NCConsole.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCConsole.h; sourceTree = "<group>"; };
@@ -146,6 +149,9 @@
 		ED08CCFF1FF9098B001A02FB /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				ED219CA71F6D15CB0015293A /* Main.storyboard */,
+				D429568C1FFCEEE90035C9BB /* NCCodeFastInputViewController.h */,
+				D429568D1FFCEEE90035C9BB /* NCCodeFastInputViewController.m */,
 				ED08CD0D1FF9E041001A02FB /* NCProjectTableViewCell.h */,
 				ED08CD0E1FF9E041001A02FB /* NCProjectTableViewCell.m */,
 				ED08CD001FF90A40001A02FB /* NCProjectContentViewController.h */,
@@ -154,7 +160,6 @@
 				ED08CD111FF9E550001A02FB /* NCAddNewFileViewController.m */,
 				ED219CA41F6D15CB0015293A /* NCEditorViewController.h */,
 				ED219CA51F6D15CB0015293A /* NCEditorViewController.mm */,
-				ED219CA71F6D15CB0015293A /* Main.storyboard */,
 				ED08CD151FFA050D001A02FB /* UIViewController+NCExtension.h */,
 				ED08CD161FFA050D001A02FB /* UIViewController+NCExtension.m */,
 			);
@@ -310,8 +315,8 @@
 				TargetAttributes = {
 					ED219C9A1F6D15CB0015293A = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 6FY57Y255B;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = KLS72L88F6;
+						ProvisioningStyle = Manual;
 					};
 					ED219CB31F6D15CB0015293A = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -386,6 +391,7 @@
 				ED219CDA1F6D16370015293A /* NCStackElement.cpp in Sources */,
 				EDBB6D301FEF64E0003CB5C5 /* NCTextManager.mm in Sources */,
 				ED219CD91F6D16370015293A /* NCInterpreter.cpp in Sources */,
+				D429568E1FFCEEE90035C9BB /* NCCodeFastInputViewController.m in Sources */,
 				ED219CD41F6D16370015293A /* NCAST.cpp in Sources */,
 				ED219CD81F6D16370015293A /* NCCode.cpp in Sources */,
 				ED08CD121FF9E550001A02FB /* NCAddNewFileViewController.m in Sources */,
@@ -528,8 +534,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6FY57Y255B;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = KLS72L88F6;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INPUT_FILETYPE = automatic;
 				INFOPLIST_FILE = NaiveC/Info.plist;
@@ -537,8 +543,8 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = Ogreaxe.NaiveC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "0159eb3c-a481-4da3-abbc-dc18f39be42f";
+				PROVISIONING_PROFILE_SPECIFIER = 20171109;
 			};
 			name = Debug;
 		};
@@ -547,8 +553,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6FY57Y255B;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INPUT_FILETYPE = automatic;
 				INFOPLIST_FILE = NaiveC/Info.plist;

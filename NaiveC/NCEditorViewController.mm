@@ -11,13 +11,14 @@
 #import "NCCodeTemplate.h"
 #import "NCProject.h"
 #import "Common.h"
+#import "NCCodeFastInputViewController.h"
 
 #include "NCTokenizer.hpp"
 #include "NCParser.hpp"
 #include "NCInterpreter.hpp"
 #include "NCTextManager.h"
 
-@interface NCEditorViewController ()<UIGestureRecognizerDelegate>
+@interface NCEditorViewController ()<UIGestureRecognizerDelegate, NCCodeFastInputViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet  UITextView * textView;
 
@@ -30,6 +31,8 @@
 @property (nonatomic) NCTextViewDataSource * textViewDataSource;  //only one
 
 @property (nonatomic) NSMutableArray * fileDataSourceArray;  //could be many
+
+@property (nonatomic) NSRange selectedRange;
 
 @end
 
@@ -91,20 +94,25 @@
 
 #pragma mark shortcut input
 -(IBAction)didTapFor:(id)sender{
-    [self.textManager insertCodeTemplate:NCCodeTemplateFor];
+//    [self.textManager insertCodeTemplate:NCCodeTemplateFor];
+    [self showFastInputViewController:NCFastInputTypeFor];
 }
 
 -(IBAction)didTapWhile:(id)sender{
-    [self.textManager insertCodeTemplate:NCCodeTemplateWhile];
+//    [self.textManager insertCodeTemplate:NCCodeTemplateWhile];
+    [self showFastInputViewController:NCFastInputTypeWhile];
 }
 -(IBAction)didTapIf:(id)sender{
-    [self.textManager insertCodeTemplate:NCCodeTemplateIf];
+//    [self.textManager insertCodeTemplate:NCCodeTemplateIf];
+    [self showFastInputViewController:NCFastInputTypeIf];
 }
 -(IBAction)didTapIfElse:(id)sender{
-    [self.textManager insertCodeTemplate:NCCodeTemplateIfElse];
+//    [self.textManager insertCodeTemplate:NCCodeTemplateIfElse];
+    [self showFastInputViewController:NCFastInputTypeIfElse];
 }
 -(IBAction)didTapFunction:(id)sender{
-    [self.textManager insertCodeTemplate:NCCodeTemplateFunc];
+//    [self.textManager insertCodeTemplate:NCCodeTemplateFunc];
+    [self showFastInputViewController:NCFastInputTypeFunc];
 }
 //{
 -(IBAction)didTapPar1:(id)sender{
@@ -171,5 +179,23 @@
     }
 }
 
+-(void)showFastInputViewController:(NCFastInputType)type{
+    self.selectedRange = self.textView.selectedRange;
+    
+    NCCodeFastInputViewController * controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:NSStringFromClass([NCCodeFastInputViewController class])];
+    controller.type = type;
+    controller.delegate = self;
+    
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
+-(void)codeFastInputViewController:(NCCodeFastInputViewController*)controller didInput:(NSArray*)textArray type:(NCFastInputType)type{
+    [self.textManager insertCodeTemplate:(NCCodeTemplateType)type placeholdersFillerArray:textArray];
+}
+
+-(void)didClose:(NCCodeFastInputViewController *)controller{
+    [self.textView becomeFirstResponder];
+    self.textView.selectedRange  = self.selectedRange;
+}
 
 @end

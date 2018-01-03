@@ -19,4 +19,7 @@ typedef NS_ENUM(NSUInteger, NCCodeTemplateType) {
 @interface NCCodeTemplate : NSObject
 
 +(NSString*)templateWithType:(NCCodeTemplateType)type baseIndent:(NSString*)indent;
+
++(NSString*)templateWithType:(NCCodeTemplateType)type baseIndent:(NSString*)indent fillerStringArray:(NSArray*)fillers;
+
 @end

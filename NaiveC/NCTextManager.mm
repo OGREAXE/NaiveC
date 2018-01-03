@@ -249,4 +249,12 @@ struct BalanceInfo{
     [self.dataSource replaceRange:self.dataSource.selectedRange withText:templateStr];
 }
 
+-(void)insertCodeTemplate:(NCCodeTemplateType)type placeholdersFillerArray:(NSArray*)fillers{
+    //    NSString * template = [NCCodeTemplate templa]
+    auto bInfo = [self calBalanceInfoWithRange:self.dataSource.selectedRange];
+    NSString * indent = [NSString stringWithFormat:@"%@%@",@"    ",bInfo.baseIndent];
+    NSString * templateStr = [NCCodeTemplate templateWithType:type baseIndent:indent fillerStringArray:fillers];
+    [self.dataSource replaceRange:self.dataSource.selectedRange withText:templateStr];
+}
+
 @end
