@@ -22,6 +22,12 @@ T doOperatorPrimitive(T left, T right, const string&op){
     else if (op == "/") {
         return left / right;
     }
+    else if (op == "|") {
+        return left / right;
+    }
+    else if (op == "&") {
+        return left / right;
+    }
     else {
         return left;
     }
@@ -76,7 +82,7 @@ shared_ptr<NCStackElement> NCStackElement::createStackElement(NCLiteral* literal
 }
 
 shared_ptr<NCStackElement> NCStackIntElement::doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){
-    if (op == "+"||op == "-"||op == "*"||op == "/"||op == "%") {
+    if (op == "+"||op == "-"||op == "*"||op == "/"||op == "%"||op == "|"||op == "&") {
         int result = doOperatorPrimitive(this->value, rightOperand->toInt(), op);
         return shared_ptr<NCStackElement>(new NCStackIntElement(result));
         

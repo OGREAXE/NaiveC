@@ -392,6 +392,7 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
         
         auto exp = node->expression;
         walkTree(exp, frame);
+        *shouldReturn = true;
     }
     return true;
 }
@@ -417,6 +418,11 @@ bool NCInterpreter::tree_composeArgmemnts(NCFrame & frame,NCMethodCallExpr*node,
             auto value = stackPopString(frame);
             auto argValue = new NCStackStringElement(value);
             arguments.push_back(shared_ptr<NCStackElement>(argValue));
+        }
+        else {
+            //object pointer
+            auto objectPointer = frame.stack_pop();
+            arguments.push_back(objectPointer);
         }
     }
     
@@ -488,6 +494,11 @@ bool NCInterpreter::tree_doStaticMehothodCall(NCFrame & frame,NCMethodCallExpr*n
                     auto value = stackPopString(frame);
                     auto argValue = new NCStackStringElement(value);
                     arguments.push_back(shared_ptr<NCStackElement>(argValue));
+                }
+                else {
+                    //object pointer
+                    auto objectPointer = frame.stack_pop();
+                    arguments.push_back(objectPointer);
                 }
             }
             
@@ -719,13 +730,19 @@ shared_ptr<NCStackPointerElement>  NCInterpreter::stackPopObjectPointer(NCFrame 
     }
     else if (dynamic_cast<NCStackVariableElement*>(pStackTop)) {
         auto pVar = dynamic_cast<NCStackVariableElement*>(pStackTop);
-        if (dynamic_cast<NCStackPointerElement*>(pVar->valueElement.get())) {
-            auto pRet = dynamic_pointer_cast<NCStackPointerElement> (pVar->valueElement);
-            
-            frame.stack.pop_back();
-            
-            return pRet;
+        while (1) {
+            if (dynamic_cast<NCStackPointerElement*>(pVar->valueElement.get())) {
+                auto pRet = dynamic_pointer_cast<NCStackPointerElement> (pVar->valueElement);
+                
+                frame.stack.pop_back();
+                
+                return pRet;
+            }
+            else {
+                pVar = dynamic_cast<NCStackVariableElement*>(pVar->valueElement.get());
+            }
         }
+        
     }
     else if (dynamic_cast<NCArrayAccessor*>(pStackTop)) {
         auto pVar = dynamic_cast<NCArrayAccessor*>(pStackTop);

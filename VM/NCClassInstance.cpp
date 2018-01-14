@@ -46,6 +46,9 @@ bool NCStackPointerElement::invokeMethod(string methodName, vector<shared_ptr<NC
     }
     else if (dynamic_cast<NCStackVariableElement*>(pStackTop)) {
         auto pVar = dynamic_cast<NCStackVariableElement*>(pStackTop);
+        while (dynamic_cast<NCStackVariableElement*>(pVar->valueElement.get())) {
+            pVar = dynamic_cast<NCStackVariableElement*>(pVar->valueElement.get());
+        }
         if (dynamic_cast<NCStackPointerElement*>(pVar->valueElement.get())) {
             auto pPointerElement = dynamic_pointer_cast<NCStackPointerElement> (pVar->valueElement);
             lastStack.pop_back();

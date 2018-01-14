@@ -1,4 +1,71 @@
 void main(int a){
-    array num = {6,5,4,3,2,1+1}
-    print(num[2])
+    array num = {20,1,6}
+    while(makeheap(0,num.length()-1,num)){}
+    int range = num.length()-1
+    while(range>0){
+        swap(0,range,num)
+        range = range-1
+        adjust(0,range,num)
+    }
+}
+
+void swap(int i, int j ,array a){
+    int t = a[i]
+    a[i] = a[j]
+    a[j] = t
+}
+
+int makeheap(int i, int range, array a){
+    int left = 2 * (i + 1)-1
+    int right = 2 * (i + 1)
+
+    if(left > range){
+        return 0
+    }
+
+    if(right > range){
+        if(a[i]>a[left]){
+            swap(i,left, a)
+            return 1
+        }
+        return 0
+    }
+
+    int change = 0
+    if(a[left] > a[i] && a[left] >= a[right]){
+        swap(i,left,a)
+        change = 1
+    }
+    else if(a[right] > a[i] && a[right] >= a[left]){
+        swap(i,right,a)
+        change = 1
+    }
+    int changel = makeheap(left,range,a)
+    int changer = makeheap(right,range, a)
+    return change | changel | changer
+}
+
+void adjust(int i, int range, array a){
+    int left = 2 * (i + 1)-1
+    int right = 2 * (i + 1)
+
+    if(left > range){
+        return
+    }
+
+    if(right > range){
+        if(a[i]>a[left]){
+            swap(i,left, a)
+        }
+        return
+    }
+
+    if(a[left] > a[i] && a[left] >= a[right]){
+        swap(i,left,a)
+        adjust(left,range,a)
+    }
+    else if(a[right] > a[i] && a[right] >= a[left]){
+        swap(i,right,a)
+        adjust(right,range,a)
+    }
 }

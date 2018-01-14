@@ -42,13 +42,20 @@ bool NCTokenizer::tokenize(string&str){
 //            }
 //        }
 //        else
-        if (c == ',' && status != String) {
+        if (c == ','  && status != String) {
             if (token.length() > 0){
 //                tokens.push_back(token);
                 addToken(tokens, token, i);
             }
 //            tokens.push_back(",");
             addToken(tokens, ",", i);
+            token = "";
+            status = Unknown;
+        }
+        else if (c == ';'  && status != String) {
+            if (token.length() > 0){
+                addToken(tokens, token, i);
+            }
             token = "";
             status = Unknown;
         }
