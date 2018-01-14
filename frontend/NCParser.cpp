@@ -828,6 +828,7 @@ shared_ptr<NCStatement> NCParser::selection_statement(){
             return shared_ptr<NCStatement>(ifStmt);
         }
         else {
+            word = nextWord();
             auto elseStmt = statement();
             if (!elseStmt) {
                 return nullptr;
