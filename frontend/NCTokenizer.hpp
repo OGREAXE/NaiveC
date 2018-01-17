@@ -25,6 +25,7 @@ typedef enum TokenizerStatus {
     Parenthesis,  // ()
     SquareBracket,    //   []
     Brace,     // {}
+    Comment
 } TokenizerStatus;
 
 struct NCToken{

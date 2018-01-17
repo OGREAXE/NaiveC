@@ -42,7 +42,24 @@ bool NCTokenizer::tokenize(string&str){
 //            }
 //        }
 //        else
-        if (c == ','  && status != String) {
+        if (c=='\n') {
+            if (status == Comment) {
+                status = Unknown;
+                continue;
+            }
+        }
+        else if(status == Comment){
+            continue;
+        }
+        else if(c=='/'){
+            if (i>0) {
+                if (str[i-1]=='/') {
+                    status = Comment;
+                    token = "";
+                }
+            }
+        }
+        else if (c == ','  && status != String) {
             if (token.length() > 0){
 //                tokens.push_back(token);
                 addToken(tokens, token, i);
@@ -185,9 +202,7 @@ bool NCTokenizer::tokenize(string&str){
         }
         
         if (i == str.length()-1) {
-//            tokens.push_back(token);
             addToken(tokens, token, i);
-//            tokens.push_back(" ");
             addToken(tokens, token, i);
         }
     }
