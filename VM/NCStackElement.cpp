@@ -22,11 +22,30 @@ T doOperatorPrimitive(T left, T right, const string&op){
     else if (op == "/") {
         return left / right;
     }
-    else if (op == "|") {
+    else {
+        return left;
+    }
+}
+
+template <>
+int doOperatorPrimitive(int left, int right, const string&op){
+    if (op == "+") {
+        return left + right;
+    }
+    else if (op == "-") {
+        return left - right;
+    }
+    else if (op == "*") {
+        return left * right;
+    }
+    else if (op == "/") {
         return left / right;
     }
+    else if (op == "|") {
+        return left | right;
+    }
     else if (op == "&") {
-        return left / right;
+        return left & right;
     }
     else {
         return left;
