@@ -182,6 +182,14 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
             tree_doStaticMehothodCall(frame, node);
         }
     }
+    else if (dynamic_cast<NCFieldAccessExpr*>(currentNode.get())) {
+        auto node = dynamic_cast<NCFieldAccessExpr*>(currentNode.get());
+        walkTree(node->scope, frame);
+        
+        auto scope = frame.stack_pop();
+        auto attrValue = scope->getAttribute(node->field);
+        frame.stack_push(attrValue);
+    }
     else if(dynamic_cast<NCBinaryExpression*>(currentNode.get())){
         auto node = dynamic_cast<NCBinaryExpression*>(currentNode.get());
         

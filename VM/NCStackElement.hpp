@@ -29,6 +29,8 @@ struct NCStackElement{
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){return false;}
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments){return false;}
+    
+    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName){return nullptr;};
 };
 
 struct NCStackIntElement:NCStackElement{
@@ -82,6 +84,8 @@ struct NCStackVariableElement:NCStackElement{
     virtual shared_ptr<NCStackElement> copy();
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+    
+    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName){return valueElement->getAttribute(attrName);};
 };
 
 #endif /* NCStackElement_hpp */

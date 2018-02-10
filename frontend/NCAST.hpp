@@ -118,9 +118,10 @@ public:
 };
 
 class NCFieldAccessExpr:public NCPrimarySuffix{
+public:
     shared_ptr<NCExpression> scope;
     string field;
-public:
+
     NCFieldAccessExpr(shared_ptr<NCExpression> scope, string &field):field(field), scope(scope){};
 };
 

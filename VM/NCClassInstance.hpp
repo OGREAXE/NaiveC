@@ -25,6 +25,8 @@ public:
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack)=0;
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments){return true;}
+    
+    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName){return nullptr;};
 };
 
 class NCCustomClassInstance : public NCClassInstance{
@@ -46,6 +48,8 @@ public:
     
     shared_ptr<NCStackElement> getElementAt(int i){return innerArray[i];}
     void addElement(shared_ptr<NCStackElement>&e){innerArray.push_back(e);};
+    
+    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
 };
 
 ///////
@@ -71,6 +75,8 @@ public:
     virtual shared_ptr<NCStackElement> copy();
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+    
+    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName){return pObject->getAttribute(attrName);};
 };
 
 struct NCArrayAccessor:NCStackElement{

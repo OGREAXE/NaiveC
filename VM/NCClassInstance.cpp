@@ -99,6 +99,14 @@ bool NCArrayInstance::invokeMethod(string methodName, vector<shared_ptr<NCStackE
     return true;
 }
 
+shared_ptr<NCStackElement> NCArrayInstance::getAttribute(const string & attrName){
+    if (attrName == "count") {
+        long length = innerArray.size();
+        return shared_ptr<NCStackElement>(new NCStackIntElement(length));
+    }
+    return nullptr;
+}
+
 //array accessor
 shared_ptr<NCStackElement> NCArrayAccessor::doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){
     return arrayInstance->getElementAt(index)->doOperator(op, rightOperand);
