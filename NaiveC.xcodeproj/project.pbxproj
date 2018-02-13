@@ -16,7 +16,10 @@
 		D4E06DC420304A410095F442 /* NCClassLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06DC220304A410095F442 /* NCClassLoader.cpp */; };
 		D4E06DC7203125D40095F442 /* NCClassProvider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06DC5203125D40095F442 /* NCClassProvider.cpp */; };
 		D4E06E0F203192CB0095F442 /* NCCocoaClassProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E0D203192CB0095F442 /* NCCocoaClassProvider.mm */; };
-		D4E06E1720319A8B0095F442 /* NCBridgedOcObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E1520319A8B0095F442 /* NCBridgedOcObject.mm */; };
+		D4E06E1A2032E8A50095F442 /* NCObjectFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E182032E8A50095F442 /* NCObjectFactory.cpp */; };
+		D4E06E1D2032ECD00095F442 /* NCObjectGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E1B2032ECD00095F442 /* NCObjectGenerator.cpp */; };
+		D4E06E292032F2AC0095F442 /* NCCocoaBoxGenerator.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E272032F2AC0095F442 /* NCCocoaBoxGenerator.mm */; };
+		D4E06E2C2032F2C50095F442 /* NCCocoaBox.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E2A2032F2C50095F442 /* NCCocoaBox.mm */; };
 		ED08CD021FF90A40001A02FB /* NCProjectContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED08CD011FF90A40001A02FB /* NCProjectContentViewController.m */; };
 		ED08CD091FF91262001A02FB /* NCProjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ED08CD081FF91262001A02FB /* NCProjectManager.m */; };
 		ED08CD0C1FF91277001A02FB /* NCProject.m in Sources */ = {isa = PBXBuildFile; fileRef = ED08CD0B1FF91277001A02FB /* NCProject.m */; };
@@ -72,8 +75,14 @@
 		D4E06DC6203125D40095F442 /* NCClassProvider.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCClassProvider.hpp; sourceTree = "<group>"; };
 		D4E06E0D203192CB0095F442 /* NCCocoaClassProvider.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCCocoaClassProvider.mm; sourceTree = "<group>"; };
 		D4E06E0E203192CB0095F442 /* NCCocoaClassProvider.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCCocoaClassProvider.hpp; sourceTree = "<group>"; };
-		D4E06E1520319A8B0095F442 /* NCBridgedOcObject.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCBridgedOcObject.mm; sourceTree = "<group>"; };
-		D4E06E1620319A8B0095F442 /* NCBridgedOcObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCBridgedOcObject.hpp; sourceTree = "<group>"; };
+		D4E06E182032E8A50095F442 /* NCObjectFactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NCObjectFactory.cpp; sourceTree = "<group>"; };
+		D4E06E192032E8A50095F442 /* NCObjectFactory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCObjectFactory.hpp; sourceTree = "<group>"; };
+		D4E06E1B2032ECD00095F442 /* NCObjectGenerator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NCObjectGenerator.cpp; sourceTree = "<group>"; };
+		D4E06E1C2032ECD00095F442 /* NCObjectGenerator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCObjectGenerator.hpp; sourceTree = "<group>"; };
+		D4E06E272032F2AC0095F442 /* NCCocoaBoxGenerator.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCCocoaBoxGenerator.mm; sourceTree = "<group>"; };
+		D4E06E282032F2AC0095F442 /* NCCocoaBoxGenerator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCCocoaBoxGenerator.hpp; sourceTree = "<group>"; };
+		D4E06E2A2032F2C50095F442 /* NCCocoaBox.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCCocoaBox.mm; sourceTree = "<group>"; };
+		D4E06E2B2032F2C50095F442 /* NCCocoaBox.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCCocoaBox.hpp; sourceTree = "<group>"; };
 		ED08CD001FF90A40001A02FB /* NCProjectContentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCProjectContentViewController.h; sourceTree = "<group>"; };
 		ED08CD011FF90A40001A02FB /* NCProjectContentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NCProjectContentViewController.m; sourceTree = "<group>"; };
 		ED08CD071FF91262001A02FB /* NCProjectManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NCProjectManager.h; path = Model/NCProjectManager.h; sourceTree = "<group>"; };
@@ -163,8 +172,10 @@
 			children = (
 				D4E06E0D203192CB0095F442 /* NCCocoaClassProvider.mm */,
 				D4E06E0E203192CB0095F442 /* NCCocoaClassProvider.hpp */,
-				D4E06E1520319A8B0095F442 /* NCBridgedOcObject.mm */,
-				D4E06E1620319A8B0095F442 /* NCBridgedOcObject.hpp */,
+				D4E06E272032F2AC0095F442 /* NCCocoaBoxGenerator.mm */,
+				D4E06E282032F2AC0095F442 /* NCCocoaBoxGenerator.hpp */,
+				D4E06E2A2032F2C50095F442 /* NCCocoaBox.mm */,
+				D4E06E2B2032F2C50095F442 /* NCCocoaBox.hpp */,
 			);
 			path = CPPBridged;
 			sourceTree = "<group>";
@@ -290,6 +301,10 @@
 				D4E06DC320304A410095F442 /* NCClassLoader.hpp */,
 				D4E06DC5203125D40095F442 /* NCClassProvider.cpp */,
 				D4E06DC6203125D40095F442 /* NCClassProvider.hpp */,
+				D4E06E182032E8A50095F442 /* NCObjectFactory.cpp */,
+				D4E06E192032E8A50095F442 /* NCObjectFactory.hpp */,
+				D4E06E1B2032ECD00095F442 /* NCObjectGenerator.cpp */,
+				D4E06E1C2032ECD00095F442 /* NCObjectGenerator.hpp */,
 			);
 			path = VM;
 			sourceTree = "<group>";
@@ -409,13 +424,16 @@
 				ED219CA31F6D15CB0015293A /* AppDelegate.m in Sources */,
 				ED219CA01F6D15CB0015293A /* main.m in Sources */,
 				ED219CD71F6D16370015293A /* NCBuiltinFunction.mm in Sources */,
-				D4E06E1720319A8B0095F442 /* NCBridgedOcObject.mm in Sources */,
+				D4E06E1A2032E8A50095F442 /* NCObjectFactory.cpp in Sources */,
+				D4E06E292032F2AC0095F442 /* NCCocoaBoxGenerator.mm in Sources */,
 				EDBB6D2D1FEF62FD003CB5C5 /* NCDataSource.m in Sources */,
 				ED08CD171FFA050D001A02FB /* UIViewController+NCExtension.m in Sources */,
 				ED08CD091FF91262001A02FB /* NCProjectManager.m in Sources */,
 				ED08CD0F1FF9E041001A02FB /* NCProjectTableViewCell.m in Sources */,
+				D4E06E1D2032ECD00095F442 /* NCObjectGenerator.cpp in Sources */,
 				ED08CD0C1FF91277001A02FB /* NCProject.m in Sources */,
 				ED08CD021FF90A40001A02FB /* NCProjectContentViewController.m in Sources */,
+				D4E06E2C2032F2C50095F442 /* NCCocoaBox.mm in Sources */,
 				ED219CD51F6D16370015293A /* NCParser.cpp in Sources */,
 				ED219CDA1F6D16370015293A /* NCStackElement.cpp in Sources */,
 				EDBB6D301FEF64E0003CB5C5 /* NCTextManager.mm in Sources */,

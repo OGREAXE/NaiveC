@@ -23,6 +23,8 @@ private:
 public:
     shared_ptr<NCASTNode> loadClass(const string & className);
     
+    bool isClassExist(const string & className);
+    
     bool addProvider(shared_ptr<NCClassProvider> & provider);
     bool addProvider(NCClassProvider * provider);
 };
