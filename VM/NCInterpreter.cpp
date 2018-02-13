@@ -8,6 +8,7 @@
 
 #include "NCInterpreter.hpp"
 #include "NCStackElement.hpp"
+#include "NCClassLoader.hpp"
 
 void NCFrame::insertVariable(string&name, int value){
     localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackIntElement(value));

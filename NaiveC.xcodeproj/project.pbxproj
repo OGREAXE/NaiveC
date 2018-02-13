@@ -13,6 +13,10 @@
 		D4716E691FF26F24000797B1 /* CodeTest in Resources */ = {isa = PBXBuildFile; fileRef = D4716E681FF26F24000797B1 /* CodeTest */; };
 		D4716E6C1FF3980A000797B1 /* NCCodeTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = D4716E6B1FF3980A000797B1 /* NCCodeTemplate.m */; };
 		D4716E6E1FF3C231000797B1 /* image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4716E6D1FF3C231000797B1 /* image.xcassets */; };
+		D4E06DC420304A410095F442 /* NCClassLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06DC220304A410095F442 /* NCClassLoader.cpp */; };
+		D4E06DC7203125D40095F442 /* NCClassProvider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06DC5203125D40095F442 /* NCClassProvider.cpp */; };
+		D4E06E0F203192CB0095F442 /* NCCocoaClassProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E0D203192CB0095F442 /* NCCocoaClassProvider.mm */; };
+		D4E06E1720319A8B0095F442 /* NCBridgedOcObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E1520319A8B0095F442 /* NCBridgedOcObject.mm */; };
 		ED08CD021FF90A40001A02FB /* NCProjectContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED08CD011FF90A40001A02FB /* NCProjectContentViewController.m */; };
 		ED08CD091FF91262001A02FB /* NCProjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ED08CD081FF91262001A02FB /* NCProjectManager.m */; };
 		ED08CD0C1FF91277001A02FB /* NCProject.m in Sources */ = {isa = PBXBuildFile; fileRef = ED08CD0B1FF91277001A02FB /* NCProject.m */; };
@@ -62,6 +66,14 @@
 		D4716E6A1FF3980A000797B1 /* NCCodeTemplate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCCodeTemplate.h; sourceTree = "<group>"; };
 		D4716E6B1FF3980A000797B1 /* NCCodeTemplate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NCCodeTemplate.m; sourceTree = "<group>"; };
 		D4716E6D1FF3C231000797B1 /* image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = image.xcassets; sourceTree = "<group>"; };
+		D4E06DC220304A410095F442 /* NCClassLoader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NCClassLoader.cpp; sourceTree = "<group>"; };
+		D4E06DC320304A410095F442 /* NCClassLoader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCClassLoader.hpp; sourceTree = "<group>"; };
+		D4E06DC5203125D40095F442 /* NCClassProvider.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NCClassProvider.cpp; sourceTree = "<group>"; };
+		D4E06DC6203125D40095F442 /* NCClassProvider.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCClassProvider.hpp; sourceTree = "<group>"; };
+		D4E06E0D203192CB0095F442 /* NCCocoaClassProvider.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCCocoaClassProvider.mm; sourceTree = "<group>"; };
+		D4E06E0E203192CB0095F442 /* NCCocoaClassProvider.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCCocoaClassProvider.hpp; sourceTree = "<group>"; };
+		D4E06E1520319A8B0095F442 /* NCBridgedOcObject.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCBridgedOcObject.mm; sourceTree = "<group>"; };
+		D4E06E1620319A8B0095F442 /* NCBridgedOcObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCBridgedOcObject.hpp; sourceTree = "<group>"; };
 		ED08CD001FF90A40001A02FB /* NCProjectContentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCProjectContentViewController.h; sourceTree = "<group>"; };
 		ED08CD011FF90A40001A02FB /* NCProjectContentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NCProjectContentViewController.m; sourceTree = "<group>"; };
 		ED08CD071FF91262001A02FB /* NCProjectManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NCProjectManager.h; path = Model/NCProjectManager.h; sourceTree = "<group>"; };
@@ -146,6 +158,17 @@
 			name = Coding;
 			sourceTree = "<group>";
 		};
+		D4E06E0C203191920095F442 /* CPPBridged */ = {
+			isa = PBXGroup;
+			children = (
+				D4E06E0D203192CB0095F442 /* NCCocoaClassProvider.mm */,
+				D4E06E0E203192CB0095F442 /* NCCocoaClassProvider.hpp */,
+				D4E06E1520319A8B0095F442 /* NCBridgedOcObject.mm */,
+				D4E06E1620319A8B0095F442 /* NCBridgedOcObject.hpp */,
+			);
+			path = CPPBridged;
+			sourceTree = "<group>";
+		};
 		ED08CCFF1FF9098B001A02FB /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -202,6 +225,7 @@
 		ED219C9D1F6D15CB0015293A /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				D4E06E0C203191920095F442 /* CPPBridged */,
 				ED08CD031FF90ADB001A02FB /* Model */,
 				ED08CCFF1FF9098B001A02FB /* UI */,
 				D4716E661FF1E98A000797B1 /* Coding */,
@@ -262,6 +286,10 @@
 				ED219CD31F6D16370015293A /* NCStackElement.hpp */,
 				ED2040341F77A6D300734821 /* NCClassInstance.cpp */,
 				ED2040351F77A6D300734821 /* NCClassInstance.hpp */,
+				D4E06DC220304A410095F442 /* NCClassLoader.cpp */,
+				D4E06DC320304A410095F442 /* NCClassLoader.hpp */,
+				D4E06DC5203125D40095F442 /* NCClassProvider.cpp */,
+				D4E06DC6203125D40095F442 /* NCClassProvider.hpp */,
 			);
 			path = VM;
 			sourceTree = "<group>";
@@ -315,8 +343,8 @@
 				TargetAttributes = {
 					ED219C9A1F6D15CB0015293A = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 6FY57Y255B;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = KLS72L88F6;
+						ProvisioningStyle = Manual;
 					};
 					ED219CB31F6D15CB0015293A = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -381,6 +409,7 @@
 				ED219CA31F6D15CB0015293A /* AppDelegate.m in Sources */,
 				ED219CA01F6D15CB0015293A /* main.m in Sources */,
 				ED219CD71F6D16370015293A /* NCBuiltinFunction.mm in Sources */,
+				D4E06E1720319A8B0095F442 /* NCBridgedOcObject.mm in Sources */,
 				EDBB6D2D1FEF62FD003CB5C5 /* NCDataSource.m in Sources */,
 				ED08CD171FFA050D001A02FB /* UIViewController+NCExtension.m in Sources */,
 				ED08CD091FF91262001A02FB /* NCProjectManager.m in Sources */,
@@ -390,9 +419,12 @@
 				ED219CD51F6D16370015293A /* NCParser.cpp in Sources */,
 				ED219CDA1F6D16370015293A /* NCStackElement.cpp in Sources */,
 				EDBB6D301FEF64E0003CB5C5 /* NCTextManager.mm in Sources */,
+				D4E06DC7203125D40095F442 /* NCClassProvider.cpp in Sources */,
+				D4E06E0F203192CB0095F442 /* NCCocoaClassProvider.mm in Sources */,
 				ED219CD91F6D16370015293A /* NCInterpreter.cpp in Sources */,
 				D429568E1FFCEEE90035C9BB /* NCCodeFastInputViewController.m in Sources */,
 				ED219CD41F6D16370015293A /* NCAST.cpp in Sources */,
+				D4E06DC420304A410095F442 /* NCClassLoader.cpp in Sources */,
 				ED219CD81F6D16370015293A /* NCCode.cpp in Sources */,
 				ED08CD121FF9E550001A02FB /* NCAddNewFileViewController.m in Sources */,
 				D4716E621FF11269000797B1 /* NCInterpreterController.mm in Sources */,
@@ -534,8 +566,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6FY57Y255B;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = KLS72L88F6;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INPUT_FILETYPE = automatic;
 				INFOPLIST_FILE = NaiveC/Info.plist;
@@ -543,8 +575,8 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = Ogreaxe.NaiveC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "63464b79-2000-4d6a-b9bf-bee8560eaf7e";
+				PROVISIONING_PROFILE_SPECIFIER = 20180106;
 			};
 			name = Debug;
 		};
@@ -553,8 +585,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6FY57Y255B;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INPUT_FILETYPE = automatic;
 				INFOPLIST_FILE = NaiveC/Info.plist;
