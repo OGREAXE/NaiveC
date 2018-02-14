@@ -15,16 +15,18 @@
 /*
  wrapper for cocoa objects
  */
-class NCCocoaBox :NCClassInstance {
+class NCCocoaBox :public NCClassInstance {
 private:
     //wrapped cocoaObject. must use non-arc to ensure correct release?
-    void * cocoaObject;
+    void * m_cocoaObject;
 public:
-    NCCocoaBox(void * cocoaObject):cocoaObject(cocoaObject){};
+    NCCocoaBox(void * cocoaObject);
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
     
     virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
+    
+    void * getCocoaObject(){return m_cocoaObject;}
 };
 
 #endif /* NCCocoaBox_hpp */
