@@ -54,6 +54,9 @@ public:
 
 ///////
 
+/**
+ pointer to a class
+ */
 struct NCStackPointerElement:public NCStackElement{
 private:
     NCClassInstance * pObject;
@@ -77,6 +80,18 @@ public:
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
     
     virtual shared_ptr<NCStackElement> getAttribute(const string & attrName){return pObject->getAttribute(attrName);};
+};
+
+/**
+ pointer to a 'meta' class
+ */
+struct NCStackMetaClassElement:public NCStackElement{
+private:
+    string className;
+public:
+    NCStackMetaClassElement(const string&className):className(className){}
+    
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
 };
 
 struct NCArrayAccessor:NCStackElement{

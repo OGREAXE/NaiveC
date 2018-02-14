@@ -9,6 +9,7 @@
 #include "NCInterpreter.hpp"
 #include "NCStackElement.hpp"
 #include "NCClassLoader.hpp"
+#include "NCClassLoader.hpp"
 
 void NCFrame::insertVariable(string&name, int value){
     localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackIntElement(value));
@@ -375,7 +376,14 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
     }
     else if(dynamic_cast<NCNameExpression*>(currentNode.get())){
         auto node = dynamic_cast<NCNameExpression*>(currentNode.get());
-        //todo
+        
+        if ( NCClassLoader::GetInstance()->isClassExist(node->name)) {
+            //a static call
+            auto metaClassElement = new NCStackMetaClassElement(node->name);
+            frame.stack.push_back(shared_ptr<NCStackElement>(metaClassElement));
+            return true;
+        }
+        
         auto findValue = frame.localVariableMap.find(node->name);
         if (findValue == frame.localVariableMap.end()) {
             return false;

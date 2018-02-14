@@ -13,7 +13,9 @@
 #include "NCClassProvider.hpp"
 
 class NCCocoaClassProvider :NCClassProvider {
+    virtual bool classExist(const std::string & className);
     
+    virtual bool invokeStaticMethodOnClass(const string & className,const string& methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
 };
 
 #endif /* NCCocoaClassProvider_hpp */

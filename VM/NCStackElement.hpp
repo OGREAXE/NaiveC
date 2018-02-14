@@ -17,15 +17,15 @@ struct NCStackElement{
     virtual ~NCStackElement(){}
     string type;
     
-    virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand)=0;
+    virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){return nullptr;};
     
-    virtual int toInt()=0;
-    virtual float toFloat()=0;
-    virtual string toString()=0;
+    virtual int toInt(){return 0;};
+    virtual float toFloat(){return 0;};
+    virtual string toString(){return "";};
     
     static shared_ptr<NCStackElement> createStackElement(NCLiteral* literal);
     
-    virtual shared_ptr<NCStackElement> copy()=0;
+    virtual shared_ptr<NCStackElement> copy(){return nullptr;};
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){return false;}
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments){return false;}

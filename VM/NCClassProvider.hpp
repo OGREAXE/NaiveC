@@ -12,10 +12,16 @@
 #include <stdio.h>
 #include <memory>
 
+#include "NCStackElement.hpp"
 #include "NCAST.hpp"
 
 class NCClassProvider{
-    virtual std::shared_ptr<NCASTNode> findClass(const std::string & className) = 0;
+public:
+    virtual std::shared_ptr<NCASTNode> findClass(const std::string & className) {return nullptr;};
+    
+    virtual bool classExist(const std::string & className){return false;}
+    
+    virtual bool invokeStaticMethodOnClass(const string & className,const string& methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){return false;};
 };
 
 #endif /* NCClassProvider_hpp */

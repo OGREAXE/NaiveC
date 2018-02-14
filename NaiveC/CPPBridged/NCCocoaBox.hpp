@@ -12,8 +12,19 @@
 #include <stdio.h>
 #include "NCClassInstance.hpp"
 
+/*
+ wrapper for cocoa objects
+ */
 class NCCocoaBox :NCClassInstance {
+private:
+    //wrapped cocoaObject. must use non-arc to ensure correct release?
+    void * cocoaObject;
 public:
+    NCCocoaBox(void * cocoaObject):cocoaObject(cocoaObject){};
+    
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+    
+    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
 };
 
 #endif /* NCCocoaBox_hpp */

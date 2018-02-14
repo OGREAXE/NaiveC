@@ -7,6 +7,7 @@
 //
 
 #include "NCClassInstance.hpp"
+#include "NCClassLoader.hpp"
 
 shared_ptr<NCStackElement> NCStackPointerElement::doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){
     
@@ -105,6 +106,21 @@ shared_ptr<NCStackElement> NCArrayInstance::getAttribute(const string & attrName
         return shared_ptr<NCStackElement>(new NCStackIntElement(length));
     }
     return nullptr;
+}
+
+
+/**
+ invoke a method on a 'meta' class
+ in oc, it's a class selector
+
+ @param methodName <#methodName description#>
+ @param arguments <#arguments description#>
+ @param lastStack <#lastStack description#>
+ @return <#return value description#>
+ */
+bool NCStackMetaClassElement::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
+    bool result = NCClassLoader::GetInstance()->invokeStaticMethodOnClass(className, methodName, arguments, lastStack);
+    return result;
 }
 
 //array accessor
