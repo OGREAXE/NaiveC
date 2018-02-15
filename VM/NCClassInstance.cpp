@@ -17,7 +17,7 @@ shared_ptr<NCStackElement> NCStackPointerElement::doOperator(const string&op, sh
 int NCStackPointerElement::toInt(){
     return 0;
 }
-float NCStackPointerElement::toFloat(){
+NCFloat NCStackPointerElement::toFloat(){
     return 0;
 }
 string NCStackPointerElement::toString(){
@@ -131,7 +131,7 @@ shared_ptr<NCStackElement> NCArrayAccessor::doOperator(const string&op, shared_p
 int NCArrayAccessor::toInt(){
     return arrayInstance->getElementAt(index)->toInt();
 }
-float NCArrayAccessor::toFloat(){
+NCFloat NCArrayAccessor::toFloat(){
     return arrayInstance->getElementAt(index)->toFloat();
 }
 string NCArrayAccessor::toString(){

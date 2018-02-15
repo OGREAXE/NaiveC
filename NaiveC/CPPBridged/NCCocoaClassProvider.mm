@@ -10,6 +10,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#include "NSObject+NCInvocation.h"
+
 bool NCCocoaClassProvider::classExist(const std::string & className){
     NSString * nsclassName = [NSString stringWithUTF8String:className.c_str()];
     Class targetClass = NSClassFromString(nsclassName);
@@ -20,5 +22,14 @@ bool NCCocoaClassProvider::classExist(const std::string & className){
 }
 
 bool NCCocoaClassProvider::invokeStaticMethodOnClass(const string & className,const string& methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
+    
+    Class targetClass = NSClassFromString([NSString stringWithUTF8String:className.c_str()]);
+    
+    NSString * methodStr = [NSString stringWithUTF8String:methodName.c_str()];
+    
+    if (targetClass) {
+        [NSObject invoke:methodStr object:nil orClass:targetClass arguments:arguments stack:lastStack];
+    }
+    
     return false;
 }

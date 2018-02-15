@@ -22,6 +22,10 @@ using namespace std;
 
 typedef string MCType;
 
+typedef long long NCInt;
+
+typedef double NCFloat;
+
 //struct NCValueHolder{
 //    
 //};

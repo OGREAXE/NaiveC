@@ -73,7 +73,7 @@ public:
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
     virtual int toInt();
-    virtual float toFloat();
+    virtual NCFloat toFloat();
     virtual string toString();
     virtual shared_ptr<NCStackElement> copy();
     
@@ -103,7 +103,7 @@ public:
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
     virtual int toInt();
-    virtual float toFloat();
+    virtual NCFloat toFloat();
     virtual string toString();
     virtual shared_ptr<NCStackElement> copy();
     

@@ -20,7 +20,7 @@ struct NCStackElement{
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){return nullptr;};
     
     virtual int toInt(){return 0;};
-    virtual float toFloat(){return 0;};
+    virtual NCFloat toFloat(){return 0;};
     virtual string toString(){return "";};
     
     static shared_ptr<NCStackElement> createStackElement(NCLiteral* literal);
@@ -40,18 +40,18 @@ struct NCStackIntElement:NCStackElement{
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
     virtual int toInt();
-    virtual float toFloat();
+    virtual NCFloat toFloat();
     virtual string toString();
     virtual shared_ptr<NCStackElement> copy();
 };
 
 struct NCStackFloatElement:NCStackElement{
     NCStackFloatElement(float val):value(val){type="float";}
-    float value;
+    NCFloat value;
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
     virtual int toInt();
-    virtual float toFloat();
+    virtual NCFloat toFloat();
     virtual string toString();
     virtual shared_ptr<NCStackElement> copy();
 };
@@ -62,7 +62,7 @@ struct NCStackStringElement:NCStackElement{
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
     virtual int toInt();
-    virtual float toFloat();
+    virtual NCFloat toFloat();
     virtual string toString();
     virtual shared_ptr<NCStackElement> copy();
     
@@ -79,7 +79,7 @@ struct NCStackVariableElement:NCStackElement{
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
     virtual int toInt();
-    virtual float toFloat();
+    virtual NCFloat toFloat();
     virtual string toString();
     virtual shared_ptr<NCStackElement> copy();
     

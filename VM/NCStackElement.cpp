@@ -151,7 +151,7 @@ shared_ptr<NCStackElement> NCStackStringElement::doOperator(const string&op, sha
 int NCStackIntElement::toInt(){
     return this->value;
 }
-float NCStackIntElement::toFloat(){
+NCFloat NCStackIntElement::toFloat(){
     return this->value;
 }
 string NCStackIntElement::toString(){
@@ -161,7 +161,7 @@ string NCStackIntElement::toString(){
 int NCStackFloatElement::toInt(){
     return this->value;
 }
-float NCStackFloatElement::toFloat(){
+NCFloat NCStackFloatElement::toFloat(){
     return this->value;
 }
 string NCStackFloatElement::toString(){
@@ -171,7 +171,7 @@ string NCStackFloatElement::toString(){
 int NCStackStringElement::toInt(){
     return stoi(this->value);
 }
-float NCStackStringElement::toFloat(){
+NCFloat NCStackStringElement::toFloat(){
     return stof(this->value);
 }
 string NCStackStringElement::toString(){
@@ -227,7 +227,7 @@ shared_ptr<NCStackElement> NCStackVariableElement::doOperator(const string&op, s
 int NCStackVariableElement::toInt(){
     return valueElement->toInt();
 }
-float NCStackVariableElement::toFloat(){
+NCFloat NCStackVariableElement::toFloat(){
     return valueElement->toFloat();
 }
 string NCStackVariableElement::toString(){

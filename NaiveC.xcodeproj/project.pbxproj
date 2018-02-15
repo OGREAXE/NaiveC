@@ -20,6 +20,7 @@
 		D4E06E1D2032ECD00095F442 /* NCObjectGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E1B2032ECD00095F442 /* NCObjectGenerator.cpp */; };
 		D4E06E292032F2AC0095F442 /* NCCocoaBoxGenerator.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E272032F2AC0095F442 /* NCCocoaBoxGenerator.mm */; };
 		D4E06E2C2032F2C50095F442 /* NCCocoaBox.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E2A2032F2C50095F442 /* NCCocoaBox.mm */; };
+		D4E06E2F203552CD0095F442 /* NSObject+NCInvocation.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E2E203552CD0095F442 /* NSObject+NCInvocation.mm */; };
 		ED08CD021FF90A40001A02FB /* NCProjectContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED08CD011FF90A40001A02FB /* NCProjectContentViewController.m */; };
 		ED08CD091FF91262001A02FB /* NCProjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ED08CD081FF91262001A02FB /* NCProjectManager.m */; };
 		ED08CD0C1FF91277001A02FB /* NCProject.m in Sources */ = {isa = PBXBuildFile; fileRef = ED08CD0B1FF91277001A02FB /* NCProject.m */; };
@@ -83,6 +84,8 @@
 		D4E06E282032F2AC0095F442 /* NCCocoaBoxGenerator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCCocoaBoxGenerator.hpp; sourceTree = "<group>"; };
 		D4E06E2A2032F2C50095F442 /* NCCocoaBox.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCCocoaBox.mm; sourceTree = "<group>"; };
 		D4E06E2B2032F2C50095F442 /* NCCocoaBox.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCCocoaBox.hpp; sourceTree = "<group>"; };
+		D4E06E2D203552CD0095F442 /* NSObject+NCInvocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+NCInvocation.h"; sourceTree = "<group>"; };
+		D4E06E2E203552CD0095F442 /* NSObject+NCInvocation.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+NCInvocation.mm"; sourceTree = "<group>"; };
 		ED08CD001FF90A40001A02FB /* NCProjectContentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCProjectContentViewController.h; sourceTree = "<group>"; };
 		ED08CD011FF90A40001A02FB /* NCProjectContentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NCProjectContentViewController.m; sourceTree = "<group>"; };
 		ED08CD071FF91262001A02FB /* NCProjectManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NCProjectManager.h; path = Model/NCProjectManager.h; sourceTree = "<group>"; };
@@ -176,6 +179,8 @@
 				D4E06E282032F2AC0095F442 /* NCCocoaBoxGenerator.hpp */,
 				D4E06E2A2032F2C50095F442 /* NCCocoaBox.mm */,
 				D4E06E2B2032F2C50095F442 /* NCCocoaBox.hpp */,
+				D4E06E2D203552CD0095F442 /* NSObject+NCInvocation.h */,
+				D4E06E2E203552CD0095F442 /* NSObject+NCInvocation.mm */,
 			);
 			path = CPPBridged;
 			sourceTree = "<group>";
@@ -415,6 +420,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4E06E2F203552CD0095F442 /* NSObject+NCInvocation.mm in Sources */,
 				ED08CD141FF9F99F001A02FB /* Common.mm in Sources */,
 				D4716E651FF1E97C000797B1 /* NCConsole.m in Sources */,
 				ED219CD61F6D16370015293A /* NCTokenizer.cpp in Sources */,
