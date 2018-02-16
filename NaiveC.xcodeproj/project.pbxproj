@@ -170,7 +170,7 @@
 			name = Coding;
 			sourceTree = "<group>";
 		};
-		D4E06E0C203191920095F442 /* CPPBridged */ = {
+		D4E06E0C203191920095F442 /* Bridged */ = {
 			isa = PBXGroup;
 			children = (
 				D4E06E0D203192CB0095F442 /* NCCocoaClassProvider.mm */,
@@ -182,7 +182,16 @@
 				D4E06E2D203552CD0095F442 /* NSObject+NCInvocation.h */,
 				D4E06E2E203552CD0095F442 /* NSObject+NCInvocation.mm */,
 			);
-			path = CPPBridged;
+			path = Bridged;
+			sourceTree = "<group>";
+		};
+		D4E06E312036FD520095F442 /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				D4716E681FF26F24000797B1 /* CodeTest */,
+				ED219CDF1F6D1B610015293A /* CodeTestX */,
+			);
+			path = Example;
 			sourceTree = "<group>";
 		};
 		ED08CCFF1FF9098B001A02FB /* UI */ = {
@@ -219,11 +228,11 @@
 		ED219C921F6D15CB0015293A = {
 			isa = PBXGroup;
 			children = (
-				D4716E681FF26F24000797B1 /* CodeTest */,
-				ED219CDF1F6D1B610015293A /* CodeTestX */,
+				D4E06E312036FD520095F442 /* Example */,
 				ED219CC41F6D16370015293A /* frontend */,
 				ED219CCB1F6D16370015293A /* VM */,
-				ED219C9D1F6D15CB0015293A /* iOS */,
+				D4E06E0C203191920095F442 /* Bridged */,
+				ED219C9D1F6D15CB0015293A /* NaiveStudio */,
 				ED219CB71F6D15CB0015293A /* NaiveCTests */,
 				ED219C9C1F6D15CB0015293A /* Products */,
 			);
@@ -238,10 +247,9 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		ED219C9D1F6D15CB0015293A /* iOS */ = {
+		ED219C9D1F6D15CB0015293A /* NaiveStudio */ = {
 			isa = PBXGroup;
 			children = (
-				D4E06E0C203191920095F442 /* CPPBridged */,
 				ED08CD031FF90ADB001A02FB /* Model */,
 				ED08CCFF1FF9098B001A02FB /* UI */,
 				D4716E661FF1E98A000797B1 /* Coding */,
@@ -255,7 +263,7 @@
 				ED219CAF1F6D15CB0015293A /* Info.plist */,
 				ED219C9E1F6D15CB0015293A /* Supporting Files */,
 			);
-			name = iOS;
+			name = NaiveStudio;
 			path = NaiveC;
 			sourceTree = "<group>";
 		};
