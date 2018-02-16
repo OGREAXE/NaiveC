@@ -702,13 +702,13 @@ shared_ptr<NCExpression> NCParser::literal(){
     int intNum;
     float fNum;
     string str;
-    if (isIntegerLiteral(word, &intNum)) {
-        word = nextWord();
-        return shared_ptr<NCIntegerLiteral>(new NCIntegerLiteral(intNum));
-    }
-    else if (isFloatLiteral(word, &fNum)) {
+    if (isFloatLiteral(word, &fNum)) {
         word = nextWord();
         return shared_ptr<NCFloatLiteral>(new NCFloatLiteral(fNum));
+    }
+    else if (isIntegerLiteral(word, &intNum)) {
+        word = nextWord();
+        return shared_ptr<NCIntegerLiteral>(new NCIntegerLiteral(intNum));
     }
     else if (isStringLiteral(word,str)) {
         word = nextWord();
@@ -1022,7 +1022,15 @@ bool NCParser::isFloatLiteral(string&word, float *num){
     float d;
     ss>>d;
     *num = d;
-    return !ss.fail();
+    
+    bool hasDot = false;
+    for (char c:word) {
+        if (c == '.') {
+            hasDot = true;
+        }
+    }
+    
+    return hasDot && !ss.fail();
 }
 bool NCParser::isStringLiteral(string&word,string&parsed){
     if( word.length() >= 2 && word[0] == '"' && word[word.length()-1] == '"'){

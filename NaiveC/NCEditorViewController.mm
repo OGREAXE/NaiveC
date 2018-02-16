@@ -124,6 +124,13 @@
 }
 
 -(IBAction)didTapCompile:(id)sender{
+    
+    NSError * error;
+    if(![self.textViewDataSource save:&error]){
+        NSLog(@"error save:%@",error);
+        return;
+    }
+    
     self.outputView.text = @"";
     [self.textView endEditing:YES];
     //    [self testNC];
