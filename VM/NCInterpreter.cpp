@@ -100,10 +100,7 @@ bool NCInterpreter::invoke(string function, vector<shared_ptr<NCStackElement>> &
 
 bool NCInterpreter::invoke_constructor(string function, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
     //todo
-    if (function == "array") {
-        
-        
-    }
+    
     return false;
 }
 
@@ -168,9 +165,13 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
                 string value = stackPopString(frame);
                 frame.insertVariable(name, value);
             }
-            else if (type == "array") {
-                auto arrayPointerElement = stackPopObjectPointer(frame);
-                frame.insertVariable(name, arrayPointerElement);
+//            else if (type == "array") {
+//                auto arrayPointerElement = stackPopObjectPointer(frame);
+//                frame.insertVariable(name, arrayPointerElement);
+//            }
+            else {
+                auto pointerElement = stackPopObjectPointer(frame);
+                frame.insertVariable(name, pointerElement);
             }
         }
     }
@@ -307,6 +308,8 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
         if (dynamic_cast<NCStackVariableElement*>(stackTop.get())) {
             auto var = dynamic_cast<NCStackVariableElement*>(stackTop.get());
             walkTree(node->value,frame);
+            
+            //primitive types, like int ,float and string pass by value
             if (var->valueElement->type == "int") {
                 frame.insertVariable(var->name, stackPopInt(frame));
             }
@@ -317,17 +320,21 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
                 string str = stackPopString(frame);
                 frame.insertVariable(var->name, str);
             }
-            else if (var->valueElement->type == "array") {
-                auto pStackTop = frame.stack.back();
-                auto obj = frame.localVariableMap[var->name].get();
-                if (dynamic_cast<NCArrayInstance*>(obj)) {
-                    frame.stack.pop_back();
-                    auto arrayInst = dynamic_cast<NCArrayInstance*>(obj);
-                    auto scope = frame.stack.back();
-                    vector<shared_ptr<NCStackElement> > arguments = {scope};
-                    arrayInst->invokeMethod("set", arguments, frame.stack);
-                }
-            
+//            else if (var->valueElement->type == "array") {
+//                auto pStackTop = frame.stack.back();
+//                auto obj = frame.localVariableMap[var->name].get();
+//                if (dynamic_cast<NCArrayInstance*>(obj)) {
+//                    frame.stack.pop_back();
+//                    auto arrayInst = dynamic_cast<NCArrayInstance*>(obj);
+//                    auto scope = frame.stack.back();
+//                    vector<shared_ptr<NCStackElement> > arguments = {scope};
+//                    arrayInst->invokeMethod("set", arguments, frame.stack);
+//                }
+//            }
+            else {
+                //pass by pointer
+                auto pointerElement = stackPopObjectPointer(frame);
+                frame.insertVariable(var->name, pointerElement);
             }
         }
         else if (dynamic_cast<NCArrayAccessor*>(stackTop.get())) {
