@@ -2,8 +2,8 @@
 //  NaiveCTests.m
 //  NaiveCTests
 //
-//  Created by 梁志远 on 16/09/2017.
-//  Copyright © 2017 Ogreaxe. All rights reserved.
+//  Created by Liang,Zhiyuan(GIS) on 2018/2/16.
+//  Copyright © 2018年 Ogreaxe. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>

@@ -14,14 +14,17 @@
 
 #include "NCStackElement.hpp"
 #include "NCAST.hpp"
+#include "NCClass.hpp"
 
 class NCClassProvider{
 public:
-    virtual std::shared_ptr<NCASTNode> findClass(const std::string & className) {return nullptr;};
+//    virtual std::shared_ptr<NCASTNode> findClass(const std::string & className) {return nullptr;};
+    
+    virtual shared_ptr<NCClass> loadClass(const string & className){return nullptr;};
     
     virtual bool classExist(const std::string & className){return false;}
     
-    virtual bool invokeStaticMethodOnClass(const string & className,const string& methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){return false;};
+//    virtual bool invokeStaticMethodOnClass(const string & className,const string& methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){return false;};
 };
 
 #endif /* NCClassProvider_hpp */

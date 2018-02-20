@@ -1,0 +1,28 @@
+//
+//  NCCocoaClass.hpp
+//  NaiveC
+//
+//  Created by Liang,Zhiyuan(GIS) on 2018/2/18.
+//  Copyright © 2018年 Ogreaxe. All rights reserved.
+//
+
+#ifndef NCCocoaClass_hpp
+#define NCCocoaClass_hpp
+
+#include <stdio.h>
+
+#include <stdio.h>
+#include <string>
+
+#include "NCClass.hpp"
+
+class NCCocoaClass : public NCClass{
+public:
+    NCCocoaClass(const std::string&name):NCClass(name){}
+    
+    virtual shared_ptr<NCStackPointerElement> instantiate(vector<shared_ptr<NCStackElement>> &arguments);
+    
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+};
+
+#endif /* NCCocoaClass_hpp */

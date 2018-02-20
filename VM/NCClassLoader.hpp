@@ -14,6 +14,7 @@
 #include <memory>
 #include "NCAST.hpp"
 #include "NCClassProvider.hpp"
+#include "NCClass.hpp"
 
 using namespace std;
 
@@ -26,22 +27,23 @@ public:
         return m_pInstance;
     }
 private:
-    NCClassLoader(){};
+    NCClassLoader();
     static NCClassLoader * m_pInstance;
     
 private:
     vector<shared_ptr<NCClassProvider>> classProviders;
     
-    shared_ptr<NCClassProvider> findClassProviderForClassName(const string & className);
+    shared_ptr<NCClassProvider> findClassProvider(const string & className);
 public:
-    shared_ptr<NCASTNode> loadClass(const string & className);
+//    shared_ptr<NCASTNode> loadClass(const string & className);
+    shared_ptr<NCClass> loadClass(const string & className);
     
-    bool invokeStaticMethodOnClass(const string & className,const string& methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+//    bool invokeStaticMethodOnClass(const string & className,const string& methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
     
     bool isClassExist(const string & className);
     
-    bool addProvider(shared_ptr<NCClassProvider> & provider);
-    bool addProvider(NCClassProvider * provider);
+    bool registerProvider(shared_ptr<NCClassProvider> & provider);
+    bool registerProvider(NCClassProvider * provider);
 };
 
 #endif /* NCClassLoader_hpp */

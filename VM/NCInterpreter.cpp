@@ -9,7 +9,7 @@
 #include "NCInterpreter.hpp"
 #include "NCStackElement.hpp"
 #include "NCClassLoader.hpp"
-#include "NCClassLoader.hpp"
+#include "NCArray.hpp"
 
 void NCFrame::insertVariable(string&name, int value){
     localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackIntElement(value));
@@ -385,9 +385,13 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
         auto node = dynamic_cast<NCNameExpression*>(currentNode.get());
         
         if ( NCClassLoader::GetInstance()->isClassExist(node->name)) {
-            //a static call
-            auto metaClassElement = new NCStackMetaClassElement(node->name);
-            frame.stack.push_back(shared_ptr<NCStackElement>(metaClassElement));
+            //a 'meta' class
+            auto targetClass = NCClassLoader::GetInstance()->loadClass(node->name);
+            if (!targetClass) {
+                return false;
+            }
+            
+            frame.stack.push_back(targetClass);
             return true;
         }
         
@@ -400,9 +404,18 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
 
             //wild pointer ???
 //            printf("%d",var->toInt());
-            auto varElement = new NCStackVariableElement(node->name, var);
-//            auto varElement = new NCStackVariableElement(node->name, var->copy());
-            frame.stack.push_back(shared_ptr<NCStackElement>(varElement));
+            if (dynamic_cast<NCStackVariableElement*>(var.get())) {
+                //extract value, avoid variable in variable.
+                auto varWrapped = dynamic_pointer_cast<NCStackVariableElement>(var);
+                auto payload = varWrapped->valueElement;
+                
+                frame.stack.push_back(shared_ptr<NCStackElement>(new NCStackVariableElement(node->name, payload)));
+                
+            }
+            else {
+                auto varElement = new NCStackVariableElement(node->name, var);
+                frame.stack.push_back(shared_ptr<NCStackElement>(varElement));
+            }
         }
     }
     else if(dynamic_cast<NCLiteral*>(currentNode.get())){
@@ -535,11 +548,32 @@ bool NCInterpreter::tree_doStaticMehothodCall(NCFrame & frame,NCMethodCallExpr*n
         }
         else {
             //constructor?
-            if (node->name == "array") {
-                auto pArray = new NCArrayInstance();
-                frame.stack.push_back(shared_ptr<NCStackPointerElement> ( new NCStackPointerElement(pArray)));
-            }
+//            if (node->name == "array") {
+//                auto pArray = new NCArrayInstance();
+//                frame.stack.push_back(shared_ptr<NCStackPointerElement> ( new NCStackPointerElement(pArray)));
+//            }
+            auto targetClass = NCClassLoader::GetInstance()->loadClass(node->name);
+            
+            vector<shared_ptr<NCStackElement>> arguments;
+            
+            initArguments(node->args, arguments, frame);
+            
+            auto aInstance = targetClass->instantiate(arguments);
+            frame.stack.push_back(shared_ptr<NCStackPointerElement> ( aInstance));
         }
+    }
+    return true;
+}
+
+bool NCInterpreter::initArguments(vector<shared_ptr<NCExpression>> &intput_argumentExpressions, vector<shared_ptr<NCStackElement>> & output_arguments, NCFrame&frame){
+    vector<shared_ptr<NCStackElement>> arguments;
+    
+    for (int i = 0; i<intput_argumentExpressions.size(); i++) {
+        auto argExp = intput_argumentExpressions[i];
+        walkTree(argExp, frame);
+        
+        auto argValue = frame.stack_pop()->copy();
+        arguments.push_back(argValue);
     }
     return true;
 }

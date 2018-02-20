@@ -37,22 +37,6 @@ public:
 };
 
 ///////
-//predefined class instance (STL)
-
-class NCArrayInstance : public NCClassInstance{
-private:
-    vector<shared_ptr<NCStackElement>> innerArray;
-public:
-    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
-    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments);
-    
-    shared_ptr<NCStackElement> getElementAt(int i){return innerArray[i];}
-    void addElement(shared_ptr<NCStackElement>&e){innerArray.push_back(e);};
-    
-    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
-};
-
-///////
 
 /**
  pointer to a class
@@ -82,37 +66,6 @@ public:
     virtual shared_ptr<NCStackElement> getAttribute(const string & attrName){return pObject->getAttribute(attrName);};
 };
 
-/**
- pointer to a 'meta' class
- */
-struct NCStackMetaClassElement:public NCStackElement{
-private:
-    string className;
-public:
-    NCStackMetaClassElement(const string&className):className(className){}
-    
-    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
-};
-
-struct NCArrayAccessor:NCStackElement{
-private:
-    NCArrayInstance * arrayInstance;
-    int index;
-public:
-    NCArrayAccessor(NCArrayInstance*arrInst, int index):arrayInstance(arrInst),index(index){}
-    
-    virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
-    virtual int toInt();
-    virtual NCFloat toFloat();
-    virtual string toString();
-    virtual shared_ptr<NCStackElement> copy();
-    
-    void set(int index,shared_ptr<NCStackElement> value);
-    void set(shared_ptr<NCStackElement> value);
-    shared_ptr<NCStackElement> value(){return arrayInstance->getElementAt(index);}
-    
-    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
-};
-
+typedef NCClassInstance NCObject;
 
 #endif /* NCClassInstance_hpp */

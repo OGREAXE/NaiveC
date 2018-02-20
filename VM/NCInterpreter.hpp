@@ -73,9 +73,12 @@ private:
     
     bool isClassName(const string & name);
     
+    bool initArguments(vector<shared_ptr<NCExpression>> &intput_argumentExpressions, vector<shared_ptr<NCStackElement>> & output_arguments,NCFrame&frame);
+    
     bool tree_doStaticMehothodCall(NCFrame & frame,NCMethodCallExpr*);
     bool tree_doClassMehothodCall(NCFrame & frame,NCMethodCallExpr*);
     bool tree_composeArgmemnts(NCFrame & frame,NCMethodCallExpr*node,vector<NCParameter>& parametersExpr, vector<shared_ptr<NCStackElement>>&args);
+    
 public:
     NCInterpreter(shared_ptr<NCASTRoot> root);
     NCInterpreter(){}

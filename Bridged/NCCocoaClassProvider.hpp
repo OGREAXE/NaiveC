@@ -12,10 +12,12 @@
 #include <stdio.h>
 #include "NCClassProvider.hpp"
 
-class NCCocoaClassProvider :NCClassProvider {
+class NCCocoaClassProvider :public NCClassProvider {
     virtual bool classExist(const std::string & className);
     
-    virtual bool invokeStaticMethodOnClass(const string & className,const string& methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+    virtual shared_ptr<NCClass> loadClass(const string & className);
+    
+//    virtual bool invokeStaticMethodOnClass(const string & className,const string& methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
 };
 
 #endif /* NCCocoaClassProvider_hpp */
