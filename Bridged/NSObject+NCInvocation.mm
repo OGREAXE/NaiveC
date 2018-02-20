@@ -145,7 +145,7 @@
 //    return str;
     
     NSString * converted = [selectorString stringByReplacingOccurrencesOfString:@":" withString:@"_"];
-    if ([converted characterAtIndex:converted.length-1] == '_') {
+    if ([selectorString characterAtIndex:selectorString.length-1] == ':') {
         converted = [converted substringToIndex:converted.length-1];
     }
     return converted;

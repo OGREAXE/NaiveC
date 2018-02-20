@@ -95,9 +95,9 @@ public:
         invoke("main", arguments, stack);
     }
     
-    bool walkTree(shared_ptr<NCASTNode> node, NCFrame & frame);
-    bool walkTree(shared_ptr<NCASTNode> node, NCFrame & frame, bool * shouldReturn);  //recursive method
-    bool walkTree(shared_ptr<NCASTNode> node, NCFrame & frame, bool * shouldReturn, bool * shouldBreak);
+    bool visit(shared_ptr<NCASTNode> node, NCFrame & frame);
+    bool visit(shared_ptr<NCASTNode> node, NCFrame & frame, bool * shouldReturn);  //recursive method
+    bool visit(shared_ptr<NCASTNode> node, NCFrame & frame, bool * shouldReturn, bool * shouldBreak);
 };
 
 #endif /* NCInterpreter_hpp */

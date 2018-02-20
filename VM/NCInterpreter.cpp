@@ -90,7 +90,7 @@ bool NCInterpreter::invoke(string function, vector<shared_ptr<NCStackElement>> &
 //        
 //    }
     
-    if(!walkTree(funcDef->block, *frame))return false;
+    if(!visit(funcDef->block, *frame))return false;
     if (frame->stack.size()>0) {
         lastStack.push_back((frame->stack.back()));
     }
@@ -104,16 +104,16 @@ bool NCInterpreter::invoke_constructor(string function, vector<shared_ptr<NCStac
     return false;
 }
 
-bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame){
+bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame){
     bool boolVal;
-    return walkTree(currentNode, frame, &boolVal);
+    return visit(currentNode, frame, &boolVal);
 }
 
-bool NCInterpreter::walkTree(shared_ptr<NCASTNode> node, NCFrame & frame, bool * shouldReturn){
-    return walkTree(node, frame,shouldReturn,nullptr);
+bool NCInterpreter::visit(shared_ptr<NCASTNode> node, NCFrame & frame, bool * shouldReturn){
+    return visit(node, frame,shouldReturn,nullptr);
 }
 
-bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bool * shouldReturn, bool * shouldBreak){
+bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bool * shouldReturn, bool * shouldBreak){
     if(dynamic_cast<NCBlock*>(currentNode.get())) {
         auto node = dynamic_cast<NCBlock*>(currentNode.get());
         for (auto stmt : node->statement_list) {
@@ -123,7 +123,7 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
                 *shouldBreak = false;
             }
             
-            walkTree(stmt, frame, shouldReturn,shouldBreak);
+            visit(stmt, frame, shouldReturn,shouldBreak);
             
             if (*shouldReturn) {
                 break;
@@ -136,13 +136,13 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
     }
     else if(dynamic_cast<NCBlockStatement*>(currentNode.get())) {
         auto node = dynamic_cast<NCBlockStatement*>(currentNode.get());
-        walkTree(node->expression, frame);
+        visit(node->expression, frame);
     }
     else if (dynamic_cast<NCVariableDeclarationExpression*>(currentNode.get())) {
         auto node = dynamic_cast<NCVariableDeclarationExpression*>(currentNode.get());
         frame.stack.push_back(shared_ptr<NCStackStringElement> (new NCStackStringElement(node->type)));
         for (auto var :node->variables) {
-            walkTree(var, frame);
+            visit(var, frame);
         }
     }
     else if (dynamic_cast<VariableDeclarator*>(currentNode.get())) {
@@ -151,7 +151,7 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
         string type = stackPopString(frame);
         
         if (node->expression) {
-            walkTree(node->expression, frame);
+            visit(node->expression, frame);
             string name = node->id_str();
             if (type == "int") {
                 int value = stackPopInt(frame);
@@ -187,7 +187,7 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
     }
     else if (dynamic_cast<NCFieldAccessExpr*>(currentNode.get())) {
         auto node = dynamic_cast<NCFieldAccessExpr*>(currentNode.get());
-        walkTree(node->scope, frame);
+        visit(node->scope, frame);
         
         auto scope = frame.stack_pop();
         auto attrValue = scope->getAttribute(node->field);
@@ -196,11 +196,11 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
     else if(dynamic_cast<NCBinaryExpression*>(currentNode.get())){
         auto node = dynamic_cast<NCBinaryExpression*>(currentNode.get());
         
-        walkTree(node->left, frame);
+        visit(node->left, frame);
         auto leftOperand = (frame.stack.back());
         frame.stack.pop_back();
         
-        walkTree(node->right, frame);
+        visit(node->right, frame);
         auto rightOperand = (frame.stack.back());
         frame.stack.pop_back();
         
@@ -210,18 +210,18 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
         auto node = dynamic_cast<IfStatement*>(currentNode.get());
         
         auto & condition = node->condition;
-        walkTree(condition, frame);
+        visit(condition, frame);
         
         auto stackTop = (frame.stack.back());
         frame.stack.pop_back();
         
         if (stackTop->toInt()) {
             auto & thenBlock = node->thenStatement;
-            walkTree(thenBlock, frame, shouldReturn,shouldBreak);
+            visit(thenBlock, frame, shouldReturn,shouldBreak);
         }
         else {
             auto & elseBlock = node->elseStatement;
-            walkTree(elseBlock, frame,shouldReturn,shouldBreak);
+            visit(elseBlock, frame,shouldReturn,shouldBreak);
         }
     }
     else if(dynamic_cast<WhileStatement*>(currentNode.get())){
@@ -230,7 +230,7 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
         auto & condition = node->condition;
         
         while (1) {
-            walkTree(condition, frame);
+            visit(condition, frame);
             
             auto stackTop = (frame.stack.back());
             frame.stack.pop_back();
@@ -240,7 +240,7 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
                 
                 bool shouldBreakLocal = false;
                 
-                walkTree(block, frame, shouldReturn, &shouldBreakLocal);
+                visit(block, frame, shouldReturn, &shouldBreakLocal);
                 
                 if (*shouldReturn) {
                     break;
@@ -259,11 +259,11 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
         auto node = dynamic_cast<ForStatement*>(currentNode.get());
         
         for(auto aInit:node->init){
-            walkTree(aInit, frame);
+            visit(aInit, frame);
         }
         
         while (1) {
-            walkTree(node->expr, frame);
+            visit(node->expr, frame);
             
             auto stackTop = (frame.stack.back());
             frame.stack.pop_back();
@@ -273,7 +273,7 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
                 
                 bool shouldBreakLocal = false;
                 
-                walkTree(block, frame, shouldReturn,&shouldBreakLocal);
+                visit(block, frame, shouldReturn,&shouldBreakLocal);
                 
                 if (*shouldReturn) {
                     break;
@@ -284,7 +284,7 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
                 }
                 
                 for(auto aUpdate:node->update){
-                    walkTree(aUpdate, frame);
+                    visit(aUpdate, frame);
                 }
             }
             else {
@@ -301,13 +301,13 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
         auto node = dynamic_cast<NCAssignExpr*>(currentNode.get());
         //todo
         auto primary = node->expr;
-        walkTree(primary, frame);
+        visit(primary, frame);
         
         auto stackTop = frame.stack_pop();
         
         if (dynamic_cast<NCStackVariableElement*>(stackTop.get())) {
             auto var = dynamic_cast<NCStackVariableElement*>(stackTop.get());
-            walkTree(node->value,frame);
+            visit(node->value,frame);
             
             //primitive types, like int ,float and string pass by value
             if (var->valueElement->type == "int") {
@@ -339,7 +339,7 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
         }
         else if (dynamic_cast<NCArrayAccessor*>(stackTop.get())) {
             auto accessor = dynamic_cast<NCArrayAccessor*>(stackTop.get());
-            walkTree(node->value,frame);
+            visit(node->value,frame);
             auto value = frame.stack_pop();
             if (dynamic_cast<NCArrayAccessor*>(value.get())) {
                 auto accessorValue = dynamic_cast<NCArrayAccessor*>(value.get());
@@ -354,8 +354,8 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
     else if(dynamic_cast<NCArrayAccessExpr*>(currentNode.get())){
         auto node = dynamic_cast<NCArrayAccessExpr*>(currentNode.get());
         
-        walkTree(node->scope, frame);
-        walkTree(node->expression, frame);
+        visit(node->scope, frame);
+        visit(node->expression, frame);
         
         int index = stackPopInt(frame);
         auto  _arrayPointer = stackPopObjectPointer(frame)->getRawObjectPointer();
@@ -372,7 +372,7 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
         auto pArray = new NCArrayInstance();
         
         for (auto element : node->elements) {
-            walkTree(element, frame);
+            visit(element, frame);
             
             auto value = frame.stack_pop();
             
@@ -434,7 +434,7 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
         auto node = dynamic_cast<ReturnStatement*>(currentNode.get());
         
         auto exp = node->expression;
-        walkTree(exp, frame);
+        visit(exp, frame);
         *shouldReturn = true;
     }
     return true;
@@ -445,7 +445,7 @@ bool NCInterpreter::tree_composeArgmemnts(NCFrame & frame,NCMethodCallExpr*node,
         auto & parameter = parameters[i];
         
         auto argExp = node->args[i];
-        walkTree(argExp, frame);
+        visit(argExp, frame);
         
         if (parameter.type == "int") {
             auto value = stackPopInt(frame);
@@ -521,7 +521,7 @@ bool NCInterpreter::tree_doStaticMehothodCall(NCFrame & frame,NCMethodCallExpr*n
                 auto & parameter = parameters[i];
 
                 auto argExp = node->args[i];
-                walkTree(argExp, frame);
+                visit(argExp, frame);
 
                 if (parameter->type == "int") {
                     auto value = stackPopInt(frame);
@@ -576,7 +576,7 @@ bool NCInterpreter::initArguments(vector<shared_ptr<NCExpression>> &intput_argum
     
     for (int i = 0; i<intput_argumentExpressions.size(); i++) {
         auto argExp = intput_argumentExpressions[i];
-        walkTree(argExp, frame);
+        visit(argExp, frame);
         
         auto argValue = frame.stack_pop()->copy();
         arguments.push_back(argValue);
@@ -585,7 +585,7 @@ bool NCInterpreter::initArguments(vector<shared_ptr<NCExpression>> &intput_argum
 }
 
 bool NCInterpreter::tree_doClassMehothodCall(NCFrame & frame, NCMethodCallExpr*node){
-    walkTree(node->scope, frame);
+    visit(node->scope, frame);
     
     auto parametersExpr = node->args;
     
@@ -593,7 +593,7 @@ bool NCInterpreter::tree_doClassMehothodCall(NCFrame & frame, NCMethodCallExpr*n
     
     for (int i = 0; i<parametersExpr.size(); i++) {
         auto argExp = node->args[i];
-        walkTree(argExp, frame);
+        visit(argExp, frame);
         
         auto val = frame.stack.back();
         arguments.push_back(shared_ptr<NCStackElement>(val));
