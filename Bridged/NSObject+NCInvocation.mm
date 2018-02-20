@@ -24,7 +24,7 @@
         methodList = class_copyMethodList(aObject.class, &methodCount);
     }
     else if(aClass){
-        methodList = class_copyMethodList(aClass, &methodCount);
+        methodList = class_copyMethodList(object_getClass(aClass), &methodCount);
     }
     else {
         return NO;
@@ -52,19 +52,19 @@
 +(BOOL)private_invoke:(Method)method target:(id)target arguments:(vector<shared_ptr<NCStackElement>> &)arguments stack:(vector<shared_ptr<NCStackElement>>& )lastStack{
     int argCount = method_getNumberOfArguments(method);
     
-    if(argCount != arguments.size()){
+    if(argCount != arguments.size() + 2){
         NSLog(@"argument count not matched");
         return NO;
     }
     
     SEL selector = method_getName(method);
-    NSMethodSignature * signature = [NSMethodSignature methodSignatureForSelector:selector];
+    NSMethodSignature * signature = [target methodSignatureForSelector:selector];
     
     NSInvocation *inv = [NSInvocation invocationWithMethodSignature:signature];
     [inv setSelector:selector];
     [inv setTarget:target];
     
-    for(int i=0;i<argCount;i++){
+    for(int i=0;i<argCount-2;i++){
         char argumentType[16];
         method_getArgumentType(method, i, argumentType, 16);
         
@@ -85,17 +85,22 @@
             NSNumber * num = [NSNumber numberWithDouble:arguments[i]->toFloat()];
             [inv setArgument:&num atIndex:argPos];
         }
-        else if(COMP_ENCODE(argumentType, NSString)){
-            NSString * str = [NSString stringWithUTF8String:arguments[i]->toString().c_str()];
-            [inv setArgument:&str atIndex:argPos];
-        }
+//        else if(COMP_ENCODE(argumentType, NSString)){
+//            NSString * str = [NSString stringWithUTF8String:arguments[i]->toString().c_str()];
+//            [inv setArgument:&str atIndex:argPos];
+//        }
         else if(COMP_ENCODE(argumentType, id)){
             auto& stackElement = arguments[i];
             id realObj = NULL;
-            if(dynamic_pointer_cast<NCStackPointerElement>(stackElement)){
+            if(dynamic_pointer_cast<NCStackStringElement>(stackElement)){
+                auto pstr = dynamic_pointer_cast<NCStackStringElement>(stackElement);
+                NSString * nsstr = [NSString stringWithUTF8String: pstr->toString().c_str()];
+                realObj = nsstr;
+            }
+            else if(dynamic_pointer_cast<NCStackPointerElement>(stackElement)){
                 auto pointerContainer = dynamic_pointer_cast<NCStackPointerElement>(stackElement);
                 auto payloadObj = pointerContainer->getRawObjectPointer();
-                if(dynamic_cast<NCCocoaBox*>(payloadObj)){
+                if(payloadObj && dynamic_cast<NCCocoaBox*>(payloadObj)){
                     auto cocoabox = dynamic_cast<NCCocoaBox*>(payloadObj);
 //                    NSObject * cocoaObj = (NSObject*)CFBridgingRelease(cocoabox->getCocoaObject());
                     id cocoaObj = (id)CFBridgingRelease(cocoabox->getCocoaObject());
@@ -129,15 +134,21 @@
  covert from A:B:C to A_B_C
  */
 +(NSString *) convertSelectorString:(NSString *) selectorString{
-    NSArray * comps = [selectorString componentsSeparatedByString:@":"];
-    NSMutableString * str = [NSMutableString string];
-    [comps enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [str appendString:obj];
-        if(idx != comps.count-1){
-            [str appendString:@"_"];
-        }
-    }];
-    return str;
+//    NSArray * comps = [selectorString componentsSeparatedByString:@":"];
+//    NSMutableString * str = [NSMutableString string];
+//    [comps enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        [str appendString:obj];
+//        if(idx != comps.count-1){
+//            [str appendString:@"_"];
+//        }
+//    }];
+//    return str;
+    
+    NSString * converted = [selectorString stringByReplacingOccurrencesOfString:@":" withString:@"_"];
+    if ([converted characterAtIndex:converted.length-1] == '_') {
+        converted = [converted substringToIndex:converted.length-1];
+    }
+    return converted;
 }
 
 -(BOOL)invoke:(NSString*)methodName arguments:(vector<shared_ptr<NCStackElement>> &)arguments stack:(vector<shared_ptr<NCStackElement>>& )lastStack{

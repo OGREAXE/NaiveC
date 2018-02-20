@@ -21,7 +21,7 @@ NCFloat NCStackPointerElement::toFloat(){
     return 0;
 }
 string NCStackPointerElement::toString(){
-    return 0;
+    return pObject->getDescription();
 }
 
 shared_ptr<NCStackElement> NCStackPointerElement::copy(){

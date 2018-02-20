@@ -384,6 +384,12 @@ bool NCInterpreter::walkTree(shared_ptr<NCASTNode> currentNode, NCFrame & frame,
     else if(dynamic_cast<NCNameExpression*>(currentNode.get())){
         auto node = dynamic_cast<NCNameExpression*>(currentNode.get());
         
+        if (node->name == "null") {
+            auto nullPtr = shared_ptr<NCStackElement>( new NCStackPointerElement());
+            frame.stack.push_back(nullPtr);
+            return true;
+        }
+        
         if ( NCClassLoader::GetInstance()->isClassExist(node->name)) {
             //a 'meta' class
             auto targetClass = NCClassLoader::GetInstance()->loadClass(node->name);

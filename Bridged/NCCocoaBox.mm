@@ -36,3 +36,9 @@ bool NCCocoaBox::invokeMethod(string methodName, vector<shared_ptr<NCStackElemen
 shared_ptr<NCStackElement> NCCocoaBox::getAttribute(const string & attrName){
     return nullptr;
 }
+
+string NCCocoaBox::getDescription(){
+    NSObject * wrappedObject = (__bridge NSObject*)m_cocoaObject;
+    string desc = wrappedObject.description.UTF8String;
+    return desc;
+}

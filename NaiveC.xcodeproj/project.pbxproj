@@ -228,10 +228,10 @@
 			children = (
 				ED219CC51F6D16370015293A /* NCAST.cpp */,
 				ED219CC61F6D16370015293A /* NCAST.hpp */,
-				ED219CC71F6D16370015293A /* NCParser.cpp */,
-				ED219CC81F6D16370015293A /* NCParser.hpp */,
 				ED219CC91F6D16370015293A /* NCTokenizer.cpp */,
 				ED219CCA1F6D16370015293A /* NCTokenizer.hpp */,
+				ED219CC71F6D16370015293A /* NCParser.cpp */,
+				ED219CC81F6D16370015293A /* NCParser.hpp */,
 			);
 			path = frontend;
 			sourceTree = "<group>";

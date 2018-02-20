@@ -27,6 +27,9 @@ public:
     virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
     
     void * getCocoaObject(){return m_cocoaObject;}
+    
+    
+    virtual string getDescription();
 };
 
 #endif /* NCCocoaBox_hpp */

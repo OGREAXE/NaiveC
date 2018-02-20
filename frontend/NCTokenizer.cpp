@@ -215,7 +215,7 @@ shared_ptr<const vector<NCToken>> NCTokenizer::getTokens(){
 }
 
 bool NCTokenizer::isCharForIdentifier(char c) {
-    return  (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+    return  (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')||c=='_';
 }
 
 bool NCTokenizer::isNumber(char c) {

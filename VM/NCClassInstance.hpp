@@ -27,6 +27,8 @@ public:
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments){return true;}
     
     virtual shared_ptr<NCStackElement> getAttribute(const string & attrName){return nullptr;};
+    
+    virtual string getDescription(){return "NCClassInstance";};
 };
 
 class NCCustomClassInstance : public NCClassInstance{
