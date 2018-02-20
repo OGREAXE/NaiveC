@@ -20,6 +20,14 @@ class NCCocoaClass : public NCClass{
 public:
     NCCocoaClass(const std::string&name):NCClass(name){}
     
+    
+    /**
+     for NSObjects, calling this only give you [class alloc]
+     you should call init explicitly
+
+     @param arguments <#arguments description#>
+     @return <#return value description#>
+     */
     virtual shared_ptr<NCStackPointerElement> instantiate(vector<shared_ptr<NCStackElement>> &arguments);
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);

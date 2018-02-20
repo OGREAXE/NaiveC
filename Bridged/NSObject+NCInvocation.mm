@@ -13,6 +13,7 @@
 #import <objc/message.h>
 
 #include "NCCocoaBox.hpp"
+#include "NCCocoaToolkit.hpp"
 
 @implementation NSObject (NCInvocation)
 
@@ -89,6 +90,39 @@
 //            NSString * str = [NSString stringWithUTF8String:arguments[i]->toString().c_str()];
 //            [inv setArgument:&str atIndex:argPos];
 //        }
+        else if(strcmp(argumentType,@encode(CGRect)) == 0){
+            if(dynamic_pointer_cast<NCStackPointerElement>(arguments[i])){
+                auto pFrameContainer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
+                auto pObject = pFrameContainer->getRawObjectPointer();
+                if(pObject && dynamic_cast<NCFrame*>(pObject)){
+                    auto pFrame = dynamic_cast<NCFrame*>(pObject);
+                    CGRect frame = CGRectMake(pFrame->getX(), pFrame->getY(), pFrame->getWidth(), pFrame->getHeight());
+                    [inv setArgument:&frame atIndex:argPos];
+                }
+            }
+        }
+        else if(strcmp(argumentType,@encode(CGSize)) == 0){
+            if(dynamic_pointer_cast<NCStackPointerElement>(arguments[i])){
+                auto pFrameContainer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
+                auto pObject = pFrameContainer->getRawObjectPointer();
+                if(pObject && dynamic_cast<NCSize*>(pObject)){
+                    auto pSize = dynamic_cast<NCSize*>(pObject);
+                    CGSize size = CGSizeMake(pSize->getWidth(), pSize->getHeight());
+                    [inv setArgument:&size atIndex:argPos];
+                }
+            }
+        }
+        else if(strcmp(argumentType,@encode(CGPoint)) == 0){
+            if(dynamic_pointer_cast<NCStackPointerElement>(arguments[i])){
+                auto pFrameContainer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
+                auto pObject = pFrameContainer->getRawObjectPointer();
+                if(pObject && dynamic_cast<NCPoint*>(pObject)){
+                    auto pPoint = dynamic_cast<NCPoint*>(pObject);
+                    CGSize point = CGSizeMake(pPoint->getX(), pPoint->getY());
+                    [inv setArgument:&point atIndex:argPos];
+                }
+            }
+        }
         else if(COMP_ENCODE(argumentType, id)){
             auto& stackElement = arguments[i];
             id realObj = NULL;
@@ -102,7 +136,6 @@
                 auto payloadObj = pointerContainer->getRawObjectPointer();
                 if(payloadObj && dynamic_cast<NCCocoaBox*>(payloadObj)){
                     auto cocoabox = dynamic_cast<NCCocoaBox*>(payloadObj);
-//                    NSObject * cocoaObj = (NSObject*)CFBridgingRelease(cocoabox->getCocoaObject());
                     id cocoaObj = (id)CFBridgingRelease(cocoabox->getCocoaObject());
                     realObj = cocoaObj;
                     

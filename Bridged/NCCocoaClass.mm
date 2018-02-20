@@ -12,6 +12,7 @@
 #import "NSObject+NCInvocation.h"
 
 #include "NCCocoaToolkit.hpp"
+#include "NCCocoaBox.hpp"
 
 shared_ptr<NCStackPointerElement> NCCocoaClass::instantiate(vector<shared_ptr<NCStackElement>> &arguments){
     
@@ -51,13 +52,14 @@ shared_ptr<NCStackPointerElement> NCCocoaClass::instantiate(vector<shared_ptr<NC
         }
     }
     
-    //todo
     //instantiate NSObject subclass
     NSString * thisClassName =  [NSString stringWithUTF8String:this->name.c_str()];
     Class thisClass = NSClassFromString(thisClassName);
     id allocedObject = [thisClass alloc];
     
-    return nullptr;
+    NCCocoaBox * box = new NCCocoaBox((void*)CFBridgingRetain(allocedObject));
+    
+    return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(box));
 }
 
 bool NCCocoaClass::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
