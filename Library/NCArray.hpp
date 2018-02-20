@@ -33,9 +33,9 @@ typedef NCArrayInstance NCArray;
 /**
  accessor for array, represented as anArray[index]
  */
-struct NCArrayAccessor:NCStackElement{
+struct NCArrayAccessor:NCAccessor{
 private:
-    NCArrayInstance * arrayInstance;
+    NCArray * arrayInstance;
     int index;
 public:
     NCArrayAccessor(NCArrayInstance*arrInst, int index):arrayInstance(arrInst),index(index){}
@@ -46,9 +46,9 @@ public:
     virtual string toString();
     virtual shared_ptr<NCStackElement> copy();
     
-    void set(int index,shared_ptr<NCStackElement> value);
-    void set(shared_ptr<NCStackElement> value);
-    shared_ptr<NCStackElement> value(){return arrayInstance->getElementAt(index);}
+//    virtual void set(int index,shared_ptr<NCStackElement> value);
+    virtual void set(shared_ptr<NCStackElement> value);
+    virtual shared_ptr<NCStackElement> value(){return arrayInstance->getElementAt(index);}
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
 };

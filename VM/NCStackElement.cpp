@@ -218,9 +218,6 @@ shared_ptr<NCStackElement> NCStackStringElement::copy(){
     return shared_ptr<NCStackElement>(new NCStackStringElement(this->value));
 }
 
-
-
-    
 shared_ptr<NCStackElement> NCStackVariableElement::doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){
     return valueElement->doOperator(op, rightOperand);
 }
@@ -241,4 +238,14 @@ shared_ptr<NCStackElement> NCStackVariableElement::copy(){
 
 bool NCStackVariableElement::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
     return this->valueElement->invokeMethod(methodName, arguments, lastStack);
+}
+
+/*NCFieldAccessor
+ */
+void NCFieldAccessor::set(shared_ptr<NCStackElement> value){
+    this->scope->setAttribute(this->attributeName, value);
+}
+
+shared_ptr<NCStackElement> NCFieldAccessor::value(){
+    return scope->getAttribute(this->attributeName);
 }

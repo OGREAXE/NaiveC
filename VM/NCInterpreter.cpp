@@ -190,8 +190,11 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         visit(node->scope, frame);
         
         auto scope = frame.stack_pop();
-        auto attrValue = scope->getAttribute(node->field);
-        frame.stack_push(attrValue);
+//        auto attrValue = scope->getAttribute(node->field);
+//        frame.stack_push(attrValue);
+        
+        auto accesor = new NCFieldAccessor(scope, node->field);
+        frame.stack_push(shared_ptr<NCStackElement> (accesor));
     }
     else if(dynamic_cast<NCBinaryExpression*>(currentNode.get())){
         auto node = dynamic_cast<NCBinaryExpression*>(currentNode.get());
@@ -337,12 +340,12 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
                 frame.insertVariable(var->name, pointerElement);
             }
         }
-        else if (dynamic_cast<NCArrayAccessor*>(stackTop.get())) {
-            auto accessor = dynamic_cast<NCArrayAccessor*>(stackTop.get());
+        else if (dynamic_cast<NCAccessor*>(stackTop.get())) {
+            auto accessor = dynamic_cast<NCAccessor*>(stackTop.get());
             visit(node->value,frame);
             auto value = frame.stack_pop();
-            if (dynamic_cast<NCArrayAccessor*>(value.get())) {
-                auto accessorValue = dynamic_cast<NCArrayAccessor*>(value.get());
+            if (dynamic_cast<NCAccessor*>(value.get())) {
+                auto accessorValue = dynamic_cast<NCAccessor*>(value.get());
                 accessor->set(accessorValue->value());
             }
             else {
@@ -678,7 +681,7 @@ int NCInterpreter::stackPopInt(NCFrame & frame){
             break;
         }
         
-        auto arrayAccessorElement = dynamic_cast<NCArrayAccessor*>(pStackTop);
+        auto arrayAccessorElement = dynamic_cast<NCAccessor*>(pStackTop);
         
         if(arrayAccessorElement){
             ret = arrayAccessorElement->toInt();
@@ -770,7 +773,7 @@ string NCInterpreter::stackPopString(NCFrame & frame){
             break;
         }
         
-        auto arrayAccessorElement = dynamic_cast<NCArrayAccessor*>(pStackTop);
+        auto arrayAccessorElement = dynamic_cast<NCAccessor*>(pStackTop);
         if(arrayAccessorElement){
             ret = arrayAccessorElement->toString();
             break;
@@ -808,8 +811,8 @@ shared_ptr<NCStackPointerElement>  NCInterpreter::stackPopObjectPointer(NCFrame 
         }
         
     }
-    else if (dynamic_cast<NCArrayAccessor*>(pStackTop)) {
-        auto pVar = dynamic_cast<NCArrayAccessor*>(pStackTop);
+    else if (dynamic_cast<NCAccessor*>(pStackTop)) {
+        auto pVar = dynamic_cast<NCAccessor*>(pStackTop);
         auto value = pVar->value();
         if (dynamic_cast<NCStackVariableElement*>(value.get())) {
             auto pVar = dynamic_cast<NCStackVariableElement*>(value.get());

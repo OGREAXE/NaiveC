@@ -30,7 +30,9 @@ struct NCStackElement{
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){return false;}
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments){return false;}
     
-    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName){return nullptr;};
+    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName){return nullptr;}
+    
+    virtual void setAttribute(const string & attrName, shared_ptr<NCStackElement> value){}
 };
 
 struct NCStackIntElement:NCStackElement{
@@ -86,6 +88,29 @@ struct NCStackVariableElement:NCStackElement{
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
     
     virtual shared_ptr<NCStackElement> getAttribute(const string & attrName){return valueElement->getAttribute(attrName);};
+    
+    virtual void setAttribute(const string & attrName, shared_ptr<NCStackElement> value){valueElement->setAttribute(attrName,value);}
+};
+
+/*
+ NCAccessor, base class for NCFieldAccessor and NCArrayAccessor
+ */
+class NCAccessor :public NCStackElement{
+public:
+    virtual void set(shared_ptr<NCStackElement> value){};
+    virtual shared_ptr<NCStackElement> value(){return nullptr;};
+};
+
+class NCFieldAccessor: public NCAccessor{
+private:
+    shared_ptr<NCStackElement> scope;
+    string attributeName;
+public:
+    NCFieldAccessor(shared_ptr<NCStackElement> & scope,
+                    const string & attributeName):scope(scope), attributeName(attributeName){}
+    
+    virtual void set(shared_ptr<NCStackElement> value);
+    virtual shared_ptr<NCStackElement> value();
 };
 
 #endif /* NCStackElement_hpp */

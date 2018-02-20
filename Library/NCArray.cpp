@@ -72,14 +72,17 @@ shared_ptr<NCStackElement> NCArrayAccessor::copy(){
 }
 
 void NCArrayAccessor::set(shared_ptr<NCStackElement> value){
-    set(index, value);
-}
-void NCArrayAccessor::set(int index,shared_ptr<NCStackElement> value){
     vector<shared_ptr<NCStackElement>> argments;
-    argments.push_back(shared_ptr<NCStackElement>(new NCStackIntElement(index)));
+    argments.push_back(shared_ptr<NCStackElement>(new NCStackIntElement(this->index)));
     argments.push_back(value);
     arrayInstance->invokeMethod("set", argments);
 }
+//void NCArrayAccessor::set(int index,shared_ptr<NCStackElement> value){
+//    vector<shared_ptr<NCStackElement>> argments;
+//    argments.push_back(shared_ptr<NCStackElement>(new NCStackIntElement(index)));
+//    argments.push_back(value);
+//    arrayInstance->invokeMethod("set", argments);
+//}
 
 bool NCArrayAccessor::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
     return arrayInstance->getElementAt(index)->invokeMethod(methodName, arguments, lastStack);

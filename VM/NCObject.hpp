@@ -26,12 +26,14 @@ public:
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){return false;};
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments){return true;}
     
-    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName){return nullptr;};
+    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName){return nullptr;}
+    
+    virtual void setAttribute(const string & attrName, shared_ptr<NCStackElement> value){}
     
     virtual string getDescription(){return "NCObject";};
 };
 
-class NCCustomClassInstance : public NCObject{
+class NCOriginalObject : public NCObject{
 public:
     shared_ptr<NCClassDeclaration> classDefinition;
     
@@ -66,6 +68,8 @@ public:
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
     
     virtual shared_ptr<NCStackElement> getAttribute(const string & attrName){return pObject->getAttribute(attrName);};
+    
+    virtual void setAttribute(const string & attrName, shared_ptr<NCStackElement> value){pObject->setAttribute(attrName, value);}
 };
 
 typedef NCObject NCObject;
