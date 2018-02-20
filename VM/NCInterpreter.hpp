@@ -14,7 +14,7 @@
 #include "NCAST.hpp"
 #include "NCBuiltinFunction.hpp"
 #include "NCStackElement.hpp"
-#include "NCClassInstance.hpp"
+#include "NCObject.hpp"
 
 using namespace std;
 

@@ -10,11 +10,11 @@
 #define NCArray_hpp
 
 #include <stdio.h>
-#include "NCClassInstance.hpp"
+#include "NCObject.hpp"
 
 #define NC_CLASSNAME_ARRAY "array"
 
-class NCArrayInstance : public NCClassInstance{
+class NCArrayInstance : public NCObject{
 private:
     vector<shared_ptr<NCStackElement>> innerArray;
 public:

@@ -26,8 +26,8 @@
 		D4E06EF420371D9E0095F442 /* NCInterpreter.hpp in Sources */ = {isa = PBXBuildFile; fileRef = ED219CD11F6D16370015293A /* NCInterpreter.hpp */; };
 		D4E06EF520371D9E0095F442 /* NCStackElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED219CD21F6D16370015293A /* NCStackElement.cpp */; };
 		D4E06EF620371D9E0095F442 /* NCStackElement.hpp in Sources */ = {isa = PBXBuildFile; fileRef = ED219CD31F6D16370015293A /* NCStackElement.hpp */; };
-		D4E06EF720371D9E0095F442 /* NCClassInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED2040341F77A6D300734821 /* NCClassInstance.cpp */; };
-		D4E06EF820371D9E0095F442 /* NCClassInstance.hpp in Sources */ = {isa = PBXBuildFile; fileRef = ED2040351F77A6D300734821 /* NCClassInstance.hpp */; };
+		D4E06EF720371D9E0095F442 /* NCObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED2040341F77A6D300734821 /* NCObject.cpp */; };
+		D4E06EF820371D9E0095F442 /* NCObject.hpp in Sources */ = {isa = PBXBuildFile; fileRef = ED2040351F77A6D300734821 /* NCObject.hpp */; };
 		D4E06EF920371D9E0095F442 /* NCClassLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06DC220304A410095F442 /* NCClassLoader.cpp */; };
 		D4E06EFA20371D9E0095F442 /* NCClassLoader.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06DC320304A410095F442 /* NCClassLoader.hpp */; };
 		D4E06EFB20371D9E0095F442 /* NCClassProvider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06DC5203125D40095F442 /* NCClassProvider.cpp */; };
@@ -49,6 +49,8 @@
 		D4E06F21203972F90095F442 /* NCStandardClass.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D4E06F1F203972F90095F442 /* NCStandardClass.hpp */; };
 		D4E06F2420397AAB0095F442 /* NCCocoaClass.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F2220397AAB0095F442 /* NCCocoaClass.mm */; };
 		D4E06F2520397AAB0095F442 /* NCCocoaClass.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D4E06F2320397AAB0095F442 /* NCCocoaClass.hpp */; };
+		D4E06F28203C3E1B0095F442 /* NCCocoaToolkit.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F26203C3E1B0095F442 /* NCCocoaToolkit.mm */; };
+		D4E06F29203C3E1B0095F442 /* NCCocoaToolkit.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D4E06F27203C3E1B0095F442 /* NCCocoaToolkit.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,8 +93,10 @@
 		D4E06F1F203972F90095F442 /* NCStandardClass.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCStandardClass.hpp; sourceTree = "<group>"; };
 		D4E06F2220397AAB0095F442 /* NCCocoaClass.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCCocoaClass.mm; sourceTree = "<group>"; };
 		D4E06F2320397AAB0095F442 /* NCCocoaClass.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCCocoaClass.hpp; sourceTree = "<group>"; };
-		ED2040341F77A6D300734821 /* NCClassInstance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NCClassInstance.cpp; sourceTree = "<group>"; };
-		ED2040351F77A6D300734821 /* NCClassInstance.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NCClassInstance.hpp; sourceTree = "<group>"; };
+		D4E06F26203C3E1B0095F442 /* NCCocoaToolkit.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCCocoaToolkit.mm; sourceTree = "<group>"; };
+		D4E06F27203C3E1B0095F442 /* NCCocoaToolkit.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCCocoaToolkit.hpp; sourceTree = "<group>"; };
+		ED2040341F77A6D300734821 /* NCObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NCObject.cpp; sourceTree = "<group>"; };
+		ED2040351F77A6D300734821 /* NCObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NCObject.hpp; sourceTree = "<group>"; };
 		ED219C9F1F6D15CB0015293A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		ED219CAA1F6D15CB0015293A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ED219CAF1F6D15CB0015293A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -141,6 +145,8 @@
 				D4E06F2320397AAB0095F442 /* NCCocoaClass.hpp */,
 				D4E06E2A2032F2C50095F442 /* NCCocoaBox.mm */,
 				D4E06E2B2032F2C50095F442 /* NCCocoaBox.hpp */,
+				D4E06F26203C3E1B0095F442 /* NCCocoaToolkit.mm */,
+				D4E06F27203C3E1B0095F442 /* NCCocoaToolkit.hpp */,
 				D4E06E2D203552CD0095F442 /* NSObject+NCInvocation.h */,
 				D4E06E2E203552CD0095F442 /* NSObject+NCInvocation.mm */,
 			);
@@ -247,8 +253,8 @@
 				ED219CD11F6D16370015293A /* NCInterpreter.hpp */,
 				ED219CD21F6D16370015293A /* NCStackElement.cpp */,
 				ED219CD31F6D16370015293A /* NCStackElement.hpp */,
-				ED2040341F77A6D300734821 /* NCClassInstance.cpp */,
-				ED2040351F77A6D300734821 /* NCClassInstance.hpp */,
+				ED2040341F77A6D300734821 /* NCObject.cpp */,
+				ED2040351F77A6D300734821 /* NCObject.hpp */,
 				D4E06DC220304A410095F442 /* NCClassLoader.cpp */,
 				D4E06DC320304A410095F442 /* NCClassLoader.hpp */,
 				D4E06DC5203125D40095F442 /* NCClassProvider.cpp */,
@@ -270,6 +276,7 @@
 				D4E06F21203972F90095F442 /* NCStandardClass.hpp in Headers */,
 				D4E06F1920396FD10095F442 /* NCStandardLibraryProvider.hpp in Headers */,
 				D4E06F0F203871E10095F442 /* NCClass.hpp in Headers */,
+				D4E06F29203C3E1B0095F442 /* NCCocoaToolkit.hpp in Headers */,
 				D4E06EE7203716140095F442 /* NCCodeEngine_iOS.h in Headers */,
 				D4E06F1D203971280095F442 /* NCArray.hpp in Headers */,
 				D4E06F2520397AAB0095F442 /* NCCocoaClass.hpp in Headers */,
@@ -386,6 +393,7 @@
 				D4E06F0820371DAB0095F442 /* NSObject+NCInvocation.mm in Sources */,
 				D4E06F0120371DA50095F442 /* NCCocoaClassProvider.mm in Sources */,
 				D4E06EEF20371D9E0095F442 /* NCBuiltinFunction.hpp in Sources */,
+				D4E06F28203C3E1B0095F442 /* NCCocoaToolkit.mm in Sources */,
 				D4E06EF020371D9E0095F442 /* NCBuiltinFunction.mm in Sources */,
 				D4E06EF120371D9E0095F442 /* NCCode.cpp in Sources */,
 				D4E06EF220371D9E0095F442 /* NCCode.hpp in Sources */,
@@ -393,8 +401,8 @@
 				D4E06EF420371D9E0095F442 /* NCInterpreter.hpp in Sources */,
 				D4E06EF520371D9E0095F442 /* NCStackElement.cpp in Sources */,
 				D4E06EF620371D9E0095F442 /* NCStackElement.hpp in Sources */,
-				D4E06EF720371D9E0095F442 /* NCClassInstance.cpp in Sources */,
-				D4E06EF820371D9E0095F442 /* NCClassInstance.hpp in Sources */,
+				D4E06EF720371D9E0095F442 /* NCObject.cpp in Sources */,
+				D4E06EF820371D9E0095F442 /* NCObject.hpp in Sources */,
 				D4E06EF920371D9E0095F442 /* NCClassLoader.cpp in Sources */,
 				D4E06EFA20371D9E0095F442 /* NCClassLoader.hpp in Sources */,
 				D4E06EFB20371D9E0095F442 /* NCClassProvider.cpp in Sources */,

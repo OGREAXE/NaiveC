@@ -10,12 +10,12 @@
 #define NCCocoaBox_hpp
 
 #include <stdio.h>
-#include "NCClassInstance.hpp"
+#include "NCObject.hpp"
 
 /*
  wrapper for cocoa objects
  */
-class NCCocoaBox :public NCClassInstance {
+class NCCocoaBox :public NCObject {
 private:
     //wrapped cocoaObject. must use non-arc to ensure correct release?
     void * m_cocoaObject;

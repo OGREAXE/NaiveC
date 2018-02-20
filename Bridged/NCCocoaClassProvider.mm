@@ -12,8 +12,16 @@
 
 #include "NSObject+NCInvocation.h"
 #include "NCCocoaClass.hpp"
+#include "NCCocoaToolkit.hpp"
 
 bool NCCocoaClassProvider::classExist(const std::string & className){
+    
+    if (className == NC_CLASSNAME_FRAME
+        ||className == NC_CLASSNAME_SIZE
+        ||className == NC_CLASSNAME_POINT) {
+        return true;
+    }
+    
     NSString * nsclassName = [NSString stringWithUTF8String:className.c_str()];
     Class targetClass = NSClassFromString(nsclassName);
     if (targetClass) {

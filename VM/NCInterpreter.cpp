@@ -621,8 +621,8 @@ bool NCInterpreter::tree_doClassMehothodCall(NCFrame & frame, NCMethodCallExpr*n
 ////    auto pPointer = scope.get()->getObjectPointer().get();
 //    auto pPointer = scope.get()->getRawObjectPointer();
 //
-//    if (dynamic_cast<NCClassInstance*>(pPointer)) {
-//        auto classInst = dynamic_cast<NCClassInstance*>(pPointer);
+//    if (dynamic_cast<NCObject*>(pPointer)) {
+//        auto classInst = dynamic_cast<NCObject*>(pPointer);
 //
 //        return classInst->invokeMethod(node->name, arguments, frame.stack);
 //    }

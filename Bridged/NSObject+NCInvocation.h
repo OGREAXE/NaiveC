@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #include <stdio.h>
-#include "NCClassInstance.hpp"
+#include "NCObject.hpp"
 
 @interface NSObject (NCInvocation)
 

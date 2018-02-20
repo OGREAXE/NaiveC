@@ -13,7 +13,7 @@
 #include <memory>
 
 #include "NCStackElement.hpp"
-#include "NCClassInstance.hpp"
+#include "NCObject.hpp"
 
 using namespace std;
 

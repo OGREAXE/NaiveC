@@ -1,12 +1,12 @@
 //
-//  NCClassInstance.cpp
+//  NCObject.cpp
 //  NaiveC
 //
 //  Created by 梁志远 on 24/09/2017.
 //  Copyright © 2017 Ogreaxe. All rights reserved.
 //
 
-#include "NCClassInstance.hpp"
+#include "NCObject.hpp"
 #include "NCClassLoader.hpp"
 
 shared_ptr<NCStackElement> NCStackPointerElement::doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){
@@ -39,8 +39,8 @@ bool NCStackPointerElement::invokeMethod(string methodName, vector<shared_ptr<NC
         
         auto pPointer = pPointerElement.get()->getRawObjectPointer();
         
-        if (dynamic_cast<NCClassInstance*>(pPointer)) {
-            auto classInst = dynamic_cast<NCClassInstance*>(pPointer);
+        if (dynamic_cast<NCObject*>(pPointer)) {
+            auto classInst = dynamic_cast<NCObject*>(pPointer);
             
             return classInst->invokeMethod(methodName, arguments, lastStack);
         }
@@ -56,8 +56,8 @@ bool NCStackPointerElement::invokeMethod(string methodName, vector<shared_ptr<NC
             
             auto pPointer = pPointerElement.get()->getRawObjectPointer();
             
-            if (dynamic_cast<NCClassInstance*>(pPointer)) {
-                auto classInst = dynamic_cast<NCClassInstance*>(pPointer);
+            if (dynamic_cast<NCObject*>(pPointer)) {
+                auto classInst = dynamic_cast<NCObject*>(pPointer);
                 
                 return classInst->invokeMethod(methodName, arguments, lastStack);
             }

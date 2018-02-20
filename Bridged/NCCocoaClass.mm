@@ -11,8 +11,52 @@
 #import <UIKit/UIKit.h>
 #import "NSObject+NCInvocation.h"
 
+#include "NCCocoaToolkit.hpp"
+
 shared_ptr<NCStackPointerElement> NCCocoaClass::instantiate(vector<shared_ptr<NCStackElement>> &arguments){
+    
+    if (this->name == NC_CLASSNAME_FRAME) {
+        if (arguments.size() == 4) {
+            auto x = arguments[0]->toFloat();
+            auto y = arguments[1]->toFloat();
+            auto width = arguments[2]->toFloat();
+            auto height = arguments[3]->toFloat();
+            
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(new NCFrame(x, y, width, height)));
+        }
+        else {
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(new NCFrame()));
+        }
+    }
+    else if (this->name == NC_CLASSNAME_SIZE) {
+        if (arguments.size() == 2) {
+            auto width = arguments[0]->toFloat();
+            auto height = arguments[1]->toFloat();
+            
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(new NCSize(width, height)));
+        }
+        else {
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(new NCSize()));
+        }
+    }
+    else if (this->name == NC_CLASSNAME_POINT) {
+        if (arguments.size() == 2) {
+            auto x = arguments[0]->toFloat();
+            auto y = arguments[1]->toFloat();
+            
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(new NCPoint(x, y)));
+        }
+        else {
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(new NCPoint()));
+        }
+    }
+    
     //todo
+    //instantiate NSObject subclass
+    NSString * thisClassName =  [NSString stringWithUTF8String:this->name.c_str()];
+    Class thisClass = NSClassFromString(thisClassName);
+    id allocedObject = [thisClass alloc];
+    
     return nullptr;
 }
 

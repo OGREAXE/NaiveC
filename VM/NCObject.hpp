@@ -1,37 +1,37 @@
 //
-//  NCClassInstance.hpp
+//  NCObject.hpp
 //  NaiveC
 //
 //  Created by 梁志远 on 24/09/2017.
 //  Copyright © 2017 Ogreaxe. All rights reserved.
 //
 
-#ifndef NCClassInstance_hpp
-#define NCClassInstance_hpp
+#ifndef NCObject_hpp
+#define NCObject_hpp
 
 #include <stdio.h>
 #include "NCAST.hpp"
 #include "NCStackElement.hpp"
 
-class NCClassInstance {
+class NCObject {
 public:
     
 //    uint32_t referenceCount;
-    virtual ~NCClassInstance(){}
+    virtual ~NCObject(){}
     
-    shared_ptr<NCClassInstance> super;
+    shared_ptr<NCObject> super;
     
     vector<shared_ptr<NCStackElement>> fields;
     
-    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack)=0;
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){return false;};
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments){return true;}
     
     virtual shared_ptr<NCStackElement> getAttribute(const string & attrName){return nullptr;};
     
-    virtual string getDescription(){return "NCClassInstance";};
+    virtual string getDescription(){return "NCObject";};
 };
 
-class NCCustomClassInstance : public NCClassInstance{
+class NCCustomClassInstance : public NCObject{
 public:
     shared_ptr<NCClassDeclaration> classDefinition;
     
@@ -45,17 +45,17 @@ public:
  */
 struct NCStackPointerElement:public NCStackElement{
 private:
-    NCClassInstance * pObject;
+    NCObject * pObject;
 public:
     NCStackPointerElement():pObject(nullptr){type="pointer";}
     
-    NCStackPointerElement(NCClassInstance *pObject):pObject(pObject){type="pointer";}
+    NCStackPointerElement(NCObject *pObject):pObject(pObject){type="pointer";}
     
     virtual ~NCStackPointerElement(){delete pObject;}
     
-//    shared_ptr<NCClassInstance> getObjectPointer(){return shared_ptr<NCClassInstance>(pObject);}
+//    shared_ptr<NCObject> getObjectPointer(){return shared_ptr<NCObject>(pObject);}
     
-    NCClassInstance* getRawObjectPointer(){return pObject;}
+    NCObject* getRawObjectPointer(){return pObject;}
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
     virtual int toInt();
@@ -68,6 +68,6 @@ public:
     virtual shared_ptr<NCStackElement> getAttribute(const string & attrName){return pObject->getAttribute(attrName);};
 };
 
-typedef NCClassInstance NCObject;
+typedef NCObject NCObject;
 
-#endif /* NCClassInstance_hpp */
+#endif /* NCObject_hpp */
