@@ -264,5 +264,7 @@ shared_ptr<NCStackElement> NCFieldAccessor::getAttribute(const string & attrName
 }
 
 void NCFieldAccessor::setAttribute(const string & attrName, shared_ptr<NCStackElement> value){
+    auto val = this->value();
+    val->setAttribute(attrName, value);
     
 }
