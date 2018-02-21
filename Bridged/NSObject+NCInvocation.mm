@@ -226,16 +226,22 @@
             
         }
         else if(COMP_ENCODE(returnType, double)){
-            
+            double *pret = (double *)buffer;
+            lastStack.push_back(shared_ptr<NCStackFloatElement>(new NCStackFloatElement( (*pret))));
         }
         else if(COMP_ENCODE(returnType, float)){
-            
+            float *pret = (float *)buffer;
+            lastStack.push_back(shared_ptr<NCStackFloatElement>(new NCStackFloatElement( (*pret))));
         }
         else if(COMP_ENCODE(returnType, CGRect)){
-            
+            CGRect *pret = (CGRect *)buffer;
+            NCFrame * pframe = new NCFrame(pret->origin.x,pret->origin.y,pret->size.width,pret->size.height);
+            lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(pframe)));
         }
         else if(COMP_ENCODE(returnType, CGSize)){
-            
+            CGSize *pret = (CGSize *)buffer;
+            NCSize * pSize = new NCSize(pret->width,pret->height);
+            lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(pSize)));
         }
         else if(COMP_ENCODE(returnType, CGPoint)){
             

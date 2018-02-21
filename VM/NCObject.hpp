@@ -21,7 +21,7 @@ public:
     
     shared_ptr<NCObject> super;
     
-    vector<shared_ptr<NCStackElement>> fields;
+//    vector<shared_ptr<NCStackElement>> fields;
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){return false;};
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments){return true;}
@@ -30,7 +30,7 @@ public:
     
     virtual void setAttribute(const string & attrName, shared_ptr<NCStackElement> value){}
     
-    virtual string getDescription(){return "NCObject";};
+    virtual string getDescription(){return "NCObject";}
 };
 
 class NCOriginalObject : public NCObject{
@@ -52,6 +52,11 @@ public:
     NCStackPointerElement(){type="pointer";}
     
     NCStackPointerElement(shared_ptr<NCObject> pObject):m_pObject(pObject){type="pointer";}
+    
+    NCStackPointerElement(NCObject* pObject){
+        type="pointer";
+        m_pObject = shared_ptr<NCObject>(pObject);
+    }
     
 //    NCObject* getNakedPointer(){return pObject;}
     shared_ptr<NCObject> getPointedObject(){return m_pObject;}

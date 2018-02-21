@@ -7,3 +7,26 @@
 //
 
 #include "NCCocoaToolkit.hpp"
+#include <sstream>
+#include <iostream>
+
+string NCFrame::getDescription(){
+    std::ostringstream stringStream;
+    stringStream << "x:"<<x<<" y:"<<y<<" width:"<<width<<" height:"<<height<<endl;
+    std::string copyOfStr = stringStream.str();
+    return copyOfStr;
+}
+
+string NCSize::getDescription(){
+    std::ostringstream stringStream;
+    stringStream << "width:"<<width<<" height:"<<height<<endl;
+    std::string copyOfStr = stringStream.str();
+    return copyOfStr;
+}
+
+string NCPoint::getDescription(){
+    std::ostringstream stringStream;
+    stringStream << "x:"<<x<<" y:"<<y<<endl;
+    std::string copyOfStr = stringStream.str();
+    return copyOfStr;
+}

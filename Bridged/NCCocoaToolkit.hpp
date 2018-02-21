@@ -35,6 +35,8 @@ public:
     void setY(float y){this->y = y;}
     void setWidth(float width){this->width = width;}
     void setHeight(float height){this->height = height;}
+    
+    virtual string getDescription();
 };
 
 class NCSize : public NCObject{
@@ -50,6 +52,8 @@ public:
     
     void setWidth(float width){this->width = width;}
     void setHeight(float height){this->height = height;}
+    
+    virtual string getDescription();
 };
 
 class NCPoint : public NCObject{
@@ -65,6 +69,8 @@ public:
     
     void setX(float x){this->x = x;}
     void setY(float y){this->y = y;}
+    
+    virtual string getDescription();
 };
 
 #endif /* NCCocoaToolkit_hpp */
