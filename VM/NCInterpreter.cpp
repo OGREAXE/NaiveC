@@ -27,7 +27,7 @@ void NCFrame::insertVariable(string&name, shared_ptr<NCStackElement> pObject){
 }
 
 void NCFrame::insertVariable(string&name, NCStackPointerElement & pObject){
-    localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackPointerElement(pObject.getNakedPointer()));
+    localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackPointerElement(pObject.getPointedObject()));
 }
 
 shared_ptr<NCStackElement> NCFrame::stack_pop(){
@@ -361,10 +361,10 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         visit(node->expression, frame);
         
         int index = stackPopInt(frame);
-        auto  _arrayPointer = stackPopObjectPointer(frame)->getNakedPointer();
-        if (dynamic_cast<NCArrayInstance*>(_arrayPointer) ) {
-            auto pArr = dynamic_cast<NCArrayInstance*>(_arrayPointer);
-            auto accessor = new NCArrayAccessor(pArr,index);
+        auto obj = stackPopObjectPointer(frame)->getPointedObject();
+        if (dynamic_pointer_cast<NCBracketAccessible>(obj) ) {
+            auto accessible = dynamic_pointer_cast<NCBracketAccessible>(obj);
+            auto accessor = new NCArrayAccessor(accessible,shared_ptr<NCStackElement>( new NCStackIntElement(index)));
             
             frame.stack.push_back(shared_ptr<NCStackElement>(accessor));
         }
@@ -382,7 +382,7 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
             pArray->addElement(value);
         }
         
-        frame.stack_push(shared_ptr<NCStackPointerElement> ( new NCStackPointerElement(pArray)));
+        frame.stack_push(shared_ptr<NCStackPointerElement> ( new NCStackPointerElement( shared_ptr<NCObject>(pArray))));
     }
     else if(dynamic_cast<NCNameExpression*>(currentNode.get())){
         auto node = dynamic_cast<NCNameExpression*>(currentNode.get());

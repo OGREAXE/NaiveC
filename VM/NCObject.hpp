@@ -47,17 +47,14 @@ public:
  */
 struct NCStackPointerElement:public NCStackElement{
 private:
-    NCObject * pObject;
+    shared_ptr<NCObject>  m_pObject;
 public:
-    NCStackPointerElement():pObject(nullptr){type="pointer";}
+    NCStackPointerElement(){type="pointer";}
     
-    NCStackPointerElement(NCObject *pObject):pObject(pObject){type="pointer";}
+    NCStackPointerElement(shared_ptr<NCObject> pObject):m_pObject(pObject){type="pointer";}
     
-    virtual ~NCStackPointerElement(){delete pObject;}
-    
-//    shared_ptr<NCObject> getObjectPointer(){return shared_ptr<NCObject>(pObject);}
-    
-    NCObject* getNakedPointer(){return pObject;}
+//    NCObject* getNakedPointer(){return pObject;}
+    shared_ptr<NCObject> getPointedObject(){return m_pObject;}
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
     virtual int toInt();
@@ -67,11 +64,18 @@ public:
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
     
-    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName){return pObject->getAttribute(attrName);};
+    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName){return m_pObject->getAttribute(attrName);};
     
-    virtual void setAttribute(const string & attrName, shared_ptr<NCStackElement> value){pObject->setAttribute(attrName, value);}
+    virtual void setAttribute(const string & attrName, shared_ptr<NCStackElement> value){m_pObject->setAttribute(attrName, value);}
 };
 
-typedef NCObject NCObject;
+/*
+ abstract interface for types that can be accessed by []
+ */
+class NCBracketAccessible{
+public:
+    virtual void br_set(shared_ptr<NCStackElement> & key,shared_ptr<NCStackElement> &value)=0;
+    virtual shared_ptr<NCStackElement> br_getValue(shared_ptr<NCStackElement> & key)=0;
+};
 
 #endif /* NCObject_hpp */

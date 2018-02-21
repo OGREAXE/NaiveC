@@ -106,9 +106,9 @@
         else if(COMP_ENCODE(argumentType, CGRect)){
             if(dynamic_pointer_cast<NCStackPointerElement>(arguments[i])){
                 auto pFrameContainer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
-                auto pObject = pFrameContainer->getNakedPointer();
-                if(pObject && dynamic_cast<NCFrame*>(pObject)){
-                    auto pFrame = dynamic_cast<NCFrame*>(pObject);
+                auto pObject = pFrameContainer->getPointedObject();
+                if(pObject && dynamic_pointer_cast<NCFrame>(pObject)){
+                    auto pFrame = dynamic_pointer_cast<NCFrame>(pObject);
                     CGRect frame = CGRectMake(pFrame->getX(), pFrame->getY(), pFrame->getWidth(), pFrame->getHeight());
                     [invocation setArgument:&frame atIndex:argPos];
                 }
@@ -118,9 +118,9 @@
         else if(COMP_ENCODE(argumentType, CGSize)){
             if(dynamic_pointer_cast<NCStackPointerElement>(arguments[i])){
                 auto pFrameContainer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
-                auto pObject = pFrameContainer->getNakedPointer();
-                if(pObject && dynamic_cast<NCSize*>(pObject)){
-                    auto pSize = dynamic_cast<NCSize*>(pObject);
+                auto pObject = pFrameContainer->getPointedObject();
+                if(pObject && dynamic_pointer_cast<NCSize>(pObject)){
+                    auto pSize = dynamic_pointer_cast<NCSize>(pObject);
                     CGSize size = CGSizeMake(pSize->getWidth(), pSize->getHeight());
                     [invocation setArgument:&size atIndex:argPos];
                 }
@@ -130,9 +130,9 @@
         else if(COMP_ENCODE(argumentType, CGPoint)){
             if(dynamic_pointer_cast<NCStackPointerElement>(arguments[i])){
                 auto pFrameContainer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
-                auto pObject = pFrameContainer->getNakedPointer();
-                if(pObject && dynamic_cast<NCPoint*>(pObject)){
-                    auto pPoint = dynamic_cast<NCPoint*>(pObject);
+                auto pObject = pFrameContainer->getPointedObject();
+                if(pObject && dynamic_pointer_cast<NCPoint>(pObject)){
+                    auto pPoint = dynamic_pointer_cast<NCPoint>(pObject);
                     CGSize point = CGSizeMake(pPoint->getX(), pPoint->getY());
                     [invocation setArgument:&point atIndex:argPos];
                 }
@@ -148,9 +148,9 @@
             }
             else if(dynamic_pointer_cast<NCStackPointerElement>(stackElement)){
                 auto pointerContainer = dynamic_pointer_cast<NCStackPointerElement>(stackElement);
-                auto payloadObj = pointerContainer->getNakedPointer();
-                if(payloadObj && dynamic_cast<NCCocoaBox*>(payloadObj)){
-                    auto cocoabox = dynamic_cast<NCCocoaBox*>(payloadObj);
+                auto payloadObj = pointerContainer->getPointedObject();
+                if(payloadObj && dynamic_pointer_cast<NCCocoaBox>(payloadObj)){
+                    auto cocoabox = dynamic_pointer_cast<NCCocoaBox>(payloadObj);
                     id cocoaObj = (id)CFBridgingRelease(cocoabox->getContent());
                     realObj = cocoaObj;
                     
@@ -180,7 +180,7 @@
         
         NCCocoaBox * box = new NCCocoaBox((void*)CFBridgingRetain(result));
         
-        NCStackPointerElement * pRet = new NCStackPointerElement(box);
+        NCStackPointerElement * pRet = new NCStackPointerElement(shared_ptr<NCObject>( box));
         
         lastStack.push_back(shared_ptr<NCStackElement>(pRet));
         

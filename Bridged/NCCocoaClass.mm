@@ -23,10 +23,10 @@ shared_ptr<NCStackPointerElement> NCCocoaClass::instantiate(vector<shared_ptr<NC
             auto width = arguments[2]->toFloat();
             auto height = arguments[3]->toFloat();
             
-            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(new NCFrame(x, y, width, height)));
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(new NCFrame(x, y, width, height))));
         }
         else {
-            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(new NCFrame()));
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(new NCFrame())));
         }
     }
     else if (this->name == NC_CLASSNAME_SIZE) {
@@ -34,10 +34,10 @@ shared_ptr<NCStackPointerElement> NCCocoaClass::instantiate(vector<shared_ptr<NC
             auto width = arguments[0]->toFloat();
             auto height = arguments[1]->toFloat();
             
-            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(new NCSize(width, height)));
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(new NCSize(width, height))));
         }
         else {
-            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(new NCSize()));
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(new NCSize())));
         }
     }
     else if (this->name == NC_CLASSNAME_POINT) {
@@ -45,10 +45,10 @@ shared_ptr<NCStackPointerElement> NCCocoaClass::instantiate(vector<shared_ptr<NC
             auto x = arguments[0]->toFloat();
             auto y = arguments[1]->toFloat();
             
-            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(new NCPoint(x, y)));
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(new NCPoint(x, y))));
         }
         else {
-            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(new NCPoint()));
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(new NCPoint())));
         }
     }
     
@@ -59,7 +59,7 @@ shared_ptr<NCStackPointerElement> NCCocoaClass::instantiate(vector<shared_ptr<NC
     
     NCCocoaBox * box = new NCCocoaBox((void*)CFBridgingRetain(allocedObject));
     
-    return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(box));
+    return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(box)));
 }
 
 bool NCCocoaClass::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){

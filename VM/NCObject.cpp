@@ -21,11 +21,11 @@ NCFloat NCStackPointerElement::toFloat(){
     return 0;
 }
 string NCStackPointerElement::toString(){
-    return pObject->getDescription();
+    return m_pObject->getDescription();
 }
 
 shared_ptr<NCStackElement> NCStackPointerElement::copy(){
-    return shared_ptr<NCStackElement>(new NCStackPointerElement(pObject));
+    return shared_ptr<NCStackElement>(new NCStackPointerElement(m_pObject));
 }
 
 bool NCStackPointerElement::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
@@ -37,13 +37,9 @@ bool NCStackPointerElement::invokeMethod(string methodName, vector<shared_ptr<NC
         auto pPointerElement = dynamic_pointer_cast<NCStackPointerElement> (lastStack.back());
         lastStack.pop_back();
         
-        auto pPointer = pPointerElement.get()->getNakedPointer();
+        auto pObject = pPointerElement->getPointedObject();
         
-        if (dynamic_cast<NCObject*>(pPointer)) {
-            auto classInst = dynamic_cast<NCObject*>(pPointer);
-            
-            return classInst->invokeMethod(methodName, arguments, lastStack);
-        }
+        return pObject->invokeMethod(methodName, arguments, lastStack);
     }
     else if (dynamic_cast<NCStackVariableElement*>(pStackTop)) {
         auto pVar = dynamic_cast<NCStackVariableElement*>(pStackTop);
@@ -54,13 +50,9 @@ bool NCStackPointerElement::invokeMethod(string methodName, vector<shared_ptr<NC
             auto pPointerElement = dynamic_pointer_cast<NCStackPointerElement> (pVar->valueElement);
             lastStack.pop_back();
             
-            auto pPointer = pPointerElement.get()->getNakedPointer();
+            auto pPointedObject = pPointerElement->getPointedObject();
             
-            if (dynamic_cast<NCObject*>(pPointer)) {
-                auto classInst = dynamic_cast<NCObject*>(pPointer);
-                
-                return classInst->invokeMethod(methodName, arguments, lastStack);
-            }
+            return pPointedObject->invokeMethod(methodName, arguments, lastStack);
         }
     }
     

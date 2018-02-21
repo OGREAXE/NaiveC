@@ -14,7 +14,7 @@
 
 #define NC_CLASSNAME_ARRAY "array"
 
-class NCArrayInstance : public NCObject{
+class NCArrayInstance : public NCObject, public NCBracketAccessible{
 private:
     vector<shared_ptr<NCStackElement>> innerArray;
 public:
@@ -25,6 +25,9 @@ public:
     void addElement(shared_ptr<NCStackElement>&e){innerArray.push_back(e);};
     
     virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
+    
+    virtual void br_set(shared_ptr<NCStackElement> & key,shared_ptr<NCStackElement> &value);
+    virtual shared_ptr<NCStackElement> br_getValue(shared_ptr<NCStackElement> & key);
 };
 
 typedef NCArrayInstance NCArray;
@@ -35,10 +38,13 @@ typedef NCArrayInstance NCArray;
  */
 struct NCArrayAccessor:NCAccessor{
 private:
-    NCArray * arrayInstance;
-    int index;
+    shared_ptr<NCBracketAccessible> m_accessible;
+    shared_ptr<NCStackElement> m_key;
+//    int index;
 public:
-    NCArrayAccessor(NCArrayInstance*arrInst, int index):arrayInstance(arrInst),index(index){}
+//    NCArrayAccessor(NCArrayInstance*arrInst, int index):arrayInstance(arrInst),index(index){}
+    
+    NCArrayAccessor(shared_ptr<NCBracketAccessible>  accessible, shared_ptr<NCStackElement> key):m_accessible(accessible),m_key(key){}
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
     virtual int toInt();
@@ -48,7 +54,7 @@ public:
     
 //    virtual void set(int index,shared_ptr<NCStackElement> value);
     virtual void set(shared_ptr<NCStackElement> value);
-    virtual shared_ptr<NCStackElement> value(){return arrayInstance->getElementAt(index);}
+    virtual shared_ptr<NCStackElement> value();
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
 };
