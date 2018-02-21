@@ -249,3 +249,20 @@ void NCFieldAccessor::set(shared_ptr<NCStackElement> value){
 shared_ptr<NCStackElement> NCFieldAccessor::value(){
     return scope->getAttribute(this->attributeName);
 }
+
+string NCFieldAccessor::toString(){
+    auto val = value();
+    if (!val) {
+        return "NULL";
+    }
+    return val->toString();
+}
+
+shared_ptr<NCStackElement> NCFieldAccessor::getAttribute(const string & attrName){
+    auto val = value();
+    return val->getAttribute(attrName);
+}
+
+void NCFieldAccessor::setAttribute(const string & attrName, shared_ptr<NCStackElement> value){
+    
+}

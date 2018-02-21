@@ -112,7 +112,11 @@ public:
     virtual void set(shared_ptr<NCStackElement> value);
     virtual shared_ptr<NCStackElement> value();
     
-    virtual string toString(){return value()->toString();};
+    virtual string toString();
+    
+    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
+    
+    virtual void setAttribute(const string & attrName, shared_ptr<NCStackElement> value);
 };
 
 #endif /* NCStackElement_hpp */
