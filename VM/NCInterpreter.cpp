@@ -778,6 +778,8 @@ string NCInterpreter::stackPopString(NCFrame & frame){
             ret = arrayAccessorElement->toString();
             break;
         }
+        
+        ret = pStackTop->toString();
     }while (0);
     
     frame.stack.pop_back();

@@ -46,7 +46,7 @@ shared_ptr<NCStackElement> NCCocoaBox::getAttribute(const string & attrName){
     if (resultContainer.size() > 0) {
         return resultContainer[0];
     }
-    
+    NSLog(@"attribute %@ not found", methodStr);
     return nullptr;
 }
 
