@@ -57,6 +57,10 @@ public:
     virtual shared_ptr<NCStackElement> value();
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+    
+    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
+    
+    virtual void setAttribute(const string & attrName, shared_ptr<NCStackElement> value);
 };
 
 #endif /* NCArray_hpp */

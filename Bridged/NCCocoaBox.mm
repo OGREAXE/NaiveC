@@ -72,3 +72,25 @@ string NCCocoaBox::getDescription(){
     string desc = wrappedObject.description.UTF8String;
     return desc;
 }
+
+void NCCocoaBox::br_set(shared_ptr<NCStackElement> & key,shared_ptr<NCStackElement> &value){
+    //todo
+    //currently nothing happen
+    NSLog(@"NCCocoaBox:setting object by bracket is not supported now");
+}
+
+shared_ptr<NCStackElement> NCCocoaBox::br_getValue(shared_ptr<NCStackElement> & key){
+    NSObject * wrappedObject = (__bridge NSObject*)m_cocoaObject;
+    if ([wrappedObject isKindOfClass:[NSArray class]]) {
+        auto index = shared_ptr<NCStackIntElement>(new NCStackIntElement(key->toInt()));
+        vector<shared_ptr<NCStackElement>> argments = {index};
+        vector<shared_ptr<NCStackElement>> resultContainer;
+        
+        [wrappedObject invoke:@"objectAtIndex" arguments:argments stack:resultContainer];
+        
+        if (resultContainer.size() > 0) {
+            return resultContainer[0];
+        }
+    }
+    return nullptr;
+}

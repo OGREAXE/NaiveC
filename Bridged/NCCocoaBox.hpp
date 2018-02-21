@@ -15,7 +15,7 @@
 /*
  wrapper for cocoa objects
  */
-class NCCocoaBox :public NCObject {
+class NCCocoaBox :public NCObject, public NCBracketAccessible {
 private:
     //wrapped cocoaObject. must use non-arc to ensure correct release?
     void * m_cocoaObject;
@@ -30,8 +30,13 @@ public:
     
     void * getContent(){return m_cocoaObject;}
     
-    
     virtual string getDescription();
+    
+    /*
+     bracket access support
+     */
+    virtual void br_set(shared_ptr<NCStackElement> & key,shared_ptr<NCStackElement> &value);
+    virtual shared_ptr<NCStackElement> br_getValue(shared_ptr<NCStackElement> & key);
 };
 
 #endif /* NCCocoaBox_hpp */

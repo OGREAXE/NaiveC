@@ -77,20 +77,35 @@
     
     for(int i=0;i<argCount-2;i++){
         char argumentType[16];
-        method_getArgumentType(method, i, argumentType, 16);
         
         int argPos = i+2;
+        method_getArgumentType(method, argPos, argumentType, 16);
         
 //#define COMP_ENCODE(type, type2) (type[0] == (@encode(type2))[0] && type[1] == (@encode(type2))[1])
 #define COMP_ENCODE(type, type2) (strcmp(type,@encode(type2)) == 0)
         
-        if(COMP_ENCODE(argumentType, int) ||
-           COMP_ENCODE(argumentType, unsigned int )||
-           COMP_ENCODE(argumentType, long) ||
-           COMP_ENCODE(argumentType, unsigned long )||
-           COMP_ENCODE(argumentType, long long ) ||
-           COMP_ENCODE(argumentType, unsigned long long )){
-            NSNumber * num = [NSNumber numberWithInt:arguments[i]->toInt()];
+        if(COMP_ENCODE(argumentType, int)){
+            unsigned long long num = arguments[i]->toInt();
+            [invocation setArgument:&num atIndex:argPos];
+        }
+        else if(COMP_ENCODE(argumentType, unsigned int)){
+            unsigned int num = arguments[i]->toInt();
+            [invocation setArgument:&num atIndex:argPos];
+        }
+        else if(COMP_ENCODE(argumentType, long)){
+            long num = arguments[i]->toInt();
+            [invocation setArgument:&num atIndex:argPos];
+        }
+        else if(COMP_ENCODE(argumentType, unsigned long)){
+            unsigned long num = arguments[i]->toInt();
+            [invocation setArgument:&num atIndex:argPos];
+        }
+        else if(COMP_ENCODE(argumentType, long long)){
+            long long num = arguments[i]->toInt();
+            [invocation setArgument:&num atIndex:argPos];
+        }
+        else if(COMP_ENCODE(argumentType, unsigned long long)){
+            unsigned long long num = arguments[i]->toInt();
             [invocation setArgument:&num atIndex:argPos];
         }
         else if(COMP_ENCODE(argumentType, float) ||

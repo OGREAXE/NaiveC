@@ -102,3 +102,11 @@ shared_ptr<NCStackElement> NCArrayAccessor::value(){
 bool NCArrayAccessor::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
     return this->value()->invokeMethod(methodName, arguments, lastStack);
 }
+
+shared_ptr<NCStackElement> NCArrayAccessor::getAttribute(const string & attrName){
+    return this->value()->getAttribute(attrName);
+}
+
+void NCArrayAccessor::setAttribute(const string & attrName, shared_ptr<NCStackElement> value){
+    this->value()->setAttribute(attrName, value);
+}
