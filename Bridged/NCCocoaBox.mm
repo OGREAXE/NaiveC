@@ -34,7 +34,37 @@ bool NCCocoaBox::invokeMethod(string methodName, vector<shared_ptr<NCStackElemen
 }
 
 shared_ptr<NCStackElement> NCCocoaBox::getAttribute(const string & attrName){
+    NSObject * wrappedObject = (__bridge NSObject*)m_cocoaObject;
+    
+    NSString * methodStr = [NSString stringWithUTF8String:attrName.c_str()];
+    
+    vector<shared_ptr<NCStackElement>> argments;
+    vector<shared_ptr<NCStackElement>> resultContainer;
+    
+    [wrappedObject invoke:methodStr arguments:argments stack:resultContainer];
+    
+    if (resultContainer.size() > 0) {
+        return resultContainer[0];
+    }
+    
     return nullptr;
+}
+
+void NCCocoaBox::setAttribute(const string & attrName, shared_ptr<NCStackElement> value){
+    
+    string firstUpperAttrName = attrName;
+    if (firstUpperAttrName[0] >= 'a' && firstUpperAttrName[0] <= 'z') {
+        firstUpperAttrName[0] += 'A' -'a';
+    }
+    
+    NSObject * wrappedObject = (__bridge NSObject*)m_cocoaObject;
+    
+    NSString * methodStr = [NSString stringWithFormat:@"set%@",[NSString stringWithUTF8String:firstUpperAttrName.c_str()]] ;
+    
+    vector<shared_ptr<NCStackElement>> argments = {value};
+    vector<shared_ptr<NCStackElement>> resultContainer;
+    
+    [wrappedObject invoke:methodStr arguments:argments stack:resultContainer];
 }
 
 string NCCocoaBox::getDescription(){

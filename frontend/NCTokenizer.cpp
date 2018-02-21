@@ -54,6 +54,9 @@ bool NCTokenizer::tokenize(string&str){
         else if(c=='/'){
             if (i>0) {
                 if (str[i-1]=='/') {
+                    if (token.length() > 0){
+                        addToken(tokens, token, i);
+                    }
                     status = Comment;
                     token = "";
                 }

@@ -37,7 +37,7 @@ bool NCStackPointerElement::invokeMethod(string methodName, vector<shared_ptr<NC
         auto pPointerElement = dynamic_pointer_cast<NCStackPointerElement> (lastStack.back());
         lastStack.pop_back();
         
-        auto pPointer = pPointerElement.get()->getRawObjectPointer();
+        auto pPointer = pPointerElement.get()->getNakedPointer();
         
         if (dynamic_cast<NCObject*>(pPointer)) {
             auto classInst = dynamic_cast<NCObject*>(pPointer);
@@ -54,7 +54,7 @@ bool NCStackPointerElement::invokeMethod(string methodName, vector<shared_ptr<NC
             auto pPointerElement = dynamic_pointer_cast<NCStackPointerElement> (pVar->valueElement);
             lastStack.pop_back();
             
-            auto pPointer = pPointerElement.get()->getRawObjectPointer();
+            auto pPointer = pPointerElement.get()->getNakedPointer();
             
             if (dynamic_cast<NCObject*>(pPointer)) {
                 auto classInst = dynamic_cast<NCObject*>(pPointer);

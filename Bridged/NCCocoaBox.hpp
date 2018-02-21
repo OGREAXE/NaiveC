@@ -26,7 +26,9 @@ public:
     
     virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
     
-    void * getCocoaObject(){return m_cocoaObject;}
+    virtual void setAttribute(const string & attrName, shared_ptr<NCStackElement> value);
+    
+    void * getContent(){return m_cocoaObject;}
     
     
     virtual string getDescription();

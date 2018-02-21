@@ -15,39 +15,49 @@
 #include "NCCocoaBox.hpp"
 #include "NCCocoaToolkit.hpp"
 
+#include "NCAST.hpp"
+
 @implementation NSObject (NCInvocation)
 
 +(BOOL)invoke:(NSString*)methodName object:(NSObject*)aObject orClass:(Class)aClass arguments:(vector<shared_ptr<NCStackElement>> &)arguments stack:(vector<shared_ptr<NCStackElement>>& )lastStack{
     unsigned int methodCount = 0;
     
     Method * methodList = NULL;
+    
+    Class targetClass = NULL;
+    
     if (aObject) {
-        methodList = class_copyMethodList(aObject.class, &methodCount);
+        targetClass = aObject.class;
     }
     else if(aClass){
-        methodList = class_copyMethodList(object_getClass(aClass), &methodCount);
+        targetClass = object_getClass(aClass);
     }
     else {
         return NO;
     }
     
-//    Method * methodList = class_copyMethodList(target.class, &methodCount);
-    
-    for (int i=0; i<methodCount; i++) {
-        Method aMethod = methodList[i];
-        
-        NSString * selectorString = NSStringFromSelector(method_getName(aMethod));
-        
-        NSString * convertedString = [self convertSelectorString:selectorString];
-        
-        if([methodName isEqualToString:convertedString]){
-            BOOL res = [NSObject private_invoke:aMethod target:aObject?aObject:aClass arguments:arguments stack:lastStack];
+    BOOL res = NO;
+    while (targetClass) {
+        methodList = class_copyMethodList(targetClass, &methodCount);
+        for (int i=0; i<methodCount; i++) {
+            Method aMethod = methodList[i];
             
-            return res;
+            NSString * selectorString = NSStringFromSelector(method_getName(aMethod));
+            
+            NSString * convertedString = [self convertSelectorString:selectorString];
+            
+            if([methodName isEqualToString:convertedString]){
+                res = [NSObject private_invoke:aMethod target:aObject?aObject:aClass arguments:arguments stack:lastStack];
+                free(methodList);
+                return res;
+            }
         }
+        
+        free(methodList);
+        targetClass = targetClass.superclass;
     }
     
-    return NO;
+    return res;
 }
 
 +(BOOL)private_invoke:(Method)method target:(id)target arguments:(vector<shared_ptr<NCStackElement>> &)arguments stack:(vector<shared_ptr<NCStackElement>>& )lastStack{
@@ -61,9 +71,9 @@
     SEL selector = method_getName(method);
     NSMethodSignature * signature = [target methodSignatureForSelector:selector];
     
-    NSInvocation *inv = [NSInvocation invocationWithMethodSignature:signature];
-    [inv setSelector:selector];
-    [inv setTarget:target];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+    [invocation setSelector:selector];
+    [invocation setTarget:target];
     
     for(int i=0;i<argCount-2;i++){
         char argumentType[16];
@@ -71,7 +81,9 @@
         
         int argPos = i+2;
         
-#define COMP_ENCODE(type, type2) (type[0] == (@encode(type2))[0] && type[1] == (@encode(type2))[1])
+//#define COMP_ENCODE(type, type2) (type[0] == (@encode(type2))[0] && type[1] == (@encode(type2))[1])
+#define COMP_ENCODE(type, type2) (strcmp(type,@encode(type2)) == 0)
+        
         if(COMP_ENCODE(argumentType, int) ||
            COMP_ENCODE(argumentType, unsigned int )||
            COMP_ENCODE(argumentType, long) ||
@@ -79,47 +91,50 @@
            COMP_ENCODE(argumentType, long long ) ||
            COMP_ENCODE(argumentType, unsigned long long )){
             NSNumber * num = [NSNumber numberWithInt:arguments[i]->toInt()];
-            [inv setArgument:&num atIndex:argPos];
+            [invocation setArgument:&num atIndex:argPos];
         }
         else if(COMP_ENCODE(argumentType, float) ||
                 COMP_ENCODE(argumentType, double)){
             NSNumber * num = [NSNumber numberWithDouble:arguments[i]->toFloat()];
-            [inv setArgument:&num atIndex:argPos];
+            [invocation setArgument:&num atIndex:argPos];
         }
 //        else if(COMP_ENCODE(argumentType, NSString)){
 //            NSString * str = [NSString stringWithUTF8String:arguments[i]->toString().c_str()];
 //            [inv setArgument:&str atIndex:argPos];
 //        }
-        else if(strcmp(argumentType,@encode(CGRect)) == 0){
+//        else if(strcmp(argumentType,@encode(CGRect)) == 0){
+        else if(COMP_ENCODE(argumentType, CGRect)){
             if(dynamic_pointer_cast<NCStackPointerElement>(arguments[i])){
                 auto pFrameContainer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
-                auto pObject = pFrameContainer->getRawObjectPointer();
+                auto pObject = pFrameContainer->getNakedPointer();
                 if(pObject && dynamic_cast<NCFrame*>(pObject)){
                     auto pFrame = dynamic_cast<NCFrame*>(pObject);
                     CGRect frame = CGRectMake(pFrame->getX(), pFrame->getY(), pFrame->getWidth(), pFrame->getHeight());
-                    [inv setArgument:&frame atIndex:argPos];
+                    [invocation setArgument:&frame atIndex:argPos];
                 }
             }
         }
-        else if(strcmp(argumentType,@encode(CGSize)) == 0){
+//        else if(strcmp(argumentType,@encode(CGSize)) == 0){
+        else if(COMP_ENCODE(argumentType, CGSize)){
             if(dynamic_pointer_cast<NCStackPointerElement>(arguments[i])){
                 auto pFrameContainer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
-                auto pObject = pFrameContainer->getRawObjectPointer();
+                auto pObject = pFrameContainer->getNakedPointer();
                 if(pObject && dynamic_cast<NCSize*>(pObject)){
                     auto pSize = dynamic_cast<NCSize*>(pObject);
                     CGSize size = CGSizeMake(pSize->getWidth(), pSize->getHeight());
-                    [inv setArgument:&size atIndex:argPos];
+                    [invocation setArgument:&size atIndex:argPos];
                 }
             }
         }
-        else if(strcmp(argumentType,@encode(CGPoint)) == 0){
+//        else if(strcmp(argumentType,@encode(CGPoint)) == 0){
+        else if(COMP_ENCODE(argumentType, CGPoint)){
             if(dynamic_pointer_cast<NCStackPointerElement>(arguments[i])){
                 auto pFrameContainer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
-                auto pObject = pFrameContainer->getRawObjectPointer();
+                auto pObject = pFrameContainer->getNakedPointer();
                 if(pObject && dynamic_cast<NCPoint*>(pObject)){
                     auto pPoint = dynamic_cast<NCPoint*>(pObject);
                     CGSize point = CGSizeMake(pPoint->getX(), pPoint->getY());
-                    [inv setArgument:&point atIndex:argPos];
+                    [invocation setArgument:&point atIndex:argPos];
                 }
             }
         }
@@ -133,33 +148,84 @@
             }
             else if(dynamic_pointer_cast<NCStackPointerElement>(stackElement)){
                 auto pointerContainer = dynamic_pointer_cast<NCStackPointerElement>(stackElement);
-                auto payloadObj = pointerContainer->getRawObjectPointer();
+                auto payloadObj = pointerContainer->getNakedPointer();
                 if(payloadObj && dynamic_cast<NCCocoaBox*>(payloadObj)){
                     auto cocoabox = dynamic_cast<NCCocoaBox*>(payloadObj);
-                    id cocoaObj = (id)CFBridgingRelease(cocoabox->getCocoaObject());
+                    id cocoaObj = (id)CFBridgingRelease(cocoabox->getContent());
                     realObj = cocoaObj;
                     
                 }
             }
-            [inv setArgument:&realObj atIndex:argPos];
+            [invocation setArgument:&realObj atIndex:argPos];
         }
         else {
             id argnil = NULL;
-            [inv setArgument:&argnil atIndex:argPos];
+            [invocation setArgument:&argnil atIndex:argPos];
         }
     }
     
-    [inv invoke];
+    [invocation invoke];
     
-    __unsafe_unretained id result;
+    const char * returnType = signature.methodReturnType;
     
-    [inv getReturnValue:&result];
-    
-    NCCocoaBox * box = new NCCocoaBox((void*)CFBridgingRetain(result));
-    
-    NCStackPointerElement * pRet = new NCStackPointerElement(box);
-    
-    lastStack.push_back(shared_ptr<NCStackElement>(pRet));
+//    if(strcmp(returnType,@encode(void)) == 0){
+    if(COMP_ENCODE(returnType, void)){
+        return YES;
+    }
+//    else if(strcmp(returnType,@encode(id)) == 0){
+    if(COMP_ENCODE(returnType, id)){
+        __unsafe_unretained id result;
+        
+        [invocation getReturnValue:&result];
+        
+        NCCocoaBox * box = new NCCocoaBox((void*)CFBridgingRetain(result));
+        
+        NCStackPointerElement * pRet = new NCStackPointerElement(box);
+        
+        lastStack.push_back(shared_ptr<NCStackElement>(pRet));
+        
+        return YES;
+    }
+    else {
+        NSUInteger length = signature.methodReturnLength;
+        void * buffer = (void *)malloc(length);
+        [invocation getReturnValue:buffer];
+        
+        if(COMP_ENCODE(returnType, unsigned int )){
+            unsigned int *pret = (unsigned int *)buffer;
+            lastStack.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement( (*pret))));
+        }
+        else if(COMP_ENCODE(returnType, int)){
+            
+        }
+        else if(COMP_ENCODE(returnType, unsigned long )){
+            
+        }
+        else if(COMP_ENCODE(returnType, long)){
+            
+        }
+        else if(COMP_ENCODE(returnType, unsigned long long)){
+            
+        }
+        else if(COMP_ENCODE(returnType, long long)){
+            
+        }
+        else if(COMP_ENCODE(returnType, double)){
+            
+        }
+        else if(COMP_ENCODE(returnType, float)){
+            
+        }
+        else if(COMP_ENCODE(returnType, CGRect)){
+            
+        }
+        else if(COMP_ENCODE(returnType, CGSize)){
+            
+        }
+        else if(COMP_ENCODE(returnType, CGPoint)){
+            
+        }
+    }
     
     return YES;
 }

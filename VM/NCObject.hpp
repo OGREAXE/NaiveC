@@ -57,7 +57,7 @@ public:
     
 //    shared_ptr<NCObject> getObjectPointer(){return shared_ptr<NCObject>(pObject);}
     
-    NCObject* getRawObjectPointer(){return pObject;}
+    NCObject* getNakedPointer(){return pObject;}
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
     virtual int toInt();

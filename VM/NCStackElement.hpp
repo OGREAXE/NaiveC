@@ -111,6 +111,8 @@ public:
     
     virtual void set(shared_ptr<NCStackElement> value);
     virtual shared_ptr<NCStackElement> value();
+    
+    virtual string toString(){return value()->toString();};
 };
 
 #endif /* NCStackElement_hpp */
