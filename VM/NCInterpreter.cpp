@@ -323,17 +323,6 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
                 string str = stackPopString(frame);
                 frame.insertVariable(var->name, str);
             }
-//            else if (var->valueElement->type == "array") {
-//                auto pStackTop = frame.stack.back();
-//                auto obj = frame.localVariableMap[var->name].get();
-//                if (dynamic_cast<NCArrayInstance*>(obj)) {
-//                    frame.stack.pop_back();
-//                    auto arrayInst = dynamic_cast<NCArrayInstance*>(obj);
-//                    auto scope = frame.stack.back();
-//                    vector<shared_ptr<NCStackElement> > arguments = {scope};
-//                    arrayInst->invokeMethod("set", arguments, frame.stack);
-//                }
-//            }
             else {
                 //pass by pointer
                 auto pointerElement = stackPopObjectPointer(frame);
@@ -372,7 +361,7 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
     else if(dynamic_cast<NCArrayInitializer*>(currentNode.get())){
         auto node = dynamic_cast<NCArrayInitializer*>(currentNode.get());
         
-        auto pArray = new NCArrayInstance();
+        auto pArray = new NCArray();
         
         for (auto element : node->elements) {
             visit(element, frame);
@@ -556,11 +545,6 @@ bool NCInterpreter::tree_doStaticMehothodCall(NCFrame & frame,NCMethodCallExpr*n
             }
         }
         else {
-            //constructor?
-//            if (node->name == "array") {
-//                auto pArray = new NCArrayInstance();
-//                frame.stack.push_back(shared_ptr<NCStackPointerElement> ( new NCStackPointerElement(pArray)));
-//            }
             auto targetClass = NCClassLoader::GetInstance()->loadClass(node->name);
             
             vector<shared_ptr<NCStackElement>> arguments;

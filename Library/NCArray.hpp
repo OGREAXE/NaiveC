@@ -14,7 +14,7 @@
 
 #define NC_CLASSNAME_ARRAY "array"
 
-class NCArrayInstance : public NCObject, public NCBracketAccessible{
+class NCArray : public NCObject, public NCBracketAccessible{
 private:
     vector<shared_ptr<NCStackElement>> innerArray;
 public:
@@ -30,9 +30,6 @@ public:
     virtual shared_ptr<NCStackElement> br_getValue(shared_ptr<NCStackElement> & key);
 };
 
-typedef NCArrayInstance NCArray;
-
-
 /**
  accessor for array, represented as anArray[index]
  */
@@ -42,8 +39,6 @@ private:
     shared_ptr<NCStackElement> m_key;
 //    int index;
 public:
-//    NCArrayAccessor(NCArrayInstance*arrInst, int index):arrayInstance(arrInst),index(index){}
-    
     NCArrayAccessor(shared_ptr<NCBracketAccessible>  accessible, shared_ptr<NCStackElement> key):m_accessible(accessible),m_key(key){}
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
