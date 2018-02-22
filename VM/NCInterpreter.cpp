@@ -267,9 +267,9 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
             
             visit(expr, frame);
             
-            auto exprVal = frame.stack_pop();
-            if (dynamic_pointer_cast<NCArray>(exprVal)) {
-                auto array = dynamic_pointer_cast<NCArray>(exprVal);
+            auto exprVal = stackPopObjectPointer(frame);
+            if (dynamic_pointer_cast<NCArray>(exprVal->getPointedObject())) {
+                auto array = dynamic_pointer_cast<NCArray>(exprVal->getPointedObject());
                 for (int i=0; i <array->length(); i++) {
                     auto currentValue = array->getElementAt(i);
                     

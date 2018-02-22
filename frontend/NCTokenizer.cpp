@@ -203,6 +203,11 @@ bool NCTokenizer::tokenize(string&str){
                 status = Unknown;
             }
         }
+        else if(c == ':'){
+            addToken(tokens, token, i);
+            token = ":";
+            status = Unknown;
+        }
         
         if (i == str.length()-1) {
             addToken(tokens, token, i);
