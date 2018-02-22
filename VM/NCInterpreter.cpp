@@ -344,7 +344,22 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         else {
             if (dynamic_pointer_cast<NCNameExpression>(primary)) {
                 auto nameExpr = dynamic_pointer_cast<NCNameExpression>(primary);
-                frame.insertVariable(nameExpr->name, stackTop);
+                visit(node->value,frame);
+                auto value = frame.stack_pop();
+                if (dynamic_pointer_cast<NCAccessor>(value)) {
+                    auto accessor = dynamic_pointer_cast<NCAccessor>(value);
+                    frame.insertVariable(nameExpr->name, accessor->value());
+                }else {
+                    if (dynamic_pointer_cast<NCObject>(value)) {
+                        auto object = dynamic_pointer_cast<NCObject>(value);
+                        auto pointer = shared_ptr<NCStackPointerElement>(new NCStackPointerElement(object));
+                        
+                        frame.insertVariable(nameExpr->name, pointer);
+                    }
+                    else {
+                        frame.insertVariable(nameExpr->name, value);
+                    }
+                }
             }
         }
         
