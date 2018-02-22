@@ -884,6 +884,41 @@ shared_ptr<NCStatement> NCParser::for_statement(){
     }
     word = nextWord();
     
+    pushIndex();
+    if (isIdentifier(word)) {
+        //try parse fast enumeration
+        //for(e:array){ statements }
+        string enumerator = word;
+        word = nextWord();
+        if(word != ":"){
+            return nullptr;
+        }
+        word = nextWord();
+        auto expr = expression();
+        
+        if (word != ")") {
+            return nullptr;
+        }
+        word = nextWord();
+        
+        auto fastEnumeration = new NCFastEnumeration();
+        fastEnumeration->enumerator = enumerator;
+        fastEnumeration->expr = expr;
+        
+        forStmt->fastEnumeration = shared_ptr<NCFastEnumeration>(fastEnumeration);
+        
+        auto stmt = statement();
+        if (!stmt) {
+            return nullptr;
+        }
+        
+        forStmt->body = stmt;
+        return shared_ptr<NCStatement>(forStmt);
+    }
+    
+    //not fast enumeration, fall back to normal parse
+    popIndex();
+    
     if(!for_init(forStmt->init)){
         return nullptr;
     }

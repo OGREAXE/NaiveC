@@ -261,37 +261,72 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
     else if(dynamic_cast<ForStatement*>(currentNode.get())){
         auto node = dynamic_cast<ForStatement*>(currentNode.get());
         
-        for(auto aInit:node->init){
-            visit(aInit, frame);
-        }
-        
-        while (1) {
-            visit(node->expr, frame);
+        if (node->fastEnumeration) {
+            string enumerator = node->fastEnumeration->enumerator;
+            auto expr = node->fastEnumeration->expr;
             
-            auto stackTop = (frame.stack.back());
-            frame.stack.pop_back();
+            visit(expr, frame);
             
-            if (stackTop->toInt()) {
-                auto & block = node->body;
-                
-                bool shouldBreakLocal = false;
-                
-                visit(block, frame, shouldReturn,&shouldBreakLocal);
-                
-                if (*shouldReturn) {
-                    break;
-                }
-                
-                if (shouldBreakLocal) {
-                    break;
-                }
-                
-                for(auto aUpdate:node->update){
-                    visit(aUpdate, frame);
+            auto exprVal = frame.stack_pop();
+            if (dynamic_pointer_cast<NCArray>(exprVal)) {
+                auto array = dynamic_pointer_cast<NCArray>(exprVal);
+                for (int i=0; i <array->length(); i++) {
+                    auto currentValue = array->getElementAt(i);
+                    
+                    frame.insertVariable(enumerator, currentValue);
+                    
+                    auto & block = node->body;
+                    
+                    bool shouldBreakLocal = false;
+                    
+                    visit(block, frame, shouldReturn,&shouldBreakLocal);
+                    
+                    if (*shouldReturn) {
+                        break;
+                    }
+                    
+                    if (shouldBreakLocal) {
+                        break;
+                    }
                 }
             }
             else {
-                break;
+                return false;
+            }
+        }
+        else {
+            for(auto aInit:node->init){
+                visit(aInit, frame);
+            }
+            
+            while (1) {
+                visit(node->expr, frame);
+                
+                auto stackTop = (frame.stack.back());
+                frame.stack.pop_back();
+                
+                if (stackTop->toInt()) {
+                    auto & block = node->body;
+                    
+                    bool shouldBreakLocal = false;
+                    
+                    visit(block, frame, shouldReturn,&shouldBreakLocal);
+                    
+                    if (*shouldReturn) {
+                        break;
+                    }
+                    
+                    if (shouldBreakLocal) {
+                        break;
+                    }
+                    
+                    for(auto aUpdate:node->update){
+                        visit(aUpdate, frame);
+                    }
+                }
+                else {
+                    break;
+                }
             }
         }
     }

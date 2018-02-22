@@ -238,8 +238,16 @@ public:
     shared_ptr<NCStatement> statement;
 };
 
+class NCFastEnumeration{
+public:
+    string enumerator;
+    shared_ptr<NCExpression> expr;
+};
+
 class ForStatement:public NCStatement{
 public:
+    shared_ptr<NCFastEnumeration> fastEnumeration;
+    
     vector<shared_ptr<NCExpression>> init;
     vector<shared_ptr<NCExpression>> update;
     shared_ptr<NCExpression> expr;

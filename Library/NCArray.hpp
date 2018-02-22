@@ -28,6 +28,8 @@ public:
     
     virtual void br_set(shared_ptr<NCStackElement> & key,shared_ptr<NCStackElement> &value);
     virtual shared_ptr<NCStackElement> br_getValue(shared_ptr<NCStackElement> & key);
+    
+    unsigned long length(){return innerArray.size();}
 };
 
 /**
