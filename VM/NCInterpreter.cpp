@@ -268,8 +268,9 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
             visit(expr, frame);
             
             auto exprVal = stackPopObjectPointer(frame);
-            if (dynamic_pointer_cast<NCFastEnumerable>(exprVal->getPointedObject())) {
-                auto enumerable = dynamic_pointer_cast<NCFastEnumerable>(exprVal->getPointedObject());
+            auto pointedObject = exprVal->getPointedObject();
+            if (dynamic_pointer_cast<NCFastEnumerable>(pointedObject)) {
+                auto enumerable = dynamic_pointer_cast<NCFastEnumerable>(pointedObject);
                 
                 enumerable->enumerate([&](auto element){
                     frame.insertVariable(enumerator, element);

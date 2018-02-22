@@ -121,6 +121,17 @@ public:
     }
 };
 
+//support calling oc message [obj msg:para1:para2]
+class NCObjCSendMessageExpr:public NCPrimarySuffix{
+public:
+    vector<shared_ptr<NCExpression>> argument_expression_list;
+    vector<string> parameter_list;
+    shared_ptr<NCExpression> scope;
+    
+    //method(args);
+    NCObjCSendMessageExpr(vector<shared_ptr<NCExpression>> & argument_expression_list,vector<string> parameter_list, shared_ptr<NCExpression> scope):argument_expression_list(argument_expression_list), parameter_list(parameter_list), scope(scope){}
+};
+
 class NCFieldAccessExpr:public NCPrimarySuffix{
 public:
     shared_ptr<NCExpression> scope;

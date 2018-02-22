@@ -609,6 +609,11 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
         return exp;
     }
     
+    if (word == "[") {
+        auto objcSendMsgExpr = objc_send_message();
+        return objcSendMsgExpr;
+    }
+    
     // name [call(args)]
     if (!isIdentifier(word)) {
         return nullptr;
@@ -1018,6 +1023,53 @@ shared_ptr<NCStatement> NCParser::expression_statement(){
     }
 }
 
+shared_ptr<NCExpression> NCParser::objc_send_message(){
+    if (word != "[") {
+        return nullptr;
+    }
+    word = nextWord();
+    
+    auto scope = expression();
+    if (!scope) {
+        return nullptr;
+    }
+    
+    vector<string> parameter_list;
+    vector<shared_ptr<NCExpression>> argument_expression_list;
+    
+    while (1) {
+        if (!isIdentifier(word)) {
+            return nullptr;
+        }
+        parameter_list.push_back(word);
+        word = nextWord();
+        
+        if (word != ":") {
+            return nullptr;
+        }
+        word = nextWord();
+        
+        auto aArgExpr = expression();
+        
+        if (!aArgExpr) {
+            return nullptr;
+        }
+        
+        argument_expression_list.push_back(aArgExpr);
+        
+        if (word == "]") {
+            break;
+        }
+    }
+    word = nextWord();
+    
+    auto objcMsgSend = new NCObjCSendMessageExpr(argument_expression_list,parameter_list,scope);
+    return shared_ptr<NCExpression>(objcMsgSend);
+}
+
+/*
+ helper functions
+ */
 bool NCParser::isAssignOperator(string&op){
     return op == "="|op == "+="|op == "-="|op == "*="|op == "="|op == "/=";
 }

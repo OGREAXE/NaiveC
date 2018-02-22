@@ -92,7 +92,7 @@ public:
     /**
      closure return true to break
 
-     @param bool <#bool description#>
+     @param handler <#anObj description#>
      */
     virtual void enumerate(std::function<bool (shared_ptr<NCStackElement> anObj)> handler) = 0;
 };
