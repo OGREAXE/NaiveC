@@ -15,7 +15,7 @@
 /*
  wrapper for cocoa objects
  */
-class NCCocoaBox :public NCObject, public NCBracketAccessible {
+class NCCocoaBox :public NCObject, public NCBracketAccessible, public NCFastEnumerable {
 private:
     //wrapped cocoaObject. must use non-arc to ensure correct release?
     void * m_cocoaObject;
@@ -37,6 +37,14 @@ public:
      */
     virtual void br_set(shared_ptr<NCStackElement> & key,shared_ptr<NCStackElement> &value);
     virtual shared_ptr<NCStackElement> br_getValue(shared_ptr<NCStackElement> & key);
+    
+    
+    /**
+     fast enumeration support
+
+     @param anObj <#anObj description#>
+     */
+    virtual void enumerate(std::function<bool (shared_ptr<NCStackElement> anObj)> handler);
 };
 
 #endif /* NCCocoaBox_hpp */

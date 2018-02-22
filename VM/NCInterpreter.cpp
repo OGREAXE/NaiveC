@@ -268,12 +268,11 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
             visit(expr, frame);
             
             auto exprVal = stackPopObjectPointer(frame);
-            if (dynamic_pointer_cast<NCArray>(exprVal->getPointedObject())) {
-                auto array = dynamic_pointer_cast<NCArray>(exprVal->getPointedObject());
-                for (int i=0; i <array->length(); i++) {
-                    auto currentValue = array->getElementAt(i);
-                    
-                    frame.insertVariable(enumerator, currentValue);
+            if (dynamic_pointer_cast<NCFastEnumerable>(exprVal->getPointedObject())) {
+                auto enumerable = dynamic_pointer_cast<NCFastEnumerable>(exprVal->getPointedObject());
+                
+                enumerable->enumerate([&](auto element){
+                    frame.insertVariable(enumerator, element);
                     
                     auto & block = node->body;
                     
@@ -282,13 +281,31 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
                     visit(block, frame, shouldReturn,&shouldBreakLocal);
                     
                     if (*shouldReturn) {
-                        break;
+                        shouldBreakLocal = true;
                     }
                     
-                    if (shouldBreakLocal) {
-                        break;
-                    }
-                }
+                    return shouldBreakLocal;
+                });
+                
+//                for (int i=0; i <array->length(); i++) {
+//                    auto currentValue = array->getElementAt(i);
+//
+//                    frame.insertVariable(enumerator, currentValue);
+//
+//                    auto & block = node->body;
+//
+//                    bool shouldBreakLocal = false;
+//
+//                    visit(block, frame, shouldReturn,&shouldBreakLocal);
+//
+//                    if (*shouldReturn) {
+//                        break;
+//                    }
+//
+//                    if (shouldBreakLocal) {
+//                        break;
+//                    }
+//                }
             }
             else {
                 return false;

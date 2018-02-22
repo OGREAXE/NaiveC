@@ -70,6 +70,20 @@ shared_ptr<NCStackElement> NCArray::br_getValue(shared_ptr<NCStackElement> & key
     }
 }
 
+
+/**
+ fast enumeration
+ */
+void NCArray::enumerate(std::function<bool (shared_ptr<NCStackElement> anObj)> handler){
+    for (int i=0; i <length(); i++) {
+        auto currentValue = getElementAt(i);
+        
+        if (handler(currentValue)) {
+            break;
+        }
+    }
+}
+
 /*
  array accessor definitions
  */

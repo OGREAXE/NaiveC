@@ -83,4 +83,18 @@ public:
     virtual shared_ptr<NCStackElement> br_getValue(shared_ptr<NCStackElement> & key)=0;
 };
 
+/*
+ abstract interface for fast enumeration
+ */
+class NCFastEnumerable{
+public:
+    
+    /**
+     closure return true to break
+
+     @param bool <#bool description#>
+     */
+    virtual void enumerate(std::function<bool (shared_ptr<NCStackElement> anObj)> handler) = 0;
+};
+
 #endif /* NCObject_hpp */

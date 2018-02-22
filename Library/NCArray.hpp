@@ -14,7 +14,7 @@
 
 #define NC_CLASSNAME_ARRAY "array"
 
-class NCArray : public NCObject, public NCBracketAccessible{
+class NCArray : public NCObject, public NCBracketAccessible, public NCFastEnumerable{
 private:
     vector<shared_ptr<NCStackElement>> innerArray;
 public:
@@ -30,6 +30,8 @@ public:
     virtual shared_ptr<NCStackElement> br_getValue(shared_ptr<NCStackElement> & key);
     
     unsigned long length(){return innerArray.size();}
+    
+    virtual void enumerate(std::function<bool (shared_ptr<NCStackElement> anObj)> handler);
 };
 
 /**

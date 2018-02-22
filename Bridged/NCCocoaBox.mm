@@ -76,7 +76,7 @@ string NCCocoaBox::getDescription(){
 void NCCocoaBox::br_set(shared_ptr<NCStackElement> & key,shared_ptr<NCStackElement> &value){
     //todo
     //currently nothing happen
-    NSLog(@"NCCocoaBox:setting object by bracket is not supported now");
+    NSLog(@"NCCocoaBox:setting object by [] is not supported for now");
 }
 
 shared_ptr<NCStackElement> NCCocoaBox::br_getValue(shared_ptr<NCStackElement> & key){
@@ -93,4 +93,19 @@ shared_ptr<NCStackElement> NCCocoaBox::br_getValue(shared_ptr<NCStackElement> & 
         }
     }
     return nullptr;
+}
+
+void NCCocoaBox::enumerate(std::function<bool (shared_ptr<NCStackElement> anObj)> handler){
+    NSObject * wrappedObject = (__bridge NSObject*)m_cocoaObject;
+    if ([wrappedObject isKindOfClass:[NSArray class]]) {
+        NSArray *array = (NSArray*)wrappedObject;
+        [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NCCocoaBox * box = new NCCocoaBox((void*)CFBridgingRetain(obj));
+            NCStackPointerElement * pval = new NCStackPointerElement(shared_ptr<NCObject>(box));
+            bool res = handler(shared_ptr<NCStackElement> (pval));
+            if (res) {
+                *stop = YES;
+            }
+        }];
+    }
 }
