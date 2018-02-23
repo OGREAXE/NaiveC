@@ -51,6 +51,8 @@ public:
     
     shared_ptr<NCStackElement> stack_pop();
     void stack_push(shared_ptr<NCStackElement> element);
+    
+    bool stack_empty(){return stack.size()==0;}
 };
 
 class NCInterpreter{

@@ -51,6 +51,8 @@
 		D4E06F2520397AAB0095F442 /* NCCocoaClass.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D4E06F2320397AAB0095F442 /* NCCocoaClass.hpp */; };
 		D4E06F28203C3E1B0095F442 /* NCCocoaToolkit.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F26203C3E1B0095F442 /* NCCocoaToolkit.mm */; };
 		D4E06F29203C3E1B0095F442 /* NCCocoaToolkit.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D4E06F27203C3E1B0095F442 /* NCCocoaToolkit.hpp */; };
+		D4E06F48204042100095F442 /* NCLog.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F46204042100095F442 /* NCLog.mm */; };
+		D4E06F49204042100095F442 /* NCLog.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D4E06F47204042100095F442 /* NCLog.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +97,8 @@
 		D4E06F2320397AAB0095F442 /* NCCocoaClass.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCCocoaClass.hpp; sourceTree = "<group>"; };
 		D4E06F26203C3E1B0095F442 /* NCCocoaToolkit.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCCocoaToolkit.mm; sourceTree = "<group>"; };
 		D4E06F27203C3E1B0095F442 /* NCCocoaToolkit.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCCocoaToolkit.hpp; sourceTree = "<group>"; };
+		D4E06F46204042100095F442 /* NCLog.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCLog.mm; sourceTree = "<group>"; };
+		D4E06F47204042100095F442 /* NCLog.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCLog.hpp; sourceTree = "<group>"; };
 		ED2040341F77A6D300734821 /* NCObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NCObject.cpp; sourceTree = "<group>"; };
 		ED2040351F77A6D300734821 /* NCObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NCObject.hpp; sourceTree = "<group>"; };
 		ED219C9F1F6D15CB0015293A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -139,6 +143,8 @@
 		D4E06E0C203191920095F442 /* Bridged */ = {
 			isa = PBXGroup;
 			children = (
+				ED219CCD1F6D16370015293A /* NCBuiltinFunction.mm */,
+				D4E06F46204042100095F442 /* NCLog.mm */,
 				D4E06E0D203192CB0095F442 /* NCCocoaClassProvider.mm */,
 				D4E06E0E203192CB0095F442 /* NCCocoaClassProvider.hpp */,
 				D4E06F2220397AAB0095F442 /* NCCocoaClass.mm */,
@@ -246,7 +252,6 @@
 			isa = PBXGroup;
 			children = (
 				ED219CCC1F6D16370015293A /* NCBuiltinFunction.hpp */,
-				ED219CCD1F6D16370015293A /* NCBuiltinFunction.mm */,
 				ED219CCE1F6D16370015293A /* NCCode.cpp */,
 				ED219CCF1F6D16370015293A /* NCCode.hpp */,
 				ED219CD01F6D16370015293A /* NCInterpreter.cpp */,
@@ -261,6 +266,7 @@
 				D4E06DC6203125D40095F442 /* NCClassProvider.hpp */,
 				D4E06F0C203871E10095F442 /* NCClass.cpp */,
 				D4E06F0D203871E10095F442 /* NCClass.hpp */,
+				D4E06F47204042100095F442 /* NCLog.hpp */,
 			);
 			path = VM;
 			sourceTree = "<group>";
@@ -277,6 +283,7 @@
 				D4E06F1920396FD10095F442 /* NCStandardLibraryProvider.hpp in Headers */,
 				D4E06F0F203871E10095F442 /* NCClass.hpp in Headers */,
 				D4E06F29203C3E1B0095F442 /* NCCocoaToolkit.hpp in Headers */,
+				D4E06F49204042100095F442 /* NCLog.hpp in Headers */,
 				D4E06EE7203716140095F442 /* NCCodeEngine_iOS.h in Headers */,
 				D4E06F1D203971280095F442 /* NCArray.hpp in Headers */,
 				D4E06F2520397AAB0095F442 /* NCCocoaClass.hpp in Headers */,
@@ -387,6 +394,7 @@
 				D4E06F1C203971280095F442 /* NCArray.cpp in Sources */,
 				D4E06F0220371DAB0095F442 /* NCCocoaClassProvider.hpp in Sources */,
 				D4E06F0520371DAB0095F442 /* NCCocoaBox.mm in Sources */,
+				D4E06F48204042100095F442 /* NCLog.mm in Sources */,
 				D4E06F0620371DAB0095F442 /* NCCocoaBox.hpp in Sources */,
 				D4E06F0E203871E10095F442 /* NCClass.cpp in Sources */,
 				D4E06F0720371DAB0095F442 /* NSObject+NCInvocation.h in Sources */,

@@ -708,6 +708,10 @@ bool NCInterpreter::tree_doClassMehothodCall(NCFrame & frame, NCMethodCallExpr*n
 //        return classInst->invokeMethod(node->name, arguments, frame.stack);
 //    }
     
+    if (frame.stack_empty()) {
+        return false;
+    }
+    
     bool res = frame.stack.back()->invokeMethod(node->name, arguments, frame.stack);
     
     return res;
@@ -819,6 +823,8 @@ float NCInterpreter::stackPopFloat(NCFrame & frame){
 
 string NCInterpreter::stackPopString(NCFrame & frame){
     string ret = "";
+    
+    if(frame.stack.size() == 0){return "NULL";}
     
     do{
         auto pStackTop = (frame.stack.back()).get();

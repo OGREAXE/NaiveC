@@ -11,6 +11,13 @@
 #include <sstream>
 #include <unordered_set>
 
+#include "NCLog.hpp"
+
+#define PUSH_INDEX int _saved_temp_index = index;
+#define POP_INDEX {index = _saved_temp_index; word = (*tokens)[index].token;}
+
+#define PUSH_INDEX2 int _saved_temp_index2 = index;
+#define POP_INDEX2 {index = _saved_temp_index2; word = (*tokens)[index].token;}
 
 static unordered_set<string> keywords =
 {
@@ -55,7 +62,8 @@ bool NCParser::parse(shared_ptr<const vector<NCToken>>& tokens){
     bool parseOK = false;
     do{
         parseOK = false;
-        pushIndex();
+//        pushIndex();
+        PUSH_INDEX
         
         auto pFunc = function_definition();
         if (pFunc) {
@@ -64,7 +72,9 @@ bool NCParser::parse(shared_ptr<const vector<NCToken>>& tokens){
             continue;
         }
         
-        popIndex();
+//        popIndex();
+        POP_INDEX
+        
         auto pClass = class_definition();
         if (pClass) {
             pRoot->classList.push_back(pClass);
@@ -76,6 +86,10 @@ bool NCParser::parse(shared_ptr<const vector<NCToken>>& tokens){
     
     printf("parse %lu classes\n", pRoot->classList.size());
     printf("parse %lu functions\n", pRoot->functionList.size());
+    
+    if (pRoot->functionList.size() == 0) {
+        NCLog(NCLogTypeParser, "no function definition found");
+    }
     
     return true;
 }
@@ -96,10 +110,13 @@ string NCParser::peek(int n){
 }
 
 void NCParser::pushIndex(){
-    tempIndex = index;
+//    tempIndex = index;
+    indexStack.push_back(index);
 }
 void NCParser::popIndex(){
-    index = tempIndex;
+//    index = tempIndex;
+    index = indexStack.back();
+    indexStack.pop_back();
     word = (*tokens)[index].token;
 }
 
@@ -152,7 +169,9 @@ bool NCParser::class_body(vector<shared_ptr<NCBodyDeclaration>> & members){
 }
 
 shared_ptr<NCBodyDeclaration> NCParser::class_body_declaration(){
-    pushIndex();
+//    pushIndex();
+    PUSH_INDEX
+    
     auto funcDef = function_definition();
     if (funcDef) {
         auto methodDef = new NCMethodDeclaration();
@@ -160,7 +179,9 @@ shared_ptr<NCBodyDeclaration> NCParser::class_body_declaration(){
         return shared_ptr<NCMethodDeclaration>(methodDef);
     }
     
-    popIndex();
+//    popIndex();
+    POP_INDEX
+    
     auto fieldDecl = variable_declaration_expression();
     if (fieldDecl) {
         auto field = new NCFieldDeclaration();
@@ -168,7 +189,9 @@ shared_ptr<NCBodyDeclaration> NCParser::class_body_declaration(){
         return shared_ptr<NCFieldDeclaration>(field);
     }
     
-    popIndex();
+//    popIndex();
+    POP_INDEX
+    
     return constructor_definition();
 }
 
@@ -300,10 +323,14 @@ shared_ptr<NCBlock> NCParser::block(){
 
 bool NCParser::statements(vector<AstNodePtr>& statements){
     while (1) {
-        pushIndex();
+//        pushIndex();
+        PUSH_INDEX
+        
         auto statement = blockStatement();
         if (!statement) {
-            popIndex();
+//            popIndex();
+            POP_INDEX
+            
             break;
         }
         statements.push_back(statement);
@@ -312,10 +339,13 @@ bool NCParser::statements(vector<AstNodePtr>& statements){
 }
 
 shared_ptr<NCStatement> NCParser::blockStatement(){
-    pushIndex();
+//    pushIndex();
+    PUSH_INDEX
+    
     auto varDecStmt = variable_declaration_expression();
     if (!varDecStmt) {
-        popIndex();
+//        popIndex();
+        POP_INDEX
         return statement();
     }
     
@@ -525,10 +555,13 @@ shared_ptr<NCExpression> NCParser::parseBinExpr(vector<string> operators, BinPar
     
     word = nextWord();
     
-    pushIndex();
+//    pushIndex();
+    PUSH_INDEX
+    
     auto right = nextParseFunc();
     if (!right) {
-        popIndex();
+//        popIndex();
+        POP_INDEX
         return left;
     }
     while (right) {
@@ -541,10 +574,13 @@ shared_ptr<NCExpression> NCParser::parseBinExpr(vector<string> operators, BinPar
         op = word;
         word = nextWord();
         
-        pushIndex();
+//        pushIndex();
+        PUSH_INDEX2
+        
         right = nextParseFunc();
         if (!right) {
-            popIndex();
+//            popIndex();
+            POP_INDEX2
         }
     }
     return left;
@@ -576,20 +612,25 @@ shared_ptr<NCExpression> NCParser::primary_expression(){
         return nullptr;
     }
     
-    pushIndex();
+//    pushIndex();
+    PUSH_INDEX
+    
     auto ret = primary_suffix(prefix);
     if (!ret) {
-        popIndex();
+//        popIndex();
+        POP_INDEX
         return prefix;
     }
     
     while (1) {
-        pushIndex();
+//        pushIndex();
+        PUSH_INDEX2
         auto tmpRet = ret;
         ret = primary_suffix(ret);
         
         if (!ret) {
-            popIndex();
+//            popIndex();
+            POP_INDEX2
             return tmpRet;
         }
     }
@@ -597,19 +638,23 @@ shared_ptr<NCExpression> NCParser::primary_expression(){
 
 shared_ptr<NCExpression> NCParser::primary_prefix(){
     //literal
-    pushIndex();
+//    pushIndex();
+    PUSH_INDEX
+    
     auto ret = literal();
     if (ret) {
         return ret;
     }
     
     // '(' expression ')'
-    popIndex();
+//    popIndex();
+    POP_INDEX
+    
     if (word == "(") {
         word = nextWord();
         auto exp = expression();
         if (word!=")") {
-            popIndex();
+//            popIndex();
             return nullptr;
         }
         word = nextWord();
@@ -630,9 +675,12 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
     word = nextWord();
     
     vector<shared_ptr<NCExpression>> args;
-    pushIndex();
+//    pushIndex();
+    PUSH_INDEX2
+    
     if (!arguments_expression(args)) {
-        popIndex();
+//        popIndex();
+        POP_INDEX2
         return shared_ptr<NCExpression>(new NCNameExpression(name));
     }
     return shared_ptr<NCExpression>(new NCMethodCallExpr(args, name));
@@ -748,43 +796,51 @@ shared_ptr<NCBinaryExpression> NCParser::addRight(shared_ptr<NCExpression> left,
 
 shared_ptr<NCStatement> NCParser::statement(){
     
-    pushIndex();
+//    pushIndex();
+    PUSH_INDEX
+    
     shared_ptr<NCStatement> stmt = block();
     if (stmt) {
         return stmt;
     }
     
-    popIndex();
+//    popIndex();
+    POP_INDEX
     stmt = selection_statement();
     if (stmt) {
         return stmt;
     }
     
-    popIndex();
+//    popIndex();
+    POP_INDEX
     stmt = while_statement();
     if (stmt) {
         return stmt;
     }
     
-    popIndex();
+//    popIndex();
+    POP_INDEX
     stmt = for_statement();
     if (stmt) {
         return stmt;
     }
     
-    popIndex();
+//    popIndex();
+    POP_INDEX
     stmt = expression_statement();
     if (stmt) {
         return stmt;
     }
     
-    popIndex();
+//    popIndex();
+    POP_INDEX
     stmt = break_statement();
     if (stmt) {
         return stmt;
     }
     
-    popIndex();
+//    popIndex();
+    POP_INDEX
     stmt = return_statement();
     if (stmt) {
         return stmt;
@@ -797,10 +853,13 @@ shared_ptr<NCStatement> NCParser::return_statement(){
     if (word == "return") {
         word = nextWord();
         
-        pushIndex();
+//        pushIndex();
+        PUSH_INDEX
+        
         auto exp = expression();
         if (!exp) {
-            popIndex();
+//            popIndex();
+            POP_INDEX
             return shared_ptr<NCStatement>(new ReturnStatement());
         }
         else {
@@ -896,7 +955,9 @@ shared_ptr<NCStatement> NCParser::for_statement(){
     }
     word = nextWord();
     
-    pushIndex();
+//    pushIndex();
+    PUSH_INDEX
+    
     if (isIdentifier(word)) {
         //try parse fast enumeration
         //for(e:array){ statements }
@@ -929,7 +990,8 @@ shared_ptr<NCStatement> NCParser::for_statement(){
     }
     
     //not fast enumeration, fall back to normal parse
-    popIndex();
+//    popIndex();
+    POP_INDEX
     
     if(!for_init(forStmt->init)){
         return nullptr;
@@ -970,13 +1032,16 @@ shared_ptr<NCStatement> NCParser::for_statement(){
 }
 
 bool NCParser::for_init(vector<shared_ptr<NCExpression>>& init){
-    pushIndex();
+//    pushIndex();
+    PUSH_INDEX
+    
     auto expr = variable_declaration_expression();
     if (expr) {
         init.push_back(expr);
         return true;
     }
-    popIndex();
+//    popIndex();
+    POP_INDEX
     
     if (!expression_list(init)) {
         return false;
