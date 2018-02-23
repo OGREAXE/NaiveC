@@ -24,7 +24,7 @@ int makeheap(int i, int range, array a){
     }
 
     if(right > range){
-        if(a[i]>a[left]){
+        if(a[i]<a[left]){
             swap(i,left, a)
             return 1
         }
@@ -54,7 +54,7 @@ void adjust(int i, int range, array a){
     }
 
     if(right > range){
-        if(a[i]>a[left]){
+        if(a[i]<a[left]){
             swap(i,left, a)
         }
         return
