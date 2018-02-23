@@ -88,6 +88,13 @@ string NCParser::priviousWord(){
     return (*tokens)[--index].token;
 }
 
+string NCParser::peek(int n){
+    if (index + n <= (*tokens).size()-1) {
+        return (*tokens)[index + n].token;
+    }
+    return "";
+}
+
 void NCParser::pushIndex(){
     tempIndex = index;
 }
@@ -1036,6 +1043,15 @@ shared_ptr<NCExpression> NCParser::objc_send_message(){
     
     vector<string> parameter_list;
     vector<shared_ptr<NCExpression>> argument_expression_list;
+    
+    if (isIdentifier(word) && peek(1) == "]") {
+        parameter_list.push_back(word);
+        word = nextWord();
+        word = nextWord();
+        
+        auto objcMsgSend = new NCObjCSendMessageExpr(argument_expression_list,parameter_list,scope);
+        return shared_ptr<NCExpression>(objcMsgSend);
+    }
     
     while (1) {
         if (!isIdentifier(word)) {

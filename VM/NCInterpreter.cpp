@@ -185,6 +185,11 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
             tree_doStaticMehothodCall(frame, node);
         }
     }
+    else if (dynamic_pointer_cast<NCObjCSendMessageExpr>(currentNode)) {
+        auto node = dynamic_pointer_cast<NCObjCSendMessageExpr>(currentNode);
+        
+        tree_doClassMehothodCall(frame, node->getMehodCall().get());
+    }
     else if (dynamic_cast<NCFieldAccessExpr*>(currentNode.get())) {
         auto node = dynamic_cast<NCFieldAccessExpr*>(currentNode.get());
         visit(node->scope, frame);
@@ -357,7 +362,15 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         auto node = dynamic_cast<NCAssignExpr*>(currentNode.get());
         //todo
         auto primary = node->expr;
-        visit(primary, frame);
+        
+        if (dynamic_pointer_cast<NCNameExpression>(primary)) {
+            auto _pri = dynamic_pointer_cast<NCNameExpression>(primary);
+            _pri->setShouldAddKeyIfKeyNotFound(true);
+        }
+        
+        if(!visit(primary, frame)){
+            return false;
+        }
         
         auto stackTop = frame.stack_pop();
         
@@ -469,7 +482,14 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         
         auto findValue = frame.localVariableMap.find(node->name);
         if (findValue == frame.localVariableMap.end()) {
-            return false;
+            if (node->getShouldAddKeyIfKeyNotFound()) {
+                auto placeholder = shared_ptr<NCStackElement>(nullptr);
+                frame.insertVariable(node->name, placeholder);
+                frame.stack.push_back(shared_ptr<NCStackElement>(placeholder));
+            }
+            else {
+                return false;
+            }
         }
         else {
             auto var = (*findValue).second;

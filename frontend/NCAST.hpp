@@ -123,13 +123,23 @@ public:
 
 //support calling oc message [obj msg:para1:para2]
 class NCObjCSendMessageExpr:public NCPrimarySuffix{
+private:
+    shared_ptr<NCMethodCallExpr> m_methodCallExpr;
 public:
     vector<shared_ptr<NCExpression>> argument_expression_list;
     vector<string> parameter_list;
     shared_ptr<NCExpression> scope;
     
     //method(args);
-    NCObjCSendMessageExpr(vector<shared_ptr<NCExpression>> & argument_expression_list,vector<string> parameter_list, shared_ptr<NCExpression> scope):argument_expression_list(argument_expression_list), parameter_list(parameter_list), scope(scope){}
+    NCObjCSendMessageExpr(vector<shared_ptr<NCExpression>> & argument_expression_list,vector<string> parameter_list, shared_ptr<NCExpression> scope):argument_expression_list(argument_expression_list), parameter_list(parameter_list), scope(scope),m_methodCallExpr(nullptr){}
+    
+    
+    /**
+     covert to normal style method call
+
+     @return <#return value description#>
+     */
+    shared_ptr<NCMethodCallExpr> getMehodCall();
 };
 
 class NCFieldAccessExpr:public NCPrimarySuffix{
@@ -154,9 +164,14 @@ public:
 };
 
 class NCNameExpression:public NCExpression{
+private:
+    bool shouldAddKeyIfKeyNotFound;
 public:
-    NCNameExpression(string&name):name(name){};
+    NCNameExpression(string&name):name(name),shouldAddKeyIfKeyNotFound(false){};
     string name;
+    
+    void setShouldAddKeyIfKeyNotFound(bool shouldAdd){shouldAddKeyIfKeyNotFound = shouldAdd;}
+    bool getShouldAddKeyIfKeyNotFound(){return shouldAddKeyIfKeyNotFound;}
 };
 
 class NCLiteral:public NCExpression{

@@ -68,6 +68,9 @@ void NCCocoaBox::setAttribute(const string & attrName, shared_ptr<NCStackElement
 }
 
 string NCCocoaBox::getDescription(){
+    if (!m_cocoaObject) {
+        return "NULL";
+    }
     NSObject * wrappedObject = (__bridge NSObject*)m_cocoaObject;
     string desc = wrappedObject.description.UTF8String;
     return desc;
