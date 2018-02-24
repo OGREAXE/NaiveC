@@ -75,4 +75,14 @@ using namespace std;
     return YES;
 }
 
+-(BOOL)run:(NSString*)sourceCode mode:(NCInterpretorMode)mode error:(NSError**)error{
+    if (mode == NCInterpretorModeCommandLine) {
+        NSString * completedSource = [NSString stringWithFormat:@"void main(){%@}",sourceCode];
+        return [self run:completedSource error:error];
+    }
+    else {
+        return [self run:sourceCode error:error];
+    }
+}
+
 @end

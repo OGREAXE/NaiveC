@@ -50,6 +50,15 @@ public:
     vector<shared_ptr<NCStackElement>> stack;
     
     shared_ptr<NCStackElement> stack_pop();
+    
+    /**
+     if stack top is a variable, pop its content, otherwise pop stack top
+
+     @param element <#element description#>
+     @return <#return value description#>
+     */
+    shared_ptr<NCStackElement> stack_popRealValue();
+    
     void stack_push(shared_ptr<NCStackElement> element);
     
     bool stack_empty(){return stack.size()==0;}

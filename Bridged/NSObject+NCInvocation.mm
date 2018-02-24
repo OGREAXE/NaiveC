@@ -76,10 +76,11 @@
     [invocation setTarget:target];
     
     for(int i=0;i<argCount-2;i++){
-        char argumentType[16];
+#define TYPE_BUFFER_SIZE 128
+        char argumentType[TYPE_BUFFER_SIZE];
         
         int argPos = i+2;
-        method_getArgumentType(method, argPos, argumentType, 16);
+        method_getArgumentType(method, argPos, argumentType, TYPE_BUFFER_SIZE);
         
 //#define COMP_ENCODE(type, type2) (type[0] == (@encode(type2))[0] && type[1] == (@encode(type2))[1])
 #define COMP_ENCODE(type, type2) (strcmp(type,@encode(type2)) == 0)
@@ -119,6 +120,7 @@
 //        }
 //        else if(strcmp(argumentType,@encode(CGRect)) == 0){
         else if(COMP_ENCODE(argumentType, CGRect)){
+            auto argi = arguments[i];
             if(dynamic_pointer_cast<NCStackPointerElement>(arguments[i])){
                 auto pFrameContainer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
                 auto pObject = pFrameContainer->getPointedObject();

@@ -35,6 +35,19 @@ shared_ptr<NCStackElement> NCFrame::stack_pop(){
     this->stack.pop_back();
     return stackTop;
 }
+
+shared_ptr<NCStackElement> NCFrame::stack_popRealValue(){
+    auto stackTop = this->stack.back();
+    this->stack.pop_back();
+    
+    if (dynamic_pointer_cast<NCStackVariableElement>(stackTop)) {
+        auto var = dynamic_pointer_cast<NCStackVariableElement>(stackTop);
+        return var->valueElement;
+    }
+    
+    return stackTop;
+}
+
 void NCFrame::stack_push(shared_ptr<NCStackElement> element){
     this->stack.push_back(element);
 }
@@ -398,7 +411,7 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         else if (dynamic_cast<NCAccessor*>(stackTop.get())) {
             auto accessor = dynamic_cast<NCAccessor*>(stackTop.get());
             visit(node->value,frame);
-            auto value = frame.stack_pop();
+            auto value = frame.stack_popRealValue();
             if (dynamic_cast<NCAccessor*>(value.get())) {
                 auto accessorValue = dynamic_cast<NCAccessor*>(value.get());
                 accessor->set(accessorValue->value());
@@ -653,14 +666,13 @@ bool NCInterpreter::tree_doStaticMehothodCall(NCFrame & frame,NCMethodCallExpr*n
 }
 
 bool NCInterpreter::initArguments(vector<shared_ptr<NCExpression>> &intput_argumentExpressions, vector<shared_ptr<NCStackElement>> & output_arguments, NCFrame&frame){
-    vector<shared_ptr<NCStackElement>> arguments;
-    
     for (int i = 0; i<intput_argumentExpressions.size(); i++) {
         auto argExp = intput_argumentExpressions[i];
         visit(argExp, frame);
         
-        auto argValue = frame.stack_pop()->copy();
-        arguments.push_back(argValue);
+        auto argValue = frame.stack_pop();
+        
+        output_arguments.push_back(argValue);
     }
     return true;
 }

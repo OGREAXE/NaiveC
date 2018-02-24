@@ -8,10 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSUInteger, NCInterpretorMode) {
+    NCInterpretorModeModular = 0,
+    NCInterpretorModeCommandLine,
+};
 
 /**
  naive c code engine
  */
 @interface NCCodeEngine_iOS : NSObject
 -(BOOL)run:(NSString*)sourceCode error:(NSError**)error;
+-(BOOL)run:(NSString*)sourceCode mode:(NCInterpretorMode)mode error:(NSError**)error;
 @end
