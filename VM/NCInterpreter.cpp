@@ -688,10 +688,11 @@ bool NCInterpreter::tree_doClassMehothodCall(NCFrame & frame, NCMethodCallExpr*n
         auto argExp = node->args[i];
         visit(argExp, frame);
         
-        auto val = frame.stack.back();
-        arguments.push_back(shared_ptr<NCStackElement>(val));
-        
-        frame.stack.pop_back();
+//        auto val = frame.stack.back();
+//        arguments.push_back(shared_ptr<NCStackElement>(val));
+//        frame.stack.pop_back();
+        auto val = frame.stack_popRealValue();
+        arguments.push_back(val);
     }
     
 //    auto pStackTop = (frame.stack.back()).get();
