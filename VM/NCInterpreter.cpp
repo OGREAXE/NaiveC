@@ -76,8 +76,8 @@ bool NCInterpreter::isClassName(const string & name){
 }
 
 void NCInterpreter::intBuiltiFunctionMap(){
-    auto printFunction = new NCBuiltinPrint();
-    builtinFunctionMap[printFunction->name] = shared_ptr<NCBuiltinFunction>(printFunction);
+//    auto printFunction = new NCBuiltinPrint();
+//    builtinFunctionMap[printFunction->name] = shared_ptr<NCBuiltinFunction>(printFunction);
 }
 
 bool NCInterpreter::invoke(string function, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
@@ -608,9 +608,10 @@ bool NCInterpreter::tree_doStaticMehothodCall(NCFrame & frame,NCMethodCallExpr*n
     }
     else {
         //no user-defined function found, try system library
-        auto find = builtinFunctionMap.find(node->name);
-        if (find != builtinFunctionMap.end()) {
-            auto funcDef = (*find).second;
+//        auto find = builtinFunctionMap.find(node->name);
+        auto find = m_builtinFunctionStore.getFunction(node->name);
+        if (find) {
+            auto funcDef = find;
             
             auto parameters = funcDef->parameters;
             

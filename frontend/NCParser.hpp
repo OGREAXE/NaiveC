@@ -42,6 +42,8 @@ private:
     
     string priviousWord();
     
+    string peek(int n);
+    
     int index;
     string word;
     
@@ -54,7 +56,8 @@ private:
     
     bool vecInclude(vector<string>& operators, string op);
     
-    int tempIndex;
+//    int tempIndex;
+    vector<int> indexStack;
     
     void pushIndex();
     void popIndex();
@@ -238,6 +241,8 @@ private:
     
     //argument_expression_list-> assignment_expression| argument_expression_list ',' assignment_expression
     MCParserReturnType argument_expression_list();
+    
+    shared_ptr<NCExpression> objc_send_message();
 };
 
 #endif /* MCParser_hpp */

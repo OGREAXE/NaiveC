@@ -15,6 +15,7 @@
 #include "NCBuiltinFunction.hpp"
 #include "NCStackElement.hpp"
 #include "NCObject.hpp"
+#include "NCBuiltinFunctionStore.hpp"
 
 using namespace std;
 
@@ -67,7 +68,8 @@ public:
 class NCInterpreter{
 private:
     unordered_map<string, shared_ptr<NCASTNode>> functionMap;
-    unordered_map<string, shared_ptr<NCBuiltinFunction>> builtinFunctionMap;
+//    unordered_map<string, shared_ptr<NCBuiltinFunction>> builtinFunctionMap;
+    NCBuiltinFunctionStore m_builtinFunctionStore;
 
     unordered_map<string, shared_ptr<NCClassDeclaration>> classDefinitionMap;
     
@@ -109,6 +111,10 @@ public:
     bool visit(shared_ptr<NCASTNode> node, NCFrame & frame);
     bool visit(shared_ptr<NCASTNode> node, NCFrame & frame, bool * shouldReturn);  //recursive method
     bool visit(shared_ptr<NCASTNode> node, NCFrame & frame, bool * shouldReturn, bool * shouldBreak);
+    
+    void addFunction(shared_ptr<NCBuiltinFunction> & func){
+        m_builtinFunctionStore.addFunction(func);
+    }
 };
 
 #endif /* NCInterpreter_hpp */

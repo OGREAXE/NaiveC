@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4892EE320450A520052267E /* NCBuiltinFunctionStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4892EE120450A520052267E /* NCBuiltinFunctionStore.cpp */; };
+		D4892EE420450A520052267E /* NCBuiltinFunctionStore.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D4892EE220450A520052267E /* NCBuiltinFunctionStore.hpp */; };
 		D4E06E632037015D0095F442 /* NaiveC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E06E5A2037015C0095F442 /* NaiveC.framework */; };
 		D4E06E682037015D0095F442 /* NaiveCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E672037015D0095F442 /* NaiveCTests.m */; };
 		D4E06E6A2037015D0095F442 /* NaiveC.h in Headers */ = {isa = PBXBuildFile; fileRef = D4E06E5C2037015C0095F442 /* NaiveC.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -67,6 +69,8 @@
 
 /* Begin PBXFileReference section */
 		D4716E681FF26F24000797B1 /* CodeTest */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CodeTest; sourceTree = "<group>"; };
+		D4892EE120450A520052267E /* NCBuiltinFunctionStore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NCBuiltinFunctionStore.cpp; sourceTree = "<group>"; };
+		D4892EE220450A520052267E /* NCBuiltinFunctionStore.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCBuiltinFunctionStore.hpp; sourceTree = "<group>"; };
 		D4E06DC220304A410095F442 /* NCClassLoader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NCClassLoader.cpp; sourceTree = "<group>"; };
 		D4E06DC320304A410095F442 /* NCClassLoader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCClassLoader.hpp; sourceTree = "<group>"; };
 		D4E06DC5203125D40095F442 /* NCClassProvider.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NCClassProvider.cpp; sourceTree = "<group>"; };
@@ -267,6 +271,8 @@
 				D4E06F0C203871E10095F442 /* NCClass.cpp */,
 				D4E06F0D203871E10095F442 /* NCClass.hpp */,
 				D4E06F47204042100095F442 /* NCLog.hpp */,
+				D4892EE120450A520052267E /* NCBuiltinFunctionStore.cpp */,
+				D4892EE220450A520052267E /* NCBuiltinFunctionStore.hpp */,
 			);
 			path = VM;
 			sourceTree = "<group>";
@@ -281,6 +287,7 @@
 				D4E06E6A2037015D0095F442 /* NaiveC.h in Headers */,
 				D4E06F21203972F90095F442 /* NCStandardClass.hpp in Headers */,
 				D4E06F1920396FD10095F442 /* NCStandardLibraryProvider.hpp in Headers */,
+				D4892EE420450A520052267E /* NCBuiltinFunctionStore.hpp in Headers */,
 				D4E06F0F203871E10095F442 /* NCClass.hpp in Headers */,
 				D4E06F29203C3E1B0095F442 /* NCCocoaToolkit.hpp in Headers */,
 				D4E06F49204042100095F442 /* NCLog.hpp in Headers */,
@@ -419,6 +426,7 @@
 				D4E06EEA20371D910095F442 /* NCAST.hpp in Sources */,
 				D4E06EEB20371D910095F442 /* NCParser.cpp in Sources */,
 				D4E06F2420397AAB0095F442 /* NCCocoaClass.mm in Sources */,
+				D4892EE320450A520052267E /* NCBuiltinFunctionStore.cpp in Sources */,
 				D4E06EEC20371D910095F442 /* NCParser.hpp in Sources */,
 				D4E06F20203972F90095F442 /* NCStandardClass.cpp in Sources */,
 				D4E06EED20371D910095F442 /* NCTokenizer.cpp in Sources */,
