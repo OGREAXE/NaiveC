@@ -47,6 +47,13 @@ bool NCTokenizer::tokenize(string&str){
                 status = Unknown;
                 continue;
             }
+            else {
+                if (token.length() > 0){
+                    addToken(tokens, token, i);
+                }
+                status = Unknown;
+                token = "";
+            }
         }
         else if(status == Comment){
             continue;
