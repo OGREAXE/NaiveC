@@ -55,7 +55,7 @@ using namespace std;
     
     if (!_tokenizer->tokenize(str)) {
         NSLog(@"tokenization fail");
-        return nil;
+        return NO;
     }
     
     auto tokens = _tokenizer->getTokens();
