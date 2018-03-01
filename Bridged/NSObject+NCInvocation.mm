@@ -114,11 +114,10 @@
             NSNumber * num = [NSNumber numberWithDouble:arguments[i]->toFloat()];
             [invocation setArgument:&num atIndex:argPos];
         }
-//        else if(COMP_ENCODE(argumentType, NSString)){
-//            NSString * str = [NSString stringWithUTF8String:arguments[i]->toString().c_str()];
-//            [inv setArgument:&str atIndex:argPos];
-//        }
-//        else if(strcmp(argumentType,@encode(CGRect)) == 0){
+        else if(COMP_ENCODE(argumentType, BOOL)){
+            BOOL bval = arguments[i]->toInt();
+            [invocation setArgument:&bval atIndex:argPos];
+        }
         else if(COMP_ENCODE(argumentType, CGRect)){
             auto argi = arguments[i];
             if(dynamic_pointer_cast<NCStackPointerElement>(arguments[i])){
