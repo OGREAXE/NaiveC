@@ -87,7 +87,14 @@ struct NCStackVariableElement:NCStackElement{
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
     
-    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName){return valueElement->getAttribute(attrName);};
+    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName){
+        if(valueElement){
+            return valueElement->getAttribute(attrName);
+        }
+        else {
+            return nullptr;
+        }
+    };
     
     virtual void setAttribute(const string & attrName, shared_ptr<NCStackElement> value){valueElement->setAttribute(attrName,value);}
 };

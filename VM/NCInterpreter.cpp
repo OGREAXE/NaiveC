@@ -286,6 +286,7 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
             visit(expr, frame);
             
             auto exprVal = stackPopObjectPointer(frame);
+            if(!exprVal){return false;}
             auto pointedObject = exprVal->getPointedObject();
             if (dynamic_pointer_cast<NCFastEnumerable>(pointedObject)) {
                 auto enumerable = dynamic_pointer_cast<NCFastEnumerable>(pointedObject);
@@ -726,7 +727,8 @@ bool NCInterpreter::tree_doClassMehothodCall(NCFrame & frame, NCMethodCallExpr*n
         return false;
     }
     
-    bool res = frame.stack.back()->invokeMethod(node->name, arguments, frame.stack);
+    auto rScope = frame.stack_pop();
+    bool res = rScope->invokeMethod(node->name, arguments, frame.stack);
     
     return res;
 }

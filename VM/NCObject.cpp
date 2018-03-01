@@ -29,34 +29,35 @@ shared_ptr<NCStackElement> NCStackPointerElement::copy(){
 }
 
 bool NCStackPointerElement::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
-    auto pStackTop = (lastStack.back()).get();
+//    auto pStackTop = (lastStack.back()).get();
     
     //fix smart pointer released
-    if (dynamic_cast<NCStackPointerElement*>((lastStack.back()).get())) {
-        
-        auto pPointerElement = dynamic_pointer_cast<NCStackPointerElement> (lastStack.back());
-        lastStack.pop_back();
-        
-        auto pObject = pPointerElement->getPointedObject();
-        
-        return pObject->invokeMethod(methodName, arguments, lastStack);
-    }
-    else if (dynamic_cast<NCStackVariableElement*>(pStackTop)) {
-        auto pVar = dynamic_cast<NCStackVariableElement*>(pStackTop);
-        while (dynamic_cast<NCStackVariableElement*>(pVar->valueElement.get())) {
-            pVar = dynamic_cast<NCStackVariableElement*>(pVar->valueElement.get());
-        }
-        if (dynamic_cast<NCStackPointerElement*>(pVar->valueElement.get())) {
-            auto pPointerElement = dynamic_pointer_cast<NCStackPointerElement> (pVar->valueElement);
-            lastStack.pop_back();
-            
-            auto pPointedObject = pPointerElement->getPointedObject();
-            
-            return pPointedObject->invokeMethod(methodName, arguments, lastStack);
-        }
-    }
+//    if (dynamic_cast<NCStackPointerElement*>((lastStack.back()).get())) {
+//
+//        auto pPointerElement = dynamic_pointer_cast<NCStackPointerElement> (lastStack.back());
+//        lastStack.pop_back();
+//
+//        auto pObject = pPointerElement->getPointedObject();
+//
+//        return pObject->invokeMethod(methodName, arguments, lastStack);
+//    }
+//    else if (dynamic_cast<NCStackVariableElement*>(pStackTop)) {
+//        auto pVar = dynamic_cast<NCStackVariableElement*>(pStackTop);
+//        while (dynamic_cast<NCStackVariableElement*>(pVar->valueElement.get())) {
+//            pVar = dynamic_cast<NCStackVariableElement*>(pVar->valueElement.get());
+//        }
+//        if (dynamic_cast<NCStackPointerElement*>(pVar->valueElement.get())) {
+//            auto pPointerElement = dynamic_pointer_cast<NCStackPointerElement> (pVar->valueElement);
+//            lastStack.pop_back();
+//
+//            auto pPointedObject = pPointerElement->getPointedObject();
+//
+//            return pPointedObject->invokeMethod(methodName, arguments, lastStack);
+//        }
+//    }
+    auto res = m_pObject->invokeMethod(methodName, arguments, lastStack);
     
-    return true;
+    return res;
 }
 
 
