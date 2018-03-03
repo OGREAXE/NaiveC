@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		D4892EE320450A520052267E /* NCBuiltinFunctionStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4892EE120450A520052267E /* NCBuiltinFunctionStore.cpp */; };
 		D4892EE420450A520052267E /* NCBuiltinFunctionStore.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D4892EE220450A520052267E /* NCBuiltinFunctionStore.hpp */; };
+		D496C70F204AFFE500B6A041 /* NCException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D496C70D204AFFE500B6A041 /* NCException.cpp */; };
+		D496C710204AFFE500B6A041 /* NCException.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D496C70E204AFFE500B6A041 /* NCException.hpp */; };
 		D4E06E632037015D0095F442 /* NaiveC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E06E5A2037015C0095F442 /* NaiveC.framework */; };
 		D4E06E682037015D0095F442 /* NaiveCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E672037015D0095F442 /* NaiveCTests.m */; };
 		D4E06E6A2037015D0095F442 /* NaiveC.h in Headers */ = {isa = PBXBuildFile; fileRef = D4E06E5C2037015C0095F442 /* NaiveC.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -71,6 +73,8 @@
 		D4716E681FF26F24000797B1 /* CodeTest */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CodeTest; sourceTree = "<group>"; };
 		D4892EE120450A520052267E /* NCBuiltinFunctionStore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NCBuiltinFunctionStore.cpp; sourceTree = "<group>"; };
 		D4892EE220450A520052267E /* NCBuiltinFunctionStore.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCBuiltinFunctionStore.hpp; sourceTree = "<group>"; };
+		D496C70D204AFFE500B6A041 /* NCException.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NCException.cpp; sourceTree = "<group>"; };
+		D496C70E204AFFE500B6A041 /* NCException.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCException.hpp; sourceTree = "<group>"; };
 		D4E06DC220304A410095F442 /* NCClassLoader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NCClassLoader.cpp; sourceTree = "<group>"; };
 		D4E06DC320304A410095F442 /* NCClassLoader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCClassLoader.hpp; sourceTree = "<group>"; };
 		D4E06DC5203125D40095F442 /* NCClassProvider.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NCClassProvider.cpp; sourceTree = "<group>"; };
@@ -273,6 +277,8 @@
 				D4E06F47204042100095F442 /* NCLog.hpp */,
 				D4892EE120450A520052267E /* NCBuiltinFunctionStore.cpp */,
 				D4892EE220450A520052267E /* NCBuiltinFunctionStore.hpp */,
+				D496C70D204AFFE500B6A041 /* NCException.cpp */,
+				D496C70E204AFFE500B6A041 /* NCException.hpp */,
 			);
 			path = VM;
 			sourceTree = "<group>";
@@ -289,6 +295,7 @@
 				D4E06F1920396FD10095F442 /* NCStandardLibraryProvider.hpp in Headers */,
 				D4892EE420450A520052267E /* NCBuiltinFunctionStore.hpp in Headers */,
 				D4E06F0F203871E10095F442 /* NCClass.hpp in Headers */,
+				D496C710204AFFE500B6A041 /* NCException.hpp in Headers */,
 				D4E06F29203C3E1B0095F442 /* NCCocoaToolkit.hpp in Headers */,
 				D4E06F49204042100095F442 /* NCLog.hpp in Headers */,
 				D4E06EE7203716140095F442 /* NCCodeEngine_iOS.h in Headers */,
@@ -416,6 +423,7 @@
 				D4E06EF420371D9E0095F442 /* NCInterpreter.hpp in Sources */,
 				D4E06EF520371D9E0095F442 /* NCStackElement.cpp in Sources */,
 				D4E06EF620371D9E0095F442 /* NCStackElement.hpp in Sources */,
+				D496C70F204AFFE500B6A041 /* NCException.cpp in Sources */,
 				D4E06EF720371D9E0095F442 /* NCObject.cpp in Sources */,
 				D4E06EF820371D9E0095F442 /* NCObject.hpp in Sources */,
 				D4E06EF920371D9E0095F442 /* NCClassLoader.cpp in Sources */,
@@ -478,7 +486,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = NaiveC/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = bd.NaiveC;
@@ -515,7 +523,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = NaiveC/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = bd.NaiveC;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";

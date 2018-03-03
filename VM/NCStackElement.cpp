@@ -228,6 +228,9 @@ NCFloat NCStackVariableElement::toFloat(){
     return valueElement->toFloat();
 }
 string NCStackVariableElement::toString(){
+    if(!valueElement){
+        return "NULL";
+    }
     return valueElement->toString();
 }
 shared_ptr<NCStackElement> NCStackVariableElement::copy(){

@@ -7,6 +7,7 @@
 //
 
 #include "NCArray.hpp"
+#include "NCException.hpp"
 
 bool NCArray::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
     
@@ -56,6 +57,9 @@ shared_ptr<NCStackElement> NCArray::getAttribute(const string & attrName){
 void NCArray::br_set(shared_ptr<NCStackElement> & key,shared_ptr<NCStackElement> &value){
     if (dynamic_pointer_cast<NCStackIntElement>(key)) {
         auto kIndex = dynamic_pointer_cast<NCStackIntElement>(key)->value;
+        if (kIndex > innerArray.size()-1) {
+            throw NCRuntimeException(0, "out of range");
+        }
         innerArray[kIndex] = value;
     }
 }
@@ -63,6 +67,9 @@ void NCArray::br_set(shared_ptr<NCStackElement> & key,shared_ptr<NCStackElement>
 shared_ptr<NCStackElement> NCArray::br_getValue(shared_ptr<NCStackElement> & key){
     if (dynamic_pointer_cast<NCStackIntElement>(key)) {
         auto kIndex = dynamic_pointer_cast<NCStackIntElement>(key)->value;
+        if (kIndex > innerArray.size()-1) {
+            throw NCRuntimeException(0, "out of range");
+        }
         return innerArray[kIndex];
     }
     else {

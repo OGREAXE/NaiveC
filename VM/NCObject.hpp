@@ -81,6 +81,7 @@ class NCBracketAccessible{
 public:
     virtual void br_set(shared_ptr<NCStackElement> & key,shared_ptr<NCStackElement> &value)=0;
     virtual shared_ptr<NCStackElement> br_getValue(shared_ptr<NCStackElement> & key)=0;
+    virtual int br_getValue(shared_ptr<NCStackElement> & key, NCStackElement * &outValue){return 0;}
 };
 
 /*

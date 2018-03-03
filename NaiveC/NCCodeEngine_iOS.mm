@@ -15,6 +15,9 @@
 #include "NCClassLoader.hpp"
 #include "NCCocoaClassProvider.hpp"
 
+#include "NCException.hpp"
+#include "NCLog.hpp"
+
 #include <memory>
 
 using namespace std;
@@ -71,7 +74,16 @@ using namespace std;
 -(BOOL)run:(NSString*)sourceCode error:(NSError**)error{
     [self parseSourceCode:sourceCode];
     _interpreter->initWithRoot(_parser->getRoot());
-    _interpreter->invoke_main();
+    
+    try {
+        _interpreter->invoke_main();
+    } catch (NCRuntimeException & e) {
+        string errMsg = "VM terminated:";
+        errMsg += e.getErrorMessage();
+        
+        NCLog(NCLogTypeInterpretor, errMsg.c_str());
+    }
+    
     return YES;
 }
 

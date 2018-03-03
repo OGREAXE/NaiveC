@@ -16,6 +16,7 @@
 #include "NCCocoaToolkit.hpp"
 
 #include "NCAST.hpp"
+#include "NCLog.hpp"
 
 @implementation NSObject (NCInvocation)
 
@@ -56,6 +57,9 @@
         free(methodList);
         targetClass = targetClass.superclass;
     }
+    
+    NSString * notfoundMsg = [NSString stringWithFormat:@"method:%@ not found",methodName];
+    NCLog(NCLogTypeInterpretor, notfoundMsg.UTF8String);
     
     return res;
 }
@@ -212,19 +216,24 @@
             lastStack.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement( (*pret))));
         }
         else if(COMP_ENCODE(returnType, int)){
-            
+            int *pret = (int *)buffer;
+            lastStack.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement( (*pret))));
         }
         else if(COMP_ENCODE(returnType, unsigned long )){
-            
+            unsigned long *pret = (unsigned long *)buffer;
+            lastStack.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement( (*pret))));
         }
         else if(COMP_ENCODE(returnType, long)){
-            
+            long *pret = ( long *)buffer;
+            lastStack.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement( (*pret))));
         }
         else if(COMP_ENCODE(returnType, unsigned long long)){
-            
+            unsigned long long *pret = ( unsigned long long *)buffer;
+            lastStack.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement( (*pret))));
         }
         else if(COMP_ENCODE(returnType, long long)){
-            
+            long long *pret = (long long *)buffer;
+            lastStack.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement( (*pret))));
         }
         else if(COMP_ENCODE(returnType, double)){
             double *pret = (double *)buffer;

@@ -11,6 +11,7 @@
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 #import <objc/message.h>
+#include "NCException.hpp"
 
 #import "NSObject+NCInvocation.h"
 
@@ -85,6 +86,11 @@ void NCCocoaBox::br_set(shared_ptr<NCStackElement> & key,shared_ptr<NCStackEleme
 shared_ptr<NCStackElement> NCCocoaBox::br_getValue(shared_ptr<NCStackElement> & key){
     NSObject * wrappedObject = (__bridge NSObject*)m_cocoaObject;
     if ([wrappedObject isKindOfClass:[NSArray class]]) {
+        NSArray * array = (NSArray *)wrappedObject;
+        if (key->toInt() > array.count-1) {
+            throw NCRuntimeException(0, "out of range");
+        }
+        
         auto index = shared_ptr<NCStackIntElement>(new NCStackIntElement(key->toInt()));
         vector<shared_ptr<NCStackElement>> argments = {index};
         vector<shared_ptr<NCStackElement>> resultContainer;
