@@ -205,13 +205,17 @@ bool NCTokenizer::tokenize(string&str){
             }
             else {
 //                tokens.push_back(token);
-                addToken(tokens, token, i);
+                if (token.length()>0) {
+                    addToken(tokens, token, i);
+                }
                 token = ".";
                 status = Unknown;
             }
         }
         else if(c == ':'){
-            addToken(tokens, token, i);
+            if (token.length()>0) {
+                addToken(tokens, token, i);
+            }
             token = ":";
             status = Unknown;
         }
