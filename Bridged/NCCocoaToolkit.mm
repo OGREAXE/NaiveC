@@ -10,7 +10,7 @@
 #include <sstream>
 #include <iostream>
 
-string NCFrame::getDescription(){
+string NCRect::getDescription(){
     std::ostringstream stringStream;
     stringStream << "x:"<<x<<" y:"<<y<<" width:"<<width<<" height:"<<height<<endl;
     std::string copyOfStr = stringStream.str();

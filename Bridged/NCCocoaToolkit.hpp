@@ -16,15 +16,15 @@
 #define NC_CLASSNAME_SIZE "Size"
 #define NC_CLASSNAME_POINT "Point"
 
-class NCFrame : public NCObject{
+class NCRect : public NCObject{
 private:
     float x;
     float y;
     float width;
     float height;
 public:
-    NCFrame():x(0),y(0),width(0),height(0){};
-    NCFrame(float x, float y, float width, float height):x(x),y(y),width(width),height(height){};
+    NCRect():x(0),y(0),width(0),height(0){};
+    NCRect(float x, float y, float width, float height):x(x),y(y),width(width),height(height){};
     
     float getX(){return x;}
     float getY(){return y;}

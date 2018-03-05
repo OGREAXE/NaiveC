@@ -23,10 +23,10 @@ shared_ptr<NCStackPointerElement> NCCocoaClass::instantiate(vector<shared_ptr<NC
             auto width = arguments[2]->toFloat();
             auto height = arguments[3]->toFloat();
             
-            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(new NCFrame(x, y, width, height))));
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(new NCRect(x, y, width, height))));
         }
         else {
-            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(new NCFrame())));
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(new NCRect())));
         }
     }
     else if (this->name == NC_CLASSNAME_SIZE) {

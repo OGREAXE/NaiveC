@@ -130,8 +130,8 @@
             if(dynamic_pointer_cast<NCStackPointerElement>(arguments[i])){
                 auto pFrameContainer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
                 auto pObject = pFrameContainer->getPointedObject();
-                if(pObject && dynamic_pointer_cast<NCFrame>(pObject)){
-                    auto pFrame = dynamic_pointer_cast<NCFrame>(pObject);
+                if(pObject && dynamic_pointer_cast<NCRect>(pObject)){
+                    auto pFrame = dynamic_pointer_cast<NCRect>(pObject);
                     CGRect frame = CGRectMake(pFrame->getX(), pFrame->getY(), pFrame->getWidth(), pFrame->getHeight());
                     [invocation setArgument:&frame atIndex:argPos];
                 }
@@ -248,7 +248,7 @@
         }
         else if(COMP_ENCODE(returnType, CGRect)){
             CGRect *pret = (CGRect *)buffer;
-            NCFrame * pframe = new NCFrame(pret->origin.x,pret->origin.y,pret->size.width,pret->size.height);
+            NCRect * pframe = new NCRect(pret->origin.x,pret->origin.y,pret->size.width,pret->size.height);
             lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(pframe)));
         }
         else if(COMP_ENCODE(returnType, CGSize)){
