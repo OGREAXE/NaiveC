@@ -189,11 +189,11 @@ public:
 
 class NCFloatLiteral:public NCLiteral{
     
-    float value;
+    NCFloat value;
 public:
 //    NCFloatLiteral(string & floatStr);
     
-    int getValue(){return value;};
+    NCFloat getValue(){return value;};
     NCFloatLiteral(float val):value(val){};
 };
 

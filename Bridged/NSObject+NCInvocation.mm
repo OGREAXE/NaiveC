@@ -113,9 +113,12 @@
             unsigned long long num = arguments[i]->toInt();
             [invocation setArgument:&num atIndex:argPos];
         }
-        else if(COMP_ENCODE(argumentType, float) ||
-                COMP_ENCODE(argumentType, double)){
-            NSNumber * num = [NSNumber numberWithDouble:arguments[i]->toFloat()];
+        else if(COMP_ENCODE(argumentType, float)){
+            float num = arguments[i]->toFloat();
+            [invocation setArgument:&num atIndex:argPos];
+        }
+        else if(COMP_ENCODE(argumentType, double)){
+            double num = arguments[i]->toFloat();
             [invocation setArgument:&num atIndex:argPos];
         }
         else if(COMP_ENCODE(argumentType, BOOL)){

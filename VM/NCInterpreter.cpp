@@ -206,7 +206,9 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
     else if (dynamic_cast<NCFieldAccessExpr*>(currentNode.get())) {
         auto node = dynamic_cast<NCFieldAccessExpr*>(currentNode.get());
         visit(node->scope, frame);
-        
+        if (frame.stack_empty()) {
+            return false;
+        }
         auto scope = frame.stack_pop();
 //        auto attrValue = scope->getAttribute(node->field);
 //        frame.stack_push(attrValue);
