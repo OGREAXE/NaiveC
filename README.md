@@ -18,7 +18,7 @@ can call Objective-C class and method directly, means you can write OC code as s
    
    or 
  ```
-   for(e:array) //if array is a fast-enumerable object, such as native array or NSArray
+   for(e:arrObj) //if arrObj is a fast-enumerable object, such as native array or NSArray
  ```
  
  * conditional
@@ -34,7 +34,7 @@ can call Objective-C class and method directly, means you can write OC code as s
  ``` 
    print("Hello world")
  ```
- ## integration with Objective-C and Cocoaframework
+ ## intergration with Objective-C and Cocoaframework
   * objc style send message
   ``` 
    time = [NSDate date]
