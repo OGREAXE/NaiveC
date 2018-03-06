@@ -3,7 +3,7 @@ A script interpreter supports simple grammar
 
 can call Objective-C class and method directly, means you can write OC code as scripts
 ## Grammar
- * valuable initialization:
+ * variable initialization:
  ```
      aInt = 1
      aFloat = 0.5
