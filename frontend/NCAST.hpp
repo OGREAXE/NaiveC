@@ -430,6 +430,10 @@ public:
     string parent;
     
     vector<shared_ptr<NCBodyDeclaration>> members;
+    
+    vector<shared_ptr<NCBodyDeclaration>> fields;
+    
+    unordered_map<string, shared_ptr<NCBodyDeclaration>> methods;
 };
 
 #endif /* MCAST_hpp */

@@ -214,7 +214,11 @@
         void * buffer = (void *)malloc(length);
         [invocation getReturnValue:buffer];
         
-        if(COMP_ENCODE(returnType, unsigned int )){
+        if(COMP_ENCODE(returnType, BOOL)){
+            BOOL *pret = (BOOL *)buffer;
+            lastStack.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement( (*pret))));
+        }
+        else if(COMP_ENCODE(returnType, unsigned int )){
             unsigned int *pret = (unsigned int *)buffer;
             lastStack.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement( (*pret))));
         }
@@ -257,7 +261,9 @@
             lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(pSize)));
         }
         else if(COMP_ENCODE(returnType, CGPoint)){
-            
+            CGPoint *pret = (CGPoint *)buffer;
+            NCPoint * pPoint = new NCPoint(pret->x,pret->y);
+            lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(pPoint)));
         }
     }
     
