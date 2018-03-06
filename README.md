@@ -13,7 +13,7 @@ can call Objective-C class and method directly, means you can write OC code as s
    
  * loop(for and while):
  ``` 
-   for(i=0;i<16;i++)
+   for(i=0;i<16;i=i+1)
  ```
    
    or 
