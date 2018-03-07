@@ -162,6 +162,7 @@ bool NCParser::class_body(vector<shared_ptr<NCBodyDeclaration>> & members){
         if (!member) {
             return false;
         }
+        members.push_back(member);
     }
     
     word = nextWord();

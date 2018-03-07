@@ -19,10 +19,7 @@
 #include "NCLog.hpp"
 #include "NCInterpreter.hpp"
 
-int __block_invoke_1(struct __block_literal_1 *_block, ...) {
-    printf("block is invoked, but nothing happened, because it's just an empty implementation\n");
-    return 1;
-}
+
 
 struct __block_literal_1 {
     void *isa;
@@ -31,7 +28,26 @@ struct __block_literal_1 {
     //int (*invoke)(struct __block_literal_1 *, ...);
     void *invoke;
     struct __block_descriptor_1 *descriptor;
+    void * stored_obj;
 };
+
+int __block_invoke_1(struct __block_literal_1 *_block, ...) {
+    
+    NSString * stored = (__bridge NSString*)(_block->stored_obj);
+    NSLog(@"stored:%@",stored);
+    
+    va_list vl;
+    
+    va_start(vl,_block);
+    for (int i=0;i<1;i++)
+    {
+        int val=va_arg(vl,int);
+        printf (" val is %d",val);
+    }
+    va_end(vl);
+    //    printf("block is invoked, but nothing happened, because it's just an empty implementation\n");
+    return 1;
+}
 
 static struct __block_descriptor_1 {
     unsigned long int reserved;
@@ -206,6 +222,9 @@ static struct __block_descriptor_1 {
             block_literal_1->isa = _NSConcreteGlobalBlock;
             block_literal_1->flags = (1<<28);
             block_literal_1->invoke = (void*)(int (*) (__block_literal_1 *, ...) ) __block_invoke_1;
+            
+            id str =@"hello world";
+            block_literal_1->stored_obj = (void*)CFBridgingRetain(str);
             
             [invocation setArgument:&block_literal_1 atIndex:argPos];
         }

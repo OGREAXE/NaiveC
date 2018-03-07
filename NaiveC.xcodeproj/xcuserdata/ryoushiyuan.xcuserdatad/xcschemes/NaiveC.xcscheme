@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ED219C9A1F6D15CB0015293A"
-               BuildableName = "NaiveC.app"
+               BlueprintIdentifier = "D4E06E592037015C0095F442"
+               BuildableName = "NaiveC.framework"
                BlueprintName = "NaiveC"
                ReferencedContainer = "container:NaiveC.xcodeproj">
             </BuildableReference>
@@ -26,13 +26,14 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ED219CB31F6D15CB0015293A"
+               BlueprintIdentifier = "D4E06E612037015C0095F442"
                BuildableName = "NaiveCTests.xctest"
                BlueprintName = "NaiveCTests"
                ReferencedContainer = "container:NaiveC.xcodeproj">
@@ -42,8 +43,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ED219C9A1F6D15CB0015293A"
-            BuildableName = "NaiveC.app"
+            BlueprintIdentifier = "D4E06E592037015C0095F442"
+            BuildableName = "NaiveC.framework"
             BlueprintName = "NaiveC"
             ReferencedContainer = "container:NaiveC.xcodeproj">
          </BuildableReference>
@@ -55,6 +56,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -65,8 +67,8 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ED219C9A1F6D15CB0015293A"
-            BuildableName = "NaiveC.app"
+            BlueprintIdentifier = "D4E06E592037015C0095F442"
+            BuildableName = "NaiveC.framework"
             BlueprintName = "NaiveC"
             ReferencedContainer = "container:NaiveC.xcodeproj">
          </BuildableReference>
@@ -84,8 +86,8 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ED219C9A1F6D15CB0015293A"
-            BuildableName = "NaiveC.app"
+            BlueprintIdentifier = "D4E06E592037015C0095F442"
+            BuildableName = "NaiveC.framework"
             BlueprintName = "NaiveC"
             ReferencedContainer = "container:NaiveC.xcodeproj">
          </BuildableReference>
