@@ -67,7 +67,7 @@ bool NCParser::parse(shared_ptr<const vector<NCToken>>& tokens){
         
         auto pFunc = function_definition();
         if (pFunc) {
-            pRoot->functionList.push_back(pFunc);
+            pRoot->functionList.push_back(static_pointer_cast<NCASTFunctionDefinition>(pFunc) );
             parseOK = true;
             continue;
         }
@@ -77,7 +77,7 @@ bool NCParser::parse(shared_ptr<const vector<NCToken>>& tokens){
         
         auto pClass = class_definition();
         if (pClass) {
-            pRoot->classList.push_back(pClass);
+            pRoot->classList.push_back(static_pointer_cast<NCClassDeclaration>(pFunc));
             parseOK = true;
             continue;
         }
@@ -182,17 +182,48 @@ shared_ptr<NCBodyDeclaration> NCParser::class_body_declaration(){
 //    popIndex();
     POP_INDEX
     
-    auto fieldDecl = variable_declaration_expression();
-    if (fieldDecl) {
+//    auto fieldTypeDecl = variable_declaration_expression();
+//    if (fieldTypeDecl) {
+//        auto field = new NCFieldDeclaration();
+//        field->declarator = fieldTypeDecl;
+//        return shared_ptr<NCFieldDeclaration>(field);
+//    }
+//
+////    popIndex();
+//    POP_INDEX
+    
+    auto fieldExpr = field_expression();
+    if (fieldExpr) {
         auto field = new NCFieldDeclaration();
-        field->declarator = fieldDecl;
+        field->declarator = fieldExpr;
         return shared_ptr<NCFieldDeclaration>(field);
     }
     
-//    popIndex();
     POP_INDEX
     
     return constructor_definition();
+}
+
+shared_ptr<NCExpression> NCParser::field_expression(){
+    if (!isIdentifier(word)) {
+        return nullptr;
+    }
+    string fname = word;
+    word = nextWord();
+    
+    if (word!="=") {
+        return nullptr;
+    }
+    
+    word = nextWord();
+    auto initExpr = expression();
+    if (!initExpr) {
+        return nullptr;
+    }
+    
+    auto fieldExpr = new NCAssignExpr(shared_ptr<NCNameExpression>(new NCNameExpression(fname)),"=",initExpr);
+    
+    return shared_ptr<NCExpression> (fieldExpr);
 }
 
 shared_ptr<NCConstructorDeclaration> NCParser::constructor_definition(){

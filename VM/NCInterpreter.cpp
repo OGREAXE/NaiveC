@@ -10,6 +10,8 @@
 #include "NCStackElement.hpp"
 #include "NCClassLoader.hpp"
 #include "NCArray.hpp"
+#include "NCLog.hpp"
+#include "NCException.hpp"
 
 void NCFrame::insertVariable(string&name, int value){
     localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackIntElement(value));
@@ -59,11 +61,13 @@ NCInterpreter::NCInterpreter(shared_ptr<NCASTRoot> root){
 bool NCInterpreter::initWithRoot(shared_ptr<NCASTRoot> root){
     auto functionDefList = root->functionList;
     for (auto funcDef :functionDefList) {
-        auto func = dynamic_cast<NCASTFunctionDefinition*>(funcDef.get());
-        functionMap[func->name] = funcDef;
+        NCModuleCache::GetGlobalCache()->addNativeFunction(funcDef);
     }
     
-    intBuiltiFunctionMap();
+    for (auto classDef :root->classList) {
+        NCModuleCache::GetGlobalCache()->addClassDef(classDef);
+    }
+    
     return true;
 }
 
@@ -75,23 +79,22 @@ bool NCInterpreter::isClassName(const string & name){
     return false;
 }
 
-void NCInterpreter::intBuiltiFunctionMap(){
-//    auto printFunction = new NCBuiltinPrint();
-//    builtinFunctionMap[printFunction->name] = shared_ptr<NCBuiltinFunction>(printFunction);
-}
-
 bool NCInterpreter::invoke(string function, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
     if (isClassName(function)) {
         return invoke_constructor(function, arguments, lastStack);
     }
     
-    auto findFunc = functionMap.find(function);
-    if (findFunc == functionMap.end()) {
+//    auto findFunc = functionMap.find(function);
+//    if (findFunc == functionMap.end()) {
+//        return false;
+//    }
+//
+//    auto functionDefinition = (*findFunc).second;
+//    auto funcDef = dynamic_cast<NCASTFunctionDefinition*>(functionDefinition.get());
+    auto funcDef = NCModuleCache::GetGlobalCache()->getNativeFunction(function);
+    if (!funcDef) {
         return false;
     }
-    
-    auto functionDefinition = (*findFunc).second;
-    auto funcDef = dynamic_cast<NCASTFunctionDefinition*>(functionDefinition.get());
     
     auto frame = shared_ptr<NCFrame>(new NCFrame());
     for (int i = 0; i<arguments.size(); i++) {
@@ -575,35 +578,12 @@ bool NCInterpreter::tree_composeArgmemnts(NCFrame & frame,NCMethodCallExpr*node,
 }
 
 bool NCInterpreter::tree_doStaticMehothodCall(NCFrame & frame,NCMethodCallExpr*node){
-    auto findFunc = functionMap.find(node->name);
-    if (findFunc!=functionMap.end()) {
-        auto functionDef = (dynamic_cast<NCASTFunctionDefinition*>((*findFunc).second.get()));
-        
+//    auto findFunc = functionMap.find(node->name);
+    auto functionDef = NCModuleCache::GetGlobalCache()->getNativeFunction(node->name);
+    if (functionDef) {
         vector<shared_ptr<NCStackElement>> arguments;
         
         auto parameters = functionDef->parameters;
-//        for (int i = 0; i<parameters.size(); i++) {
-//            auto & parameter = parameters[i];
-//
-//            auto argExp = node->args[i];
-//            walkTree(argExp, frame);
-//
-//            if (parameter.type == "int") {
-//                auto value = stackPopInt(frame);
-//                auto argValue = new NCStackIntElement(value);
-//                arguments.push_back(shared_ptr<NCStackElement>(argValue));
-//            }
-//            else if (parameter.type == "float") {
-//                auto value = stackPopFloat(frame);
-//                auto argValue = new NCStackFloatElement(value);
-//                arguments.push_back(shared_ptr<NCStackElement>(argValue));
-//            }
-//            else if (parameter.type == "string") {
-//                auto value = stackPopString(frame);
-//                auto argValue = new NCStackStringElement(value);
-//                arguments.push_back(shared_ptr<NCStackElement>(argValue));
-//            }
-//        }
         
         tree_composeArgmemnts(frame,node, parameters, arguments);
         
@@ -612,7 +592,7 @@ bool NCInterpreter::tree_doStaticMehothodCall(NCFrame & frame,NCMethodCallExpr*n
     else {
         //no user-defined function found, try system library
 //        auto find = builtinFunctionMap.find(node->name);
-        auto find = m_builtinFunctionStore.getFunction(node->name);
+        auto find = NCModuleCache::GetGlobalCache()->getSystemFunction(node->name);
         if (find) {
             auto funcDef = find;
             
@@ -648,21 +628,25 @@ bool NCInterpreter::tree_doStaticMehothodCall(NCFrame & frame,NCMethodCallExpr*n
                 }
             }
             
-            if (funcDef->hasReturn) {
-                
-            }
-            else {
-                funcDef->invoke(arguments);
-            }
+            funcDef->invoke(arguments,frame.stack);
+            
         }
         else {
-            auto targetClass = NCClassLoader::GetInstance()->loadClass(node->name);
+//            auto targetClass = NCClassLoader::GetInstance()->loadClass(node->name);
+            auto cls = NCModuleCache::GetGlobalCache()->getClass(node->name);
+            
+            if (!cls) {
+//                NCLog(NCLogTypeInterpretor, "class %s not found", node->name.c_str());
+//                return false;
+                throw NCRuntimeException(0, "class %s not found", node->name.c_str());
+            }
             
             vector<shared_ptr<NCStackElement>> arguments;
             
             initArguments(node->args, arguments, frame);
             
-            auto aInstance = targetClass->instantiate(arguments);
+            auto aInstance = cls->instantiate(arguments);
+            
             frame.stack.push_back(shared_ptr<NCStackPointerElement> ( aInstance));
         }
     }

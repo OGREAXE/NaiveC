@@ -21,6 +21,8 @@ private:
 public:
     NCRuntimeException(int errorCode, const string &errorMessage):errorCode(errorCode),errorMessage(errorMessage){}
     
+    NCRuntimeException(int errorCode, const char*format, ...);
+    
     string getErrorMessage(){return errorMessage;}
 };
 

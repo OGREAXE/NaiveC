@@ -76,6 +76,8 @@ private:
     
     shared_ptr<NCBodyDeclaration> class_body_declaration();
     
+    shared_ptr<NCExpression> field_expression();
+    
     shared_ptr<NCConstructorDeclaration> constructor_definition();
     
     //function_definition-> type_specifier argumentlist compound_statement

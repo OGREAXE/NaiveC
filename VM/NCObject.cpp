@@ -8,6 +8,17 @@
 
 #include "NCObject.hpp"
 #include "NCClassLoader.hpp"
+#include "NCInterpreter.hpp"
+
+static NCInterpreter * g_subInterpretor = nullptr;
+
+bool NCNativeObject::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
+    if (!g_subInterpretor) {
+        g_subInterpretor = new NCInterpreter();
+    }
+    auto res = g_subInterpretor->invoke(methodName, arguments, lastStack);
+    return res;
+}
 
 shared_ptr<NCStackElement> NCStackPointerElement::doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){
     

@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <memory>
+#include <unordered_map>
 
 #include "NCStackElement.hpp"
 #include "NCObject.hpp"
@@ -22,6 +23,8 @@ protected:
     string name;
 public:
     NCClass(const string &name):name(name){}
+    
+    string getName(){return name;}
     /**
      instantiate an object of this class
 
@@ -39,6 +42,19 @@ public:
      @return <#return value description#>
      */
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){return false;};
+};
+
+class NCNativeClass:public NCClass {
+private:
+    shared_ptr<NCClassDeclaration> m_classDef;
+    
+    unordered_map<string, shared_ptr<NCStackElement>> m_fieldMap;
+public:
+    NCNativeClass(shared_ptr<NCClassDeclaration> & classDef):NCClass(classDef->name),m_classDef(classDef){}
+    
+    virtual shared_ptr<NCStackPointerElement> instantiate(vector<shared_ptr<NCStackElement>> &arguments);
+    
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
 };
 
 #endif /* NCClass_hpp */

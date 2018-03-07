@@ -17,6 +17,26 @@
 
 #include "NCAST.hpp"
 #include "NCLog.hpp"
+#include "NCInterpreter.hpp"
+
+int __block_invoke_1(struct __block_literal_1 *_block, ...) {
+    printf("block is invoked, but nothing happened, because it's just an empty implementation\n");
+    return 1;
+}
+
+struct __block_literal_1 {
+    void *isa;
+    int flags;
+    int reserved;
+    //int (*invoke)(struct __block_literal_1 *, ...);
+    void *invoke;
+    struct __block_descriptor_1 *descriptor;
+};
+
+static struct __block_descriptor_1 {
+    unsigned long int reserved;
+    unsigned long int Block_size;
+} __block_descriptor_1 = { 0, sizeof(struct __block_literal_1)};
 
 @implementation NSObject (NCInvocation)
 
@@ -180,6 +200,14 @@
                 }
             }
             [invocation setArgument:&realObj atIndex:argPos];
+        }
+        else if (strcmp("@?", argumentType)==0){
+            auto block_literal_1 = new __block_literal_1;
+            block_literal_1->isa = _NSConcreteGlobalBlock;
+            block_literal_1->flags = (1<<28);
+            block_literal_1->invoke = (void*)(int (*) (__block_literal_1 *, ...) ) __block_invoke_1;
+            
+            [invocation setArgument:&block_literal_1 atIndex:argPos];
         }
         else {
             id argnil = NULL;

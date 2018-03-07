@@ -7,3 +7,23 @@
 //
 
 #include "NCException.hpp"
+#include <stdio.h>
+#include <stdarg.h>
+
+#include <string>
+#include <sstream>
+#include <iostream>
+
+using namespace std;
+NCRuntimeException::NCRuntimeException(int errorCode, const char*format, ...):errorCode(errorCode){
+    
+    va_list args;
+    char buffer[1024];
+    va_start (args, format);
+    vsprintf (buffer,format, args);
+    va_end (args);
+    
+    std::ostringstream stringStream;
+    stringStream<<"class:"<<buffer<<" not found!"<<endl;
+    std::string copyOfStr = stringStream.str();
+}

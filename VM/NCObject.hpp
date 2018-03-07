@@ -33,17 +33,27 @@ public:
     virtual string getDescription(){return "NCObject";}
 };
 
-class NCOriginalObject : public NCObject{
+/**
+ invocation delegate, used by native object to re-use interpretor
+ */
+class NCInvocationDelegate{
+    virtual bool invoke(shared_ptr<NCObject> & obj, const string& methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){return false;}
+};
+
+/**
+ instance of user-defined class
+ */
+class NCNativeObject : public NCObject{
 public:
     shared_ptr<NCClassDeclaration> classDefinition;
-    
+    shared_ptr<NCInvocationDelegate> invocationDelagate;
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
 };
 
 ///////
 
 /**
- pointer to a class
+ pointer to an object
  */
 struct NCStackPointerElement:public NCStackElement{
 private:

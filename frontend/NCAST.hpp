@@ -392,12 +392,6 @@ public:
     AstNodePtr return_stat;
 };
 
-class NCASTRoot:public NCASTNode {
-public:
-    vector<shared_ptr<NCASTNode>> classList;
-    vector<shared_ptr<NCASTNode>> functionList;
-};
-
 /////////////////////////////////////////////////////////
 //
 //      class definition
@@ -434,6 +428,13 @@ public:
     vector<shared_ptr<NCBodyDeclaration>> fields;
     
     unordered_map<string, shared_ptr<NCBodyDeclaration>> methods;
+};
+
+
+class NCASTRoot:public NCASTNode {
+public:
+    vector<shared_ptr<NCClassDeclaration>> classList;
+    vector<shared_ptr<NCASTFunctionDefinition>> functionList;
 };
 
 #endif /* MCAST_hpp */

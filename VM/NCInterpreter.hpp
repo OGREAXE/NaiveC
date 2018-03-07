@@ -16,6 +16,7 @@
 #include "NCStackElement.hpp"
 #include "NCObject.hpp"
 #include "NCBuiltinFunctionStore.hpp"
+#include "NCModuleCache.hpp"
 
 using namespace std;
 
@@ -50,6 +51,8 @@ public:
     unordered_map<string, shared_ptr<NCStackElement>> localVariableMap;
     vector<shared_ptr<NCStackElement>> stack;
     
+    shared_ptr<NCNativeObject> scope;
+    
     shared_ptr<NCStackElement> stack_pop();
     
     /**
@@ -65,15 +68,13 @@ public:
     bool stack_empty(){return stack.size()==0;}
 };
 
-class NCInterpreter{
+class NCInterpreter:public NCInvocationDelegate{
 private:
-    unordered_map<string, shared_ptr<NCASTNode>> functionMap;
-//    unordered_map<string, shared_ptr<NCBuiltinFunction>> builtinFunctionMap;
-    NCBuiltinFunctionStore m_builtinFunctionStore;
-
-    unordered_map<string, shared_ptr<NCClassDeclaration>> classDefinitionMap;
-    
-    void intBuiltiFunctionMap();
+//    unordered_map<string, shared_ptr<NCASTNode>> functionMap;
+//
+//    NCBuiltinFunctionStore m_builtinFunctionStore;
+//
+//    unordered_map<string, shared_ptr<NCClassDeclaration>> classDefinitionMap;
     
     bool isStackTopInt(NCFrame & frame);
     bool isStackTopFloat(NCFrame & frame);
@@ -108,12 +109,15 @@ public:
         invoke("main", arguments, stack);
     }
     
+    bool invoke(shared_ptr<NCNativeObject> & scope, const string& methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+    
     bool visit(shared_ptr<NCASTNode> node, NCFrame & frame);
     bool visit(shared_ptr<NCASTNode> node, NCFrame & frame, bool * shouldReturn);  //recursive method
     bool visit(shared_ptr<NCASTNode> node, NCFrame & frame, bool * shouldReturn, bool * shouldBreak);
     
     void addFunction(shared_ptr<NCBuiltinFunction> & func){
-        m_builtinFunctionStore.addFunction(func);
+//        m_builtinFunctionStore.addFunction(func);
+        NCModuleCache::GetGlobalCache()->addSystemFunction(func);
     }
 };
 
