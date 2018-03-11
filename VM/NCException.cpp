@@ -24,6 +24,6 @@ NCRuntimeException::NCRuntimeException(int errorCode, const char*format, ...):er
     va_end (args);
     
     std::ostringstream stringStream;
-    stringStream<<"class:"<<buffer<<" not found!"<<endl;
+    stringStream<<buffer<<endl;
     std::string copyOfStr = stringStream.str();
 }

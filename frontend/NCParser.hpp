@@ -76,7 +76,7 @@ private:
     
     shared_ptr<NCBodyDeclaration> class_body_declaration();
     
-    shared_ptr<NCExpression> field_expression();
+    shared_ptr<NCExpression> field_expression(string & name);
     
     shared_ptr<NCConstructorDeclaration> constructor_definition();
     

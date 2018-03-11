@@ -176,7 +176,7 @@ shared_ptr<NCBodyDeclaration> NCParser::class_body_declaration(){
     auto funcDef = function_definition();
     if (funcDef) {
         auto methodDef = new NCMethodDeclaration();
-        methodDef->method = funcDef;
+        methodDef->method = static_pointer_cast<NCASTFunctionDefinition>(funcDef);
         return shared_ptr<NCMethodDeclaration>(methodDef);
     }
     
@@ -192,11 +192,12 @@ shared_ptr<NCBodyDeclaration> NCParser::class_body_declaration(){
 //
 ////    popIndex();
 //    POP_INDEX
-    
-    auto fieldExpr = field_expression();
+    string name;
+    auto fieldExpr = field_expression(name);
     if (fieldExpr) {
         auto field = new NCFieldDeclaration();
         field->declarator = fieldExpr;
+        field->name = name;
         return shared_ptr<NCFieldDeclaration>(field);
     }
     
@@ -205,7 +206,7 @@ shared_ptr<NCBodyDeclaration> NCParser::class_body_declaration(){
     return constructor_definition();
 }
 
-shared_ptr<NCExpression> NCParser::field_expression(){
+shared_ptr<NCExpression> NCParser::field_expression(string & name){
     if (!isIdentifier(word)) {
         return nullptr;
     }
@@ -222,9 +223,10 @@ shared_ptr<NCExpression> NCParser::field_expression(){
         return nullptr;
     }
     
-    auto fieldExpr = new NCAssignExpr(shared_ptr<NCNameExpression>(new NCNameExpression(fname)),"=",initExpr);
+//    auto fieldExpr = new NCAssignExpr(shared_ptr<NCNameExpression>(new NCNameExpression(fname)),"=",initExpr);
     
-    return shared_ptr<NCExpression> (fieldExpr);
+    
+    return shared_ptr<NCExpression> (initExpr);
 }
 
 shared_ptr<NCConstructorDeclaration> NCParser::constructor_definition(){
@@ -299,6 +301,14 @@ bool NCParser::parameterlist(vector<NCParameter> & parameters){
 }
 
 bool NCParser::parameter(NCParameter ** ppp){
+    if (peek(1) == ","||peek(1) == ")") {
+        if (isIdentifier(word)) {
+            //type is not specified
+            return new NCParameter(word);
+        }
+        return false;
+    }
+    
     string type = type_specifier();
     if (type.length() == 0) {
         return false;
@@ -699,23 +709,38 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
     }
     
     // name [call(args)]
-    if (!isIdentifier(word)) {
-        return nullptr;
+    if (isIdentifier(word)) {
+        string name = word;
+        word = nextWord();
+        
+        vector<shared_ptr<NCExpression>> args;
+        //    pushIndex();
+        PUSH_INDEX2
+        
+        if (!arguments_expression(args)) {
+            //        popIndex();
+            POP_INDEX2
+            return shared_ptr<NCExpression>(new NCNameExpression(name));
+        }
+        return shared_ptr<NCExpression>(new NCMethodCallExpr(args, name));
     }
     
-    string name = word;
-    word = nextWord();
-    
-    vector<shared_ptr<NCExpression>> args;
-//    pushIndex();
-    PUSH_INDEX2
-    
-    if (!arguments_expression(args)) {
-//        popIndex();
-        POP_INDEX2
-        return shared_ptr<NCExpression>(new NCNameExpression(name));
+    if (word == "^") {
+        //lambda
+        auto lambdaExpr = new NCLambdaExpression();
+        if (!parameterlist(lambdaExpr->parameters)) {
+            return nullptr;
+        }
+        auto blockSmt = block();
+        if (!blockSmt) {
+            return nullptr;
+        }
+        
+        lambdaExpr->blockStmt = blockSmt;
+        return shared_ptr<NCExpression>(lambdaExpr);
     }
-    return shared_ptr<NCExpression>(new NCMethodCallExpr(args, name));
+    
+    return nullptr;
 }
 
 bool NCParser::arguments_expression(vector<shared_ptr<NCExpression>> & args){

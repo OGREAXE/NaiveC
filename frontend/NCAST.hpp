@@ -204,7 +204,6 @@ public:
     NCStringLiteral(string & str):str(str){};
 };
 
-
 class NCStatement:public NCASTNode{
     
 };
@@ -338,12 +337,16 @@ class ContinueStatement:public NCStatement{
 //    AstNodePtr lnode;
 //};
 
-
+/*
+ type specification is not required
+ may drop support of type specification in the future, just like most script languages did
+ */
 class NCParameter{
 public:
     NCParameter(){}
     
     NCParameter(string type,string name):type(type), name(name){}
+    NCParameter(string name):type(""), name(name){}
     
     string type;
     string name;
@@ -392,6 +395,14 @@ public:
     AstNodePtr return_stat;
 };
 
+class NCLambdaExpression :public NCExpression{
+public:
+    shared_ptr<NCBlock> blockStmt;
+    
+    vector<NCParameter> parameters;
+    
+};
+
 /////////////////////////////////////////////////////////
 //
 //      class definition
@@ -405,11 +416,12 @@ class NCBodyDeclaration:public NCASTNode {
 class NCFieldDeclaration:public NCBodyDeclaration {
 public:
     shared_ptr<NCExpression> declarator;
+    string name;
 };
 
 class NCMethodDeclaration:public NCBodyDeclaration {
 public:
-    shared_ptr<NCASTNode> method;
+    shared_ptr<NCASTFunctionDefinition> method;
 };
 
 class NCConstructorDeclaration:public NCBodyDeclaration {
@@ -430,6 +442,10 @@ public:
     unordered_map<string, shared_ptr<NCBodyDeclaration>> methods;
 };
 
+class NCLambdaLiteral:public NCLiteral{
+public:
+    shared_ptr<NCASTFunctionDefinition> invoke;
+};
 
 class NCASTRoot:public NCASTNode {
 public:

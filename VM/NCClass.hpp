@@ -48,9 +48,12 @@ class NCNativeClass:public NCClass {
 private:
     shared_ptr<NCClassDeclaration> m_classDef;
     
+    //contains fields and their initial values
     unordered_map<string, shared_ptr<NCStackElement>> m_fieldMap;
+    
+    unordered_map<string, shared_ptr<NCMethodDeclaration>> m_methodMap;
 public:
-    NCNativeClass(shared_ptr<NCClassDeclaration> & classDef):NCClass(classDef->name),m_classDef(classDef){}
+    NCNativeClass(shared_ptr<NCClassDeclaration> & classDef);
     
     virtual shared_ptr<NCStackPointerElement> instantiate(vector<shared_ptr<NCStackElement>> &arguments);
     

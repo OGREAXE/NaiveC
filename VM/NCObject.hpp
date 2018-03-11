@@ -45,8 +45,10 @@ class NCInvocationDelegate{
  */
 class NCNativeObject : public NCObject{
 public:
+    unordered_map<string, shared_ptr<NCStackElement>> m_fieldMap;
+    
     shared_ptr<NCClassDeclaration> classDefinition;
-    shared_ptr<NCInvocationDelegate> invocationDelagate;
+//    shared_ptr<NCInvocationDelegate> invocationDelagate;
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
 };
 
