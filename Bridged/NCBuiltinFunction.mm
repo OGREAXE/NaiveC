@@ -21,3 +21,7 @@ bool NCBuiltinPrint::invoke(vector<shared_ptr<NCStackElement>> &arguments){
     
     return true;
 }
+
+bool NCBuiltinPrint::invoke(vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
+    return invoke(arguments);
+}

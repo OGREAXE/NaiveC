@@ -93,7 +93,7 @@ public:
             return cls;
         }
         
-        //get from other source;
+        //try loading;
         auto exCls = NCClassLoader::GetInstance()->loadClass(name);
         if(exCls){
             m_classMap[name] = exCls;

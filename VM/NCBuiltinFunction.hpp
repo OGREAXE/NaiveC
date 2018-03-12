@@ -32,7 +32,7 @@ class NCBuiltinPrint:public NCBuiltinFunction{
 public:
     NCBuiltinPrint();
     
-    virtual bool invoke(vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){return true;}
+    virtual bool invoke(vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
     virtual bool invoke(vector<shared_ptr<NCStackElement>> &arguments);
 };
 

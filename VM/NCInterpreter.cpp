@@ -535,6 +535,11 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         auto stackElement = NCStackElement::createStackElement(node);
         frame.stack.push_back(stackElement);
     }
+    else if(dynamic_pointer_cast<NCLambdaExpression>(currentNode)){
+        auto lambdaExpr = dynamic_pointer_cast<NCLambdaExpression>(currentNode);
+        auto pLambdaObj = new NCStackPointerElement(new NCLambdaObject(lambdaExpr));
+        frame.stack_push(shared_ptr<NCStackElement>(pLambdaObj));
+    }
     else if(dynamic_cast<ReturnStatement*>(currentNode.get())){
         auto node = dynamic_cast<ReturnStatement*>(currentNode.get());
         

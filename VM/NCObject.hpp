@@ -52,7 +52,15 @@ public:
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
 };
 
-///////
+
+/*
+ lambda object
+ */
+class NCLambdaObject: public NCObject{
+public:
+    NCLambdaObject(shared_ptr<NCLambdaExpression> &lambdaExpr):m_lambdaExpr(lambdaExpr){}
+    shared_ptr<NCLambdaExpression> m_lambdaExpr;
+};
 
 /**
  pointer to an object
