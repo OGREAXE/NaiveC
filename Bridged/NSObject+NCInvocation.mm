@@ -19,7 +19,14 @@
 #include "NCLog.hpp"
 #include "NCInterpreter.hpp"
 
-
+enum {
+    CTBlockDescriptionFlagsHasCopyDispose = (1 << 25),
+    CTBlockDescriptionFlagsHasCtor = (1 << 26), // helpers have C++ code
+    CTBlockDescriptionFlagsIsGlobal = (1 << 28),
+    CTBlockDescriptionFlagsHasStret = (1 << 29), // IFF BLOCK_HAS_SIGNATURE
+    CTBlockDescriptionFlagsHasSignature = (1 << 30)
+};
+typedef int CTBlockDescriptionFlags;
 
 struct __block_literal_1 {
     void *isa;
@@ -49,10 +56,19 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
     return 1;
 }
 
-static struct __block_descriptor_1 {
+struct __block_descriptor_1 {
     unsigned long int reserved;
     unsigned long int Block_size;
-} __block_descriptor_1 = { 0, sizeof(struct __block_literal_1)};
+    
+    // optional helper functions
+    void (*copy_helper)(void *dst, void *src);     // IFF (1<<25)
+    void (*dispose_helper)(void *src);             // IFF (1<<25)
+    // required ABI.2010.3.16
+    const char *signature;                         // IFF (1<<30)
+    
+}
+//__block_descriptor_1 = { 0, sizeof(struct __block_literal_1)}
+;
 
 @implementation NSObject (NCInvocation)
 
@@ -218,15 +234,42 @@ static struct __block_descriptor_1 {
             [invocation setArgument:&realObj atIndex:argPos];
         }
         else if (strcmp("@?", argumentType)==0){
-            auto block_literal_1 = new __block_literal_1;
-            block_literal_1->isa = _NSConcreteGlobalBlock;
-            block_literal_1->flags = (1<<28);
-            block_literal_1->invoke = (void*)(int (*) (__block_literal_1 *, ...) ) __block_invoke_1;
+            auto pointerContainer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
             
-            id str =@"hello world";
-            block_literal_1->stored_obj = (void*)CFBridgingRetain(str);
+            BOOL buildBlockSuccess = YES;
+            do{
+                if (!pointerContainer) {
+                    buildBlockSuccess = NO;
+                    break;
+                }
+                
+                auto lambaObj = dynamic_pointer_cast<NCLambdaObject>(pointerContainer->getPointedObject());
+                
+                if (!lambaObj) {
+                    buildBlockSuccess = NO;
+                    break;
+                }
+                
+                NCLambdaObject * lambdaObjectCopy = new NCLambdaObject(lambaObj->m_lambdaExpr);
+                
+                auto block_literal_1 = new __block_literal_1;
+                block_literal_1->isa = _NSConcreteGlobalBlock;
+                block_literal_1->flags = (1<<28);
+                block_literal_1->invoke = (void*)(int (*) (__block_literal_1 *, ...) ) __block_invoke_1;
+                
+//                id str =@"hello world";
+//                block_literal_1->stored_obj = (void*)CFBridgingRetain(str);
+                
+                block_literal_1->stored_obj = (void*)lambdaObjectCopy;
+                
+                [invocation setArgument:&block_literal_1 atIndex:argPos];
+            }
+            while (0);
             
-            [invocation setArgument:&block_literal_1 atIndex:argPos];
+            if (!buildBlockSuccess) {
+                id argnil = NULL;
+                [invocation setArgument:&argnil atIndex:argPos];
+            }
         }
         else {
             id argnil = NULL;
