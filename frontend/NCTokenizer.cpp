@@ -219,6 +219,13 @@ bool NCTokenizer::tokenize(string&str){
             token = ":";
             status = Unknown;
         }
+        else if(c == '^'){
+            if (token.length()>0) {
+                addToken(tokens, token, i);
+            }
+            token = "^";
+            status = Unknown;
+        }
         
         if (i == str.length()-1) {
             addToken(tokens, token, i);

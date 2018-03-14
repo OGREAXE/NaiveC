@@ -19,6 +19,10 @@
 #include "NCLog.hpp"
 #include "NCInterpreter.hpp"
 
+static NCInterpreter *g_interpretor = new NCInterpreter();
+
+#define COMP_ENCODE(type, type2) (strcmp(type,@encode(type2)) == 0)
+
 enum {
     CTBlockDescriptionFlagsHasCopyDispose = (1 << 25),
     CTBlockDescriptionFlagsHasCtor = (1 << 26), // helpers have C++ code
@@ -27,34 +31,6 @@ enum {
     CTBlockDescriptionFlagsHasSignature = (1 << 30)
 };
 typedef int CTBlockDescriptionFlags;
-
-struct __block_literal_1 {
-    void *isa;
-    int flags;
-    int reserved;
-    //int (*invoke)(struct __block_literal_1 *, ...);
-    void *invoke;
-    struct __block_descriptor_1 *descriptor;
-    void * stored_obj;
-};
-
-int __block_invoke_1(struct __block_literal_1 *_block, ...) {
-    
-    NSString * stored = (__bridge NSString*)(_block->stored_obj);
-    NSLog(@"stored:%@",stored);
-    
-    va_list vl;
-    
-    va_start(vl,_block);
-    for (int i=0;i<1;i++)
-    {
-        int val=va_arg(vl,int);
-        printf (" val is %d",val);
-    }
-    va_end(vl);
-    //    printf("block is invoked, but nothing happened, because it's just an empty implementation\n");
-    return 1;
-}
 
 struct __block_descriptor_1 {
     unsigned long int reserved;
@@ -69,6 +45,158 @@ struct __block_descriptor_1 {
 }
 //__block_descriptor_1 = { 0, sizeof(struct __block_literal_1)}
 ;
+
+struct __block_descriptor_2 {
+    unsigned long int reserved;
+    unsigned long int Block_size;
+    
+    // required ABI.2010.3.16
+    const char *signature;                         // IFF (1<<30)
+};
+
+struct __block_literal_1 {
+    void *isa;
+    int flags;
+    int reserved;
+    int (*invoke)(struct __block_literal_1 *, ...);
+//    void *invoke;
+    struct __block_descriptor_1 *descriptor;
+    void * stored_obj;
+};
+
+struct __block_descriptor_1 _descriptor = { 0, sizeof(struct __block_literal_1)};
+
+int __block_invoke_1(struct __block_literal_1 *_block, ...) {
+//    if (!(CTBlockDescriptionFlagsHasSignature & _block->flags)) {
+//        //block doesn't have signature, which means we don't know how to assemble arguments.
+//        return 0;
+//    }
+//
+//    const char *_sig = NULL;
+//
+//    if(CTBlockDescriptionFlagsHasCopyDispose & _block->flags){
+//        _sig = ((__block_descriptor_1 *)_block->descriptor)->signature;
+//    }
+//    else {
+//        _sig = ((__block_descriptor_2 *)_block->descriptor)->signature;
+//    }
+//
+//    NSMethodSignature * signature = [NSMethodSignature signatureWithObjCTypes:_sig];
+    
+    NCLambdaObject * lambdaObj = (NCLambdaObject*)(_block->stored_obj);
+    auto lambdaExpr = lambdaObj->m_lambdaExpr;
+    
+    vector<shared_ptr<NCStackElement>> argmuments;
+    
+    va_list vl;
+    va_start(vl,_block);
+//    for (int i=0; i<[signature numberOfArguments]; i++) {
+//        const char * argumentType = [signature getArgumentTypeAtIndex:i];
+    
+    for (int i=0; i<lambdaExpr->parameters.size(); i++) {
+        auto argumentType = lambdaExpr->parameters[i].type;
+    
+#define COMP_TYPE(t0, t1) (t0=="t1")
+        if(COMP_TYPE(argumentType, NSInteger)){
+            int val=va_arg(vl,int);
+            argmuments.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement(val)));
+        }
+        else if(COMP_TYPE(argumentType, NSUInteger)){
+            int val=va_arg(vl,int);
+            argmuments.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement(val)));
+        }
+        else if(COMP_TYPE(argumentType, int)){
+            int val=va_arg(vl,int);
+            argmuments.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement(val)));
+        }
+        else if(COMP_TYPE(argumentType, unsigned int)){
+            unsigned int val=va_arg(vl,unsigned int);
+            argmuments.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement(val)));
+        }
+        else if(COMP_TYPE(argumentType, long)){
+            long val=va_arg(vl,long);
+            argmuments.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement(val)));
+        }
+        else if(COMP_TYPE(argumentType, unsigned long)){
+            unsigned long val=va_arg(vl,unsigned long);
+            argmuments.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement(val)));
+        }
+        else if(COMP_TYPE(argumentType, long long)){
+            long long val=va_arg(vl,long long);
+            argmuments.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement(val)));
+        }
+        else if(COMP_TYPE(argumentType, unsigned long long)){
+            unsigned long long val=va_arg(vl,unsigned long long);
+            argmuments.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement(val)));
+        }
+        else if(COMP_TYPE(argumentType, float)){
+            float val=va_arg(vl,float);
+            argmuments.push_back(shared_ptr<NCStackFloatElement>(new NCStackFloatElement(val)));
+        }
+        else if(COMP_TYPE(argumentType, double)){
+            double val=va_arg(vl,double);
+            argmuments.push_back(shared_ptr<NCStackFloatElement>(new NCStackFloatElement(val)));
+        }
+        else if(COMP_TYPE(argumentType, BOOL)||COMP_TYPE(argumentType, bool)){
+            BOOL val=va_arg(vl,BOOL);
+            argmuments.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement(val)));
+        }
+        else if(COMP_TYPE(argumentType, CGRect)){
+            CGRect val=va_arg(vl,CGRect);
+            auto rc = new NCRect(val.origin.x,val.origin.y,val.size.width,val.size.height);
+            
+            argmuments.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(rc)));
+        }
+        else if(COMP_TYPE(argumentType, CGSize)){
+            CGSize val=va_arg(vl,CGSize);
+            auto size = new NCSize(val.width,val.height);
+            
+            argmuments.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(size)));
+        }
+        else if(COMP_TYPE(argumentType, CGPoint)){
+            CGPoint val=va_arg(vl,CGPoint);
+            auto point = new NCPoint(val.x,val.y);
+            
+            argmuments.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(point)));
+        }
+        else if(COMP_TYPE(argumentType, id)){
+            //nsobject
+            id val=va_arg(vl,id);
+
+            NCCocoaBox * box = new NCCocoaBox((void*)CFBridgingRetain(val));
+            NCStackPointerElement * pBox = new NCStackPointerElement(shared_ptr<NCObject>( box));
+            argmuments.push_back(shared_ptr<NCStackElement>(pBox));
+        }
+//        else if (strcmp("@?", argumentType)==0){
+//            //block. not support yet
+//        }
+        else {
+            //none match
+        }
+    }
+    va_end(vl);
+    
+    NCFrame frame;
+    
+    for (int i=0; i<argmuments.size(); i++) {
+        auto para = lambdaExpr->parameters[i];
+        frame.insertVariable(para.name, argmuments[i]);
+    }
+    g_interpretor->visit(lambdaExpr->blockStmt, frame);
+    /*
+    va_list vl;
+    
+    va_start(vl,_block);
+    for (int i=0;i<1;i++)
+    {
+        int val=va_arg(vl,int);
+        printf (" val is %d",val);
+    }
+    va_end(vl);
+     */
+    
+    return 1;
+}
 
 @implementation NSObject (NCInvocation)
 
@@ -137,9 +265,6 @@ struct __block_descriptor_1 {
         
         int argPos = i+2;
         method_getArgumentType(method, argPos, argumentType, TYPE_BUFFER_SIZE);
-        
-//#define COMP_ENCODE(type, type2) (type[0] == (@encode(type2))[0] && type[1] == (@encode(type2))[1])
-#define COMP_ENCODE(type, type2) (strcmp(type,@encode(type2)) == 0)
         
         if(COMP_ENCODE(argumentType, int)){
             unsigned long long num = arguments[i]->toInt();
@@ -255,8 +380,10 @@ struct __block_descriptor_1 {
                 auto block_literal_1 = new __block_literal_1;
                 block_literal_1->isa = _NSConcreteGlobalBlock;
                 block_literal_1->flags = (1<<28);
-                block_literal_1->invoke = (void*)(int (*) (__block_literal_1 *, ...) ) __block_invoke_1;
+//                block_literal_1->invoke = (void*)(int (*) (__block_literal_1 *, ...) ) __block_invoke_1;
+                block_literal_1->invoke =  __block_invoke_1;
                 
+                block_literal_1->descriptor = &_descriptor;
 //                id str =@"hello world";
 //                block_literal_1->stored_obj = (void*)CFBridgingRetain(str);
                 
