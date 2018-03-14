@@ -221,8 +221,11 @@ bool NCTokenizer::tokenize(string&str){
         }
         
         if (i == str.length()-1) {
-            addToken(tokens, token, i);
-            addToken(tokens, token, i);
+            if (token.length() > 0) {
+                addToken(tokens, token, i);
+            }
+#define NC_EOF ""
+            addToken(tokens, NC_EOF, i);
         }
     }
     
