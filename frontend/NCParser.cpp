@@ -32,6 +32,7 @@ static unordered_set<string> keywords =
     "{","}","(",")","[","]",
     //comma
     ",",
+    "^",
     //statement
     "if","else",
     "while","for",
@@ -89,7 +90,7 @@ bool NCParser::parse(shared_ptr<const vector<NCToken>>& tokens){
     printf("parse %lu functions\n", pRoot->functionList.size());
     
     if (pRoot->functionList.size() == 0) {
-        NCLog(NCLogTypeParser, "no function definition found");
+        NCLog(NCLogTypeParser, "parse fail");
     }
     
     return true;
@@ -309,7 +310,9 @@ bool NCParser::parameter(NCParameter ** ppp){
     if (peek(1) == ","||peek(1) == ")") {
         if (isIdentifier(word)) {
             //type is not specified
-            return new NCParameter(word);
+            *ppp = new NCParameter(word);
+            word = nextWord();
+            return true;
         }
         return false;
     }
@@ -733,9 +736,21 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
     if (word == "^") {
         //lambda
         auto lambdaExpr = new NCLambdaExpression();
+        word = nextWord();
+        
+        if (word!= "(") {
+            return nullptr;
+        }
+        word = nextWord();
+        
         if (!parameterlist(lambdaExpr->parameters)) {
             return nullptr;
         }
+        if (word!= ")") {
+            return nullptr;
+        }
+        word = nextWord();
+        
         auto blockSmt = block();
         if (!blockSmt) {
             return nullptr;
