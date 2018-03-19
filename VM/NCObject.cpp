@@ -25,7 +25,7 @@ shared_ptr<NCStackElement> NCStackPointerElement::doOperator(const string&op, sh
     return rightOperand;
 }
 
-int NCStackPointerElement::toInt(){
+NCInt NCStackPointerElement::toInt(){
     return 0;
 }
 NCFloat NCStackPointerElement::toFloat(){

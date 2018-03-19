@@ -98,15 +98,15 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
     
 #define COMP_TYPE(t0, t1) (t0=="t1")
         if(COMP_TYPE(argumentType, NSInteger)){
-            int val=va_arg(vl,int);
+            NCInt val=va_arg(vl,NSInteger);
             argmuments.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement(val)));
         }
         else if(COMP_TYPE(argumentType, NSUInteger)){
-            int val=va_arg(vl,int);
+            NCInt val=va_arg(vl,NSUInteger);
             argmuments.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement(val)));
         }
         else if(COMP_TYPE(argumentType, int)){
-            int val=va_arg(vl,int);
+            NCInt val=va_arg(vl,int);
             argmuments.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement(val)));
         }
         else if(COMP_TYPE(argumentType, unsigned int)){
