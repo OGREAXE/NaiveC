@@ -19,8 +19,11 @@ private:
     std::unordered_map<string, shared_ptr<NCBuiltinFunction>> m_builtinFunctionMap;
 public:
     NCBuiltinFunctionStore(){
-        auto printFunction = shared_ptr<NCBuiltinFunction>(new NCBuiltinPrint());
-        addFunction(printFunction);
+        auto fPrintObj = shared_ptr<NCBuiltinFunction>(new NCBuiltinPrint());
+        addFunction(fPrintObj);
+        
+        auto fGetObj = shared_ptr<NCBuiltinFunction>(new NCBuiltinGetObject());
+        addFunction(fGetObj);
     }
     
     bool addFunction(shared_ptr<NCBuiltinFunction> & func){

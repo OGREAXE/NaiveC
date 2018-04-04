@@ -36,4 +36,12 @@ public:
     virtual bool invoke(vector<shared_ptr<NCStackElement>> &arguments);
 };
 
+class NCBuiltinGetObject:public NCBuiltinFunction{
+public:
+    NCBuiltinGetObject();
+    
+    virtual bool invoke(vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+    virtual bool invoke(vector<shared_ptr<NCStackElement>> &arguments);
+};
+
 #endif /* NCBuiltinFunction_hpp */
