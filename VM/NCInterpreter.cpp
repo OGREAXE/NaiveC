@@ -748,6 +748,10 @@ int NCInterpreter::stackPopInt(NCFrame & frame){
     do{
         auto pStackTop = (frame.stack.back()).get();
         
+        if (!pStackTop) {
+            break;
+        }
+        
         auto intElement = dynamic_cast<NCStackIntElement*>(pStackTop);
         
         if(intElement){

@@ -124,6 +124,8 @@ public:
     virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
     
     virtual void setAttribute(const string & attrName, shared_ptr<NCStackElement> value);
+    
+    virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
 };
 
 #endif /* NCStackElement_hpp */

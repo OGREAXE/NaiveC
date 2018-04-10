@@ -271,3 +271,7 @@ void NCFieldAccessor::setAttribute(const string & attrName, shared_ptr<NCStackEl
     val->setAttribute(attrName, value);
     
 }
+
+shared_ptr<NCStackElement> NCFieldAccessor::doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){
+    return this->value()->doOperator(op, rightOperand);
+}
