@@ -98,7 +98,7 @@ shared_ptr<NCStackElement> NCArrayAccessor::doOperator(const string&op, shared_p
     return this->value()->doOperator(op, rightOperand);
 }
 
-int NCArrayAccessor::toInt(){
+NCInt NCArrayAccessor::toInt(){
     return this->value()->toInt();
 }
 NCFloat NCArrayAccessor::toFloat(){

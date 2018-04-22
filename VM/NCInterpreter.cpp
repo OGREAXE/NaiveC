@@ -35,6 +35,9 @@ void NCFrame::insertVariable(string&name, NCStackPointerElement & pObject){
 }
 
 shared_ptr<NCStackElement> NCFrame::stack_pop(){
+    if(stack_empty()){
+        return nullptr;
+    }
     auto stackTop = this->stack.back();
     this->stack.pop_back();
     return stackTop;
@@ -433,6 +436,9 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
                 auto nameExpr = dynamic_pointer_cast<NCNameExpression>(primary);
                 visit(node->value,frame);
                 auto value = frame.stack_pop();
+                if (!value) {
+                    return false;
+                }
                 if (dynamic_pointer_cast<NCAccessor>(value)) {
                     auto accessor = dynamic_pointer_cast<NCAccessor>(value);
                     frame.insertVariable(nameExpr->name, accessor->value());
@@ -759,6 +765,10 @@ int NCInterpreter::stackPopInt(NCFrame & frame){
     
     do{
         auto pStackTop = (frame.stack.back()).get();
+        
+        if (!pStackTop) {
+            break;
+        }
         
         auto intElement = dynamic_cast<NCStackIntElement*>(pStackTop);
         

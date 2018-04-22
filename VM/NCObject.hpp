@@ -99,7 +99,7 @@ public:
     shared_ptr<NCObject> getPointedObject(){return m_pObject;}
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
-    virtual int toInt();
+    virtual NCInt toInt();
     virtual NCFloat toFloat();
     virtual string toString();
     virtual shared_ptr<NCStackElement> copy();

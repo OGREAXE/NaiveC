@@ -63,9 +63,17 @@ using namespace std;
     
     auto tokens = _tokenizer->getTokens();
     
-    if(!_parser->parse(tokens)){
-        NSLog(@"parse fail");
-        return NO;
+    try{
+        if(!_parser->parse(tokens)){
+            NSLog(@"parse fail");
+            return NO;
+        }
+    }
+    catch (NCParseException & e) {
+        string errMsg = "";
+        errMsg += e.getErrorMessage();
+        
+        NCLog(NCLogTypeParser, errMsg.c_str());
     }
     
     return YES;
@@ -89,7 +97,7 @@ using namespace std;
 
 -(BOOL)run:(NSString*)sourceCode mode:(NCInterpretorMode)mode error:(NSError**)error{
     if (mode == NCInterpretorModeCommandLine) {
-        NSString * completedSource = [NSString stringWithFormat:@"void main(){%@}",sourceCode];
+        NSString * completedSource = [NSString stringWithFormat:@"void main(){%@\n}",sourceCode];
         return [self run:completedSource error:error];
     }
     else {

@@ -28,7 +28,7 @@ T doOperatorPrimitive(T left, T right, const string&op){
 }
 
 template <>
-int doOperatorPrimitive(int left, int right, const string&op){
+NCInt doOperatorPrimitive(NCInt left, NCInt right, const string&op){
     if (op == "+") {
         return left + right;
     }
@@ -53,7 +53,7 @@ int doOperatorPrimitive(int left, int right, const string&op){
 }
 
 template <class T>
-int doRelationalOperator(T left, T right, const string&op){
+NCInt doRelationalOperator(T left, T right, const string&op){
     if (op == "||") {
         return left || right;
     }
@@ -102,12 +102,12 @@ shared_ptr<NCStackElement> NCStackElement::createStackElement(NCLiteral* literal
 
 shared_ptr<NCStackElement> NCStackIntElement::doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){
     if (op == "+"||op == "-"||op == "*"||op == "/"||op == "%"||op == "|"||op == "&") {
-        int result = doOperatorPrimitive(this->value, rightOperand->toInt(), op);
+        NCInt result = doOperatorPrimitive(this->value, rightOperand->toInt(), op);
         return shared_ptr<NCStackElement>(new NCStackIntElement(result));
         
     }
     else if (op == "&&"||op == "||"||op == ">"||op == "<"||op == ">="||op == "<="||op == "!="||op == "==") {
-        int result = doRelationalOperator(this->value, rightOperand->toInt(),op);
+        NCInt result = doRelationalOperator(this->value, rightOperand->toInt(),op);
         return shared_ptr<NCStackElement>(new NCStackIntElement(result));
     }
     return nullptr;
@@ -115,12 +115,12 @@ shared_ptr<NCStackElement> NCStackIntElement::doOperator(const string&op, shared
 
 shared_ptr<NCStackElement> NCStackFloatElement::doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){
     if (op == "+"||op == "-"||op == "*"||op == "/"||op == "%") {
-        int result = doOperatorPrimitive(this->value, rightOperand->toFloat(), op);
+        NCInt result = doOperatorPrimitive(this->value, rightOperand->toFloat(), op);
         return shared_ptr<NCStackElement>(new NCStackIntElement(result));
         
     }
     else if (op == "&&"||op == "||"||op == ">"||op == "<"||op == ">="||op == "<="||op == "!="||op == "==") {
-        int result = doRelationalOperator(this->value, rightOperand->toFloat(),op);
+        NCInt result = doRelationalOperator(this->value, rightOperand->toFloat(),op);
         return shared_ptr<NCStackElement>(new NCStackIntElement(result));
     }
     return nullptr;
@@ -148,7 +148,7 @@ shared_ptr<NCStackElement> NCStackStringElement::doOperator(const string&op, sha
     return shared_ptr<NCStackElement>(new NCStackIntElement(1));
 }
 
-int NCStackIntElement::toInt(){
+NCInt NCStackIntElement::toInt(){
     return this->value;
 }
 NCFloat NCStackIntElement::toFloat(){
@@ -158,7 +158,7 @@ string NCStackIntElement::toString(){
     return to_string(this->value);
 }
 
-int NCStackFloatElement::toInt(){
+NCInt NCStackFloatElement::toInt(){
     return this->value;
 }
 NCFloat NCStackFloatElement::toFloat(){
@@ -168,7 +168,7 @@ string NCStackFloatElement::toString(){
     return to_string(this->value);
 }
 
-int NCStackStringElement::toInt(){
+NCInt NCStackStringElement::toInt(){
     return stoi(this->value);
 }
 NCFloat NCStackStringElement::toFloat(){
@@ -221,7 +221,7 @@ shared_ptr<NCStackElement> NCStackStringElement::copy(){
 shared_ptr<NCStackElement> NCStackVariableElement::doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){
     return valueElement->doOperator(op, rightOperand);
 }
-int NCStackVariableElement::toInt(){
+NCInt NCStackVariableElement::toInt(){
     return valueElement->toInt();
 }
 NCFloat NCStackVariableElement::toFloat(){
@@ -270,4 +270,8 @@ void NCFieldAccessor::setAttribute(const string & attrName, shared_ptr<NCStackEl
     auto val = this->value();
     val->setAttribute(attrName, value);
     
+}
+
+shared_ptr<NCStackElement> NCFieldAccessor::doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){
+    return this->value()->doOperator(op, rightOperand);
 }

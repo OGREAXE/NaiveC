@@ -10,6 +10,7 @@
 #include <functional>
 #include <sstream>
 #include <unordered_set>
+#include "NCException.hpp"
 
 #include "NCLog.hpp"
 
@@ -96,7 +97,11 @@ bool NCParser::parse(shared_ptr<const vector<NCToken>>& tokens){
 }
 
 string NCParser::nextWord(){
-     return (*tokens)[++index].token;
+    index ++;
+    if (index >= tokens->size()) {
+        throw NCParseException(0,"parse fail:tokens exceeded");
+    }
+    return (*tokens)[index].token;
 }
 
 string NCParser::priviousWord(){

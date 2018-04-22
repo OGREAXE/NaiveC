@@ -46,7 +46,7 @@ public:
     NCArrayAccessor(shared_ptr<NCBracketAccessible>  accessible, shared_ptr<NCStackElement> key):m_accessible(accessible),m_key(key){}
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
-    virtual int toInt();
+    virtual NCInt toInt();
     virtual NCFloat toFloat();
     virtual string toString();
     virtual shared_ptr<NCStackElement> copy();

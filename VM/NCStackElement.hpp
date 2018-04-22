@@ -19,7 +19,7 @@ struct NCStackElement{
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){return nullptr;};
     
-    virtual int toInt(){return 0;};
+    virtual NCInt toInt(){return 0;};
     virtual NCFloat toFloat(){return 0;};
     virtual string toString(){return "";};
     
@@ -37,11 +37,11 @@ struct NCStackElement{
 
 struct NCStackIntElement:NCStackElement{
     
-    NCStackIntElement(int val):value(val){type="int";}
-    int value;
+    NCStackIntElement(NCInt val):value(val){type="int";}
+    NCInt value;
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
-    virtual int toInt();
+    virtual NCInt toInt();
     virtual NCFloat toFloat();
     virtual string toString();
     virtual shared_ptr<NCStackElement> copy();
@@ -52,7 +52,7 @@ struct NCStackFloatElement:NCStackElement{
     NCFloat value;
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
-    virtual int toInt();
+    virtual NCInt toInt();
     virtual NCFloat toFloat();
     virtual string toString();
     virtual shared_ptr<NCStackElement> copy();
@@ -63,7 +63,7 @@ struct NCStackStringElement:NCStackElement{
     string value;
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
-    virtual int toInt();
+    virtual NCInt toInt();
     virtual NCFloat toFloat();
     virtual string toString();
     virtual shared_ptr<NCStackElement> copy();
@@ -80,7 +80,7 @@ struct NCStackVariableElement:NCStackElement{
     
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
-    virtual int toInt();
+    virtual NCInt toInt();
     virtual NCFloat toFloat();
     virtual string toString();
     virtual shared_ptr<NCStackElement> copy();
@@ -124,6 +124,8 @@ public:
     virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
     
     virtual void setAttribute(const string & attrName, shared_ptr<NCStackElement> value);
+    
+    virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
 };
 
 #endif /* NCStackElement_hpp */
