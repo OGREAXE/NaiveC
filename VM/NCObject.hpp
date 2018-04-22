@@ -31,6 +31,8 @@ public:
     virtual void setAttribute(const string & attrName, shared_ptr<NCStackElement> value){}
     
     virtual string getDescription(){return "NCObject";}
+    
+    virtual NCObject* copy(){return nullptr;}
 };
 
 /**
@@ -77,6 +79,8 @@ public:
     void addCapture(NCCapturedObject & capturedObj){
         m_capturedObjects.push_back(capturedObj);
     }
+    
+    virtual NCObject* copy();
 };
 
 /**

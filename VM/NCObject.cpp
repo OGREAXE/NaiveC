@@ -85,3 +85,17 @@ bool NCStackPointerElement::invokeMethod(string methodName, vector<shared_ptr<NC
 //    bool result = NCClassLoader::GetInstance()->invokeStaticMethodOnClass(className, methodName, arguments, lastStack);
 //    return result;
 //}
+
+NCObject* NCLambdaObject::copy(){
+    auto copy = new NCLambdaObject(m_lambdaExpr);
+    
+    for (auto c : m_capturedObjects) {
+        NCCapturedObject capture;
+        capture.signature = 0;
+        capture.name = c.name;
+        capture.object = c.object;
+        
+        copy->addCapture(capture);
+    }
+    return copy;
+}

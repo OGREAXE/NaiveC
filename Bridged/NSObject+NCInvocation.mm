@@ -381,7 +381,8 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
                     break;
                 }
                 
-                NCLambdaObject * lambdaObjectCopy = new NCLambdaObject(lambaObj->getLambdaExpression());
+//                NCLambdaObject * lambdaObjectCopy = new NCLambdaObject(lambaObj->getLambdaExpression());
+                auto lambdaObjectCopy = lambaObj->copy();
                 
                 auto block_literal_1 = new __block_literal_1;
                 block_literal_1->isa = _NSConcreteGlobalBlock;
