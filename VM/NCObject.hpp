@@ -52,14 +52,31 @@ public:
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
 };
 
-
+/**
+ helper objects for lambda capture
+ */
+struct NCCapturedObject{
+    int signature;
+    string name;
+    shared_ptr<NCStackElement> object;
+};
 /*
  lambda object
  */
 class NCLambdaObject: public NCObject{
+private:
+    vector<NCCapturedObject> m_capturedObjects;
+    shared_ptr<NCLambdaExpression> m_lambdaExpr;
 public:
     NCLambdaObject(shared_ptr<NCLambdaExpression> &lambdaExpr):m_lambdaExpr(lambdaExpr){}
-    shared_ptr<NCLambdaExpression> m_lambdaExpr;
+    
+    shared_ptr<NCLambdaExpression> & getLambdaExpression(){return m_lambdaExpr;}
+    
+    vector<NCCapturedObject> & getCapturedObjects(){return m_capturedObjects;}
+    
+    void addCapture(NCCapturedObject & capturedObj){
+        m_capturedObjects.push_back(capturedObj);
+    }
 };
 
 /**

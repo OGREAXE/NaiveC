@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4439E4E2089EB1F005EE65B /* NCHeapMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4439E4C2089EB1F005EE65B /* NCHeapMemory.cpp */; };
+		D4439E4F2089EB1F005EE65B /* NCHeapMemory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D4439E4D2089EB1F005EE65B /* NCHeapMemory.hpp */; };
 		D44B8FFD204FD6610091B94C /* NCModuleCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44B8FFB204FD6610091B94C /* NCModuleCache.cpp */; };
 		D44B8FFE204FD6610091B94C /* NCModuleCache.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D44B8FFC204FD6610091B94C /* NCModuleCache.hpp */; };
 		D4892EE320450A520052267E /* NCBuiltinFunctionStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4892EE120450A520052267E /* NCBuiltinFunctionStore.cpp */; };
@@ -74,6 +76,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D4439E4C2089EB1F005EE65B /* NCHeapMemory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NCHeapMemory.cpp; sourceTree = "<group>"; };
+		D4439E4D2089EB1F005EE65B /* NCHeapMemory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCHeapMemory.hpp; sourceTree = "<group>"; };
 		D44B8FFB204FD6610091B94C /* NCModuleCache.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NCModuleCache.cpp; sourceTree = "<group>"; };
 		D44B8FFC204FD6610091B94C /* NCModuleCache.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCModuleCache.hpp; sourceTree = "<group>"; };
 		D4716E681FF26F24000797B1 /* CodeTest */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CodeTest; sourceTree = "<group>"; };
@@ -291,6 +295,8 @@
 				D496C70E204AFFE500B6A041 /* NCException.hpp */,
 				D44B8FFB204FD6610091B94C /* NCModuleCache.cpp */,
 				D44B8FFC204FD6610091B94C /* NCModuleCache.hpp */,
+				D4439E4C2089EB1F005EE65B /* NCHeapMemory.cpp */,
+				D4439E4D2089EB1F005EE65B /* NCHeapMemory.hpp */,
 			);
 			path = VM;
 			sourceTree = "<group>";
@@ -302,6 +308,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4439E4F2089EB1F005EE65B /* NCHeapMemory.hpp in Headers */,
 				D4E06E6A2037015D0095F442 /* NaiveC.h in Headers */,
 				D4E06F21203972F90095F442 /* NCStandardClass.hpp in Headers */,
 				D4E06F1920396FD10095F442 /* NCStandardLibraryProvider.hpp in Headers */,
@@ -450,6 +457,7 @@
 				D4E06EEB20371D910095F442 /* NCParser.cpp in Sources */,
 				D4E06F2420397AAB0095F442 /* NCCocoaClass.mm in Sources */,
 				D4892EE320450A520052267E /* NCBuiltinFunctionStore.cpp in Sources */,
+				D4439E4E2089EB1F005EE65B /* NCHeapMemory.cpp in Sources */,
 				D4E06EEC20371D910095F442 /* NCParser.hpp in Sources */,
 				D496C757204D2CB900B6A041 /* NCSourceFinder.mm in Sources */,
 				D4E06F20203972F90095F442 /* NCStandardClass.cpp in Sources */,

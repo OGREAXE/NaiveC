@@ -723,6 +723,9 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
         if (!arguments_expression(args)) {
             //        popIndex();
             POP_INDEX2
+            if (lambdaFlag) {
+                lambdaCapturedSymbols.push_back(name);
+            }
             return shared_ptr<NCExpression>(new NCNameExpression(name));
         }
         return shared_ptr<NCExpression>(new NCMethodCallExpr(args, name));
@@ -733,24 +736,28 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
         auto lambdaExpr = new NCLambdaExpression();
         word = nextWord();
         
-        if (word!= "(") {
-            return nullptr;
+        if (word == "(") {
+            word = nextWord();
+            
+            if (!parameterlist(lambdaExpr->parameters)) {
+                return nullptr;
+            }
+            if (word!= ")") {
+                return nullptr;
+            }
+            word = nextWord();
         }
-        word = nextWord();
         
-        if (!parameterlist(lambdaExpr->parameters)) {
-            return nullptr;
-        }
-        if (word!= ")") {
-            return nullptr;
-        }
-        word = nextWord();
-        
+        lambdaFlag = true;
+        lambdaCapturedSymbols.clear();
         auto blockSmt = block();
         if (!blockSmt) {
+            lambdaFlag = false;
             return nullptr;
         }
+        lambdaFlag = false;
         
+        lambdaExpr->capturedSymbols = lambdaCapturedSymbols;
         lambdaExpr->blockStmt = blockSmt;
         return shared_ptr<NCExpression>(lambdaExpr);
     }

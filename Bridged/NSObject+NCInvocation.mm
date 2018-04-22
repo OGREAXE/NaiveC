@@ -84,7 +84,7 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
 //    NSMethodSignature * signature = [NSMethodSignature signatureWithObjCTypes:_sig];
     
     NCLambdaObject * lambdaObj = (NCLambdaObject*)(_block->stored_obj);
-    auto lambdaExpr = lambdaObj->m_lambdaExpr;
+    auto lambdaExpr = lambdaObj->getLambdaExpression();
     
     vector<shared_ptr<NCStackElement>> argmuments;
     
@@ -182,6 +182,12 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
         auto para = lambdaExpr->parameters[i];
         frame.insertVariable(para.name, argmuments[i]);
     }
+    //insert captured objects
+    auto capturedObjs = lambdaObj->getCapturedObjects();
+    for (auto & captured : capturedObjs) {
+        frame.insertVariable(captured.name, captured.object);
+    }
+    
     g_interpretor->visit(lambdaExpr->blockStmt, frame);
     /*
     va_list vl;
@@ -375,15 +381,15 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
                     break;
                 }
                 
-                NCLambdaObject * lambdaObjectCopy = new NCLambdaObject(lambaObj->m_lambdaExpr);
+                NCLambdaObject * lambdaObjectCopy = new NCLambdaObject(lambaObj->getLambdaExpression());
                 
                 auto block_literal_1 = new __block_literal_1;
                 block_literal_1->isa = _NSConcreteGlobalBlock;
-                block_literal_1->flags = (1<<28);
+                block_literal_1->flags = CTBlockDescriptionFlagsIsGlobal;
 //                block_literal_1->invoke = (void*)(int (*) (__block_literal_1 *, ...) ) __block_invoke_1;
                 block_literal_1->invoke =  __block_invoke_1;
                 
-                block_literal_1->descriptor = &_descriptor;
+//                block_literal_1->descriptor = &_descriptor;
 //                id str =@"hello world";
 //                block_literal_1->stored_obj = (void*)CFBridgingRetain(str);
                 

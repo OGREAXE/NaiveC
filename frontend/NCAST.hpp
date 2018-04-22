@@ -401,6 +401,7 @@ public:
     
     vector<NCParameter> parameters;
     
+    vector<string> capturedSymbols;
 };
 
 /////////////////////////////////////////////////////////

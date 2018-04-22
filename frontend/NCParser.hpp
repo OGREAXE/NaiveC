@@ -47,6 +47,9 @@ private:
     int index;
     string word;
     
+    bool lambdaFlag;  //indicate a lambda parse phrase start
+    vector<string> lambdaCapturedSymbols;
+    
     bool isIdentifier(string & word);
     
     shared_ptr<NCBinaryExpression> addRight(shared_ptr<NCExpression> binExpr, shared_ptr<NCExpression> right, string op);

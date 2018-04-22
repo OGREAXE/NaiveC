@@ -1,3 +1,4 @@
+
 //
 //  NCInterpreter.cpp
 //  NaiveC
@@ -12,6 +13,7 @@
 #include "NCArray.hpp"
 #include "NCLog.hpp"
 #include "NCException.hpp"
+#include "NCHeapMemory.hpp"
 
 void NCFrame::insertVariable(string&name, int value){
     localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackIntElement(value));
@@ -537,7 +539,23 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
     }
     else if(dynamic_pointer_cast<NCLambdaExpression>(currentNode)){
         auto lambdaExpr = dynamic_pointer_cast<NCLambdaExpression>(currentNode);
-        auto pLambdaObj = new NCStackPointerElement(new NCLambdaObject(lambdaExpr));
+        
+        auto &capturedSymbols = lambdaExpr->capturedSymbols;
+        
+        auto lambdaObj = new NCLambdaObject(lambdaExpr);
+        
+        for (auto & capturedSymbol : capturedSymbols) {
+            auto &localVar = frame.localVariableMap[capturedSymbol];
+            
+            NCCapturedObject capture;
+            capture.signature = 0;
+            capture.name = capturedSymbol;
+            capture.object = localVar;
+            
+            lambdaObj->addCapture(capture);
+        }
+        
+        auto pLambdaObj = new NCStackPointerElement(lambdaObj);
         frame.stack_push(shared_ptr<NCStackElement>(pLambdaObj));
     }
     else if(dynamic_cast<ReturnStatement*>(currentNode.get())){
