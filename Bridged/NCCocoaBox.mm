@@ -118,3 +118,7 @@ void NCCocoaBox::enumerate(std::function<bool (shared_ptr<NCStackElement> anObj)
         }];
     }
 }
+
+NCInt NCCocoaBox::toInt(){
+    return m_cocoaObject != NULL;
+}

@@ -45,6 +45,8 @@ public:
      @param anObj <#anObj description#>
      */
     virtual void enumerate(std::function<bool (shared_ptr<NCStackElement> anObj)> handler);
+    
+    virtual NCInt toInt();
 };
 
 #endif /* NCCocoaBox_hpp */

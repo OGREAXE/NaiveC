@@ -33,6 +33,8 @@ public:
     virtual string getDescription(){return "NCObject";}
     
     virtual NCObject* copy(){return nullptr;}
+    
+    virtual NCInt toInt(){return 0;}
 };
 
 /**
@@ -90,7 +92,7 @@ struct NCStackPointerElement:public NCStackElement{
 private:
     shared_ptr<NCObject>  m_pObject;
 public:
-    NCStackPointerElement(){type="pointer";}
+    NCStackPointerElement():m_pObject(NULL){type="pointer";}
     
     NCStackPointerElement(shared_ptr<NCObject> pObject):m_pObject(pObject){type="pointer";}
     

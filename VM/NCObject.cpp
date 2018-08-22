@@ -21,12 +21,20 @@ bool NCNativeObject::invokeMethod(string methodName, vector<shared_ptr<NCStackEl
 }
 
 shared_ptr<NCStackElement> NCStackPointerElement::doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){
-    
+    if (op == "==") {
+        if (rightOperand->type == "int") {
+            NCInt ret =( this->toInt() == rightOperand->toInt());
+            return shared_ptr<NCStackElement>(new NCStackIntElement(ret));
+        }
+    }
     return rightOperand;
 }
 
 NCInt NCStackPointerElement::toInt(){
-    return 0;
+    if( !m_pObject)return 0;
+    else {
+        return m_pObject->toInt();
+    }
 }
 NCFloat NCStackPointerElement::toFloat(){
     return 0;

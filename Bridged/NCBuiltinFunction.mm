@@ -151,6 +151,11 @@ UIView*queryViewDFS(UIView * p, NSString * type, const vector<shared_ptr<NCStack
 
 bool compareAttribute(NSObject * obj, const string & attrname, const shared_ptr<NCStackElement> & value){
     NSString * nsAtrr = [NSString stringWithUTF8String:attrname.c_str()];
+    
+    if (![obj respondsToSelector:NSSelectorFromString(nsAtrr)]) {
+        return false;
+    }
+    
     if (value->type == "string") {
         auto vstr = value->toString();
         NSString * value = [NSString stringWithUTF8String:vstr.c_str()];
@@ -161,13 +166,34 @@ bool compareAttribute(NSObject * obj, const string & attrname, const shared_ptr<
     }
     else if (value->type == "int") {
         int intv = value->toInt();
-        NSNumber * realValue = [obj performSelector:NSSelectorFromString(nsAtrr)];
-        if (realValue.intValue == intv) {
+        
+        SEL selector = NSSelectorFromString(nsAtrr);
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:
+                                    [[obj class] instanceMethodSignatureForSelector:selector]];
+        [invocation setSelector:selector];
+        [invocation setTarget:obj];
+        [invocation invoke];
+        int realValue;
+        [invocation getReturnValue:&realValue];
+        
+        if (realValue == intv) {
             return true;
         }
     }
     else if (value->type == "float") {
+        float fv = value->toFloat();
         
+        SEL selector = NSSelectorFromString(nsAtrr);
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:
+                                    [[obj class] instanceMethodSignatureForSelector:selector]];
+        [invocation setSelector:selector];
+        [invocation setTarget:obj];
+        [invocation invoke];
+        float realValue;
+        [invocation getReturnValue:&realValue];
+        if (realValue == fv) {
+            return true;
+        }
     }
     return false;
 }
