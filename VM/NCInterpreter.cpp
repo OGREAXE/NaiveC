@@ -243,12 +243,18 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         auto & condition = node->condition;
         visit(condition, frame);
         
-        auto stackTop = (frame.stack.back());
-        frame.stack.pop_back();
-        
-        if (stackTop->toInt()) {
-            auto & thenBlock = node->thenStatement;
-            visit(thenBlock, frame, shouldReturn,shouldBreak);
+        if (frame.stack.size() > 0) {
+            auto stackTop = (frame.stack.back());
+            frame.stack.pop_back();
+            
+            if (stackTop->toInt()) {
+                auto & thenBlock = node->thenStatement;
+                visit(thenBlock, frame, shouldReturn,shouldBreak);
+            }
+            else {
+                auto & elseBlock = node->elseStatement;
+                visit(elseBlock, frame,shouldReturn,shouldBreak);
+            }
         }
         else {
             auto & elseBlock = node->elseStatement;
@@ -629,13 +635,24 @@ bool NCInterpreter::tree_doStaticMehothodCall(NCFrame & frame,NCMethodCallExpr*n
             
             vector<shared_ptr<NCStackElement>> arguments;
             
-            for (int i = 0; i<parameters.size(); i++) {
+            for (int i = 0; i<node->args.size(); i++) {
+                if (i>=parameters.size()) {
+                    throw NCRuntimeException(0, "arguments exceed expected");
+                }
                 auto & parameter = parameters[i];
 
                 auto argExp = node->args[i];
                 visit(argExp, frame);
+                
+                if (frame.stack.size() == 0) {
+                    throw NCRuntimeException(0, "get argument fail");
+                }
 
-                if (parameter->type == "int") {
+                if (parameter->type == "original") {
+                    auto value = frame.stack_pop();
+                    arguments.push_back(value);
+                }
+                else if (parameter->type == "int") {
                     auto value = stackPopInt(frame);
                     auto argValue = new NCStackIntElement(value);
                     arguments.push_back(shared_ptr<NCStackElement>(argValue));

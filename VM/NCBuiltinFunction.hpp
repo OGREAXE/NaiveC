@@ -44,4 +44,12 @@ public:
     virtual bool invoke(vector<shared_ptr<NCStackElement>> &arguments);
 };
 
+class NCBuiltinQueryView:public NCBuiltinFunction{
+public:
+    NCBuiltinQueryView();
+    
+    virtual bool invoke(vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+    virtual bool invoke(vector<shared_ptr<NCStackElement>> &arguments);
+};
+
 #endif /* NCBuiltinFunction_hpp */

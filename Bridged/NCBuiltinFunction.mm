@@ -7,11 +7,17 @@
 //
 
 #include "NCBuiltinFunction.hpp"
-#import <UIKit/UIKit.h>
-
-#include <cstdlib>
+#include "NCException.hpp"
 #include "NCCocoaBox.hpp"
 
+#include <cstdlib>
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+/*
+ print
+ */
 NCBuiltinPrint::NCBuiltinPrint(){
     name = "print";
     parameters.push_back(shared_ptr<NCParameter>(new NCParameter("string","str")));
@@ -29,6 +35,9 @@ bool NCBuiltinPrint::invoke(vector<shared_ptr<NCStackElement>> &arguments,vector
     return invoke(arguments);
 }
 
+/*
+ get object
+ */
 NCBuiltinGetObject::NCBuiltinGetObject(){
     name = "getObject";
     parameters.push_back(shared_ptr<NCParameter>(new NCParameter("string","str")));
@@ -56,3 +65,118 @@ bool NCBuiltinGetObject::invoke(vector<shared_ptr<NCStackElement>> &arguments,ve
     
     return true;
 }
+
+/*
+ query view
+ */
+/*
+ get object
+ */
+NCBuiltinQueryView::NCBuiltinQueryView(){
+    name = "queryView";
+    parameters.push_back(shared_ptr<NCParameter>(new NCParameter("string","typename")));
+    parameters.push_back(shared_ptr<NCParameter>(new NCParameter("string","attribute")));
+    parameters.push_back(shared_ptr<NCParameter>(new NCParameter("original","value")));
+    parameters.push_back(shared_ptr<NCParameter>(new NCParameter("string","attribute2")));
+    parameters.push_back(shared_ptr<NCParameter>(new NCParameter("original","value2")));
+}
+
+bool NCBuiltinQueryView::invoke(vector<shared_ptr<NCStackElement>> &arguments){
+    
+    return true;
+}
+
+UIView * getRootView();
+
+UIView*queryViewDFS(UIView * p, NSString * type, const vector<shared_ptr<NCStackElement>> &arguments);
+
+bool NCBuiltinQueryView::invoke(vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
+    unsigned long argcount = arguments.size();
+    if (argcount != 1 && argcount != 3 && argcount != 5) {
+        throw NCRuntimeException(0, "query view request argument count 1, 3 or 5");
+    }
+   
+//    UIWindow * root = [[[UIApplication sharedApplication] delegate] window];
+    UIView * root = getRootView();
+    
+    auto argumentsCopy = arguments;
+    argumentsCopy.erase(argumentsCopy.begin());
+    NSString * type = [NSString stringWithUTF8String:arguments[0]->toString().c_str()];
+    
+    UIView * ret = queryViewDFS(root, type, argumentsCopy);
+    
+    NCCocoaBox * cbox = new NCCocoaBox((void*)CFBridgingRetain(ret));
+    lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(cbox))));
+    
+    return true;
+}
+
+bool compareAttribute(NSObject * obj, const string & attrname, const shared_ptr<NCStackElement> & value);
+
+UIView*queryViewDFS(UIView * p, NSString * type, const vector<shared_ptr<NCStackElement>> &arguments){
+    NSArray<UIView*> * subviws = p.subviews;
+    __block UIView * ret = nil;
+    [subviws enumerateObjectsUsingBlock:^(UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([NSStringFromClass(obj.class) isEqualToString:type]) {
+            if (arguments.size() == 0) {
+                ret = obj;
+                *stop = YES;
+            }
+            else if (arguments.size() == 2) {
+                bool match = compareAttribute(obj, arguments[0]->toString(), arguments[1]);
+                if (match) {
+                    ret = obj;
+                    *stop = YES;
+                }
+            }
+            else if (arguments.size() == 4) {
+                bool match = compareAttribute(obj, arguments[0]->toString(), arguments[1]) && compareAttribute(obj, arguments[2]->toString(), arguments[3]);
+                if (match) {
+                    ret = obj;
+                    *stop = YES;
+                }
+            }
+        }
+        
+        if (!ret) {
+            ret = queryViewDFS(obj, type, arguments);
+            if(ret){
+                *stop = YES;
+            }
+        }
+    }];
+
+    return ret;
+}
+
+bool compareAttribute(NSObject * obj, const string & attrname, const shared_ptr<NCStackElement> & value){
+    NSString * nsAtrr = [NSString stringWithUTF8String:attrname.c_str()];
+    if (value->type == "string") {
+        auto vstr = value->toString();
+        NSString * value = [NSString stringWithUTF8String:vstr.c_str()];
+        NSString * realValue = [obj performSelector:NSSelectorFromString(nsAtrr)];
+        if ([realValue isEqualToString:value]) {
+            return true;
+        }
+    }
+    else if (value->type == "int") {
+        int intv = value->toInt();
+        NSNumber * realValue = [obj performSelector:NSSelectorFromString(nsAtrr)];
+        if (realValue.intValue == intv) {
+            return true;
+        }
+    }
+    else if (value->type == "float") {
+        
+    }
+    return false;
+}
+
+UIView * getRootView(){
+    id appClass = NSClassFromString(@"UIApplication");
+    id sharedApp = [appClass performSelector:@selector(sharedApplication)];
+    id delegate = [sharedApp performSelector:@selector(delegate)];
+    return [(UIView*)delegate performSelector:@selector(window)];
+}
+
+

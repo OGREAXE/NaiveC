@@ -26,7 +26,8 @@ NCParseException::NCParseException(int errorCode, const char*format, ...):errorC
     
     std::ostringstream stringStream;
     stringStream<<buffer<<endl;
-    std::string copyOfStr = stringStream.str();
+//    std::string copyOfStr = stringStream.str();
+    errorMessage = stringStream.str();
 }
 
 NCRuntimeException::NCRuntimeException(int errorCode, const char*format, ...):errorCode(errorCode){
@@ -39,5 +40,6 @@ NCRuntimeException::NCRuntimeException(int errorCode, const char*format, ...):er
     
     std::ostringstream stringStream;
     stringStream<<buffer<<endl;
-    std::string copyOfStr = stringStream.str();
+//    std::string copyOfStr = stringStream.str();
+    errorMessage = stringStream.str();
 }
