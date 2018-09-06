@@ -263,13 +263,15 @@ string NCFieldAccessor::toString(){
 
 shared_ptr<NCStackElement> NCFieldAccessor::getAttribute(const string & attrName){
     auto val = value();
+    if (!val) {
+        return nullptr;
+    }
     return val->getAttribute(attrName);
 }
 
 void NCFieldAccessor::setAttribute(const string & attrName, shared_ptr<NCStackElement> value){
     auto val = this->value();
     val->setAttribute(attrName, value);
-    
 }
 
 shared_ptr<NCStackElement> NCFieldAccessor::doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){

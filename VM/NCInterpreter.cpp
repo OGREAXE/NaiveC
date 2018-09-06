@@ -470,7 +470,11 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         visit(node->expression, frame);
         
         int index = stackPopInt(frame);
-        auto obj = stackPopObjectPointer(frame)->getPointedObject();
+        auto pointer = stackPopObjectPointer(frame);
+        if (pointer == NULL) {
+            throw NCRuntimeException(0, "accessing null array");
+        }
+        auto obj = pointer->getPointedObject();
         if (dynamic_pointer_cast<NCBracketAccessible>(obj) ) {
             auto accessible = dynamic_pointer_cast<NCBracketAccessible>(obj);
             auto accessor = new NCArrayAccessor(accessible,shared_ptr<NCStackElement>( new NCStackIntElement(index)));
