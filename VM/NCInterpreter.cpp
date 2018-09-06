@@ -549,6 +549,26 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         auto stackElement = NCStackElement::createStackElement(node);
         frame.stack.push_back(stackElement);
     }
+    else if(dynamic_cast<NCUnaryExpression*>(currentNode.get())){
+        auto node = dynamic_cast<NCUnaryExpression*>(currentNode.get());
+        visit(node->expression, frame);
+        NCInt unaryResult = stackPopInt(frame);
+        if (node->op == "+") {
+            
+        }
+        else if (node->op == "-") {
+            frame.stack.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement(-unaryResult)));
+        }
+        else if (node->op == "!") {
+            if (unaryResult != 0) {
+                frame.stack.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement(0)));
+            }
+            else{
+                frame.stack.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement(1)));
+            }
+        }
+        
+    }
     else if(dynamic_pointer_cast<NCLambdaExpression>(currentNode)){
         auto lambdaExpr = dynamic_pointer_cast<NCLambdaExpression>(currentNode);
         
@@ -779,6 +799,10 @@ bool NCInterpreter::isStackTopString(NCFrame & frame){
 
 int NCInterpreter::stackPopInt(NCFrame & frame){
     int ret = 0;
+    
+    if (frame.stack.size() <= 0) {
+        return 0;
+    }
     
     do{
         auto pStackTop = (frame.stack.back()).get();

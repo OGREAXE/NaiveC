@@ -202,7 +202,8 @@ UIView * getRootView(){
     id appClass = NSClassFromString(@"UIApplication");
     id sharedApp = [appClass performSelector:@selector(sharedApplication)];
     id delegate = [sharedApp performSelector:@selector(delegate)];
-    return [(UIView*)delegate performSelector:@selector(window)];
+    id window = [delegate performSelector:@selector(window)];
+    id rootVC = [window performSelector:@selector(rootViewController)];
+    id rootView = [rootVC performSelector:@selector(view)];
+    return rootView;
 }
-
-

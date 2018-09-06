@@ -27,6 +27,9 @@ public:
         
         auto fQueryObj = shared_ptr<NCBuiltinFunction>(new NCBuiltinQueryView());
         addFunction(fQueryObj);
+        
+//        auto fGetAdaptorValue = shared_ptr<NCBuiltinFunction>(new NCBuiltinGetAdaptorValue());
+//        addFunction(fGetAdaptorValue);
     }
     
     bool addFunction(shared_ptr<NCBuiltinFunction> & func){
