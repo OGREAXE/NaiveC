@@ -18,37 +18,13 @@ class NCBuiltinFunctionStore{
 private:
     std::unordered_map<string, shared_ptr<NCBuiltinFunction>> m_builtinFunctionMap;
 public:
-    NCBuiltinFunctionStore(){
-        auto fPrintObj = shared_ptr<NCBuiltinFunction>(new NCBuiltinPrint());
-        addFunction(fPrintObj);
-        
-        auto fGetObj = shared_ptr<NCBuiltinFunction>(new NCBuiltinGetObject());
-        addFunction(fGetObj);
-        
-        auto fQueryObj = shared_ptr<NCBuiltinFunction>(new NCBuiltinQueryView());
-        addFunction(fQueryObj);
-        
-//        auto fGetAdaptorValue = shared_ptr<NCBuiltinFunction>(new NCBuiltinGetAdaptorValue());
-//        addFunction(fGetAdaptorValue);
-    }
+    NCBuiltinFunctionStore();
     
-    bool addFunction(shared_ptr<NCBuiltinFunction> & func){
-        m_builtinFunctionMap[func->name] = func;
-        return true;
-    }
+    bool addFunction(shared_ptr<NCBuiltinFunction> & func);
     
-    bool findFunction(const string & name){
-        auto find = m_builtinFunctionMap.find(name);
-        return find != m_builtinFunctionMap.end();
-    }
+    bool findFunction(const string & name);
     
-    shared_ptr<NCBuiltinFunction> getFunction(const string & name){
-        auto find = m_builtinFunctionMap.find(name);
-        if (find == m_builtinFunctionMap.end()) {
-            return nullptr;
-        }
-        return (*find).second;
-    }
+    shared_ptr<NCBuiltinFunction> getFunction(const string & name);
 };
 
 #endif /* NCBuiltinFunctionStore_hpp */

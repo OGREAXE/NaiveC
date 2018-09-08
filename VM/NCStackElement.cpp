@@ -73,10 +73,10 @@ NCInt doRelationalOperator(T left, T right, const string&op){
         return left <= right;
     }
     else if (op == "!=") {
-        return left <= right;
+        return left != right;
     }
     else if (op == "==") {
-        return left <= right;
+        return left == right;
     }
     else {
         return left;

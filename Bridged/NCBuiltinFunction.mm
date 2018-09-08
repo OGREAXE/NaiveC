@@ -149,6 +149,37 @@ UIView*queryViewDFS(UIView * p, NSString * type, const vector<shared_ptr<NCStack
     return ret;
 }
 
+NSArray<UIView*> * queryMultipleViewDFS(UIView * p, NSString * type, const vector<shared_ptr<NCStackElement>> &arguments){
+    NSArray<UIView*> * subviws = p.subviews;
+    NSMutableArray <UIView *> * ret = [NSMutableArray array];
+    [subviws enumerateObjectsUsingBlock:^(UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([NSStringFromClass(obj.class) isEqualToString:type]) {
+            if (arguments.size() == 0) {
+                [ret addObject:obj];
+            }
+            else if (arguments.size() == 2) {
+                bool match = compareAttribute(obj, arguments[0]->toString(), arguments[1]);
+                if (match) {
+                    [ret addObject:obj];
+                }
+            }
+            else if (arguments.size() == 4) {
+                bool match = compareAttribute(obj, arguments[0]->toString(), arguments[1]) && compareAttribute(obj, arguments[2]->toString(), arguments[3]);
+                if (match) {
+                    [ret addObject:obj];
+                }
+            }
+        }
+        
+        NSArray * subRet = queryMultipleViewDFS(obj, type, arguments);
+        if(subRet.count > 0){
+            [ret addObjectsFromArray:subRet];
+        }
+    }];
+    
+    return ret;
+}
+
 bool compareAttribute(NSObject * obj, const string & attrname, const shared_ptr<NCStackElement> & value){
     NSString * nsAtrr = [NSString stringWithUTF8String:attrname.c_str()];
     
@@ -206,4 +237,48 @@ UIView * getRootView(){
     id rootVC = [window performSelector:@selector(rootViewController)];
     id rootView = [rootVC performSelector:@selector(view)];
     return rootView;
+}
+
+/*
+ query multiple views
+ */
+
+/*
+ query view
+ */
+/*
+ get object
+ */
+NCBuiltinQueryViews::NCBuiltinQueryViews(){
+    name = "queryViews";
+    parameters.push_back(shared_ptr<NCParameter>(new NCParameter("string","typename")));
+    parameters.push_back(shared_ptr<NCParameter>(new NCParameter("string","attribute")));
+    parameters.push_back(shared_ptr<NCParameter>(new NCParameter("original","value")));
+    parameters.push_back(shared_ptr<NCParameter>(new NCParameter("string","attribute2")));
+    parameters.push_back(shared_ptr<NCParameter>(new NCParameter("original","value2")));
+}
+
+bool NCBuiltinQueryViews::invoke(vector<shared_ptr<NCStackElement>> &arguments){
+    return true;
+}
+
+bool NCBuiltinQueryViews::invoke(vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
+    unsigned long argcount = arguments.size();
+    if (argcount != 1 && argcount != 3 && argcount != 5) {
+        throw NCRuntimeException(0, "query views request argument count 1, 3 or 5");
+    }
+    
+    //    UIWindow * root = [[[UIApplication sharedApplication] delegate] window];
+    UIView * root = getRootView();
+    
+    auto argumentsCopy = arguments;
+    argumentsCopy.erase(argumentsCopy.begin());
+    NSString * type = [NSString stringWithUTF8String:arguments[0]->toString().c_str()];
+    
+    NSArray * ret = queryMultipleViewDFS(root, type, argumentsCopy);
+    
+    NCCocoaBox * cbox = new NCCocoaBox((void*)CFBridgingRetain(ret));
+    lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(cbox))));
+    
+    return true;
 }
