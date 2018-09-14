@@ -438,9 +438,18 @@ public:
     
     vector<shared_ptr<NCBodyDeclaration>> members;
     
-    vector<shared_ptr<NCBodyDeclaration>> fields;
+    vector<shared_ptr<NCFieldDeclaration>> fields;
     
-    unordered_map<string, shared_ptr<NCBodyDeclaration>> methods;
+    unordered_map<string, shared_ptr<NCMethodDeclaration>> methods;
+    
+    shared_ptr<NCFieldDeclaration> getField(const string & name){
+        for (auto field : fields) {
+            if (field->name == name) {
+                return field;
+            }
+        }
+        return nullptr;
+    }
 };
 
 class NCLambdaLiteral:public NCLiteral{

@@ -66,6 +66,8 @@ public:
     void stack_push(shared_ptr<NCStackElement> element);
     
     bool stack_empty(){return stack.size()==0;}
+    
+    bool objectScopeFlag; //indicate frame contains "self" object
 };
 
 class NCInterpreter:public NCInvocationDelegate{

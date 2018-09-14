@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include "NCAST.hpp"
 
-#define NCAssert(cond, msg) if(!(cond)){throw new NCRuntimeException(0,msg);}
+#define NCAssert(cond, msg) if(!(cond)){throw  NCRuntimeException(0,msg);}
 
 struct NCStackElement{
     NCStackElement(){}
@@ -122,6 +122,8 @@ public:
     virtual shared_ptr<NCStackElement> value();
     
     virtual string toString();
+    virtual NCInt toInt();
+    virtual NCFloat toFloat();
     
     virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
     

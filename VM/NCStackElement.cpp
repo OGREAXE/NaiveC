@@ -275,6 +275,22 @@ string NCFieldAccessor::toString(){
     return val->toString();
 }
 
+NCInt NCFieldAccessor::toInt(){
+    auto val = this->value();
+    if (!val) {
+        return 0;
+    }
+    return val->toInt();
+}
+
+NCFloat NCFieldAccessor::toFloat(){
+    auto val = this->value();
+    if (!val) {
+        return 0;
+    }
+    return val->toFloat();
+}
+
 shared_ptr<NCStackElement> NCFieldAccessor::getAttribute(const string & attrName){
     auto val = this->value();
     if (!val) {
@@ -293,7 +309,7 @@ void NCFieldAccessor::setAttribute(const string & attrName, shared_ptr<NCStackEl
 shared_ptr<NCStackElement> NCFieldAccessor::doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){
     auto v = this->value();
     if (v) {
-        v->doOperator(op, rightOperand);
+        return v->doOperator(op, rightOperand);
     }
     return nullptr;
 }

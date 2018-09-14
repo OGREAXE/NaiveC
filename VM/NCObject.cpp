@@ -9,6 +9,7 @@
 #include "NCObject.hpp"
 #include "NCClassLoader.hpp"
 #include "NCInterpreter.hpp"
+#include "NCException.hpp"
 
 static NCInterpreter * g_subInterpretor = nullptr;
 
@@ -16,8 +17,36 @@ bool NCNativeObject::invokeMethod(string methodName, vector<shared_ptr<NCStackEl
     if (!g_subInterpretor) {
         g_subInterpretor = new NCInterpreter();
     }
-    auto res = g_subInterpretor->invoke(methodName, arguments, lastStack);
-    return res;
+//    auto res = g_subInterpretor->invoke(methodName, arguments, lastStack);
+//    return res;
+    auto func = classDefinition->methods[methodName];
+    
+    string msg = "method not found: " + methodName;
+    NCAssert(func, msg);
+    auto funcDef = func->method;
+    
+    auto frame = shared_ptr<NCFrame>(new NCFrame());
+    for (int i = 0; i<arguments.size(); i++) {
+        auto & var = arguments[i];
+        frame->localVariableMap.insert(make_pair(funcDef->parameters[i].name, var));
+    }
+    frame->localVariableMap.insert(make_pair("self",  shared_ptr<NCStackElement>(new NCStackPointerElement(shared_from_this()))));
+    
+    if(!g_subInterpretor->visit(funcDef->block, *frame))return false;
+    if (frame->stack.size()>0) {
+        lastStack.push_back((frame->stack.back()));
+    }
+    
+    return true;
+}
+
+shared_ptr<NCStackElement> NCNativeObject::getAttribute(const string & attrName){
+    auto val = this->m_fieldMap[attrName];
+    return val;
+}
+
+void NCNativeObject::setAttribute(const string & attrName, shared_ptr<NCStackElement> value){
+    this->m_fieldMap[attrName] = value;
 }
 
 shared_ptr<NCStackElement> NCStackPointerElement::doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){

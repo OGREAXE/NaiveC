@@ -79,7 +79,7 @@ bool NCParser::parse(shared_ptr<const vector<NCToken>>& tokens){
         
         auto pClass = class_definition();
         if (pClass) {
-            pRoot->classList.push_back(static_pointer_cast<NCClassDeclaration>(pFunc));
+            pRoot->classList.push_back(static_pointer_cast<NCClassDeclaration>(pClass));
             parseOK = true;
             continue;
         }
@@ -154,6 +154,15 @@ MCParserReturnType NCParser::class_definition(){
         return nullptr;
     }
     
+    for (auto member :functionDecl->members) {
+        if (auto field = dynamic_pointer_cast<NCFieldDeclaration>(member)) {
+            functionDecl->fields.push_back(field);
+        }
+        else if (auto med = dynamic_pointer_cast<NCMethodDeclaration>(member)) {
+            functionDecl->methods.insert(make_pair(med->method->name, med));
+        }
+    }
+    
     return shared_ptr<NCClassDeclaration>(functionDecl);
 }
 
@@ -176,7 +185,7 @@ bool NCParser::class_body(vector<shared_ptr<NCBodyDeclaration>> & members){
 }
 
 shared_ptr<NCBodyDeclaration> NCParser::class_body_declaration(){
-//    pushIndex();
+
     PUSH_INDEX
     
     auto funcDef = function_definition();
@@ -186,18 +195,8 @@ shared_ptr<NCBodyDeclaration> NCParser::class_body_declaration(){
         return shared_ptr<NCMethodDeclaration>(methodDef);
     }
     
-//    popIndex();
     POP_INDEX
     
-//    auto fieldTypeDecl = variable_declaration_expression();
-//    if (fieldTypeDecl) {
-//        auto field = new NCFieldDeclaration();
-//        field->declarator = fieldTypeDecl;
-//        return shared_ptr<NCFieldDeclaration>(field);
-//    }
-//
-////    popIndex();
-//    POP_INDEX
     string name;
     auto fieldExpr = field_expression(name);
     if (fieldExpr) {
@@ -213,9 +212,9 @@ shared_ptr<NCBodyDeclaration> NCParser::class_body_declaration(){
 }
 
 shared_ptr<NCExpression> NCParser::field_expression(string & name){
-    if (!isIdentifier(word)) {
-        return nullptr;
-    }
+//    if (!isIdentifier(word)) {
+//        return nullptr;
+//    }
     string fname = word;
     word = nextWord();
     
@@ -231,6 +230,7 @@ shared_ptr<NCExpression> NCParser::field_expression(string & name){
     
 //    auto fieldExpr = new NCAssignExpr(shared_ptr<NCNameExpression>(new NCNameExpression(fname)),"=",initExpr);
     
+    name = fname;
     
     return shared_ptr<NCExpression> (initExpr);
 }

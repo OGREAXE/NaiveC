@@ -10,6 +10,7 @@
 #define NCObject_hpp
 
 #include <stdio.h>
+#include <memory>
 #include "NCAST.hpp"
 #include "NCStackElement.hpp"
 
@@ -47,13 +48,19 @@ class NCInvocationDelegate{
 /**
  instance of user-defined class
  */
-class NCNativeObject : public NCObject{
+class NCNativeObject : public NCObject, public std::enable_shared_from_this<NCObject> {
 public:
     unordered_map<string, shared_ptr<NCStackElement>> m_fieldMap;
-    
+    ~NCNativeObject(){
+        int a = 0;
+    }
     shared_ptr<NCClassDeclaration> classDefinition;
 //    shared_ptr<NCInvocationDelegate> invocationDelagate;
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+    
+    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
+    
+    virtual void setAttribute(const string & attrName, shared_ptr<NCStackElement> value);
 };
 
 /**
@@ -94,7 +101,9 @@ private:
 public:
     NCStackPointerElement():m_pObject(NULL){type="pointer";}
     
-    NCStackPointerElement(shared_ptr<NCObject> pObject):m_pObject(pObject){type="pointer";}
+    NCStackPointerElement(shared_ptr<NCObject> pObject):m_pObject(pObject){
+        type="pointer";
+    }
     
     NCStackPointerElement(NCObject* pObject){
         type="pointer";

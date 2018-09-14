@@ -64,6 +64,8 @@ public:
     
     void addClassDef(shared_ptr<NCClassDeclaration>& classDef){
         m_classDefMap[classDef->name] = classDef;
+        
+        m_classMap.erase(classDef->name);
     }
     
     shared_ptr<NCClassDeclaration> getClassDef(const string &name){
