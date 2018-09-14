@@ -16,7 +16,7 @@
 
 shared_ptr<NCStackPointerElement> NCCocoaClass::instantiate(vector<shared_ptr<NCStackElement>> &arguments){
     
-    if (this->name == NC_CLASSNAME_FRAME) {
+    if (this->name == NC_CLASSNAME_FRAME || this->name == "CGRectMake") {
         if (arguments.size() == 4) {
             auto x = arguments[0]->toFloat();
             auto y = arguments[1]->toFloat();
@@ -29,7 +29,7 @@ shared_ptr<NCStackPointerElement> NCCocoaClass::instantiate(vector<shared_ptr<NC
             return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(new NCRect())));
         }
     }
-    else if (this->name == NC_CLASSNAME_SIZE) {
+    else if (this->name == NC_CLASSNAME_SIZE || this->name == "CGSizeMake") {
         if (arguments.size() == 2) {
             auto width = arguments[0]->toFloat();
             auto height = arguments[1]->toFloat();
@@ -40,7 +40,7 @@ shared_ptr<NCStackPointerElement> NCCocoaClass::instantiate(vector<shared_ptr<NC
             return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(new NCSize())));
         }
     }
-    else if (this->name == NC_CLASSNAME_POINT) {
+    else if (this->name == NC_CLASSNAME_POINT || this->name == "CGPointMake") {
         if (arguments.size() == 2) {
             auto x = arguments[0]->toFloat();
             auto y = arguments[1]->toFloat();

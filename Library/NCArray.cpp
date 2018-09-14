@@ -47,6 +47,9 @@ shared_ptr<NCStackElement> NCArray::getAttribute(const string & attrName){
         long length = innerArray.size();
         return shared_ptr<NCStackElement>(new NCStackIntElement(length));
     }
+    else{
+        throw NCRuntimeException(0, " attribute %s not found on NCArray", attrName.c_str());
+    }
     return nullptr;
 }
 

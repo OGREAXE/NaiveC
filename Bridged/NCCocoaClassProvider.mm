@@ -18,7 +18,10 @@ bool NCCocoaClassProvider::classExist(const std::string & className){
     
     if (className == NC_CLASSNAME_FRAME
         ||className == NC_CLASSNAME_SIZE
-        ||className == NC_CLASSNAME_POINT) {
+        ||className == NC_CLASSNAME_POINT
+        ||className == "CGRectMake"
+        ||className == "CGPointMake"
+        ||className == "CGSizeMake") {
         return true;
     }
     

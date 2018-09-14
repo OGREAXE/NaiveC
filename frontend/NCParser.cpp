@@ -736,6 +736,13 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
         return shared_ptr<NCExpression>(new NCMethodCallExpr(args, name));
     }
     
+    if (word == "{") {
+        auto arrayInitor = array_initializer();
+        if (arrayInitor) {
+            return arrayInitor;
+        }
+    }
+    
     if (word == "^") {
         //lambda
         auto lambdaExpr = new NCLambdaExpression();

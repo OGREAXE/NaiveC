@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include "NCAST.hpp"
 
+#define NCAssert(cond, msg) if(!(cond)){throw new NCRuntimeException(0,msg);}
+
 struct NCStackElement{
     NCStackElement(){}
     virtual ~NCStackElement(){}

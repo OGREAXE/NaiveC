@@ -169,10 +169,24 @@ string NCStackFloatElement::toString(){
 }
 
 NCInt NCStackStringElement::toInt(){
-    return stoi(this->value);
+    NCInt ret = 0;
+    try {
+        ret = stoi(this->value);
+    }
+    catch(std::invalid_argument& e){
+        // if no conversion could be performed
+    }
+    return ret;
 }
 NCFloat NCStackStringElement::toFloat(){
-    return stof(this->value);
+    NCFloat ret = 0;
+    try {
+        ret = stof(this->value);
+    }
+    catch(std::invalid_argument& e){
+        // if no conversion could be performed
+    }
+    return ret;
 }
 string NCStackStringElement::toString(){
     return this->value;
@@ -254,7 +268,7 @@ shared_ptr<NCStackElement> NCFieldAccessor::value(){
 }
 
 string NCFieldAccessor::toString(){
-    auto val = value();
+    auto val = this->value();
     if (!val) {
         return "NULL";
     }
@@ -262,7 +276,7 @@ string NCFieldAccessor::toString(){
 }
 
 shared_ptr<NCStackElement> NCFieldAccessor::getAttribute(const string & attrName){
-    auto val = value();
+    auto val = this->value();
     if (!val) {
         return nullptr;
     }
@@ -271,9 +285,15 @@ shared_ptr<NCStackElement> NCFieldAccessor::getAttribute(const string & attrName
 
 void NCFieldAccessor::setAttribute(const string & attrName, shared_ptr<NCStackElement> value){
     auto val = this->value();
-    val->setAttribute(attrName, value);
+    if(val){
+        val->setAttribute(attrName, value);
+    }
 }
 
 shared_ptr<NCStackElement> NCFieldAccessor::doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){
-    return this->value()->doOperator(op, rightOperand);
+    auto v = this->value();
+    if (v) {
+        v->doOperator(op, rightOperand);
+    }
+    return nullptr;
 }
