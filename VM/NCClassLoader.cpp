@@ -54,6 +54,13 @@ bool NCClassLoader::registerProvider(NCClassProvider * provider){
     return false;
 }
 
+void NCClassLoader::releaseInstance(){
+    if(m_pInstance){
+        delete m_pInstance;
+        m_pInstance = NULL;
+    }
+}
+
 //bool NCClassLoader::invokeStaticMethodOnClass(const string & className,const string& methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
 //    auto provider = findClassProviderForClassName(className);
 //    if (provider) {

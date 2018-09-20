@@ -43,7 +43,7 @@ private:
 public:
     NCTokenizer():status(Unknown){tokens = shared_ptr<vector<NCToken>>(new vector<NCToken>());};
     NCTokenizer(string&str);
-    bool tokenize(string&str);
+    bool tokenize(const string&str);
     shared_ptr<const vector<NCToken>> getTokens();
 //    const vector<NCToken> & getTokens();
 protected:

@@ -23,7 +23,7 @@ NCTokenizer::NCTokenizer(string&str){
     tokenize(str);
 }
 
-bool NCTokenizer::tokenize(string&str){
+bool NCTokenizer::tokenize(const string&str){
     
     tokens->clear();
     token = "";

@@ -120,6 +120,8 @@
 		F31D7F7A2122FA7400E11E5F /* NaiveC.h in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E5C2037015C0095F442 /* NaiveC.h */; };
 		F31D7F7C2122FA7400E11E5F /* NCCodeEngine_iOS.h in Sources */ = {isa = PBXBuildFile; fileRef = D4E06EE5203716140095F442 /* NCCodeEngine_iOS.h */; };
 		F31D7F7D2122FA7400E11E5F /* NCCodeEngine_iOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06EE6203716140095F442 /* NCCodeEngine_iOS.mm */; };
+		F359ABE82150977100FE7D84 /* NCSourceManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F359ABE62150977100FE7D84 /* NCSourceManager.mm */; };
+		F359ABE92150977100FE7D84 /* NCSourceManager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F359ABE72150977100FE7D84 /* NCSourceManager.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -213,6 +215,8 @@
 		F31D7F3C2122FA0700E11E5F /* libNaiveC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libNaiveC.h; sourceTree = "<group>"; };
 		F31D7F3D2122FA0700E11E5F /* libNaiveC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = libNaiveC.m; sourceTree = "<group>"; };
 		F31D80002123BD8000E11E5F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F359ABE62150977100FE7D84 /* NCSourceManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCSourceManager.mm; sourceTree = "<group>"; };
+		F359ABE72150977100FE7D84 /* NCSourceManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCSourceManager.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,6 +262,8 @@
 				D4E06E2E203552CD0095F442 /* NSObject+NCInvocation.mm */,
 				D496C755204D2CB900B6A041 /* NCSourceFinder.mm */,
 				D496C756204D2CB900B6A041 /* NCSourceFinder.hpp */,
+				F359ABE62150977100FE7D84 /* NCSourceManager.mm */,
+				F359ABE72150977100FE7D84 /* NCSourceManager.hpp */,
 			);
 			path = Bridged;
 			sourceTree = "<group>";
@@ -422,6 +428,7 @@
 				D4E06F49204042100095F442 /* NCLog.hpp in Headers */,
 				D4E06EE7203716140095F442 /* NCCodeEngine_iOS.h in Headers */,
 				D4E06F1D203971280095F442 /* NCArray.hpp in Headers */,
+				F359ABE92150977100FE7D84 /* NCSourceManager.hpp in Headers */,
 				D4E06F2520397AAB0095F442 /* NCCocoaClass.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -565,6 +572,7 @@
 				D4E06EF120371D9E0095F442 /* NCCode.cpp in Sources */,
 				D4E06EF220371D9E0095F442 /* NCCode.hpp in Sources */,
 				D4E06EF320371D9E0095F442 /* NCInterpreter.cpp in Sources */,
+				F359ABE82150977100FE7D84 /* NCSourceManager.mm in Sources */,
 				D4E06EF420371D9E0095F442 /* NCInterpreter.hpp in Sources */,
 				D4E06EF520371D9E0095F442 /* NCStackElement.cpp in Sources */,
 				D4E06EF620371D9E0095F442 /* NCStackElement.hpp in Sources */,

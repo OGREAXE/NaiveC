@@ -228,12 +228,19 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         auto node = dynamic_cast<NCBinaryExpression*>(currentNode.get());
         
         visit(node->left, frame);
-        auto leftOperand = (frame.stack.back());
-        frame.stack.pop_back();
+        
+        auto leftOperand = frame.stack_pop();
+        if (!leftOperand) {
+            NCLog(NCLogTypeInterpretor, "left operand null");
+            return false;
+        }
         
         visit(node->right, frame);
-        auto rightOperand = (frame.stack.back());
-        frame.stack.pop_back();
+        auto rightOperand = frame.stack_pop();
+        if (!rightOperand) {
+            NCLog(NCLogTypeInterpretor, "right operand null");
+            return false;
+        }
         
         frame.stack.push_back(leftOperand->doOperator(node->op,rightOperand));
     }
@@ -702,12 +709,10 @@ bool NCInterpreter::tree_doStaticMehothodCall(NCFrame & frame,NCMethodCallExpr*n
             
         }
         else {
-//            auto targetClass = NCClassLoader::GetInstance()->loadClass(node->name);
-            auto cls = NCModuleCache::GetGlobalCache()->getClass(node->name);
+            auto cls = NCClassLoader::GetInstance()->loadClass(node->name);
+//            auto cls = NCModuleCache::GetGlobalCache()->getClass(node->name);
             
             if (!cls) {
-//                NCLog(NCLogTypeInterpretor, "class %s not found", node->name.c_str());
-//                return false;
                 throw NCRuntimeException(0, "class %s not found", node->name.c_str());
             }
             

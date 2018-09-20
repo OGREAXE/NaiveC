@@ -90,7 +90,7 @@ bool NCParser::parse(shared_ptr<const vector<NCToken>>& tokens){
     printf("parse %lu functions\n", pRoot->functionList.size());
     
     if (pRoot->functionList.size() == 0) {
-        NCLog(NCLogTypeParser, "parse fail");
+//        NCLog(NCLogTypeParser, "parse fail");
     }
     
     return true;

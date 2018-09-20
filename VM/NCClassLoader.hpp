@@ -44,6 +44,8 @@ public:
     
     bool registerProvider(shared_ptr<NCClassProvider> & provider);
     bool registerProvider(NCClassProvider * provider);
+    
+    static void releaseInstance();
 };
 
 #endif /* NCClassLoader_hpp */

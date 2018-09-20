@@ -96,14 +96,21 @@ public:
         }
         
         //try loading;
-        auto exCls = NCClassLoader::GetInstance()->loadClass(name);
-        if(exCls){
-            m_classMap[name] = exCls;
-            return exCls;
-        }
+//        auto extCls = NCClassLoader::GetInstance()->loadClass(name);
+//        if(extCls){
+//            m_classMap[name] = extCls;
+//            return extCls;
+//        }
         
         return nullptr;
     
+    }
+    
+    bool removeModule(const std::string & moduleName){
+        m_classMap.erase(moduleName);
+        m_classDefMap.erase(moduleName);
+        m_functionMap.erase(moduleName);
+        return true;
     }
     
 private:

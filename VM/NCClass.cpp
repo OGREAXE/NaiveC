@@ -47,7 +47,7 @@ shared_ptr<NCStackPointerElement>  NCNativeClass::instantiate(vector<shared_ptr<
     frame->localVariableMap.insert(make_pair("self",  shared_ptr<NCStackElement>(new NCStackPointerElement(shared_ptr<NCObject> (newObject)))));
     
     if(!g_interpretor->visit(constructorDef->block, *frame)){
-        throw new NCRuntimeException(0, "fail to instantiate object %s", m_classDef->name.c_str());
+        throw NCRuntimeException(0, "fail to instantiate object %s", m_classDef->name.c_str());
     }
     
     return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject> (newObject)));

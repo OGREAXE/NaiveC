@@ -17,6 +17,15 @@ typedef NS_ENUM(NSUInteger, NCInterpretorMode) {
  naive c code engine
  */
 @interface NCCodeEngine_iOS : NSObject
+
+//used in project
+-(void)setRoot:(NSString*)rootDir;
+-(void)setDirty:(NSString*)filename;
+-(BOOL)run;
+-(BOOL)runWithError:(NSError**)error;
+
+//play ground only
+//run a piece of code
 -(BOOL)run:(NSString*)sourceCode error:(NSError**)error;
 -(BOOL)run:(NSString*)sourceCode mode:(NCInterpretorMode)mode error:(NSError**)error;
 @end
