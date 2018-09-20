@@ -58,16 +58,12 @@ bool NCTokenizer::tokenize(const string&str){
         else if(status == Comment){
             continue;
         }
-        else if(c=='/'){
-            if (i>0) {
-                if (str[i-1]=='/') {
-                    if (token.length() > 0){
-                        addToken(tokens, token, i);
-                    }
-                    status = Comment;
-                    token = "";
-                }
+        else if(c=='/' && i > 0 && str[i-1]=='/'){
+            if (token.length() > 0){
+                addToken(tokens, token, i);
             }
+            status = Comment;
+            token = "";
         }
         else if (c == ','  && status != String) {
             if (token.length() > 0){

@@ -115,8 +115,8 @@ shared_ptr<NCStackElement> NCStackIntElement::doOperator(const string&op, shared
 
 shared_ptr<NCStackElement> NCStackFloatElement::doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){
     if (op == "+"||op == "-"||op == "*"||op == "/"||op == "%") {
-        NCInt result = doOperatorPrimitive(this->value, rightOperand->toFloat(), op);
-        return shared_ptr<NCStackElement>(new NCStackIntElement(result));
+        NCFloat result = doOperatorPrimitive(this->value, rightOperand->toFloat(), op);
+        return shared_ptr<NCStackElement>(new NCStackFloatElement(result));
         
     }
     else if (op == "&&"||op == "||"||op == ">"||op == "<"||op == ">="||op == "<="||op == "!="||op == "==") {
