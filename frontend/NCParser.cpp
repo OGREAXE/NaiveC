@@ -51,6 +51,10 @@ NCParser::NCParser(shared_ptr<const vector<NCToken>>& tokens):index(0){
 bool NCParser::parse(shared_ptr<const vector<NCToken>>& tokens){
     this->tokens = tokens;
     
+    if (tokens->size() <= 0) {
+        return false;
+    }
+    
     for (int i=0; i<tokens->size(); i++) {
         auto tok = (*tokens)[i];
         printf("%s  ",tok.token.c_str());

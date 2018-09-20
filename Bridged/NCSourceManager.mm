@@ -52,6 +52,11 @@ void NCSourceManager::loadFile(const string & filename){
     NSString * content = [NSString stringWithContentsOfFile:fileFullPath encoding:NSUTF8StringEncoding error:nil];
     auto root = parseSourceFile(content.UTF8String);
     
+    if (!root) {
+        NCLog(NCLogTypeParser, "parse source file fail: %s", filename.c_str());
+        return;
+    }
+    
     std::vector<std::string> moduleList;
     
     auto functionDefList = root->functionList;

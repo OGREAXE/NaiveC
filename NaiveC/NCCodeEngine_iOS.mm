@@ -57,6 +57,12 @@ using namespace std;
     auto cocoaProvider = shared_ptr<NCClassProvider>(new NCCocoaClassProvider());
     NCClassLoader::GetInstance()->registerProvider(cocoaProvider);
     
+    if (self.mode == NCInterpretorModeModular) {
+        [self doInitForModularMode];
+    }
+}
+
+-(void)doInitForModularMode{
     if (self.rootDirectory) {
         _sourceManager = shared_ptr<NCSourceManager>(new NCSourceManager(self.rootDirectory.UTF8String));
         shared_ptr<NCClassProvider> smr = _sourceManager;

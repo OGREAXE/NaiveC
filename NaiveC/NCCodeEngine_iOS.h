@@ -18,6 +18,8 @@ typedef NS_ENUM(NSUInteger, NCInterpretorMode) {
  */
 @interface NCCodeEngine_iOS : NSObject
 
+@property (nonatomic) NCInterpretorMode mode;
+
 //used in project
 -(void)setRoot:(NSString*)rootDir;
 -(void)setDirty:(NSString*)filename;
