@@ -159,6 +159,16 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
             
             argmuments.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(point)));
         }
+        else if(COMP_TYPE(argumentType, NSRange)){
+            NSRange val=va_arg(vl,NSRange);
+            auto range = new NCRange(val.location,val.length);
+            argmuments.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(range)));
+        }
+        else if(COMP_TYPE(argumentType, UIEdgeInsets)){
+            UIEdgeInsets val=va_arg(vl,UIEdgeInsets);
+            auto insets = new NCEdgeInset(val.top,val.left,val.bottom,val.right);
+            argmuments.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(insets)));
+        }
         else if(COMP_TYPE(argumentType, id)){
             //nsobject
             id val=va_arg(vl,id);
@@ -344,6 +354,39 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
                 }
             }
         }
+        else if(COMP_ENCODE(argumentType, NSRange)){
+            if(dynamic_pointer_cast<NCStackPointerElement>(arguments[i])){
+                auto pFrameContainer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
+                auto pObject = pFrameContainer->getPointedObject();
+                if(pObject && dynamic_pointer_cast<NCRange>(pObject)){
+                    auto pRange = dynamic_pointer_cast<NCRange>(pObject);
+                    NSRange range = NSMakeRange(pRange->getLocation(), pRange->getLength());
+                    [invocation setArgument:&range atIndex:argPos];
+                }
+            }
+        }
+        else if(COMP_ENCODE(argumentType, UIEdgeInsets)){
+            if(dynamic_pointer_cast<NCStackPointerElement>(arguments[i])){
+                auto pFrameContainer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
+                auto pObject = pFrameContainer->getPointedObject();
+                if(pObject && dynamic_pointer_cast<NCEdgeInset>(pObject)){
+                    auto pInsets = dynamic_pointer_cast<NCEdgeInset>(pObject);
+                    UIEdgeInsets insets = UIEdgeInsetsMake(pInsets->getTop(), pInsets->getLeft(), pInsets->getBottom(), pInsets->getRight());
+                    [invocation setArgument:&insets atIndex:argPos];
+                }
+            }
+        }
+        else if(COMP_ENCODE(argumentType, UIEdgeInsets)){
+            if(dynamic_pointer_cast<NCStackPointerElement>(arguments[i])){
+                auto pFrameContainer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
+                auto pObject = pFrameContainer->getPointedObject();
+                if(pObject && dynamic_pointer_cast<NCEdgeInset>(pObject)){
+                    auto pInsets = dynamic_pointer_cast<NCEdgeInset>(pObject);
+                    UIEdgeInsets insets = UIEdgeInsetsMake(pInsets->getTop(), pInsets->getLeft(), pInsets->getBottom(), pInsets->getRight());
+                    [invocation setArgument:&insets atIndex:argPos];
+                }
+            }
+        }
         else if(COMP_ENCODE(argumentType, id)){
             auto& stackElement = arguments[i];
             id realObj = NULL;
@@ -488,6 +531,16 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
             CGPoint *pret = (CGPoint *)buffer;
             NCPoint * pPoint = new NCPoint(pret->x,pret->y);
             lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(pPoint)));
+        }
+        else if(COMP_ENCODE(returnType, NSRange)){
+            NSRange *pret = (NSRange *)buffer;
+            NCRange * pRange = new NCRange(pret->location,pret->length);
+            lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(pRange)));
+        }
+        else if(COMP_ENCODE(returnType, UIEdgeInsets)){
+            UIEdgeInsets *pret = (UIEdgeInsets *)buffer;
+            NCEdgeInset * pInsets = new NCEdgeInset(pret->top,pret->left,pret->bottom,pret->right);
+            lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(pInsets)));
         }
     }
     

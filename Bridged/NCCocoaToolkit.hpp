@@ -15,9 +15,11 @@
 #define NC_CLASSNAME_FRAME "Frame"
 #define NC_CLASSNAME_SIZE "Size"
 #define NC_CLASSNAME_POINT "Point"
+#define NC_CLASSNAME_RANGE "Range"
+#define NC_CLASSNAME_EDGEINSET "EdgeInset"
 
 class NCRect : public NCObject{
-private:
+public:
     float x;
     float y;
     float width;
@@ -37,10 +39,12 @@ public:
     void setHeight(float height){this->height = height;}
     
     virtual string getDescription();
+    
+    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
 };
 
 class NCSize : public NCObject{
-private:
+public:
     float width;
     float height;
 public:
@@ -54,10 +58,12 @@ public:
     void setHeight(float height){this->height = height;}
     
     virtual string getDescription();
+    
+    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
 };
 
 class NCPoint : public NCObject{
-private:
+public:
     float x;
     float y;
 public:
@@ -71,6 +77,53 @@ public:
     void setY(float y){this->y = y;}
     
     virtual string getDescription();
+    
+    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
+};
+
+#define NCRANGE_TYPE long
+class NCRange : public NCObject{
+public:
+    NCRANGE_TYPE location;
+    NCRANGE_TYPE length;
+public:
+    NCRange():location(0),length(0){};
+    NCRange(NCRANGE_TYPE location, NCRANGE_TYPE length):location(location),length(length){};
+    
+    float getLocation(){return location;}
+    float getLength(){return length;}
+    
+    void setLocation(NCRANGE_TYPE l){this->location = l;}
+    void setLength(NCRANGE_TYPE l){this->length = l;}
+    
+    virtual string getDescription();
+    
+    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
+};
+
+class NCEdgeInset : public NCObject{
+public:
+    float top;
+    float left;
+    float bottom;
+    float right;
+public:
+    NCEdgeInset():top(0),left(0),bottom(0),right(0){};
+    NCEdgeInset(float t, float l, float b, float r):top(t),left(l),bottom(b),right(r){};
+    
+    float getTop(){return top;}
+    float getLeft(){return left;}
+    float getBottom(){return bottom;}
+    float getRight(){return right;}
+    
+    void setTop(float t){this->top = t;}
+    void setLeft(float l){this->left = l;}
+    void setBottom(float b){this->bottom = b;}
+    void setRight(float r){this->right = r;}
+    
+    virtual string getDescription();
+    
+    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
 };
 
 #endif /* NCCocoaToolkit_hpp */

@@ -51,6 +51,30 @@ shared_ptr<NCStackPointerElement> NCCocoaClass::instantiate(vector<shared_ptr<NC
             return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(new NCPoint())));
         }
     }
+    else if (this->name == NC_CLASSNAME_RANGE || this->name == "NSMakeRange") {
+        if (arguments.size() == 2) {
+            auto loc = arguments[0]->toInt();
+            auto len = arguments[1]->toInt();
+            
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(new NCRange(loc, len))));
+        }
+        else {
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(new NCRange())));
+        }
+    }
+    else if (this->name == NC_CLASSNAME_EDGEINSET || this->name == "UIEdgeInsetsMake") {
+        if (arguments.size() == 4) {
+            auto top = arguments[0]->toInt();
+            auto left = arguments[1]->toInt();
+            auto bottom = arguments[2]->toInt();
+            auto right = arguments[3]->toInt();
+            
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(new NCEdgeInset(top,left,bottom,right))));
+        }
+        else {
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(new NCEdgeInset())));
+        }
+    }
     
     //instantiate NSObject subclass
     NSString * thisClassName =  [NSString stringWithUTF8String:this->name.c_str()];
