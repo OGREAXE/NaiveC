@@ -313,3 +313,12 @@ shared_ptr<NCStackElement> NCFieldAccessor::doOperator(const string&op, shared_p
     }
     return nullptr;
 }
+
+bool NCFieldAccessor::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
+    
+    auto v = this->value();
+    if (v) {
+        return v->invokeMethod(methodName, arguments, lastStack);
+    }
+    return false;
+}

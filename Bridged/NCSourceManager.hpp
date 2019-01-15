@@ -46,6 +46,8 @@ private:
 public:
     NCSourceManager(const string & rootDir);
     
+    virtual ~NCSourceManager();
+    
     //module is class or static function
     std::string getFileNameByModule(const std::string & moduleName);
     

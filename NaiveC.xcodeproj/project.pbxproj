@@ -122,6 +122,65 @@
 		F31D7F7D2122FA7400E11E5F /* NCCodeEngine_iOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06EE6203716140095F442 /* NCCodeEngine_iOS.mm */; };
 		F359ABE82150977100FE7D84 /* NCSourceManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F359ABE62150977100FE7D84 /* NCSourceManager.mm */; };
 		F359ABE92150977100FE7D84 /* NCSourceManager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F359ABE72150977100FE7D84 /* NCSourceManager.hpp */; };
+		F366D8F421E7520B001824AE /* NCSourceManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F359ABE62150977100FE7D84 /* NCSourceManager.mm */; };
+		F366D8F521E7520B001824AE /* NCStandardLibraryProvider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F1620396FD10095F442 /* NCStandardLibraryProvider.cpp */; };
+		F366D8F621E7520B001824AE /* NCStandardLibraryProvider.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F1720396FD10095F442 /* NCStandardLibraryProvider.hpp */; };
+		F366D8F721E7520B001824AE /* NCArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F1A203971280095F442 /* NCArray.cpp */; };
+		F366D8F821E7520B001824AE /* NCArray.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F1B203971280095F442 /* NCArray.hpp */; };
+		F366D8F921E7520B001824AE /* NCStandardClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F1E203972F90095F442 /* NCStandardClass.cpp */; };
+		F366D8FA21E7520B001824AE /* NCStandardClass.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F1F203972F90095F442 /* NCStandardClass.hpp */; };
+		F366D8FB21E7520B001824AE /* CodeTest in Sources */ = {isa = PBXBuildFile; fileRef = D4716E681FF26F24000797B1 /* CodeTest */; };
+		F366D8FC21E7520B001824AE /* CodeTestX in Sources */ = {isa = PBXBuildFile; fileRef = ED219CDF1F6D1B610015293A /* CodeTestX */; };
+		F366D8FD21E7520B001824AE /* NCAST.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED219CC51F6D16370015293A /* NCAST.cpp */; };
+		F366D8FE21E7520B001824AE /* NCAST.hpp in Sources */ = {isa = PBXBuildFile; fileRef = ED219CC61F6D16370015293A /* NCAST.hpp */; };
+		F366D8FF21E7520B001824AE /* NCTokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED219CC91F6D16370015293A /* NCTokenizer.cpp */; };
+		F366D90021E7520B001824AE /* NCTokenizer.hpp in Sources */ = {isa = PBXBuildFile; fileRef = ED219CCA1F6D16370015293A /* NCTokenizer.hpp */; };
+		F366D90121E7520B001824AE /* NCParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED219CC71F6D16370015293A /* NCParser.cpp */; };
+		F366D90221E7520B001824AE /* NCParser.hpp in Sources */ = {isa = PBXBuildFile; fileRef = ED219CC81F6D16370015293A /* NCParser.hpp */; };
+		F366D90321E7520B001824AE /* NCBuiltinFunction.hpp in Sources */ = {isa = PBXBuildFile; fileRef = ED219CCC1F6D16370015293A /* NCBuiltinFunction.hpp */; };
+		F366D90421E7520B001824AE /* NCCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED219CCE1F6D16370015293A /* NCCode.cpp */; };
+		F366D90521E7520B001824AE /* NCCode.hpp in Sources */ = {isa = PBXBuildFile; fileRef = ED219CCF1F6D16370015293A /* NCCode.hpp */; };
+		F366D90621E7520B001824AE /* NCInterpreter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED219CD01F6D16370015293A /* NCInterpreter.cpp */; };
+		F366D90721E7520B001824AE /* NCInterpreter.hpp in Sources */ = {isa = PBXBuildFile; fileRef = ED219CD11F6D16370015293A /* NCInterpreter.hpp */; };
+		F366D90821E7520B001824AE /* NCStackElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED219CD21F6D16370015293A /* NCStackElement.cpp */; };
+		F366D90921E7520B001824AE /* NCStackElement.hpp in Sources */ = {isa = PBXBuildFile; fileRef = ED219CD31F6D16370015293A /* NCStackElement.hpp */; };
+		F366D90A21E7520B001824AE /* NCObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED2040341F77A6D300734821 /* NCObject.cpp */; };
+		F366D90B21E7520B001824AE /* NCObject.hpp in Sources */ = {isa = PBXBuildFile; fileRef = ED2040351F77A6D300734821 /* NCObject.hpp */; };
+		F366D90C21E7520B001824AE /* NCClassLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06DC220304A410095F442 /* NCClassLoader.cpp */; };
+		F366D90D21E7520B001824AE /* NCClassLoader.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06DC320304A410095F442 /* NCClassLoader.hpp */; };
+		F366D90E21E7520B001824AE /* NCClassProvider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06DC5203125D40095F442 /* NCClassProvider.cpp */; };
+		F366D90F21E7520B001824AE /* NCClassProvider.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06DC6203125D40095F442 /* NCClassProvider.hpp */; };
+		F366D91021E7520B001824AE /* NCClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F0C203871E10095F442 /* NCClass.cpp */; };
+		F366D91121E7520B001824AE /* NCClass.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F0D203871E10095F442 /* NCClass.hpp */; };
+		F366D91221E7520B001824AE /* NCLog.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F47204042100095F442 /* NCLog.hpp */; };
+		F366D91321E7520B001824AE /* NCBuiltinFunctionStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4892EE120450A520052267E /* NCBuiltinFunctionStore.cpp */; };
+		F366D91421E7520B001824AE /* NCBuiltinFunctionStore.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D4892EE220450A520052267E /* NCBuiltinFunctionStore.hpp */; };
+		F366D91521E7520B001824AE /* NCException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D496C70D204AFFE500B6A041 /* NCException.cpp */; };
+		F366D91621E7520B001824AE /* NCException.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D496C70E204AFFE500B6A041 /* NCException.hpp */; };
+		F366D91721E7520B001824AE /* NCModuleCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44B8FFB204FD6610091B94C /* NCModuleCache.cpp */; };
+		F366D91821E7520B001824AE /* NCModuleCache.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D44B8FFC204FD6610091B94C /* NCModuleCache.hpp */; };
+		F366D91921E7520B001824AE /* NCHeapMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4439E4C2089EB1F005EE65B /* NCHeapMemory.cpp */; };
+		F366D91A21E7520B001824AE /* NCHeapMemory.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D4439E4D2089EB1F005EE65B /* NCHeapMemory.hpp */; };
+		F366D91B21E7520B001824AE /* NCBuiltinFunction.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED219CCD1F6D16370015293A /* NCBuiltinFunction.mm */; };
+		F366D91C21E7520B001824AE /* NCLog.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F46204042100095F442 /* NCLog.mm */; };
+		F366D91D21E7520B001824AE /* NCCocoaClassProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E0D203192CB0095F442 /* NCCocoaClassProvider.mm */; };
+		F366D91E21E7520B001824AE /* NCCocoaClassProvider.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E0E203192CB0095F442 /* NCCocoaClassProvider.hpp */; };
+		F366D91F21E7520B001824AE /* NCCocoaClass.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F2220397AAB0095F442 /* NCCocoaClass.mm */; };
+		F366D92021E7520B001824AE /* NCCocoaClass.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F2320397AAB0095F442 /* NCCocoaClass.hpp */; };
+		F366D92121E7520B001824AE /* NCCocoaBox.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E2A2032F2C50095F442 /* NCCocoaBox.mm */; };
+		F366D92221E7520B001824AE /* NCCocoaBox.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E2B2032F2C50095F442 /* NCCocoaBox.hpp */; };
+		F366D92321E7520B001824AE /* NCCocoaToolkit.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F26203C3E1B0095F442 /* NCCocoaToolkit.mm */; };
+		F366D92421E7520B001824AE /* NCCocoaToolkit.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F27203C3E1B0095F442 /* NCCocoaToolkit.hpp */; };
+		F366D92521E7520B001824AE /* NSObject+NCInvocation.h in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E2D203552CD0095F442 /* NSObject+NCInvocation.h */; };
+		F366D92621E7520B001824AE /* NSObject+NCInvocation.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E2E203552CD0095F442 /* NSObject+NCInvocation.mm */; };
+		F366D92721E7520B001824AE /* NCSourceFinder.mm in Sources */ = {isa = PBXBuildFile; fileRef = D496C755204D2CB900B6A041 /* NCSourceFinder.mm */; };
+		F366D92821E7520B001824AE /* NCSourceFinder.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D496C756204D2CB900B6A041 /* NCSourceFinder.hpp */; };
+		F366D92921E7520B001824AE /* NaiveC.h in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E5C2037015C0095F442 /* NaiveC.h */; };
+		F366D92A21E7520B001824AE /* NCCodeEngine_iOS.h in Sources */ = {isa = PBXBuildFile; fileRef = D4E06EE5203716140095F442 /* NCCodeEngine_iOS.h */; };
+		F366D92B21E7520B001824AE /* NCCodeEngine_iOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06EE6203716140095F442 /* NCCodeEngine_iOS.mm */; };
+		F366D92C21E7520B001824AE /* libNaiveC.m in Sources */ = {isa = PBXBuildFile; fileRef = F31D7F3D2122FA0700E11E5F /* libNaiveC.m */; };
+		F366D92F21E7520B001824AE /* libNaiveC.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = F31D7F3C2122FA0700E11E5F /* libNaiveC.h */; };
+		F3F2A93E215A0E91004CE143 /* NCSourceManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F359ABE62150977100FE7D84 /* NCSourceManager.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,6 +201,16 @@
 			dstSubfolderSpec = 16;
 			files = (
 				F31D7F3F2122FA0700E11E5F /* libNaiveC.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F366D92E21E7520B001824AE /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				F366D92F21E7520B001824AE /* libNaiveC.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +286,7 @@
 		F31D80002123BD8000E11E5F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F359ABE62150977100FE7D84 /* NCSourceManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCSourceManager.mm; sourceTree = "<group>"; };
 		F359ABE72150977100FE7D84 /* NCSourceManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCSourceManager.hpp; sourceTree = "<group>"; };
+		F366D93321E7520B001824AE /* liblibNaiveCDesktop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibNaiveCDesktop.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +306,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F31D7F372122FA0700E11E5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F366D92D21E7520B001824AE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -335,6 +412,7 @@
 				D4E06E5A2037015C0095F442 /* NaiveC.framework */,
 				D4E06E622037015C0095F442 /* NaiveCTests.xctest */,
 				F31D7F3A2122FA0700E11E5F /* liblibNaiveC.a */,
+				F366D93321E7520B001824AE /* liblibNaiveCDesktop.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -489,6 +567,23 @@
 			productReference = F31D7F3A2122FA0700E11E5F /* liblibNaiveC.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		F366D8F221E7520B001824AE /* libNaiveCDesktop */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F366D93021E7520B001824AE /* Build configuration list for PBXNativeTarget "libNaiveCDesktop" */;
+			buildPhases = (
+				F366D8F321E7520B001824AE /* Sources */,
+				F366D92D21E7520B001824AE /* Frameworks */,
+				F366D92E21E7520B001824AE /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libNaiveCDesktop;
+			productName = libNaiveC;
+			productReference = F366D93321E7520B001824AE /* liblibNaiveCDesktop.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -510,6 +605,9 @@
 						CreatedOnToolsVersion = 9.4.1;
 						ProvisioningStyle = Automatic;
 					};
+					F366D8F221E7520B001824AE = {
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = ED219C961F6D15CB0015293A /* Build configuration list for PBXProject "NaiveC" */;
@@ -528,6 +626,7 @@
 				D4E06E592037015C0095F442 /* NaiveC */,
 				D4E06E612037015C0095F442 /* NaiveCTests */,
 				F31D7F392122FA0700E11E5F /* libNaiveC */,
+				F366D8F221E7520B001824AE /* libNaiveCDesktop */,
 			);
 		};
 /* End PBXProject section */
@@ -610,6 +709,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3F2A93E215A0E91004CE143 /* NCSourceManager.mm in Sources */,
 				F31D7F432122FA7400E11E5F /* NCStandardLibraryProvider.cpp in Sources */,
 				F31D7F442122FA7400E11E5F /* NCStandardLibraryProvider.hpp in Sources */,
 				F31D7F452122FA7400E11E5F /* NCArray.cpp in Sources */,
@@ -666,6 +766,70 @@
 				F31D7F7C2122FA7400E11E5F /* NCCodeEngine_iOS.h in Sources */,
 				F31D7F7D2122FA7400E11E5F /* NCCodeEngine_iOS.mm in Sources */,
 				F31D7F3E2122FA0700E11E5F /* libNaiveC.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F366D8F321E7520B001824AE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F366D8F421E7520B001824AE /* NCSourceManager.mm in Sources */,
+				F366D8F521E7520B001824AE /* NCStandardLibraryProvider.cpp in Sources */,
+				F366D8F621E7520B001824AE /* NCStandardLibraryProvider.hpp in Sources */,
+				F366D8F721E7520B001824AE /* NCArray.cpp in Sources */,
+				F366D8F821E7520B001824AE /* NCArray.hpp in Sources */,
+				F366D8F921E7520B001824AE /* NCStandardClass.cpp in Sources */,
+				F366D8FA21E7520B001824AE /* NCStandardClass.hpp in Sources */,
+				F366D8FB21E7520B001824AE /* CodeTest in Sources */,
+				F366D8FC21E7520B001824AE /* CodeTestX in Sources */,
+				F366D8FD21E7520B001824AE /* NCAST.cpp in Sources */,
+				F366D8FE21E7520B001824AE /* NCAST.hpp in Sources */,
+				F366D8FF21E7520B001824AE /* NCTokenizer.cpp in Sources */,
+				F366D90021E7520B001824AE /* NCTokenizer.hpp in Sources */,
+				F366D90121E7520B001824AE /* NCParser.cpp in Sources */,
+				F366D90221E7520B001824AE /* NCParser.hpp in Sources */,
+				F366D90321E7520B001824AE /* NCBuiltinFunction.hpp in Sources */,
+				F366D90421E7520B001824AE /* NCCode.cpp in Sources */,
+				F366D90521E7520B001824AE /* NCCode.hpp in Sources */,
+				F366D90621E7520B001824AE /* NCInterpreter.cpp in Sources */,
+				F366D90721E7520B001824AE /* NCInterpreter.hpp in Sources */,
+				F366D90821E7520B001824AE /* NCStackElement.cpp in Sources */,
+				F366D90921E7520B001824AE /* NCStackElement.hpp in Sources */,
+				F366D90A21E7520B001824AE /* NCObject.cpp in Sources */,
+				F366D90B21E7520B001824AE /* NCObject.hpp in Sources */,
+				F366D90C21E7520B001824AE /* NCClassLoader.cpp in Sources */,
+				F366D90D21E7520B001824AE /* NCClassLoader.hpp in Sources */,
+				F366D90E21E7520B001824AE /* NCClassProvider.cpp in Sources */,
+				F366D90F21E7520B001824AE /* NCClassProvider.hpp in Sources */,
+				F366D91021E7520B001824AE /* NCClass.cpp in Sources */,
+				F366D91121E7520B001824AE /* NCClass.hpp in Sources */,
+				F366D91221E7520B001824AE /* NCLog.hpp in Sources */,
+				F366D91321E7520B001824AE /* NCBuiltinFunctionStore.cpp in Sources */,
+				F366D91421E7520B001824AE /* NCBuiltinFunctionStore.hpp in Sources */,
+				F366D91521E7520B001824AE /* NCException.cpp in Sources */,
+				F366D91621E7520B001824AE /* NCException.hpp in Sources */,
+				F366D91721E7520B001824AE /* NCModuleCache.cpp in Sources */,
+				F366D91821E7520B001824AE /* NCModuleCache.hpp in Sources */,
+				F366D91921E7520B001824AE /* NCHeapMemory.cpp in Sources */,
+				F366D91A21E7520B001824AE /* NCHeapMemory.hpp in Sources */,
+				F366D91B21E7520B001824AE /* NCBuiltinFunction.mm in Sources */,
+				F366D91C21E7520B001824AE /* NCLog.mm in Sources */,
+				F366D91D21E7520B001824AE /* NCCocoaClassProvider.mm in Sources */,
+				F366D91E21E7520B001824AE /* NCCocoaClassProvider.hpp in Sources */,
+				F366D91F21E7520B001824AE /* NCCocoaClass.mm in Sources */,
+				F366D92021E7520B001824AE /* NCCocoaClass.hpp in Sources */,
+				F366D92121E7520B001824AE /* NCCocoaBox.mm in Sources */,
+				F366D92221E7520B001824AE /* NCCocoaBox.hpp in Sources */,
+				F366D92321E7520B001824AE /* NCCocoaToolkit.mm in Sources */,
+				F366D92421E7520B001824AE /* NCCocoaToolkit.hpp in Sources */,
+				F366D92521E7520B001824AE /* NSObject+NCInvocation.h in Sources */,
+				F366D92621E7520B001824AE /* NSObject+NCInvocation.mm in Sources */,
+				F366D92721E7520B001824AE /* NCSourceFinder.mm in Sources */,
+				F366D92821E7520B001824AE /* NCSourceFinder.hpp in Sources */,
+				F366D92921E7520B001824AE /* NaiveC.h in Sources */,
+				F366D92A21E7520B001824AE /* NCCodeEngine_iOS.h in Sources */,
+				F366D92B21E7520B001824AE /* NCCodeEngine_iOS.mm in Sources */,
+				F366D92C21E7520B001824AE /* libNaiveC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -949,6 +1113,64 @@
 			};
 			name = Release;
 		};
+		F366D93121E7520B001824AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F366D93221E7520B001824AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -984,6 +1206,15 @@
 			buildConfigurations = (
 				F31D7F402122FA0700E11E5F /* Debug */,
 				F31D7F412122FA0700E11E5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F366D93021E7520B001824AE /* Build configuration list for PBXNativeTarget "libNaiveCDesktop" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F366D93121E7520B001824AE /* Debug */,
+				F366D93221E7520B001824AE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

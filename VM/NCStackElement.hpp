@@ -130,6 +130,8 @@ public:
     virtual void setAttribute(const string & attrName, shared_ptr<NCStackElement> value);
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
+    
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
 };
 
 #endif /* NCStackElement_hpp */

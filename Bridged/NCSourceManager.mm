@@ -11,7 +11,7 @@
 #include "NCLog.hpp"
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+//#import <UIKit/UIKit.h>
 
 using namespace std;
 
@@ -27,6 +27,12 @@ NCSourceManager::NCSourceManager(const string & rootDir){
     this->rootDirectory = rootDir;
     
     reload();
+}
+
+NCSourceManager::~NCSourceManager(){
+    delete _tokenizer;
+    delete _parser;
+    delete _interpreter;
 }
 
 void NCSourceManager::reload(){

@@ -20,6 +20,8 @@ class NCClassProvider{
 public:
 //    virtual std::shared_ptr<NCASTNode> findClass(const std::string & className) {return nullptr;};
     
+    virtual ~NCClassProvider(){};
+    
     virtual shared_ptr<NCClass> loadClass(const string & className){return nullptr;};
     
     virtual bool classExist(const std::string & className){return false;}
