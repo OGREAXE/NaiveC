@@ -60,4 +60,12 @@ public:
     virtual bool invoke(vector<shared_ptr<NCStackElement>> &arguments);
 };
 
+class NCBuiltin_NSSearchPathForDirectoriesInDomains:public NCBuiltinFunction{
+public:
+    NCBuiltin_NSSearchPathForDirectoriesInDomains();
+    
+    virtual bool invoke(vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+    virtual bool invoke(vector<shared_ptr<NCStackElement>> &arguments);
+};
+
 #endif /* NCBuiltinFunction_hpp */

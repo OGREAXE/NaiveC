@@ -105,7 +105,7 @@ bool NCBuiltinQueryView::invoke(vector<shared_ptr<NCStackElement>> &arguments,ve
     
     UIView * ret = queryViewDFS(root, type, argumentsCopy);
     
-    NCCocoaBox * cbox = new NCCocoaBox((void*)CFBridgingRetain(ret));
+    NCCocoaBox * cbox = new NCCocoaBox(NC_COCOA_BRIDGE(ret));
     lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(cbox))));
     
     return true;
@@ -277,8 +277,35 @@ bool NCBuiltinQueryViews::invoke(vector<shared_ptr<NCStackElement>> &arguments,v
     
     NSArray * ret = queryMultipleViewDFS(root, type, argumentsCopy);
     
-    NCCocoaBox * cbox = new NCCocoaBox((void*)CFBridgingRetain(ret));
+    NCCocoaBox * cbox = new NCCocoaBox(NC_COCOA_BRIDGE(ret));
     lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(cbox))));
     
+    return true;
+}
+
+//NCBuiltin_NSSearchPathForDirectoriesInDomains
+
+NCBuiltin_NSSearchPathForDirectoriesInDomains::NCBuiltin_NSSearchPathForDirectoriesInDomains(){
+    name = "NSSearchPathForDirectoriesInDomains";
+    parameters.push_back(shared_ptr<NCParameter>(new NCParameter("int","directory")));
+    parameters.push_back(shared_ptr<NCParameter>(new NCParameter("int","domainMask")));
+    parameters.push_back(shared_ptr<NCParameter>(new NCParameter("int","expandTilde")));
+}
+
+bool NCBuiltin_NSSearchPathForDirectoriesInDomains::invoke(vector<shared_ptr<NCStackElement>> &arguments){
+    
+    return true;
+}
+
+bool NCBuiltin_NSSearchPathForDirectoriesInDomains::invoke(vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
+    if (arguments.size() < 3) {
+        throw NCRuntimeException(0, "argument count incorrect, requires 3");
+    }
+    auto arg0 = arguments[0]->toInt();
+    auto arg1 = arguments[1]->toInt();
+    auto arg2 = arguments[2]->toInt();
+    NSArray * ret = NSSearchPathForDirectoriesInDomains((NSSearchPathDirectory)arg0,(NSSearchPathDomainMask)arg1,(BOOL)arg2);
+    NCCocoaBox * cbox = new NCCocoaBox(NC_COCOA_BRIDGE(ret));
+    lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(cbox))));
     return true;
 }

@@ -173,7 +173,7 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
             //nsobject
             id val=va_arg(vl,id);
 
-            NCCocoaBox * box = new NCCocoaBox((void*)CFBridgingRetain(val));
+            NCCocoaBox * box = new NCCocoaBox(NC_COCOA_BRIDGE(val));
             NCStackPointerElement * pBox = new NCStackPointerElement(shared_ptr<NCObject>( box));
             argmuments.push_back(shared_ptr<NCStackElement>(pBox));
         }
@@ -468,7 +468,7 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
         
         [invocation getReturnValue:&result];
         
-        NCCocoaBox * box = new NCCocoaBox((void*)CFBridgingRetain(result));
+        NCCocoaBox * box = new NCCocoaBox(NC_COCOA_BRIDGE(result));
         
         NCStackPointerElement * pRet = new NCStackPointerElement(shared_ptr<NCObject>( box));
         

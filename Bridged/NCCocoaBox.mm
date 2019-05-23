@@ -20,6 +20,11 @@
 NCCocoaBox::NCCocoaBox(void * pCocoaObject){
     m_cocoaObject = pCocoaObject;
 }
+
+NCCocoaBox::~NCCocoaBox(){
+    NC_COCOA_UNBRIDGE(m_cocoaObject);
+}
+
 bool NCCocoaBox::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
     if (m_cocoaObject == nullptr) {
         return false;
@@ -109,7 +114,7 @@ void NCCocoaBox::enumerate(std::function<bool (shared_ptr<NCStackElement> anObj)
     if ([wrappedObject isKindOfClass:[NSArray class]]) {
         NSArray *array = (NSArray*)wrappedObject;
         [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NCCocoaBox * box = new NCCocoaBox((void*)CFBridgingRetain(obj));
+            NCCocoaBox * box = new NCCocoaBox(NC_COCOA_BRIDGE(obj));
             NCStackPointerElement * pval = new NCStackPointerElement(shared_ptr<NCObject>(box));
             bool res = handler(shared_ptr<NCStackElement> (pval));
             if (res) {

@@ -81,7 +81,7 @@ shared_ptr<NCStackPointerElement> NCCocoaClass::instantiate(vector<shared_ptr<NC
     Class thisClass = NSClassFromString(thisClassName);
     id allocedObject = [thisClass alloc];
     
-    NCCocoaBox * box = new NCCocoaBox((void*)CFBridgingRetain(allocedObject));
+    NCCocoaBox * box = new NCCocoaBox(NC_COCOA_BRIDGE(allocedObject));
     
     return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(box)));
 }

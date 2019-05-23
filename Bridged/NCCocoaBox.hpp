@@ -12,6 +12,11 @@
 #include <stdio.h>
 #include "NCObject.hpp"
 
+//for nsobject bridging
+//used in objective-c source file only
+#define NC_COCOA_BRIDGE(aNSObject) (void*)CFBridgingRetain(aNSObject)
+#define NC_COCOA_UNBRIDGE(aBridgedNSObject) CFBridgingRelease(aBridgedNSObject)
+
 /*
  wrapper for cocoa objects
  */
@@ -21,6 +26,7 @@ private:
     void * m_cocoaObject;
 public:
     NCCocoaBox(void * cocoaObject);
+    virtual ~NCCocoaBox();
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
     

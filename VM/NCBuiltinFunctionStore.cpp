@@ -19,7 +19,12 @@ NCBuiltinFunctionStore::NCBuiltinFunctionStore(){
     addFunction(fQueryObj);
     
     auto fQueryObjs = shared_ptr<NCBuiltinFunction>(new NCBuiltinQueryViews());
+    
     addFunction(fQueryObjs);
+    
+    auto fSearchPath = shared_ptr<NCBuiltinFunction>(new NCBuiltin_NSSearchPathForDirectoriesInDomains());
+    
+    addFunction(fSearchPath);
     
     //        auto fGetAdaptorValue = shared_ptr<NCBuiltinFunction>(new NCBuiltinGetAdaptorValue());
     //        addFunction(fGetAdaptorValue);
