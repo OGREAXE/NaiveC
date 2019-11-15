@@ -309,3 +309,29 @@ bool NCBuiltin_NSSearchPathForDirectoriesInDomains::invoke(vector<shared_ptr<NCS
     lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(cbox))));
     return true;
 }
+
+/*
+ nsselectorfromstring
+ */
+/*
+ selector from string
+ */
+NCBuiltinNSSelectorFromString::NCBuiltinNSSelectorFromString(){
+    name = "NSSelectorFromString";
+    parameters.push_back(shared_ptr<NCParameter>(new NCParameter("string","selectorName")));
+}
+
+bool NCBuiltinNSSelectorFromString::invoke(vector<shared_ptr<NCStackElement>> &arguments){
+    return true;
+}
+
+bool NCBuiltinNSSelectorFromString::invoke(vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
+    if (arguments.size() != 1) {
+        throw NCRuntimeException(0, "argument count incorrect, requires 1");
+    }
+    auto arg0 = arguments[0]->toString();
+    
+    
+    
+    return true;
+}

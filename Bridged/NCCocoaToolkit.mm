@@ -9,6 +9,7 @@
 #include "NCCocoaToolkit.hpp"
 #include <sstream>
 #include <iostream>
+#include <Foundation/Foundation.h>
 
 //rect
 string NCRect::getDescription(){
@@ -107,5 +108,16 @@ shared_ptr<NCStackElement> NCEdgeInset::getAttribute(const string & attrName){
     else if (attrName == "right") {
         return shared_ptr<NCStackFloatElement>(new NCStackFloatElement(right));
     }
+    return nullptr;
+}
+
+#pragma mark NCOcClass
+
+string NCOcClass::getDescription(){
+    Class cls = (__bridge Class)(pClass);
+    return NSStringFromClass(cls).UTF8String;
+}
+
+shared_ptr<NCStackElement> NCOcClass::getAttribute(const string & attrName){
     return nullptr;
 }

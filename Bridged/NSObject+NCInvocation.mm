@@ -176,6 +176,13 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
             NCCocoaBox * box = new NCCocoaBox(NC_COCOA_BRIDGE(val));
             NCStackPointerElement * pBox = new NCStackPointerElement(shared_ptr<NCObject>( box));
             argmuments.push_back(shared_ptr<NCStackElement>(pBox));
+        } else if(COMP_TYPE(argumentType, Class)){
+            //class
+            id val = va_arg(vl,Class);
+
+            NCOcClass * pCls = new NCOcClass((__bridge void *)(val));
+            NCStackPointerElement * pElement = new NCStackPointerElement(shared_ptr<NCObject>(pCls));
+            argmuments.push_back(shared_ptr<NCStackElement>(pElement));
         }
 //        else if (strcmp("@?", argumentType)==0){
 //            //block. not support yet
@@ -386,7 +393,7 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
                     [invocation setArgument:&insets atIndex:argPos];
                 }
             }
-        }
+        } 
         else if(COMP_ENCODE(argumentType, id)){
             auto& stackElement = arguments[i];
             id realObj = NULL;
@@ -406,6 +413,17 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
                 }
             }
             [invocation setArgument:&realObj atIndex:argPos];
+        }
+        else if(COMP_ENCODE(argumentType, Class)){
+            if(dynamic_pointer_cast<NCStackPointerElement>(arguments[i])){
+                auto pFrameContainer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
+                auto pObject = pFrameContainer->getPointedObject();
+                if(pObject && dynamic_pointer_cast<NCOcClass>(pObject)){
+                    auto pCls = dynamic_pointer_cast<NCOcClass>(pObject);
+                    Class aCls = (__bridge Class)pCls->getClass;
+                    [invocation setArgument:&aCls atIndex:argPos];
+                }
+            }
         }
         else if (strcmp("@?", argumentType)==0){
             auto pointerContainer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
@@ -541,6 +559,12 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
             UIEdgeInsets *pret = (UIEdgeInsets *)buffer;
             NCEdgeInset * pInsets = new NCEdgeInset(pret->top,pret->left,pret->bottom,pret->right);
             lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(pInsets)));
+        }
+        else if(COMP_ENCODE(returnType, Class)){
+            Class *pCls = (Class*)buffer;
+            Class cls = *pCls;
+            auto pOcCls = new NCOcClass((__bridge void *)cls);
+            lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(pOcCls)));
         }
     }
     

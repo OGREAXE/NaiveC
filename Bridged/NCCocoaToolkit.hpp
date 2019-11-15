@@ -126,4 +126,18 @@ public:
     virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
 };
 
+class NCOcClass : public NCObject{
+private:
+    void * pClass;
+public:
+    NCOcClass(){};
+    NCOcClass(void * pClass):pClass(pClass){};
+    
+    void * getClass;
+    
+    virtual string getDescription();
+    
+    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
+};
+
 #endif /* NCCocoaToolkit_hpp */
