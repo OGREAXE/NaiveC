@@ -55,6 +55,13 @@ bool NCTokenizer::tokenize(const string&str){
                 token = "";
             }
         }
+        else if (c == 0x5c){ // is '\'
+            if (status == Comment) {
+                if (token.length() > 0){
+                    addToken(tokens, token, i);
+                }
+            }
+        }
         else if(status == Comment){
             continue;
         }
@@ -175,7 +182,10 @@ bool NCTokenizer::tokenize(const string&str){
             status = Parenthesis;
         }
         else if(c == '"'){
-            if (status != String){
+            if (i > 0 && str[i-1] == 0x5c) { // is \ , " is part of the string
+                token += c;
+            }
+            else if (status != String){
                 if(token.length() > 0) {
 //                    tokens.push_back(token);
                     addToken(tokens, token, i);
