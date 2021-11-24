@@ -67,7 +67,7 @@ bool NCParser::parse(shared_ptr<const vector<NCToken>>& tokens){
     
     bool parseOK = false;
     do{
-        parseOK = false;
+        parseOK = false; 
 //        pushIndex();
         PUSH_INDEX
         

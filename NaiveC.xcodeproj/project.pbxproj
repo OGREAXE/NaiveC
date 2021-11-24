@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4363DF1B27452DB800FE4A7F /* NVTokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4363DF1927452DB700FE4A7F /* NVTokenizer.h */; };
+		4363DF1C27452DB900FE4A7F /* NVTokenizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4363DF1A27452DB800FE4A7F /* NVTokenizer.m */; };
+		4363DF1D27452DB900FE4A7F /* NVTokenizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4363DF1A27452DB800FE4A7F /* NVTokenizer.m */; };
+		4363DF1E27452DB900FE4A7F /* NVTokenizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4363DF1A27452DB800FE4A7F /* NVTokenizer.m */; };
+		4363DF2127467DFF00FE4A7F /* NVParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4363DF1F27467DFD00FE4A7F /* NVParser.h */; };
+		4363DF2227467E0000FE4A7F /* NVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4363DF2027467DFE00FE4A7F /* NVParser.m */; };
+		4363DF2327467E0000FE4A7F /* NVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4363DF2027467DFE00FE4A7F /* NVParser.m */; };
+		4363DF2427467E0000FE4A7F /* NVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4363DF2027467DFE00FE4A7F /* NVParser.m */; };
+		4363DF272747966400FE4A7F /* NVAST.h in Headers */ = {isa = PBXBuildFile; fileRef = 4363DF252747966200FE4A7F /* NVAST.h */; };
+		4363DF282747966500FE4A7F /* NVAST.m in Sources */ = {isa = PBXBuildFile; fileRef = 4363DF262747966200FE4A7F /* NVAST.m */; };
+		4363DF292747966500FE4A7F /* NVAST.m in Sources */ = {isa = PBXBuildFile; fileRef = 4363DF262747966200FE4A7F /* NVAST.m */; };
+		4363DF2A2747966500FE4A7F /* NVAST.m in Sources */ = {isa = PBXBuildFile; fileRef = 4363DF262747966200FE4A7F /* NVAST.m */; };
+		4391A8C2274D192A002BEB6D /* NVPair.h in Headers */ = {isa = PBXBuildFile; fileRef = 4391A8C0274D1929002BEB6D /* NVPair.h */; };
+		4391A8C3274D192B002BEB6D /* NVPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 4391A8C1274D1929002BEB6D /* NVPair.m */; };
 		D4439E4E2089EB1F005EE65B /* NCHeapMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4439E4C2089EB1F005EE65B /* NCHeapMemory.cpp */; };
 		D4439E4F2089EB1F005EE65B /* NCHeapMemory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D4439E4D2089EB1F005EE65B /* NCHeapMemory.hpp */; };
 		D44B8FFD204FD6610091B94C /* NCModuleCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44B8FFB204FD6610091B94C /* NCModuleCache.cpp */; };
@@ -217,6 +231,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4363DF1927452DB700FE4A7F /* NVTokenizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVTokenizer.h; sourceTree = "<group>"; };
+		4363DF1A27452DB800FE4A7F /* NVTokenizer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVTokenizer.m; sourceTree = "<group>"; };
+		4363DF1F27467DFD00FE4A7F /* NVParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVParser.h; sourceTree = "<group>"; };
+		4363DF2027467DFE00FE4A7F /* NVParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVParser.m; sourceTree = "<group>"; };
+		4363DF252747966200FE4A7F /* NVAST.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVAST.h; sourceTree = "<group>"; };
+		4363DF262747966200FE4A7F /* NVAST.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVAST.m; sourceTree = "<group>"; };
+		4391A8C0274D1929002BEB6D /* NVPair.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVPair.h; sourceTree = "<group>"; };
+		4391A8C1274D1929002BEB6D /* NVPair.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVPair.m; sourceTree = "<group>"; };
+		4391A8C4274E1112002BEB6D /* NVCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVCommon.h; sourceTree = "<group>"; };
 		D4439E4C2089EB1F005EE65B /* NCHeapMemory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NCHeapMemory.cpp; sourceTree = "<group>"; };
 		D4439E4D2089EB1F005EE65B /* NCHeapMemory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCHeapMemory.hpp; sourceTree = "<group>"; };
 		D44B8FFB204FD6610091B94C /* NCModuleCache.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NCModuleCache.cpp; sourceTree = "<group>"; };
@@ -322,6 +345,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4391A8BF274D18EB002BEB6D /* comp */ = {
+			isa = PBXGroup;
+			children = (
+				4391A8C0274D1929002BEB6D /* NVPair.h */,
+				4391A8C1274D1929002BEB6D /* NVPair.m */,
+				4391A8C4274E1112002BEB6D /* NVCommon.h */,
+			);
+			path = comp;
+			sourceTree = "<group>";
+		};
 		D4E06E0C203191920095F442 /* Bridged */ = {
 			isa = PBXGroup;
 			children = (
@@ -428,12 +461,19 @@
 		ED219CC41F6D16370015293A /* frontend */ = {
 			isa = PBXGroup;
 			children = (
+				4391A8BF274D18EB002BEB6D /* comp */,
 				ED219CC51F6D16370015293A /* NCAST.cpp */,
 				ED219CC61F6D16370015293A /* NCAST.hpp */,
 				ED219CC91F6D16370015293A /* NCTokenizer.cpp */,
 				ED219CCA1F6D16370015293A /* NCTokenizer.hpp */,
 				ED219CC71F6D16370015293A /* NCParser.cpp */,
 				ED219CC81F6D16370015293A /* NCParser.hpp */,
+				4363DF1927452DB700FE4A7F /* NVTokenizer.h */,
+				4363DF1A27452DB800FE4A7F /* NVTokenizer.m */,
+				4363DF1F27467DFD00FE4A7F /* NVParser.h */,
+				4363DF2027467DFE00FE4A7F /* NVParser.m */,
+				4363DF252747966200FE4A7F /* NVAST.h */,
+				4363DF262747966200FE4A7F /* NVAST.m */,
 			);
 			path = frontend;
 			sourceTree = "<group>";
@@ -495,8 +535,11 @@
 			files = (
 				D4439E4F2089EB1F005EE65B /* NCHeapMemory.hpp in Headers */,
 				D4E06E6A2037015D0095F442 /* NaiveC.h in Headers */,
+				4391A8C2274D192A002BEB6D /* NVPair.h in Headers */,
+				4363DF1B27452DB800FE4A7F /* NVTokenizer.h in Headers */,
 				D4E06F21203972F90095F442 /* NCStandardClass.hpp in Headers */,
 				D4E06F1920396FD10095F442 /* NCStandardLibraryProvider.hpp in Headers */,
+				4363DF2127467DFF00FE4A7F /* NVParser.h in Headers */,
 				D44B8FFE204FD6610091B94C /* NCModuleCache.hpp in Headers */,
 				D4892EE420450A520052267E /* NCBuiltinFunctionStore.hpp in Headers */,
 				D4E06F0F203871E10095F442 /* NCClass.hpp in Headers */,
@@ -506,6 +549,7 @@
 				D4E06F49204042100095F442 /* NCLog.hpp in Headers */,
 				D4E06EE7203716140095F442 /* NCCodeEngine_iOS.h in Headers */,
 				D4E06F1D203971280095F442 /* NCArray.hpp in Headers */,
+				4363DF272747966400FE4A7F /* NVAST.h in Headers */,
 				F359ABE92150977100FE7D84 /* NCSourceManager.hpp in Headers */,
 				D4E06F2520397AAB0095F442 /* NCCocoaClass.hpp in Headers */,
 			);
@@ -615,6 +659,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -667,13 +712,16 @@
 				D4E06EEF20371D9E0095F442 /* NCBuiltinFunction.hpp in Sources */,
 				D4E06F28203C3E1B0095F442 /* NCCocoaToolkit.mm in Sources */,
 				D44B8FFD204FD6610091B94C /* NCModuleCache.cpp in Sources */,
+				4363DF282747966500FE4A7F /* NVAST.m in Sources */,
 				D4E06EF020371D9E0095F442 /* NCBuiltinFunction.mm in Sources */,
 				D4E06EF120371D9E0095F442 /* NCCode.cpp in Sources */,
 				D4E06EF220371D9E0095F442 /* NCCode.hpp in Sources */,
 				D4E06EF320371D9E0095F442 /* NCInterpreter.cpp in Sources */,
+				4363DF2227467E0000FE4A7F /* NVParser.m in Sources */,
 				F359ABE82150977100FE7D84 /* NCSourceManager.mm in Sources */,
 				D4E06EF420371D9E0095F442 /* NCInterpreter.hpp in Sources */,
 				D4E06EF520371D9E0095F442 /* NCStackElement.cpp in Sources */,
+				4391A8C3274D192B002BEB6D /* NVPair.m in Sources */,
 				D4E06EF620371D9E0095F442 /* NCStackElement.hpp in Sources */,
 				D496C70F204AFFE500B6A041 /* NCException.cpp in Sources */,
 				D4E06EF720371D9E0095F442 /* NCObject.cpp in Sources */,
@@ -690,6 +738,7 @@
 				D4439E4E2089EB1F005EE65B /* NCHeapMemory.cpp in Sources */,
 				D4E06EEC20371D910095F442 /* NCParser.hpp in Sources */,
 				D496C757204D2CB900B6A041 /* NCSourceFinder.mm in Sources */,
+				4363DF1C27452DB900FE4A7F /* NVTokenizer.m in Sources */,
 				D4E06F20203972F90095F442 /* NCStandardClass.cpp in Sources */,
 				D4E06EED20371D910095F442 /* NCTokenizer.cpp in Sources */,
 				D4E06EEE20371D910095F442 /* NCTokenizer.hpp in Sources */,
@@ -718,6 +767,7 @@
 				F31D7F482122FA7400E11E5F /* NCStandardClass.hpp in Sources */,
 				F31D7F492122FA7400E11E5F /* CodeTest in Sources */,
 				F31D7F4A2122FA7400E11E5F /* CodeTestX in Sources */,
+				4363DF1D27452DB900FE4A7F /* NVTokenizer.m in Sources */,
 				F31D7F4B2122FA7400E11E5F /* NCAST.cpp in Sources */,
 				F31D7F4C2122FA7400E11E5F /* NCAST.hpp in Sources */,
 				F31D7F4D2122FA7400E11E5F /* NCTokenizer.cpp in Sources */,
@@ -736,7 +786,9 @@
 				F31D7F5A2122FA7400E11E5F /* NCClassLoader.cpp in Sources */,
 				F31D7F5B2122FA7400E11E5F /* NCClassLoader.hpp in Sources */,
 				F31D7F5C2122FA7400E11E5F /* NCClassProvider.cpp in Sources */,
+				4363DF2327467E0000FE4A7F /* NVParser.m in Sources */,
 				F31D7F5D2122FA7400E11E5F /* NCClassProvider.hpp in Sources */,
+				4363DF292747966500FE4A7F /* NVAST.m in Sources */,
 				F31D7F5E2122FA7400E11E5F /* NCClass.cpp in Sources */,
 				F31D7F5F2122FA7400E11E5F /* NCClass.hpp in Sources */,
 				F31D7F602122FA7400E11E5F /* NCLog.hpp in Sources */,
@@ -782,6 +834,7 @@
 				F366D8FA21E7520B001824AE /* NCStandardClass.hpp in Sources */,
 				F366D8FB21E7520B001824AE /* CodeTest in Sources */,
 				F366D8FC21E7520B001824AE /* CodeTestX in Sources */,
+				4363DF1E27452DB900FE4A7F /* NVTokenizer.m in Sources */,
 				F366D8FD21E7520B001824AE /* NCAST.cpp in Sources */,
 				F366D8FE21E7520B001824AE /* NCAST.hpp in Sources */,
 				F366D8FF21E7520B001824AE /* NCTokenizer.cpp in Sources */,
@@ -800,7 +853,9 @@
 				F366D90C21E7520B001824AE /* NCClassLoader.cpp in Sources */,
 				F366D90D21E7520B001824AE /* NCClassLoader.hpp in Sources */,
 				F366D90E21E7520B001824AE /* NCClassProvider.cpp in Sources */,
+				4363DF2427467E0000FE4A7F /* NVParser.m in Sources */,
 				F366D90F21E7520B001824AE /* NCClassProvider.hpp in Sources */,
+				4363DF2A2747966500FE4A7F /* NVAST.m in Sources */,
 				F366D91021E7520B001824AE /* NCClass.cpp in Sources */,
 				F366D91121E7520B001824AE /* NCClass.hpp in Sources */,
 				F366D91221E7520B001824AE /* NCLog.hpp in Sources */,
