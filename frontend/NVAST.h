@@ -64,6 +64,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString * op; //currently only "=" is supported
 @property (nonatomic) NVExpression * value;
  
+- (id)initWithExpr:(NVExpression *)expr
+                op:(NSString *)op
+             value:(NVExpression *)value;
+
 @end
 
 //class.method(...)
@@ -71,6 +75,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSArray<NVExpression *> * args;
 @property (nonatomic) NSString * name;
 @property (nonatomic) NVExpression * scope;
+
+- (id)initWithArgs:(NSArray<NVExpression *> *)args
+              name:(NSString *)name
+             scope:(nullable NVExpression *)scope;
 
 @end
 
@@ -82,6 +90,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSArray<NSString *> *parameter_list;
 @property (nonatomic) NVExpression * scope;
 
+- (id)initWithArgumentExprList:(NSArray<NVExpression *> *)argument_expression_list
+                 parameterList:(NSArray<NSString *> *)parameter_list
+                         scope:(NVExpression *)scope;
+
 - (NVMethodCallExpr *)getMehodCall;
  
 @end
@@ -89,16 +101,22 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NVFieldAccessExpr:  NVPrimarySuffix
 @property (nonatomic) NVExpression * scope;
 @property (nonatomic) NSString * field;
+
+- (id)initWithScope:(NVExpression *)scope field:(NSString *)field;
+
 @end
 
 @interface NVArrayAccessExpr:  NVPrimarySuffix
+
 @property (nonatomic) NVExpression * scope;
 @property (nonatomic) NVExpression * expression;
  
+- (id)initWithScope:(NVExpression *)scope expression:(NVExpression *)expression;
+
 @end
 
 @interface NVArrayInitializer:  NVExpression
-@property (nonatomic) NSArray<NVExpression *> * elements;
+@property (nonatomic) NSMutableArray<NVExpression *> * elements;
  
 @end
 
@@ -106,6 +124,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) BOOL shouldAddKeyIfKeyNotFound;
 @property (nonatomic) NSString * name;
+
+- (id)initWithName:(NSString *)name;
  
 @end
 
@@ -113,23 +133,27 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface NVIntegerLiteral:  NVLiteral
+
 @property (nonatomic) int value;
 
-//int getValue(){return value;}
+- (id)initWithInt:(int)intValue;
+
 @end
 
 @interface NVFloatLiteral:  NVLiteral
     
 @property (nonatomic) NVFloat value;
 
-//    NCFloatLiteral(string & floatStr);
-    
-//NCFloat getValue(){return value;}
+- (id)initWithFloat:(float)floatValue;
 
 @end
 
 @interface NVStringLiteral:  NVLiteral
+
 @property (nonatomic) NSString * str;
+
+- (id)initWithString:(NSString *)str;
+
 @end
 
 @interface NVStatement:  NVASTNode
@@ -147,7 +171,7 @@ typedef NVBlockStatement  NVExpressionStatement;
 
 @end
 
-@interface VariableDeclarator:  NVExpression
+@interface NVVariableDeclarator:  NVExpression
 //    pair<string, vector<NCArrayBracketPair *> * id;
 
 @property (nonatomic)  NVPair<NSString *, NSArray<NVArrayBracketPair *>*> *Id;
@@ -158,16 +182,14 @@ typedef NVBlockStatement  NVExpressionStatement;
  
 @end
 
-@interface VariableDeclarationExpression:  NVExpression
+@interface NVVariableDeclarationExpression:  NVExpression
 
 @property (nonatomic) NSString * type;
-@property (nonatomic) NSArray<NVExpression *> * variables;
+@property (nonatomic) NSMutableArray<NVExpression *> * variables;
  
 @end
 
-typedef VariableDeclarationExpression NCVariableDeclarationExpression;
-
-@interface IfStatement:  NVStatement
+@interface NVIfStatement:  NVStatement
 
 //    IfStatement():condition(nullptr),thenStatement(nullptr),elseStatement(nullptr){
 //
@@ -181,19 +203,23 @@ typedef VariableDeclarationExpression NCVariableDeclarationExpression;
  
 @end
 
-@interface ReturnStatement:  NVStatement
+@interface NVReturnStatement:  NVStatement
 
 //    ReturnStatement():expression(nullptr){}
 //    ReturnStatement(shared_ptr<NVExpression> expression):expression(expression){}
 @property (nonatomic) NVExpression * expression;
  
+- (id)initWithExpression:(NVExpression *)expr;
+
 @end
 
-@interface WhileStatement:  NVStatement
+@interface NVWhileStatement:  NVStatement
 
 //    WhileStatement(shared_ptr<NVExpression> condition,shared_ptr<NCStatement> statement):condition(condition),statement(statement){}
 @property (nonatomic) NVExpression * condition;
 @property (nonatomic) NVStatement * statement;
+
+- (id)initWithCondition:(NVExpression *)condition statement:(NVStatement *)stmt;
  
 @end
 
@@ -204,12 +230,12 @@ typedef VariableDeclarationExpression NCVariableDeclarationExpression;
  
 @end
 
-@interface ForStatement:  NVStatement
+@interface NVForStatement:  NVStatement
 
 @property (nonatomic) NVFastEnumeration * fastEnumeration;
     
-@property (nonatomic) NSArray<NVExpression *> * theInit;
-@property (nonatomic) NSArray<NVExpression *> * update;
+@property (nonatomic) NSMutableArray<NVExpression *> * forInit;
+@property (nonatomic) NSMutableArray<NVExpression *> * update;
 @property (nonatomic) NVExpression * expr;
 @property (nonatomic) NVStatement * body;
 
@@ -220,11 +246,11 @@ typedef VariableDeclarationExpression NCVariableDeclarationExpression;
  
 @end
 
-@interface BreakStatement:  NVStatement
+@interface NVBreakStatement:  NVStatement
  
 @end
 
-@interface ContinueStatement:  NVStatement
+@interface NVContinueStatement:  NVStatement
  
 @end
 
@@ -284,6 +310,9 @@ typedef VariableDeclarationExpression NCVariableDeclarationExpression;
 //
 //    NCParameter(string type,string name):type(type), name(name){}
 //    NCParameter(string name):type(""), name(name){}
+
+- (id)initWithType:(NSString *)type name:(NSString *)name;
+- (id)initWithName:(NSString *)name;
     
 @property (nonatomic) NSString * type;
 @property (nonatomic) NSString * name;
@@ -339,7 +368,7 @@ typedef VariableDeclarationExpression NCVariableDeclarationExpression;
 
 @property (nonatomic) NVBlock * blockStmt;
     
-@property (nonatomic) NSArray<NVParameter *> *parameters;
+@property (nonatomic) NSMutableArray<NVParameter *> *parameters;
     
 @property (nonatomic) NSArray<NSString *> *capturedSymbols;
  
@@ -381,13 +410,13 @@ typedef VariableDeclarationExpression NCVariableDeclarationExpression;
 //@property (nonatomic) NCClassDeclaration> parent;
 @property (nonatomic) NSString * parent;
     
-@property (nonatomic) NSArray<NVBodyDeclaration *> * members;
+@property (nonatomic) NSMutableArray<NVBodyDeclaration *> *members;
     
-@property (nonatomic) NSArray<NVFieldDeclaration *> * fields;
+@property (nonatomic) NSMutableArray<NVFieldDeclaration *> *fields;
     
 //    unordered_map<string, shared_ptr<NCMethodDeclaration *> * methods;
     
-@property (nonatomic) NSDictionary<NSString *, NVMethodDeclaration *> *methods;
+@property (nonatomic) NSMutableDictionary<NSString *, NVMethodDeclaration *> *methods;
 
 - (NVFieldDeclaration *)getField:(NSString *)name;
     
@@ -401,8 +430,8 @@ typedef VariableDeclarationExpression NCVariableDeclarationExpression;
 
 @interface NVASTRoot:  NVASTNode
 
-@property (nonatomic) NSArray<NVClassDeclaration *> * classList;
-@property (nonatomic) NSArray<NVASTFunctionDefinition *> * functionList;
+@property (nonatomic) NSMutableArray<NVClassDeclaration *> * classList;
+@property (nonatomic) NSMutableArray<NVASTFunctionDefinition *> * functionList;
  
 @end
 

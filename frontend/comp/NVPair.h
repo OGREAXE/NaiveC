@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NVPair <__covariant ObjectTypeA, __covariant ObjectTypeB> : NSObject
 
-+ (void)makePair:(ObjectTypeA)obja objectB:(ObjectTypeB)objectB;
++ (NVPair *)makePair:(ObjectTypeA)obja second:(ObjectTypeB)objb;
 
 @property (nonatomic, readonly) ObjectTypeA first;
 @property (nonatomic, readonly) ObjectTypeB second;

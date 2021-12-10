@@ -82,35 +82,35 @@
 @implementation NVArrayBracketPair
 @end
 
-@implementation VariableDeclarator
+@implementation NVVariableDeclarator
 
 - (NSString *)id_str {return _Id.first;}
  
 @end
 
-@implementation VariableDeclarationExpression
+@implementation NVVariableDeclarationExpression
 @end
 
-@implementation IfStatement
+@implementation NVIfStatement
 @end
 
-@implementation ReturnStatement
+@implementation NVReturnStatement
 @end
 
-@implementation WhileStatement
+@implementation NVWhileStatement
 @end
 
 @implementation NVFastEnumeration
 @end
 
-@implementation ForStatement
+@implementation NVForStatement
 @end
 
-@implementation BreakStatement
+@implementation NVBreakStatement
  
 @end
 
-@implementation ContinueStatement
+@implementation NVContinueStatement
  
 @end
 
