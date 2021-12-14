@@ -21,6 +21,8 @@
     NVPair *pair = [[NVPair alloc] init];
     pair.object_first = obja;
     pair.object_second = objb;
+    
+    return pair;
 }
 
 - (id)first {
