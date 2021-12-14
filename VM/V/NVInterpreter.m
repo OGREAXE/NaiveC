@@ -501,7 +501,16 @@ circuitControl:(NVCircuitControl *)circuitControl {
 - (void)visitArrayInitializer:(NVArrayInitializer *)node
         frame:(NVFrame *)frame
   circuitControl:(NVCircuitControl *)circuitControl {
+    NVArray *pArray = [[NVArray alloc] init];
     
+    for (NVExpression *element in node.elements) {
+        [self visit:element frame:frame];
+        NVStackElement *value = [frame stack_pop];
+        [pArray addElement:value];
+    }
+    
+    NVStackPointerElement *pointer = [[NVStackPointerElement alloc] initWithObject:pArray];
+    [frame stack_push:pointer];
 }
 
 - (void)visitNameExpression:(NVNameExpression *)node

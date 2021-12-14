@@ -11,8 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NVArray : NSObject <NVBracketAccessible, NVFastEnumerable>
-
+@interface NVArray : NVObject <NVBracketAccessible, NVFastEnumerable>
+- (void)addElement:(NVStackElement *)element;
 @end
 
 @interface NVArrayAccessor : NVAccessor

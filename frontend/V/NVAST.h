@@ -116,7 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface NVArrayInitializer:  NVExpression
-@property (nonatomic) NSMutableArray<NVExpression *> * elements;
+@property (nonatomic) NSMutableArray<NVExpression *> *elements;
  
 @end
 
