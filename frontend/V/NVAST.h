@@ -264,8 +264,6 @@ typedef NVBlockStatement  NVExpressionStatement;
 
 - (id)initWithType:(NSString *)type name:(NSString *)name;
 - (id)initWithName:(NSString *)name;
-    
-@property (nonatomic, readonly) BOOL isPrimitiveType; //param pass by value such as int, float,
  
 @end
 

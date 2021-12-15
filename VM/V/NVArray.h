@@ -13,9 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NVArray : NVObject <NVBracketAccessible, NVFastEnumerable>
 - (void)addElement:(NVStackElement *)element;
+- (NVStackElement *)getAttribute:(NSString *)attributeName;
 @end
 
 @interface NVArrayAccessor : NVAccessor
+
+@property (nonatomic) id<NVBracketAccessible> accessible;
+@property (nonatomic) NVStackElement *key;
 
 - (id)initWithAccessible:(id<NVBracketAccessible>)accessible key:(NVStackElement *)key;
 

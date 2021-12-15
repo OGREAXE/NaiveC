@@ -8,6 +8,171 @@
 
 #import "NVArray.h"
 
+@interface NVArray ()
+
+@property (nonatomic) NSMutableArray<NVStackElement *> *innerArray;
+
+@end
+
 @implementation NVArray
+
+- (NSMutableArray<NVStackElement *> *)innerArray {
+    if (!_innerArray) {
+        _innerArray = [NSMutableArray array];
+    }
+    
+    return _innerArray;
+}
+
+- (BOOL)invokeMethod:(NSString *)methodName arguments:(NSArray<NVStackElement *> *)arguments lastStack:(NVStack *)lastStack {
+    if ([methodName isEqualToString:@"get"]) {
+        int index = [arguments[0] toInt];
+        
+        if (index > self.innerArray.count - 1) {
+            return NO;
+        }
+        
+        NVStackElement *res = self.innerArray[index];
+        [lastStack addObject:res];
+    }
+    else if ([methodName isEqualToString:@"add"]) {
+        [self.innerArray addObject:arguments[0]];
+    }
+    else if([methodName isEqualToString:@"set"]){
+//        innerArray[arguments[0]->toInt()] = arguments[1];
+        
+        int index = [arguments[0] toInt];
+        
+        if (index > self.innerArray.count - 1) {
+            return NO;
+        }
+        
+        if (arguments.count != 2) {
+            return NO;
+        }
+        
+        self.innerArray[index] = arguments[1];
+    }
+    else if([methodName isEqualToString:@"length"]){
+        [lastStack addObject:[[NVStackIntElement alloc] initWithInt:self.innerArray.count]];
+    }
+    
+    return true;
+}
+
+- (BOOL)invokeMethod:(NSString *)methodName arguments:(NSArray<NVStackElement *> *)arguments {
+    return [self invokeMethod:methodName arguments:arguments lastStack:nil];
+}
+
+- (NVStackElement *)getAttribute:(NSString *)attributeName {
+    if ([attributeName isEqualToString:@"count"]) {
+        NSInteger length = _innerArray.count;
+        return [[NVStackIntElement alloc] initWithInt:length];
+    }
+    else {
+       NSString *reason = [NSString stringWithFormat:@"attribute %@ not found on NCArray", attributeName];
+        NVException *e = [NSException exceptionWithName:@"NVArray_exception" reason:reason userInfo:nil];
+        [self throw_exception:e];
+    }
+    
+    return nil;
+}
+
+- (void)br_set:(NVStackElement *)key value:(NVStackElement *)value {
+    if ([key isKindOfClass:NVStackIntElement.class]) {
+        int index = ((NVStackIntElement *)key).value;
+        
+        if (index > self.innerArray.count - 1) {
+            NVException *e = [NSException exceptionWithName:@"NVArray_exception" reason:@"out of range" userInfo:nil];
+            [self throw_exception:e];
+        }
+        
+        self.innerArray[index] = value;
+    } else {
+        NVException *e = [NSException exceptionWithName:@"NVArray_exception" reason:@"index is not numeric" userInfo:nil];
+        [self throw_exception:e];
+    }
+}
+
+- (NVStackElement *)br_getValue:(NVStackElement *)key {
+    if ([key isKindOfClass:NVStackIntElement.class]) {
+        int index = ((NVStackIntElement *)key).value;
+        
+        if (index > self.innerArray.count - 1) {
+            NVException *e = [NSException exceptionWithName:@"NVArray_exception" reason:@"out of range" userInfo:nil];
+            [self throw_exception:e];
+        }
+        
+        return self.innerArray[index];
+    } else {
+        NVException *e = [NSException exceptionWithName:@"NVArray_exception" reason:@"index is not numeric" userInfo:nil];
+        [self throw_exception:e];
+        
+        return nil;
+    }
+}
+
+/**
+ fast enumeration
+ */
+- (void)enumerate:(BOOL(^)(NVStackElement *stackElement))handler {
+    for (int i = 0; i < self.innerArray.count; i++) {
+        NVStackElement *currentValue = self.innerArray[i];
+        
+        if (handler(currentValue)) {
+            break;
+        }
+    }
+}
+
+@end
+
+@implementation NVArrayAccessor
+
+- (id)initWithAccessible:(id<NVBracketAccessible>)accessible key:(NVStackElement *)key {
+    self = [super init];
+    
+    self.accessible = accessible;
+    self.key = key;
+    
+    return self;
+}
+
+- (NVStackElement *)doOperator:(NSString *)op rightOperand:(NVStackElement *)rightOperand {
+    return [self.value doOperator:op rightOperand:rightOperand];
+}
+
+- (NVInt)toInt {
+    return [self.value toInt];
+}
+
+- (NVFloat)toFloat {
+    return [self.value toFloat];
+}
+
+- (NSString *)toString {
+    return [self.value toString];
+}
+
+- (NVStackElement *)copy {
+    return [self.value copy];
+}
+
+- (BOOL)invokeMethod:(NSString *)methodName arguments:(NSArray<NVStackElement *> *)arguments {
+    return [self.value invokeMethod:methodName arguments:arguments];
+}
+
+- (BOOL)invokeMethod:(NSString *)methodName arguments:(NSArray<NVStackElement *> *)arguments lastStack:(NVStack *)lastStack {
+    return [self.value invokeMethod:methodName arguments:arguments lastStack:lastStack];
+}
+
+- (NVStackElement *)getAttribute:(NSString *)attrName {
+    return [self.value getAttribute:attrName];
+}
+
+- (void)setAttribute:(NSString *)attributeName value:(NVStackElement *)value {
+    [self.value setAttribute:attributeName value:value];
+}
+
 
 @end

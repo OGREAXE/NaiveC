@@ -36,6 +36,10 @@ typedef NSException NVException;
 
 - (NVInt)toInt;
 
+- (NVObject *)copy;
+
+- (void)throw_exception:(NVException *)e;
+
 @end
 
 @interface NVNativeObject : NVObject
@@ -61,7 +65,7 @@ typedef NSException NVException;
 
 @property (nonatomic) NVLambdaExpression *lambdaExpression;
 
-@property (nonatomic, readonly) NSArray<NVLambdaExpression *> *capturedObjects;
+@property (nonatomic) NSMutableArray<NVCapturedObject *> *capturedObjects;
 
 - (id)initWithLambdaExpression:(NVLambdaExpression *)lambdaExpr;
 
@@ -104,14 +108,6 @@ closure return true to break
 
 @end
 
-BOOL isPrimitiveType(NSString *type) {
-    if ([type isEqualToString:@"int"]
-        || [type isEqualToString:@"float"]
-        || [type isEqualToString:@"string"]) {
-        return YES;
-    }
-    
-    return NO;
-}
+BOOL isPrimitiveType(NSString *type);
 
 NS_ASSUME_NONNULL_END

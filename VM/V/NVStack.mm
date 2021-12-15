@@ -69,6 +69,11 @@
 
 @end
 
+
+@implementation NVStackNullElement
+
+@end
+
 @implementation NVStackIntElement
 
 - (id)initWithInt:(int)value {

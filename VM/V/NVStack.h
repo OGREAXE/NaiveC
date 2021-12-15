@@ -39,10 +39,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@implementation NVStackNullElement
-
-@end
-
 //typedef NSMutableArray<NVStackElement *> NVStack;
 
 @interface NVStack : NSObject

@@ -31,6 +31,16 @@
 
 @implementation NVInterpreter
 
++ (instancetype)defaultInterperter {
+    dispatch_once_t once_token;
+    static NVInterpreter *interpreterInstance = nil;
+    dispatch_once(&once_token, ^{
+        interpreterInstance = [[NVInterpreter alloc] init];
+    });
+    
+    return interpreterInstance;
+}
+
 - (id)initWithRoot:(NVASTRoot *)root {
     self = [super init];
     
@@ -678,7 +688,7 @@ circuitControl:(NVCircuitControl *)circuitControl {
                     return NO;
                 }
                 
-                if (parameter.isPrimitiveType) {
+                if (isPrimitiveType(parameter.type)) {
                     NVStackElement *stackElment = [frame stack_popType:parameter.type];
                     [arguments addObject:stackElment];
                 }
@@ -752,7 +762,7 @@ circuitControl:(NVCircuitControl *)circuitControl {
         NVExpression *argExp = node.args[i];
         [self visit:argExp frame:frame];
         
-        if (parameter.isPrimitiveType) {
+        if (isPrimitiveType(parameter.type)) {
             NVStackElement *arg = [frame stack_popType:parameter.type];
             [arguments addObject:arg];
         }

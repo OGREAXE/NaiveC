@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NVInterpreter : NSObject
 
++ (instancetype)defaultInterperter;
+
 - (id)initWithRoot:(NVASTRoot *)root;
 
 - (BOOL)invoke:(NSString *)functionName
