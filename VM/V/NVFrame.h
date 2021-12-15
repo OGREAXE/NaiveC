@@ -36,6 +36,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (int)stack_popInt;
 - (float)stack_popFloat;
 - (NSString *)stack_popString;
+
+
+/// <#Description#>
+/// @param type supported primitive types: int , float, string
+- (NVStackElement *)stack_popType:(NSString *)type;
+
 - (NVStackPointerElement *)stack_popObjectPointer;
 
 @end

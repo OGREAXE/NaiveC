@@ -12,7 +12,7 @@
 		435B33C527672A58008579EB /* NVFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 435B33C327672A58008579EB /* NVFrame.h */; };
 		435B33C627672A58008579EB /* NVFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 435B33C427672A58008579EB /* NVFrame.m */; };
 		435B33C927672C41008579EB /* NVStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 435B33C727672C41008579EB /* NVStack.h */; };
-		435B33CA27672C41008579EB /* NVStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 435B33C827672C41008579EB /* NVStack.m */; };
+		435B33CA27672C41008579EB /* NVStack.mm in Sources */ = {isa = PBXBuildFile; fileRef = 435B33C827672C41008579EB /* NVStack.mm */; };
 		435B33CD27674708008579EB /* NVObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 435B33CB27674708008579EB /* NVObject.h */; };
 		435B33CE27674708008579EB /* NVObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 435B33CC27674708008579EB /* NVObject.m */; };
 		435B33D12768741A008579EB /* NVModuleCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 435B33CF2768741A008579EB /* NVModuleCache.h */; };
@@ -35,6 +35,13 @@
 		4391A8C3274D192B002BEB6D /* NVPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 4391A8C1274D1929002BEB6D /* NVPair.m */; };
 		43D8A6462768C476007E8C59 /* NVArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 43D8A6442768C476007E8C59 /* NVArray.h */; };
 		43D8A6472768C476007E8C59 /* NVArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D8A6452768C476007E8C59 /* NVArray.m */; };
+		43D8A64A2769895F007E8C59 /* NVClassLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 43D8A6482769895F007E8C59 /* NVClassLoader.h */; };
+		43D8A64B2769895F007E8C59 /* NVClassLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D8A6492769895F007E8C59 /* NVClassLoader.m */; };
+		43D8A64E276998FF007E8C59 /* NVBuiltinFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 43D8A64C276998FF007E8C59 /* NVBuiltinFunction.h */; };
+		43D8A64F276998FF007E8C59 /* NVBuiltinFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D8A64D276998FF007E8C59 /* NVBuiltinFunction.m */; };
+		43D8A6522769D3F6007E8C59 /* NVLiteral+VM.h in Headers */ = {isa = PBXBuildFile; fileRef = 43D8A6502769D3F6007E8C59 /* NVLiteral+VM.h */; };
+		43D8A6532769D3F6007E8C59 /* NVLiteral+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D8A6512769D3F6007E8C59 /* NVLiteral+VM.m */; };
+		43D8A6572769DB91007E8C59 /* nv_operator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 43D8A6552769DB91007E8C59 /* nv_operator.hpp */; };
 		D4439E4E2089EB1F005EE65B /* NCHeapMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4439E4C2089EB1F005EE65B /* NCHeapMemory.cpp */; };
 		D4439E4F2089EB1F005EE65B /* NCHeapMemory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D4439E4D2089EB1F005EE65B /* NCHeapMemory.hpp */; };
 		D44B8FFD204FD6610091B94C /* NCModuleCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44B8FFB204FD6610091B94C /* NCModuleCache.cpp */; };
@@ -250,7 +257,7 @@
 		435B33C327672A58008579EB /* NVFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVFrame.h; sourceTree = "<group>"; };
 		435B33C427672A58008579EB /* NVFrame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVFrame.m; sourceTree = "<group>"; };
 		435B33C727672C41008579EB /* NVStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVStack.h; sourceTree = "<group>"; };
-		435B33C827672C41008579EB /* NVStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVStack.m; sourceTree = "<group>"; };
+		435B33C827672C41008579EB /* NVStack.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NVStack.mm; sourceTree = "<group>"; };
 		435B33CB27674708008579EB /* NVObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVObject.h; sourceTree = "<group>"; };
 		435B33CC27674708008579EB /* NVObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVObject.m; sourceTree = "<group>"; };
 		435B33CF2768741A008579EB /* NVModuleCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVModuleCache.h; sourceTree = "<group>"; };
@@ -268,6 +275,13 @@
 		4391A8C4274E1112002BEB6D /* NVCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVCommon.h; sourceTree = "<group>"; };
 		43D8A6442768C476007E8C59 /* NVArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVArray.h; sourceTree = "<group>"; };
 		43D8A6452768C476007E8C59 /* NVArray.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVArray.m; sourceTree = "<group>"; };
+		43D8A6482769895F007E8C59 /* NVClassLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVClassLoader.h; sourceTree = "<group>"; };
+		43D8A6492769895F007E8C59 /* NVClassLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVClassLoader.m; sourceTree = "<group>"; };
+		43D8A64C276998FF007E8C59 /* NVBuiltinFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVBuiltinFunction.h; sourceTree = "<group>"; };
+		43D8A64D276998FF007E8C59 /* NVBuiltinFunction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVBuiltinFunction.m; sourceTree = "<group>"; };
+		43D8A6502769D3F6007E8C59 /* NVLiteral+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NVLiteral+VM.h"; sourceTree = "<group>"; };
+		43D8A6512769D3F6007E8C59 /* NVLiteral+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NVLiteral+VM.m"; sourceTree = "<group>"; };
+		43D8A6552769DB91007E8C59 /* nv_operator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = nv_operator.hpp; sourceTree = "<group>"; };
 		D4439E4C2089EB1F005EE65B /* NCHeapMemory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NCHeapMemory.cpp; sourceTree = "<group>"; };
 		D4439E4D2089EB1F005EE65B /* NCHeapMemory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCHeapMemory.hpp; sourceTree = "<group>"; };
 		D44B8FFB204FD6610091B94C /* NCModuleCache.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NCModuleCache.cpp; sourceTree = "<group>"; };
@@ -394,7 +408,7 @@
 				435B33C327672A58008579EB /* NVFrame.h */,
 				435B33C427672A58008579EB /* NVFrame.m */,
 				435B33C727672C41008579EB /* NVStack.h */,
-				435B33C827672C41008579EB /* NVStack.m */,
+				435B33C827672C41008579EB /* NVStack.mm */,
 				435B33CB27674708008579EB /* NVObject.h */,
 				435B33CC27674708008579EB /* NVObject.m */,
 				435B33CF2768741A008579EB /* NVModuleCache.h */,
@@ -403,6 +417,13 @@
 				435B33D427687592008579EB /* NVClass.m */,
 				43D8A6442768C476007E8C59 /* NVArray.h */,
 				43D8A6452768C476007E8C59 /* NVArray.m */,
+				43D8A6482769895F007E8C59 /* NVClassLoader.h */,
+				43D8A6492769895F007E8C59 /* NVClassLoader.m */,
+				43D8A64C276998FF007E8C59 /* NVBuiltinFunction.h */,
+				43D8A64D276998FF007E8C59 /* NVBuiltinFunction.m */,
+				43D8A6502769D3F6007E8C59 /* NVLiteral+VM.h */,
+				43D8A6512769D3F6007E8C59 /* NVLiteral+VM.m */,
+				43D8A6552769DB91007E8C59 /* nv_operator.hpp */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -593,9 +614,11 @@
 			files = (
 				D4439E4F2089EB1F005EE65B /* NCHeapMemory.hpp in Headers */,
 				D4E06E6A2037015D0095F442 /* NaiveC.h in Headers */,
+				43D8A64E276998FF007E8C59 /* NVBuiltinFunction.h in Headers */,
 				435B33C927672C41008579EB /* NVStack.h in Headers */,
 				435B33D12768741A008579EB /* NVModuleCache.h in Headers */,
 				4391A8C2274D192A002BEB6D /* NVPair.h in Headers */,
+				43D8A64A2769895F007E8C59 /* NVClassLoader.h in Headers */,
 				4363DF1B27452DB800FE4A7F /* NVTokenizer.h in Headers */,
 				D4E06F21203972F90095F442 /* NCStandardClass.hpp in Headers */,
 				435B33C127672A17008579EB /* NVInterpreter.h in Headers */,
@@ -607,6 +630,8 @@
 				D496C710204AFFE500B6A041 /* NCException.hpp in Headers */,
 				43D8A6462768C476007E8C59 /* NVArray.h in Headers */,
 				D496C758204D2CB900B6A041 /* NCSourceFinder.hpp in Headers */,
+				43D8A6572769DB91007E8C59 /* nv_operator.hpp in Headers */,
+				43D8A6522769D3F6007E8C59 /* NVLiteral+VM.h in Headers */,
 				D4E06F29203C3E1B0095F442 /* NCCocoaToolkit.hpp in Headers */,
 				435B33C527672A58008579EB /* NVFrame.h in Headers */,
 				D4E06F49204042100095F442 /* NCLog.hpp in Headers */,
@@ -770,6 +795,7 @@
 				D4E06F0220371DAB0095F442 /* NCCocoaClassProvider.hpp in Sources */,
 				D4E06F0520371DAB0095F442 /* NCCocoaBox.mm in Sources */,
 				D4E06F48204042100095F442 /* NCLog.mm in Sources */,
+				43D8A64F276998FF007E8C59 /* NVBuiltinFunction.m in Sources */,
 				D4E06F0620371DAB0095F442 /* NCCocoaBox.hpp in Sources */,
 				D4E06F0E203871E10095F442 /* NCClass.cpp in Sources */,
 				D4E06F0720371DAB0095F442 /* NSObject+NCInvocation.h in Sources */,
@@ -777,6 +803,7 @@
 				435B33C227672A18008579EB /* NVInterpreter.m in Sources */,
 				D4E06F0120371DA50095F442 /* NCCocoaClassProvider.mm in Sources */,
 				D4E06EEF20371D9E0095F442 /* NCBuiltinFunction.hpp in Sources */,
+				43D8A64B2769895F007E8C59 /* NVClassLoader.m in Sources */,
 				D4E06F28203C3E1B0095F442 /* NCCocoaToolkit.mm in Sources */,
 				D44B8FFD204FD6610091B94C /* NCModuleCache.cpp in Sources */,
 				4363DF282747966500FE4A7F /* NVAST.m in Sources */,
@@ -805,6 +832,7 @@
 				D4E06EEB20371D910095F442 /* NCParser.cpp in Sources */,
 				D4E06F2420397AAB0095F442 /* NCCocoaClass.mm in Sources */,
 				D4892EE320450A520052267E /* NCBuiltinFunctionStore.cpp in Sources */,
+				43D8A6532769D3F6007E8C59 /* NVLiteral+VM.m in Sources */,
 				D4439E4E2089EB1F005EE65B /* NCHeapMemory.cpp in Sources */,
 				D4E06EEC20371D910095F442 /* NCParser.hpp in Sources */,
 				D496C757204D2CB900B6A041 /* NCSourceFinder.mm in Sources */,
@@ -814,7 +842,7 @@
 				D4E06EEE20371D910095F442 /* NCTokenizer.hpp in Sources */,
 				D4E06EE8203716140095F442 /* NCCodeEngine_iOS.mm in Sources */,
 				435B33CE27674708008579EB /* NVObject.m in Sources */,
-				435B33CA27672C41008579EB /* NVStack.m in Sources */,
+				435B33CA27672C41008579EB /* NVStack.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

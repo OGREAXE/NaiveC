@@ -11,6 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NVStack;
+
 @interface NVStackElement : NSObject
 
 @property (nonatomic) NSString *type;
@@ -21,15 +23,23 @@ NS_ASSUME_NONNULL_BEGIN
 - (NVFloat)toFloat;
 - (NSString *)toString;
 
-- (NVStackElement *)createStackElement:(NVLiteral*)literal;
++ (NVStackElement *)stackElementWithLiteral:(NVLiteral*)literal;
 
 - (NVStackElement *)copy;
 
-- (BOOL)invokeMethod:(NSString *)methodName stackElement:(NSArray<NVStackElement *> *)arguments;
-- (BOOL)invokeMethod:(NSString *)methodName stackElement:(NSArray<NVStackElement *> *)arguments lastStack:(NSArray<NVStackElement *> *)lastStack;
+- (BOOL)invokeMethod:(NSString *)methodName arguments:(NSArray<NVStackElement *> *)arguments;
+- (BOOL)invokeMethod:(NSString *)methodName arguments:(NSArray<NVStackElement *> *)arguments lastStack:(NVStack *)lastStack;
 
 - (NVStackElement *)getAttribute:(NSString *)attrName;
 - (void)setAttribute:(NSString *)attributeName value:(NVStackElement *)value;
+
+@end
+
+@interface NVStackNullElement : NVStackElement
+
+@end
+
+@implementation NVStackNullElement
 
 @end
 
@@ -50,14 +60,17 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface NVStackIntElement : NVStackElement
+@property (nonatomic) int value;
 - (id)initWithInt:(int)value;
 @end
 
 @interface NVStackFloatElement : NVStackElement
-- (id)initWithFloat:(int)value;
+@property (nonatomic) float value;
+- (id)initWithFloat:(float)value;
 @end
 
 @interface NVStackStringElement : NVStackElement
+@property (nonatomic) NSString *str;
 - (id)initWithString:(NSString *)str;
 @end
 
@@ -77,7 +90,12 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface NVFieldAccessor : NVAccessor
+
+@property (nonatomic) NVStackElement *scope;
+@property (nonatomic) NSString *attributeName;
+
 - (id)initWithScope:(NVStackElement *)scope attributeName:(NSString *)attributeName;
+
 @end
 
 NS_ASSUME_NONNULL_END

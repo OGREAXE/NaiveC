@@ -41,7 +41,6 @@ typedef NSException NVException;
 @interface NVNativeObject : NVObject
 
 @property (nonatomic) NSMutableDictionary<NSString *, NVStackElement *> *fieldMap;
-
 @property (nonatomic) NVClassDeclaration *classDefinition;
 
 @end
@@ -50,17 +49,21 @@ typedef NSException NVException;
  helper objects for lambda capture
  */
 @interface NVCapturedObject : NVObject
-
+@property (nonatomic) int signature;
+@property (nonatomic) NSString *name;
+@property (nonatomic) NVStackElement *object;
 @end
 
 /*
  lambda object
  */
-@interface NCLambdaObject: NVObject
+@interface NVLambdaObject: NVObject
 
 @property (nonatomic) NVLambdaExpression *lambdaExpression;
 
 @property (nonatomic, readonly) NSArray<NVLambdaExpression *> *capturedObjects;
+
+- (id)initWithLambdaExpression:(NVLambdaExpression *)lambdaExpr;
 
 - (void)addCaptured:(NVCapturedObject *)capuredObj;
 
@@ -100,5 +103,15 @@ closure return true to break
 - (void)enumerate:(BOOL(^)(NVStackElement *stackElement))handler;
 
 @end
+
+BOOL isPrimitiveType(NSString *type) {
+    if ([type isEqualToString:@"int"]
+        || [type isEqualToString:@"float"]
+        || [type isEqualToString:@"string"]) {
+        return YES;
+    }
+    
+    return NO;
+}
 
 NS_ASSUME_NONNULL_END

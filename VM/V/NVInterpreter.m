@@ -13,6 +13,8 @@
 #import "NVStack.h"
 #import "NVFrame.h"
 #import "NVArray.h"
+#import "NVClassLoader.h"
+#import "NVBuiltinFunction.h"
 
 @interface NVCircuitControl : NSObject
 @property (nonatomic) BOOL shouldBreak;
@@ -173,17 +175,9 @@ circuitControl:(NVCircuitControl *)circuitControl {
         [self visit:node.expression frame:frame];
         
         NSString * name = node.id_str;
-        if ([type isEqualToString:@"int"]) {
-            int value = [frame stack_popInt];
-            [frame insertVariable:name intValue:value];
-        }
-        else if ([type isEqualToString:@"float"]) {
-            float value = [frame stack_popFloat];
-            [frame insertVariable:name floatValue:value];
-        }
-        else if ([type isEqualToString:@"string"]) {
-            NSString *value = [frame stack_popString];
-            [frame insertVariable:name stringValue:value];
+        if (isPrimitiveType(type)) {
+            NVStackElement *value = [frame stack_popType:type];
+            [frame insertVariable:name stackElement:value];
         }
         else {
             NVStackPointerElement *pointerElement = [frame stack_popObjectPointer];
@@ -420,14 +414,9 @@ circuitControl:(NVCircuitControl *)circuitControl {
         [self visit:node.value frame:frame];
         
         //primitive types, like int ,float and string pass by value
-        if ([var.valueElement.type isEqualToString:@"int"]) {
-            [frame insertVariable:var.name intValue:[frame stack_popInt]];
-        }
-        else if ([var.valueElement.type isEqualToString:@"float"]) {
-            [frame insertVariable:var.name intValue:[frame stack_popFloat]];
-        }
-        else if ([var.valueElement.type isEqualToString:@"string"]) {
-            [frame insertVariable:var.name stringValue:[frame stack_popString]];
+        if (isPrimitiveType(var.valueElement.type)) {
+            [frame insertVariable:var.name
+                     stackElement:[frame stack_popType:var.valueElement.type]];
         }
         else {
             //pass by pointer
@@ -516,31 +505,117 @@ circuitControl:(NVCircuitControl *)circuitControl {
 - (void)visitNameExpression:(NVNameExpression *)node
         frame:(NVFrame *)frame
   circuitControl:(NVCircuitControl *)circuitControl {
+    if ([node.name isEqualToString:@"null"]
+        || [node.name isEqualToString:@"NULL"]
+        || [node.name isEqualToString:@"nil"]) {
+        NVStackPointerElement *nullPtr = [[NVStackPointerElement alloc] init];
+        [frame.stack addObject:nullPtr];
+        return;
+    }
     
+    if ( [[NVClassLoader sharedLoader] isClassExist:node.name]) {
+        //a 'meta' class
+        NVClass *targetClass = [[NVClassLoader sharedLoader] loadClass:node.name];
+        if (!targetClass) {
+            NVException *e = [NVException exceptionWithName:@"NVNameExpression_exception" reason:@"NVClassLoader can't load class" userInfo:nil];
+            circuitControl.exception = e;
+            return;
+        }
+        
+        [frame.stack addObject:targetClass];
+        return;
+    }
+    
+    NVStackElement *foundValue = [frame.localVariableMap objectForKey:node.name];
+    
+    if (foundValue) {
+        if (node.shouldAddKeyIfKeyNotFound) {
+            NVStackElement *placeholder = [[NVStackNullElement alloc] init];
+            [frame insertVariable:node.name stackElement:placeholder];
+            [frame.stack addObject:placeholder];
+        }
+        else {
+            NVException *e = [NVException exceptionWithName:@"NVNameExpression_exception" reason:@"localVariableMap can't find value" userInfo:nil];
+            circuitControl.exception = e;
+            return;
+        }
+    }
+    else {
+        if ([foundValue isKindOfClass:NVStackVariableElement.class]) {
+            //extract value, avoid variable in variable.
+            NVStackVariableElement *varWrapped = (NVStackVariableElement *)foundValue;
+            NVStackElement *payload = varWrapped.valueElement;
+            
+            [frame.stack addObject:[[NVStackVariableElement alloc] initWithName:node.name value:payload]];
+            
+        }
+        else {
+            [frame.stack addObject:[[NVStackVariableElement alloc] initWithName:node.name value:foundValue]];
+        }
+    }
 }
 
 - (void)visitLiteral:(NVLiteral *)node
         frame:(NVFrame *)frame
   circuitControl:(NVCircuitControl *)circuitControl {
-    
+    NVStackElement *stackElement = [NVStackElement stackElementWithLiteral:node];
+    [frame.stack addObject:stackElement];
 }
 
 - (void)visitUnaryExpression:(NVUnaryExpression *)node
         frame:(NVFrame *)frame
   circuitControl:(NVCircuitControl *)circuitControl {
+    [self visit:node.expression frame:frame];
     
+    NVInt unaryResult = [frame stack_popInt];
+    if ([node.op isEqualToString:@"+"]) {
+        
+    }
+    else if ([node.op isEqualToString:@"-"]) {
+        NVStackIntElement *intElement = [[NVStackIntElement alloc] initWithInt:-unaryResult];
+        [frame.stack addObject:intElement];
+    }
+    else if ([node.op isEqualToString:@"!"]) {
+        if (unaryResult != 0) {
+//            frame.stack.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement(0)));
+            NVStackIntElement *intElement = [[NVStackIntElement alloc] initWithInt:0];
+            [frame.stack addObject:intElement];
+        }
+        else {
+            NVStackIntElement *intElement = [[NVStackIntElement alloc] initWithInt:1];
+            [frame.stack addObject:intElement];
+        }
+    }
 }
 
-- (void)visitLambdaExpression:(NVLambdaExpression *)node
+- (void)visitLambdaExpression:(NVLambdaExpression *)lambdaExpr
         frame:(NVFrame *)frame
   circuitControl:(NVCircuitControl *)circuitControl {
     
+    NSArray<NSString *> *capturedSymbols = lambdaExpr.capturedSymbols;
+    
+    NVLambdaObject *lambdaObj = [[NVLambdaObject alloc] initWithLambdaExpression:lambdaExpr];
+    
+    for (NSString *capturedSymbol in capturedSymbols) {
+        NVStackElement *localVar = [frame.localVariableMap objectForKey:capturedSymbol];
+        
+        NVCapturedObject *captured = [[NVCapturedObject alloc] init];
+        captured.signature = 0;
+        captured.name = capturedSymbol;
+        captured.object = localVar;
+        
+        [lambdaObj addCaptured:captured];
+    }
+    
+    NVStackPointerElement *pLambdaObj = [[NVStackPointerElement alloc] initWithObject:lambdaObj];
+    [frame stack_push:pLambdaObj];
 }
 
 - (void)visitReturnStatement:(NVReturnStatement *)node
         frame:(NVFrame *)frame
   circuitControl:(NVCircuitControl *)circuitControl {
-    
+    [self visit:node.expression frame:frame];
+    circuitControl.shouldReturn = true;
 }
 
 #pragma mark helper functions
@@ -548,24 +623,148 @@ circuitControl:(NVCircuitControl *)circuitControl {
     
 }
 
-- (BOOL)initializeArguments:(NSArray<NVExpression *> *)intput_argumentExpressions
-            outputArguments:(NSArray<NVStackElement *> *)output_arguments
+- (NSArray<NVStackElement *> *)argumentsWithExpression:(NSArray<NVExpression*> *)intputArgumentExpressions
                       frame:(NVFrame *)frame {
+    NSMutableArray<NVStackElement *> *output_arguments = [NSMutableArray array];
+    
+    for (int i = 0; i < intputArgumentExpressions.count; i++) {
+        NVExpression *argExp = intputArgumentExpressions[i];
+        [self visit:argExp frame:frame];
+        
+        NVStackElement *argValue = [frame stack_pop];
+        [output_arguments addObject:argValue];
+    }
+    
+    return output_arguments;
+}
+
+- (void)throw:(NVException *)exception {
     
 }
 
-- (BOOL)tree_callStaticMehothod:(NVMethodCallExpr*)method frame:(NVFrame *)frame {
+- (BOOL)tree_callStaticMehothod:(NVMethodCallExpr *)method frame:(NVFrame *)frame {
+    NVASTFunctionDefinition *functionDef = [[NVModuleCache globalCache] nativeFunctionDefinitionForName:method.name];
     
+    if (functionDef) {
+        NSArray<NVStackElement *> *arguments = [self tree_composeArgmemnts:functionDef.parameters
+                                                                   methodCallExpr:method
+                                                                            frame:frame];
+        
+        return [self invoke:functionDef.name arguments:arguments lastStack:frame.stack];
+    }
+    else {
+        //no user-defined function found, try system library
+        NVBuiltinFunction *funcDef = [[NVModuleCache globalCache] systemFunctionDefinitionForName:method.name];
+        
+        if (funcDef) {
+            NSArray<NVParameter *> *parameters = funcDef.parameters;
+            
+            NSMutableArray<NVStackElement *> *arguments = [NSMutableArray array];
+            
+            for (int i = 0; i < method.args.count; i++) {
+                if (i >= parameters.count) {
+                    NVException *e = [NVException exceptionWithName:@"tree_callStaticMehothod_exception" reason:@"arguments exceed expected" userInfo:nil];
+                    [self throw:e];
+                    return NO;
+                }
+                
+                NVParameter *parameter = parameters[i];
+                
+                [self visit:method.args[i] frame:frame];
+                
+                if (frame.stack.count == 0) {
+                    NVException *e = [NVException exceptionWithName:@"tree_callStaticMehothod_exception" reason:@"get argument fail" userInfo:nil];
+                    [self throw:e];
+                    return NO;
+                }
+                
+                if (parameter.isPrimitiveType) {
+                    NVStackElement *stackElment = [frame stack_popType:parameter.type];
+                    [arguments addObject:stackElment];
+                }
+                else if ([parameter.type isEqualToString:@"original"]) {
+                    NVStackElement *value = [frame stack_pop];
+                    [arguments addObject:value];
+                }
+                else {
+                    //object pointer
+                    NVStackElement *objectPointer = [frame stack_pop];
+                    [arguments addObject:objectPointer];
+                }
+            }
+            
+            [funcDef invoke:arguments lastStack:frame.stack];
+            
+        }
+        else {
+            NVClass *cls = [[NVClassLoader sharedLoader] loadClass:method.name];
+            
+            if (!cls) {
+                NSString *reason = [NSString stringWithFormat:@"class %@ not found", method.name];
+                NVException *e = [NVException exceptionWithName:@"tree_callStaticMehothod_exception" reason:reason userInfo:nil];
+                [self throw:e];
+                return NO;
+            }
+            
+            NSArray<NVStackElement *> *arguments = [self argumentsWithExpression:method.args frame:frame];
+            
+            NVStackPointerElement *aInstance = [cls instantiate:arguments];
+            
+            [frame.stack addObject:aInstance];
+        }
+    }
+    return true;
 }
 
 - (BOOL)tree_callClassMehothod:(NVMethodCallExpr*)method frame:(NVFrame *)frame {
+    [self visit:method.scope frame:frame];
     
+    NSArray<NVExpression *> *parametersExpr = method.args;
+    
+    NSMutableArray<NVStackElement *> *arguments = [NSMutableArray array];
+    
+    for (int i = 0; i < parametersExpr.count; i++) {
+        NVExpression *argExp = method.args[i];
+        [self visit:argExp frame:frame];
+        
+        NVStackElement *val = [frame stack_popRealValue];
+        [arguments addObject:val];
+    }
+
+    
+    if ([frame stack_empty]) {
+        return NO;
+    }
+    
+    NVStackElement *rScope = [frame stack_pop];
+    
+    return [rScope invokeMethod:method.name arguments:arguments lastStack:frame.stack];
 }
 
-- (NSArray<NVStackElement *> *)tree_composeArgmemnts:(NSArray<NVParameter *> *)parametersExpr
-                                                node:(NVMethodCallExpr*)node
+- (NSArray<NVStackElement *> *)tree_composeArgmemnts:(NSArray<NVParameter *> *)parameters
+                                                methodCallExpr:(NVMethodCallExpr*)node
                                                frame:(NVFrame *)frame {
+    NSMutableArray<NVStackElement *> *arguments = [NSMutableArray array];
     
+    for (int i = 0; i < parameters.count; i++) {
+        NVParameter *parameter = parameters[i];
+        
+        NVExpression *argExp = node.args[i];
+        [self visit:argExp frame:frame];
+        
+        if (parameter.isPrimitiveType) {
+            NVStackElement *arg = [frame stack_popType:parameter.type];
+            [arguments addObject:arg];
+        }
+        else {
+            //object pointer
+            NVStackElement *objectPointer = [frame stack_pop];
+            [arguments addObject:objectPointer];
+            
+        }
+    }
+    
+    return arguments;
 }
 
 @end

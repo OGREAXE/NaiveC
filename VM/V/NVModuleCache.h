@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addSystemFunction:(NVBuiltinFunction *)builtinFunction;
 
-- (NVASTFunctionDefinition *)systemFunctionDefinitionForName:(NSString *)name;
+- (NVBuiltinFunction *)systemFunctionDefinitionForName:(NSString *)name;
 
 - (BOOL)findSystemFunctionForName:(NSString *)name;
 

@@ -11,9 +11,9 @@
 
 typedef NSString * NVType;
 
-typedef long long NVInt;
+typedef int NVInt;
 
-typedef double NVFloat;
+typedef float NVFloat;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -84,7 +84,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 //support calling oc message [obj msg:para1:para2]
 @interface NVObjCSendMessageExpr:  NVPrimarySuffix
-@property (nonatomic) NVMethodCallExpr * m_methodCallExpr;
 
 @property (nonatomic) NSArray<NVExpression *> * argument_expression_list;
 @property (nonatomic) NSArray<NSString *> *parameter_list;
@@ -150,7 +149,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NVStringLiteral:  NVLiteral
 
-@property (nonatomic) NSString * str;
+@property (nonatomic) NSString *str;
 
 - (id)initWithString:(NSString *)str;
 
@@ -254,68 +253,19 @@ typedef NVBlockStatement  NVExpressionStatement;
  
 @end
 
-//class NVExpressionStatement:  NVStatement
-//
-//
-//
-//class MCVariableExpressionStatement:  NVExpressionStatement{
-// :
-//@property (nonatomic) NSString * name;
-//    NVExpression expression;
-//
-
-//class NCASTWhile:  NVStatement{
-//    NVASTNode condition;
-//    NVASTNode body;
-//
-//
-//class NCASTReturn:  NVStatement{
-//    NVASTNode node;
-//
-//
-//class NCASTBranch:  NVStatement{
-//    NVASTNode condition;
-//    NVASTNode if_body;
-//    NVASTNode else_body;
-//
-//
-//class NCASTCompare:  NVASTNode{
-//    NVASTNode lnode;
-//    NVASTNode rnode;
-//
-//
-//class NCASTAssign:  NVASTNode{
-//    NVASTNode lnode;
-//    NVASTNode rnode;
-//
-//
-//class NCASTBinOp:  NVASTNode{
-//@property (nonatomic) NSString * op;
-//    NVASTNode lnode;
-//    NVASTNode rnode;
-//
-//
-//class NCASTUnaOp:  NVASTNode{
-//@property (nonatomic) NSString * op;
-//    NVASTNode lnode;
-//
-
 /*
  type specification is not required
  may drop support of type specification in the future, just like most script languages did
  */
 @interface NVParameter : NSObject
 
-//    NCParameter(){}
-//
-//    NCParameter(string type,string name):type(type), name(name){}
-//    NCParameter(string name):type(""), name(name){}
+@property (nonatomic) NSString * type;
+@property (nonatomic) NSString * name;
 
 - (id)initWithType:(NSString *)type name:(NSString *)name;
 - (id)initWithName:(NSString *)name;
     
-@property (nonatomic) NSString * type;
-@property (nonatomic) NSString * name;
+@property (nonatomic, readonly) BOOL isPrimitiveType; //param pass by value such as int, float,
  
 @end
 

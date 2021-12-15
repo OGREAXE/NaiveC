@@ -7,10 +7,27 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NVStack.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NVClass : NSObject
+@class NVStackPointerElement;
+
+@interface NVClass : NVStackElement
+
+- (NVStackPointerElement *)instantiate:(NSArray<NVStackElement *> *)arguments;
+
+/**
+ invoke a class method (static method) on this class
+ 
+ @param methodName <#methodName description#>
+ @param arguments <#arguments description#>
+ @param lastStack <#lastStack description#>
+ @return <#return value description#>
+ */
+- (BOOL)invokeMethod:(NSString *)methodName
+           arguments:(nonnull NSArray<NVStackElement *> *)arguments
+           lastStack:(nonnull NVStack *)lastStack;
 
 @end
 
