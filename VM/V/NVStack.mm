@@ -69,6 +69,44 @@
 
 @end
 
+@interface NVStack ()
+
+@property (nonatomic) NSMutableArray<NVStackElement *> *innerArray;
+
+@end
+
+@implementation NVStack
+
+- (NSMutableArray<NVStackElement *> *)innerArray {
+    if (!_innerArray) {
+        _innerArray = [NSMutableArray array];
+    }
+    
+    return _innerArray;
+}
+
+- (void)addObject:(NVStackElement *)object {
+    [self.innerArray addObject:object];
+}
+
+- (void)removeAllObjects {
+    [self.innerArray removeAllObjects];
+}
+
+- (NVStackElement *)top {
+    return [self.innerArray lastObject];
+}
+
+- (NVStackElement *)pop {
+    NVStackElement *top = self.top;
+    
+    [self.innerArray removeLastObject];
+    
+    return top;
+}
+
+@end
+
 
 @implementation NVStackNullElement
 

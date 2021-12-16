@@ -38,8 +38,6 @@ typedef NSException NVException;
 
 - (NVObject *)copy;
 
-- (void)throw_exception:(NVException *)e;
-
 @end
 
 @interface NVNativeObject : NVObject
@@ -109,5 +107,11 @@ closure return true to break
 @end
 
 BOOL isPrimitiveType(NSString *type);
+
+@interface NSObject (NVObject)
+
+- (void)throw_exception:(NVException *)e;
+
+@end
 
 NS_ASSUME_NONNULL_END

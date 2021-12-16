@@ -13,10 +13,6 @@
 
 @implementation NVObject
 
-- (void)throw_exception:(NVException *)e {
-    
-}
-
 @end
 
 @implementation NVNativeObject
@@ -136,6 +132,16 @@
     return [self.object invokeMethod:methodName arguments:arguments lastStack:lastStack];
 }
 
+@end
+
+@implementation NSObject (NVObject)
+
+- (void)throw_exception:(NVException *)e {
+    
+}
+
+@end
+
 BOOL isPrimitiveType(NSString *type) {
     if ([type isEqualToString:@"int"]
         || [type isEqualToString:@"float"]
@@ -145,6 +151,3 @@ BOOL isPrimitiveType(NSString *type) {
     
     return NO;
 }
-
-
-@end
