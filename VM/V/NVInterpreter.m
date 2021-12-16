@@ -32,13 +32,12 @@
 @implementation NVInterpreter
 
 + (instancetype)defaultInterperter {
-    dispatch_once_t once_token;
-    static NVInterpreter *interpreterInstance = nil;
-    dispatch_once(&once_token, ^{
-        interpreterInstance = [[NVInterpreter alloc] init];
+    static dispatch_once_t once;
+    static id instance;
+    dispatch_once(&once, ^{
+        instance = [self new];
     });
-    
-    return interpreterInstance;
+    return instance;
 }
 
 - (id)initWithRoot:(NVASTRoot *)root {
@@ -135,13 +134,38 @@ circuitControl:(NVCircuitControl *)circuitControl {
     
     SEL selector = NSSelectorFromString(selectorString);
     
-    [self performSelector:selector withObject:frame withObject:circuitControl];
+    [self performSelector:selector withObject:currentNode withObject:frame withObject:circuitControl];
     
     if (circuitControl.exception) {
         return NO;
     }
     
     return YES;
+}
+
+- (id)performSelector:(SEL)selector withObject:(id) p1
+       withObject: (id)p2 withObject:(id)p3 {
+    NSMethodSignature *sig = [self methodSignatureForSelector:selector];
+    
+    NSAssert(sig, @"selector %@ not found for NVInterperter", NSStringFromSelector(selector));
+    
+    if (!sig){
+        return nil;
+    }
+
+    NSInvocation* invo = [NSInvocation invocationWithMethodSignature:sig];
+    [invo setTarget:self];
+    [invo setSelector:selector];
+    [invo setArgument:&p1 atIndex:2];
+    [invo setArgument:&p2 atIndex:3];
+    [invo setArgument:&p3 atIndex:4];
+    [invo invoke];
+    if (sig.methodReturnLength) {
+        id anObject;
+        [invo getReturnValue:&anObject];
+        return anObject;
+    }
+    return nil;
 }
 
 #pragma mark visit node functions
@@ -168,6 +192,27 @@ circuitControl:(NVCircuitControl *)circuitControl {
         frame:(NVFrame *)frame
   circuitControl:(NVCircuitControl *)circuitControl {
     [self visit:node.expression frame:frame];
+}
+
+- (void)visitIntegerLiteral:(NVIntegerLiteral *)node
+        frame:(NVFrame *)frame
+  circuitControl:(NVCircuitControl *)circuitControl {
+    NVStackElement *e = [[NVStackIntElement alloc] initWithInt:node.value];
+    [frame.stack addObject:e];
+}
+
+- (void)visitFloatLiteral:(NVFloatLiteral *)node
+        frame:(NVFrame *)frame
+  circuitControl:(NVCircuitControl *)circuitControl {
+    NVStackElement *e = [[NVStackFloatElement alloc] initWithFloat:node.value];
+    [frame.stack addObject:e];
+}
+
+- (void)visitStringLiteral:(NVStringLiteral *)node
+        frame:(NVFrame *)frame
+  circuitControl:(NVCircuitControl *)circuitControl {
+    NVStackElement *e = [[NVStackStringElement alloc] initWithString:node.str];
+    [frame.stack addObject:e];
 }
 
 - (void)visitVariableDeclarationExpression:(NVVariableDeclarationExpression *)node
@@ -476,8 +521,28 @@ circuitControl:(NVCircuitControl *)circuitControl {
                 [frame insertVariable:nameExpr.name stackElement:value];
             }
         }
+    } else if ([stackTop isKindOfClass:NVStackNullElement.class]) {
+        if ([primary isKindOfClass:NVNameExpression.class]) {
+            NVNameExpression *_primary = (NVNameExpression *)primary;
+            if (_primary.shouldAddKeyIfKeyNotFound) {
+                //object with that name is not found
+                //should be added as new object
+                [self visit:node.value frame:frame];
+                
+                //primitive types, like int ,float and string pass by value
+                NVStackElement *rightResult = frame.stack.top;
+                if (isPrimitiveType(rightResult.type)) {
+                    [frame insertVariable:_primary.name
+                             stackElement:[frame stack_popType:rightResult.type]];
+                }
+                else {
+                    //pass by pointer
+                    NVStackPointerElement *pointerElement = [frame stack_popObjectPointer];
+                    [frame insertVariable:_primary.name stackPointerElement:pointerElement];
+                }
+            }
+        }
     }
-    
 }
 
 - (void)visitArrayAccessExpr:(NVArrayAccessExpr *)node
@@ -543,7 +608,7 @@ circuitControl:(NVCircuitControl *)circuitControl {
     
     NVStackElement *foundValue = [frame.localVariableMap objectForKey:node.name];
     
-    if (foundValue) {
+    if (!foundValue) {
         if (node.shouldAddKeyIfKeyNotFound) {
             NVStackElement *placeholder = [[NVStackNullElement alloc] init];
             [frame insertVariable:node.name stackElement:placeholder];

@@ -326,5 +326,14 @@
 @end
 
 @implementation NVASTRoot
+
+- (NSMutableArray *)functionList {
+    if (!_functionList) {
+        _functionList = [NSMutableArray array];
+    }
+    
+    return _functionList;
+}
+
 @end
 

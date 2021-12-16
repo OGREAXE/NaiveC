@@ -76,7 +76,7 @@
     if ([self.interpreter invoke:@"main" lastStack:stack]) {
         NVStackElement *result = stack.top;
         
-        NSLog(@"result is %@", result);
+        NSLog(@"result is %@", [result toString]);
     }
     
     return NO;
@@ -85,7 +85,13 @@
 - (BOOL)run:(NSString*)sourceCode
       mode:(NCInterpretorMode)mode
      error:(NSError**)error {
-    return NO;
+    if (mode == NCInterpretorModeCommandLine) {
+        NSString * completedSource = [NSString stringWithFormat:@"int main(){%@\n}",sourceCode];
+        return [self run:completedSource error:error];
+    }
+    else {
+        return [self run:sourceCode error:error];
+    }
 }
 
 -(BOOL)parseSourceCode:(NSString*)codeText{

@@ -13,7 +13,7 @@
 /**
  naive c code engine
  */
-@interface NCCodeEngine_iOS : NSObject
+@interface NCCodeEngine_iOS : NSObject<NCCodeEngine>
 
 @property (nonatomic) NCInterpretorMode mode;
 

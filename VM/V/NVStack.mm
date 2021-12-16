@@ -97,6 +97,10 @@
     return [self.innerArray lastObject];
 }
 
+- (NSInteger)count {
+    return [self.innerArray count];
+}
+
 - (NVStackElement *)pop {
     NVStackElement *top = self.top;
     
@@ -109,7 +113,9 @@
 
 
 @implementation NVStackNullElement
-
+- (NSString *)toString {
+    return @"NULL";
+}
 @end
 
 @implementation NVStackIntElement
@@ -118,6 +124,10 @@
     self = [super init];
     self.value = value;
     return self;
+}
+
+- (NSString *)type {
+    return @"int";
 }
 
 - (NVInt)toInt {
@@ -158,6 +168,10 @@
     return self;
 }
 
+- (NSString *)type {
+    return @"float";
+}
+
 - (NVInt)toInt {
     return self.value;
 }
@@ -195,6 +209,10 @@
     self = [super init];
     self.str = str;
     return self;
+}
+
+- (NSString *)type {
+    return @"string";
 }
 
 - (NVInt)toInt {

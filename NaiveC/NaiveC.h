@@ -12,3 +12,4 @@ FOUNDATION_EXPORT double NaiveCVersionNumber;
 FOUNDATION_EXPORT const unsigned char NaiveCVersionString[];
 
 #import <NaiveC/NCCodeEngine_iOS.h>
+#import <NaiveC/NCCocoaEngine.h>

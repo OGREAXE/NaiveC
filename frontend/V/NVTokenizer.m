@@ -62,6 +62,9 @@ bool isParenthesis(char c) {
 
 - (BOOL)tokenize:(NSString *)str{
     [self.tokens removeAllObjects];
+    
+    self.tokens = [NSMutableArray array];
+    
     self.token = @"";
     
     for (int i=0; i<str.length; i++) {

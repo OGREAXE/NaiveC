@@ -11,6 +11,30 @@
 
 @implementation NVFrame
 
+- (NVStack *)stack {
+    if (!_stack) {
+        _stack = [[NVStack alloc] init];
+    }
+    
+    return _stack;
+}
+
+- (NSMutableArray *)scope {
+    if (!_scope) {
+        _scope = [NSMutableArray array];
+    }
+    
+    return _scope;
+}
+
+- (NSMutableDictionary *)localVariableMap {
+    if (!_localVariableMap) {
+        _localVariableMap = [NSMutableDictionary dictionary];
+    }
+    
+    return _localVariableMap;
+}
+
 - (void)insertVariable:(NSString *)name intValue:(int)value {
     [self.localVariableMap setObject:[[NVStackIntElement alloc] initWithInt:value]
                                forKey:name];

@@ -90,6 +90,10 @@ bool isIntegerLiteral(NSString *word, int *num){
 }
 
 bool isFloatLiteral(NSString *word, float *num){
+    if ([word rangeOfString:@"."].location == NSNotFound) {
+        return NO;
+    }
+    
     return [[NSScanner scannerWithString:word] scanFloat:num];
 }
 
@@ -119,7 +123,10 @@ bool isStringLiteral(NSString *word){
         NSLog(@"%@ ", token.token);
     }
 
+    self.index = 0;
     self.word = tokens[0].token;
+    
+    self.pRoot = [[NVASTRoot alloc] init];
     
     BOOL parseOK = NO;
     

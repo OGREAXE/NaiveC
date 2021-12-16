@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NVCocoaEngine : NVObject
+@interface NVCocoaEngine : NVObject<NCCodeEngine>
 
 @property (nonatomic) NCInterpretorMode mode;
 
