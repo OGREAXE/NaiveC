@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) NCInterpretorMode mode;
 
+@property (nonatomic) NVStackElement *result;
+
 @end
 
 NS_ASSUME_NONNULL_END

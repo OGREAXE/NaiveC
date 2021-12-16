@@ -76,6 +76,8 @@
     if ([self.interpreter invoke:@"main" lastStack:stack]) {
         NVStackElement *result = stack.top;
         
+        self.result = result;
+        
         NSLog(@"result is %@", [result toString]);
     }
     
