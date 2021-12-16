@@ -17,7 +17,10 @@
 #define STR_APPEND(str, s) [str stringByAppendingFormat:@"%@", s]
 
 @implementation NVToken
+@end
 
+@interface NVTokenizer ()
+@property (nonatomic) NSMutableArray<NVToken *> *tokens;
 @end
 
 @implementation NVTokenizer

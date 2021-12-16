@@ -18,7 +18,7 @@ typedef NVExpression *(^BinParserFunc)(void);
 
 @interface NVParser ()
 
-//@property (nonatomic) NSString *word;
+@property (nonatomic) NVASTRoot *pRoot;
 
 @property (nonatomic) NSSet<NSString *> *keywords;
 
@@ -61,9 +61,9 @@ typedef NVExpression *(^BinParserFunc)(void);
     return g_keywords;
 }
 
-//NCParser::NCParser(shared_ptr<const vector<NCToken>>& tokens):index(0){
-//    bool res = parse(tokens);
-//}
+- (NVASTRoot *)root {
+    return _pRoot;
+}
 
 - (id)initWithTokens:(NSArray<NVToken *> *)tokens {
     self = [super init];

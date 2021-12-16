@@ -1,17 +1,14 @@
 //
 //  NCCodeEngine.h
 //  NaiveC
+//  implemented in C++
 //
 //  Created by Liang,Zhiyuan(GIS) on 2018/2/16.
 //  Copyright © 2018年 Ogreaxe. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-
-typedef NS_ENUM(NSUInteger, NCInterpretorMode) {
-    NCInterpretorModeModular = 0,
-    NCInterpretorModeCommandLine,
-};
+#import "NCCodeEngine.h"
 
 /**
  naive c code engine

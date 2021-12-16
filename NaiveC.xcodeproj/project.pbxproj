@@ -58,6 +58,9 @@
 		43D8A674276B1BB0007E8C59 /* NSArray+NVObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D8A672276B1BB0007E8C59 /* NSArray+NVObject.m */; };
 		43D8A677276B20F6007E8C59 /* NSDictionary+NVObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 43D8A675276B20F6007E8C59 /* NSDictionary+NVObject.h */; };
 		43D8A678276B20F6007E8C59 /* NSDictionary+NVObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D8A676276B20F6007E8C59 /* NSDictionary+NVObject.m */; };
+		43D8A67A276B2C89007E8C59 /* NCCodeEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 43D8A679276B2C89007E8C59 /* NCCodeEngine.h */; };
+		43D8A67D276B2CFA007E8C59 /* NVCocoaEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 43D8A67B276B2CFA007E8C59 /* NVCocoaEngine.h */; };
+		43D8A67E276B2CFA007E8C59 /* NVCocoaEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D8A67C276B2CFA007E8C59 /* NVCocoaEngine.m */; };
 		D4439E4E2089EB1F005EE65B /* NCHeapMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4439E4C2089EB1F005EE65B /* NCHeapMemory.cpp */; };
 		D4439E4F2089EB1F005EE65B /* NCHeapMemory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D4439E4D2089EB1F005EE65B /* NCHeapMemory.hpp */; };
 		D44B8FFD204FD6610091B94C /* NCModuleCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44B8FFB204FD6610091B94C /* NCModuleCache.cpp */; };
@@ -314,6 +317,9 @@
 		43D8A672276B1BB0007E8C59 /* NSArray+NVObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+NVObject.m"; sourceTree = "<group>"; };
 		43D8A675276B20F6007E8C59 /* NSDictionary+NVObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NVObject.h"; sourceTree = "<group>"; };
 		43D8A676276B20F6007E8C59 /* NSDictionary+NVObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NVObject.m"; sourceTree = "<group>"; };
+		43D8A679276B2C89007E8C59 /* NCCodeEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCCodeEngine.h; sourceTree = "<group>"; };
+		43D8A67B276B2CFA007E8C59 /* NVCocoaEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVCocoaEngine.h; sourceTree = "<group>"; };
+		43D8A67C276B2CFA007E8C59 /* NVCocoaEngine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVCocoaEngine.m; sourceTree = "<group>"; };
 		D4439E4C2089EB1F005EE65B /* NCHeapMemory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NCHeapMemory.cpp; sourceTree = "<group>"; };
 		D4439E4D2089EB1F005EE65B /* NCHeapMemory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCHeapMemory.hpp; sourceTree = "<group>"; };
 		D44B8FFB204FD6610091B94C /* NCModuleCache.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NCModuleCache.cpp; sourceTree = "<group>"; };
@@ -536,6 +542,9 @@
 				D4E06E5D2037015C0095F442 /* Info.plist */,
 				D4E06EE5203716140095F442 /* NCCodeEngine_iOS.h */,
 				D4E06EE6203716140095F442 /* NCCodeEngine_iOS.mm */,
+				43D8A679276B2C89007E8C59 /* NCCodeEngine.h */,
+				43D8A67B276B2CFA007E8C59 /* NVCocoaEngine.h */,
+				43D8A67C276B2CFA007E8C59 /* NVCocoaEngine.m */,
 			);
 			path = NaiveC;
 			sourceTree = "<group>";
@@ -673,12 +682,14 @@
 				43D8A64E276998FF007E8C59 /* NVBuiltinFunction.h in Headers */,
 				435B33C927672C41008579EB /* NVStack.h in Headers */,
 				435B33D12768741A008579EB /* NVModuleCache.h in Headers */,
+				43D8A67A276B2C89007E8C59 /* NCCodeEngine.h in Headers */,
 				4391A8C2274D192A002BEB6D /* NVPair.h in Headers */,
 				43D8A673276B1BB0007E8C59 /* NSArray+NVObject.h in Headers */,
 				43D8A64A2769895F007E8C59 /* NVClassLoader.h in Headers */,
 				4363DF1B27452DB800FE4A7F /* NVTokenizer.h in Headers */,
 				D4E06F21203972F90095F442 /* NCStandardClass.hpp in Headers */,
 				435B33C127672A17008579EB /* NVInterpreter.h in Headers */,
+				43D8A67D276B2CFA007E8C59 /* NVCocoaEngine.h in Headers */,
 				D4E06F1920396FD10095F442 /* NCStandardLibraryProvider.hpp in Headers */,
 				4363DF2127467DFF00FE4A7F /* NVParser.h in Headers */,
 				D44B8FFE204FD6610091B94C /* NCModuleCache.hpp in Headers */,
@@ -861,6 +872,7 @@
 				D4E06F0520371DAB0095F442 /* NCCocoaBox.mm in Sources */,
 				D4E06F48204042100095F442 /* NCLog.mm in Sources */,
 				43D8A64F276998FF007E8C59 /* NVBuiltinFunction.m in Sources */,
+				43D8A67E276B2CFA007E8C59 /* NVCocoaEngine.m in Sources */,
 				D4E06F0620371DAB0095F442 /* NCCocoaBox.hpp in Sources */,
 				43D8A668276A1811007E8C59 /* NVCocoaBox.m in Sources */,
 				D4E06F0E203871E10095F442 /* NCClass.cpp in Sources */,

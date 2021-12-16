@@ -24,6 +24,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id)initWithRoot:(NVASTRoot *)root;
 
+- (BOOL)invoke:(NSString *)functionName;
+
+- (BOOL)invoke:(NSString *)functionName
+     lastStack:(NVStack *)lastStack;
+
 - (BOOL)invoke:(NSString *)functionName
      arguments:(NSArray<NVStackElement *> *)arguments
      lastStack:(NVStack *)lastStack;

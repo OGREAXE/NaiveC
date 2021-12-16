@@ -12,19 +12,16 @@
 @implementation NVCocoaClassProvider
 
 - (BOOL)classExist:(NSString *)className {
-//
-//    if (className == NC_CLASSNAME_FRAME
-//        ||className == NC_CLASSNAME_SIZE
-//        ||className == NC_CLASSNAME_POINT
-//        ||className == "CGRectMake"
-//        ||className == "CGPointMake"
-//        ||className == "CGSizeMake"
-//        ||className == "UIEdgeInsetsMake") {
-//        return true;
-//    }
-//
+    if ([className isEqualToString:@"CGRectMake"]
+        ||[className isEqualToString:@"CGPointMake"]
+        ||[className isEqualToString:@"CGSizeMake"]
+        ||[className isEqualToString:@"UIEdgeInsetsMake"]
+        ||[className isEqualToString:@"NSMakeRange"]) {
+        return true;
+    }
     
     Class targetClass = NSClassFromString(className);
+    
     if (targetClass) {
         return YES;
     }

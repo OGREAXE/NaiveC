@@ -33,9 +33,11 @@ typedef enum TokenStatus {
 
 @interface NVTokenizer : NSObject
 
-@property (nonatomic) NSMutableArray<NVToken *> *tokens;
+@property (nonatomic, readonly) NSMutableArray<NVToken *> *tokens;
 @property (nonatomic) NSString *token;
 @property (nonatomic) NVTokenStatus status;
+
+- (BOOL)tokenize:(NSString *)code;
 
 @end
 

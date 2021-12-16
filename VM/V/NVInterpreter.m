@@ -66,6 +66,11 @@
 }
 
 - (BOOL)invoke:(NSString *)functionName
+     lastStack:(NVStack *)lastStack {
+    return [self invoke:functionName arguments:nil lastStack:lastStack];
+}
+
+- (BOOL)invoke:(NSString *)functionName
      arguments:(NSArray<NVStackElement *> *)arguments
      lastStack:(NVStack *)lastStack {
     if ([self isClassName:functionName]) {

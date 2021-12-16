@@ -14,12 +14,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NVParser : NSObject
 
-@property (nonatomic) NVASTRoot *pRoot;
+@property (nonatomic, readonly) NVASTRoot *root;
 
 @property (nonatomic) NSArray<NVToken *> *tokens;
 
 @property (nonatomic) int index;
 @property (nonatomic) NSString *word;
+
+- (BOOL)parse:(NSArray<NVToken *> *)tokens;
 
 @end
 
