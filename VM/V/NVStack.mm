@@ -274,6 +274,10 @@
     return nil;
 }
 
+- (NVStackElement *)doOperator:(NSString *)op rightOperand:(NVStackElement *)rightOperand {
+    return [self.valueElement doOperator:op rightOperand:rightOperand];
+}
+
 - (void)setAttribute:(NSString *)attributeName value:(NVStackElement *)value {
     [self.valueElement setAttribute:attributeName value:value];
 }

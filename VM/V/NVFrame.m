@@ -56,7 +56,8 @@
 }
 
 - (void)insertVariable:(NSString *)name stackPointerElement:(NVStackPointerElement *)pObject {
-    
+    [self.localVariableMap setObject:pObject
+                               forKey:name];
 }
 
 - (NVStackElement *)stack_pop {

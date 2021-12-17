@@ -33,12 +33,28 @@
     [super tearDown];
 }
 
-- (void)testExample {
+- (void)testHello {
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
     NSString *code = [self codeTextForFileName:@"hello"];
     [self.engine run:code mode:NCInterpretorModeCommandLine error:nil];
     XCTAssert([[self.engine.result toString] isEqualToString:@"hello world"], @"result is not right");
+}
+
+- (void)testAdd {
+    // This is an example of a functional test case.
+    // Use XCTAssert and related functions to verify your tests produce the correct results.
+    NSString *code = [self codeTextForFileName:@"add"];
+    [self.engine run:code mode:NCInterpretorModeCommandLine error:nil];
+    XCTAssert([[self.engine.result toString] isEqualToString:@"6"], @"result is not right");
+}
+
+- (void)testArray {
+    // This is an example of a functional test case.
+    // Use XCTAssert and related functions to verify your tests produce the correct results.
+    NSString *code = [self codeTextForFileName:@"array"];
+    [self.engine run:code mode:NCInterpretorModeCommandLine error:nil];
+    XCTAssert([[self.engine.result toString] isEqualToString:@"NVArray:{5,4,3}"], @"result is not right");
 }
 
 - (void)testPerformanceExample {

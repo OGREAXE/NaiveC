@@ -293,7 +293,7 @@ circuitControl:(NVCircuitControl *)circuitControl {
     }
     
     [self visit:node.right frame:frame];
-    NVStackElement *rightOperand = [frame stack_pop];;
+    NVStackElement *rightOperand = [frame stack_pop];
     if (!rightOperand) {
         NVException *e = [NVException exceptionWithName:@"NVBinaryExpression_exception" reason:@"rightOperand is nil" userInfo:nil];
         circuitControl.exception = e;

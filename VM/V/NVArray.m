@@ -7,6 +7,7 @@
 //
 
 #import "NVArray.h"
+#import "NSObject+NVInvocation.h"
 
 @interface NVArray ()
 
@@ -22,6 +23,16 @@
     }
     
     return _innerArray;
+}
+
+- (void)addElement:(NVStackElement *)element {
+    [self.innerArray addObject:element];
+}
+
+- (NVStackElement *)getAttribute:(NSString *)attributeName {
+    NVStack *stack = [[NVStack alloc] init];
+    [self invokeMethod:attributeName arguments:nil lastStack:stack];
+    return stack.top;
 }
 
 - (BOOL)invokeMethod:(NSString *)methodName arguments:(NSArray<NVStackElement *> *)arguments lastStack:(NVStack *)lastStack {
@@ -41,13 +52,13 @@
     else if([methodName isEqualToString:@"set"]){
 //        innerArray[arguments[0]->toInt()] = arguments[1];
         
-        int index = [arguments[0] toInt];
-        
-        if (index > self.innerArray.count - 1) {
+        if (arguments.count != 2) {
             return NO;
         }
         
-        if (arguments.count != 2) {
+        int index = [arguments[0] toInt];
+        
+        if (index > self.innerArray.count - 1) {
             return NO;
         }
         
@@ -56,27 +67,30 @@
     else if([methodName isEqualToString:@"length"]){
         [lastStack addObject:[[NVStackIntElement alloc] initWithInt:self.innerArray.count]];
     }
+    else {
+        return [self nv_invoke:methodName arguments:arguments stack:lastStack];
+    }
     
-    return true;
+    return YES;
 }
 
 - (BOOL)invokeMethod:(NSString *)methodName arguments:(NSArray<NVStackElement *> *)arguments {
     return [self invokeMethod:methodName arguments:arguments lastStack:nil];
 }
 
-- (NVStackElement *)getAttribute:(NSString *)attributeName {
-    if ([attributeName isEqualToString:@"count"]) {
-        NSInteger length = _innerArray.count;
-        return [[NVStackIntElement alloc] initWithInt:length];
-    }
-    else {
-       NSString *reason = [NSString stringWithFormat:@"attribute %@ not found on NCArray", attributeName];
-        NVException *e = [NSException exceptionWithName:@"NVArray_exception" reason:reason userInfo:nil];
-        [self throw_exception:e];
-    }
-    
-    return nil;
-}
+//- (NVStackElement *)getAttribute:(NSString *)attributeName {
+//    if ([attributeName isEqualToString:@"count"]) {
+//        NSInteger length = _innerArray.count;
+//        return [[NVStackIntElement alloc] initWithInt:length];
+//    }
+//    else {
+//       NSString *reason = [NSString stringWithFormat:@"attribute %@ not found on NCArray", attributeName];
+//        NVException *e = [NSException exceptionWithName:@"NVArray_exception" reason:reason userInfo:nil];
+//        [self throw_exception:e];
+//    }
+//
+//    return nil;
+//}
 
 - (void)br_set:(NVStackElement *)key value:(NVStackElement *)value {
     if ([key isKindOfClass:NVStackIntElement.class]) {
@@ -125,6 +139,23 @@
     }
 }
 
+- (NSString *)getDescription {
+    if (self.innerArray.count <= 0) {
+        return @"NVArray";
+    }
+    
+    NSMutableString *desc = [NSMutableString stringWithFormat:@"NVArray:{%@",
+                             [self.innerArray[0] toString]];
+    
+    for (int i = 1; i < self.innerArray.count; i ++) {
+        [desc appendFormat:@",%@",[self.innerArray[i] toString]];
+    }
+    
+    [desc appendFormat:@"}"];
+    
+    return desc;
+}
+
 @end
 
 @implementation NVArrayAccessor
@@ -158,6 +189,14 @@
     return [self.value copy];
 }
 
+- (void)set:(NVStackElement *)value {
+    [self.accessible br_set:self.key value:value];
+}
+
+- (NVStackElement *)value {
+    return [self.accessible br_getValue:self.key];
+}
+
 - (BOOL)invokeMethod:(NSString *)methodName arguments:(NSArray<NVStackElement *> *)arguments {
     return [self.value invokeMethod:methodName arguments:arguments];
 }
@@ -173,6 +212,5 @@
 - (void)setAttribute:(NSString *)attributeName value:(NVStackElement *)value {
     [self.value setAttribute:attributeName value:value];
 }
-
 
 @end

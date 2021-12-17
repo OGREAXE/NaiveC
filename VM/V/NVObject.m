@@ -12,7 +12,9 @@
 #import "NVAST.h"
 
 @implementation NVObject
-
+- (NSString *)getDescription {
+    return [self description];
+}
 @end
 
 @implementation NVNativeObject
@@ -110,6 +112,14 @@
     }
     
     return rightOperand;
+}
+
+- (NVStackElement *)getAttribute:(NSString *)attrName {
+    return [self.object getAttribute:attrName];
+}
+
+- (void)setAttribute:(NSString *)attributeName value:(NVStackElement *)value {
+    [self.object setAttribute:attributeName value:value];
 }
 
 - (NVInt)toInt {

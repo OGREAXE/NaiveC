@@ -131,6 +131,15 @@
 @end
 
 @implementation NVArrayInitializer
+
+- (NSMutableArray *)elements {
+    if (!_elements) {
+        _elements = [NSMutableArray array];
+    }
+    
+    return _elements;
+}
+
 @end
 
 @implementation NVNameExpression
@@ -234,6 +243,23 @@
 @end
 
 @implementation NVForStatement
+
+- (NSMutableArray *)forInit {
+    if (!_forInit) {
+        _forInit = [NSMutableArray array];
+    }
+    
+    return _forInit;
+}
+
+- (NSMutableArray *)update {
+    if (!_update) {
+        _update = [NSMutableArray array];
+    }
+    
+    return _update;
+}
+
 @end
 
 @implementation NVBreakStatement

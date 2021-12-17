@@ -1207,37 +1207,39 @@ bool isStringLiteral(NSString *word){
     if ([self isIdentifier:_word]) {
         //try parse fast enumeration
         //for(e:array){ statements }
-        NSString *enumerator = _word;
         
-        _word = [self nextWord];
-        
-        if(![_word isEqualToString:@":"]){
-            return nil;
-        }
-        
-        _word = [self nextWord];
-        
-        NVExpression *expr = [self expression];
-        
-        if (![_word isEqualToString:@")"]) {
-            return nil;
-        }
-        
-        _word = [self nextWord];
-        
-        NVFastEnumeration *fastEnumeration = [[NVFastEnumeration alloc] init];
-        fastEnumeration.enumerator = enumerator;
-        fastEnumeration.expr = expr;
-        
-        forStmt.fastEnumeration = fastEnumeration;
-        
-        NVStatement *stmt = [self statement];
-        if (!stmt) {
-            return nil;
-        }
-        
-        forStmt.body = stmt;
-        return forStmt;
+        do {
+            NSString *enumerator = _word;
+
+            if(![[self nextWord] isEqualToString:@":"]){
+                break;
+            }
+            
+            _word = [self nextWord];
+            _word = [self nextWord];
+            
+            NVExpression *expr = [self expression];
+            
+            if (![_word isEqualToString:@")"]) {
+                return nil;
+            }
+            
+            _word = [self nextWord];
+            
+            NVFastEnumeration *fastEnumeration = [[NVFastEnumeration alloc] init];
+            fastEnumeration.enumerator = enumerator;
+            fastEnumeration.expr = expr;
+            
+            forStmt.fastEnumeration = fastEnumeration;
+            
+            NVStatement *stmt = [self statement];
+            if (!stmt) {
+                return nil;
+            }
+            
+            forStmt.body = stmt;
+            return forStmt;
+        } while(0);
     }
     
     //not fast enumeration, fall back to normal parse
