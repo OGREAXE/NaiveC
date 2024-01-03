@@ -9,7 +9,8 @@
 #include "NCCocoaClass.hpp"
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "NSObject+NCInvocation.h"
+//#import "NSObject+NCInvocation.h"
+#import "NCInvocation.h"
 
 #include "NCCocoaToolkit.hpp"
 #include "NCCocoaBox.hpp"
@@ -93,5 +94,5 @@ bool NCCocoaClass::invokeMethod(string methodName, vector<shared_ptr<NCStackElem
     NSString * thisClassName =  [NSString stringWithUTF8String:this->name.c_str()];
     Class thisClass = NSClassFromString(thisClassName);
     
-    return [NSObject invoke:methodStr object:nil orClass:thisClass arguments:arguments stack:lastStack];
+    return [NCInvocation invoke:methodStr object:nil orClass:thisClass arguments:arguments stack:lastStack];
 }

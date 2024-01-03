@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D73F8C12B450DA3003EA49B /* NCInvocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D73F8BF2B450DA3003EA49B /* NCInvocation.h */; };
+		0D73F8C22B450DA3003EA49B /* NCInvocation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D73F8C02B450DA3003EA49B /* NCInvocation.mm */; };
+		0D73F8C32B450DA3003EA49B /* NCInvocation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D73F8C02B450DA3003EA49B /* NCInvocation.mm */; };
 		D4439E4E2089EB1F005EE65B /* NCHeapMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4439E4C2089EB1F005EE65B /* NCHeapMemory.cpp */; };
 		D4439E4F2089EB1F005EE65B /* NCHeapMemory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D4439E4D2089EB1F005EE65B /* NCHeapMemory.hpp */; };
 		D44B8FFD204FD6610091B94C /* NCModuleCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44B8FFB204FD6610091B94C /* NCModuleCache.cpp */; };
@@ -17,7 +20,7 @@
 		D496C710204AFFE500B6A041 /* NCException.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D496C70E204AFFE500B6A041 /* NCException.hpp */; };
 		D496C757204D2CB900B6A041 /* NCSourceFinder.mm in Sources */ = {isa = PBXBuildFile; fileRef = D496C755204D2CB900B6A041 /* NCSourceFinder.mm */; };
 		D496C758204D2CB900B6A041 /* NCSourceFinder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D496C756204D2CB900B6A041 /* NCSourceFinder.hpp */; };
-		D4E06E632037015D0095F442 /* NaiveC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E06E5A2037015C0095F442 /* NaiveC.framework */; };
+		D4E06E632037015D0095F442 /* Naive_C.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E06E5A2037015C0095F442 /* Naive_C.framework */; };
 		D4E06E682037015D0095F442 /* NaiveCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E672037015D0095F442 /* NaiveCTests.m */; };
 		D4E06E6A2037015D0095F442 /* NaiveC.h in Headers */ = {isa = PBXBuildFile; fileRef = D4E06E5C2037015C0095F442 /* NaiveC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D4E06EE7203716140095F442 /* NCCodeEngine_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = D4E06EE5203716140095F442 /* NCCodeEngine_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -181,6 +184,7 @@
 		F366D92C21E7520B001824AE /* libNaiveC.m in Sources */ = {isa = PBXBuildFile; fileRef = F31D7F3D2122FA0700E11E5F /* libNaiveC.m */; };
 		F366D92F21E7520B001824AE /* libNaiveC.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = F31D7F3C2122FA0700E11E5F /* libNaiveC.h */; };
 		F3F2A93E215A0E91004CE143 /* NCSourceManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F359ABE62150977100FE7D84 /* NCSourceManager.mm */; };
+		F4124ED51EB702F5D4264A9B /* libPods-NaiveC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F118B0BC12705D1D82CFFE /* libPods-NaiveC.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -217,6 +221,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0D73F8BF2B450DA3003EA49B /* NCInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NCInvocation.h; sourceTree = "<group>"; };
+		0D73F8C02B450DA3003EA49B /* NCInvocation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NCInvocation.mm; sourceTree = "<group>"; };
+		768A8E166425FEF0D0588FBB /* Pods-NaiveC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NaiveC.debug.xcconfig"; path = "Target Support Files/Pods-NaiveC/Pods-NaiveC.debug.xcconfig"; sourceTree = "<group>"; };
+		8566828DEBF6A96D03A90329 /* Pods-NaiveC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NaiveC.release.xcconfig"; path = "Target Support Files/Pods-NaiveC/Pods-NaiveC.release.xcconfig"; sourceTree = "<group>"; };
+		D3F118B0BC12705D1D82CFFE /* libPods-NaiveC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NaiveC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4439E4C2089EB1F005EE65B /* NCHeapMemory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NCHeapMemory.cpp; sourceTree = "<group>"; };
 		D4439E4D2089EB1F005EE65B /* NCHeapMemory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCHeapMemory.hpp; sourceTree = "<group>"; };
 		D44B8FFB204FD6610091B94C /* NCModuleCache.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NCModuleCache.cpp; sourceTree = "<group>"; };
@@ -238,7 +247,7 @@
 		D4E06E2B2032F2C50095F442 /* NCCocoaBox.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCCocoaBox.hpp; sourceTree = "<group>"; };
 		D4E06E2D203552CD0095F442 /* NSObject+NCInvocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+NCInvocation.h"; sourceTree = "<group>"; };
 		D4E06E2E203552CD0095F442 /* NSObject+NCInvocation.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+NCInvocation.mm"; sourceTree = "<group>"; };
-		D4E06E5A2037015C0095F442 /* NaiveC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NaiveC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4E06E5A2037015C0095F442 /* Naive_C.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Naive_C.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4E06E5C2037015C0095F442 /* NaiveC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NaiveC.h; sourceTree = "<group>"; };
 		D4E06E5D2037015C0095F442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4E06E622037015C0095F442 /* NaiveCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NaiveCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -280,7 +289,7 @@
 		ED219CD21F6D16370015293A /* NCStackElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NCStackElement.cpp; sourceTree = "<group>"; };
 		ED219CD31F6D16370015293A /* NCStackElement.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NCStackElement.hpp; sourceTree = "<group>"; };
 		ED219CDF1F6D1B610015293A /* CodeTestX */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CodeTestX; sourceTree = "<group>"; };
-		F31D7F3A2122FA0700E11E5F /* liblibNaiveC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibNaiveC.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F31D7F3A2122FA0700E11E5F /* libNaiveC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNaiveC.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F31D7F3C2122FA0700E11E5F /* libNaiveC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libNaiveC.h; sourceTree = "<group>"; };
 		F31D7F3D2122FA0700E11E5F /* libNaiveC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = libNaiveC.m; sourceTree = "<group>"; };
 		F31D80002123BD8000E11E5F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -294,6 +303,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4124ED51EB702F5D4264A9B /* libPods-NaiveC.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,7 +311,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4E06E632037015D0095F442 /* NaiveC.framework in Frameworks */,
+				D4E06E632037015D0095F442 /* Naive_C.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,9 +332,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		854DEB9BE74F38D0DB48A83A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				768A8E166425FEF0D0588FBB /* Pods-NaiveC.debug.xcconfig */,
+				8566828DEBF6A96D03A90329 /* Pods-NaiveC.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		D4E06E0C203191920095F442 /* Bridged */ = {
 			isa = PBXGroup;
 			children = (
+				0D73F8BF2B450DA3003EA49B /* NCInvocation.h */,
+				0D73F8C02B450DA3003EA49B /* NCInvocation.mm */,
 				ED219CCD1F6D16370015293A /* NCBuiltinFunction.mm */,
 				D4E06F46204042100095F442 /* NCLog.mm */,
 				D4E06E0D203192CB0095F442 /* NCCocoaClassProvider.mm */,
@@ -403,15 +424,16 @@
 				F31D7F3B2122FA0700E11E5F /* libNaiveC */,
 				ED219C9C1F6D15CB0015293A /* Products */,
 				F31D7FFF2123BD8000E11E5F /* Frameworks */,
+				854DEB9BE74F38D0DB48A83A /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
 		ED219C9C1F6D15CB0015293A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D4E06E5A2037015C0095F442 /* NaiveC.framework */,
+				D4E06E5A2037015C0095F442 /* Naive_C.framework */,
 				D4E06E622037015C0095F442 /* NaiveCTests.xctest */,
-				F31D7F3A2122FA0700E11E5F /* liblibNaiveC.a */,
+				F31D7F3A2122FA0700E11E5F /* libNaiveC.a */,
 				F366D93321E7520B001824AE /* liblibNaiveCDesktop.a */,
 			);
 			name = Products;
@@ -482,6 +504,7 @@
 			isa = PBXGroup;
 			children = (
 				F31D80002123BD8000E11E5F /* Foundation.framework */,
+				D3F118B0BC12705D1D82CFFE /* libPods-NaiveC.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -508,16 +531,18 @@
 				D4E06F1D203971280095F442 /* NCArray.hpp in Headers */,
 				F359ABE92150977100FE7D84 /* NCSourceManager.hpp in Headers */,
 				D4E06F2520397AAB0095F442 /* NCCocoaClass.hpp in Headers */,
+				0D73F8C12B450DA3003EA49B /* NCInvocation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		D4E06E592037015C0095F442 /* NaiveC */ = {
+		D4E06E592037015C0095F442 /* Naive-C */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D4E06E6B2037015D0095F442 /* Build configuration list for PBXNativeTarget "NaiveC" */;
+			buildConfigurationList = D4E06E6B2037015D0095F442 /* Build configuration list for PBXNativeTarget "Naive-C" */;
 			buildPhases = (
+				1FF36D12EEDAA468D4599092 /* [CP] Check Pods Manifest.lock */,
 				D4E06E552037015C0095F442 /* Sources */,
 				D4E06E562037015C0095F442 /* Frameworks */,
 				D4E06E572037015C0095F442 /* Headers */,
@@ -527,9 +552,9 @@
 			);
 			dependencies = (
 			);
-			name = NaiveC;
+			name = "Naive-C";
 			productName = NaiveC;
-			productReference = D4E06E5A2037015C0095F442 /* NaiveC.framework */;
+			productReference = D4E06E5A2037015C0095F442 /* Naive_C.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		D4E06E612037015C0095F442 /* NaiveCTests */ = {
@@ -550,21 +575,22 @@
 			productReference = D4E06E622037015C0095F442 /* NaiveCTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		F31D7F392122FA0700E11E5F /* libNaiveC */ = {
+		F31D7F392122FA0700E11E5F /* NaiveC */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F31D7F422122FA0700E11E5F /* Build configuration list for PBXNativeTarget "libNaiveC" */;
+			buildConfigurationList = F31D7F422122FA0700E11E5F /* Build configuration list for PBXNativeTarget "NaiveC" */;
 			buildPhases = (
 				F31D7F362122FA0700E11E5F /* Sources */,
 				F31D7F372122FA0700E11E5F /* Frameworks */,
 				F31D7F382122FA0700E11E5F /* CopyFiles */,
+				0D1696442B2811B80055D837 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = libNaiveC;
+			name = NaiveC;
 			productName = libNaiveC;
-			productReference = F31D7F3A2122FA0700E11E5F /* liblibNaiveC.a */;
+			productReference = F31D7F3A2122FA0700E11E5F /* libNaiveC.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		F366D8F221E7520B001824AE /* libNaiveCDesktop */ = {
@@ -615,6 +641,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -623,9 +650,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D4E06E592037015C0095F442 /* NaiveC */,
+				D4E06E592037015C0095F442 /* Naive-C */,
 				D4E06E612037015C0095F442 /* NaiveCTests */,
-				F31D7F392122FA0700E11E5F /* libNaiveC */,
+				F31D7F392122FA0700E11E5F /* NaiveC */,
 				F366D8F221E7520B001824AE /* libNaiveCDesktop */,
 			);
 		};
@@ -647,6 +674,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0D1696442B2811B80055D837 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\ncp ${TARGET_BUILD_DIR}/lib${TARGET_NAME}.a ${PROJECT_DIR}/../NaiveStudio/NaiveStudio/lib/lib${TARGET_NAME}.a\n";
+		};
+		1FF36D12EEDAA468D4599092 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NaiveC-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D4E06E552037015C0095F442 /* Sources */ = {
@@ -683,6 +752,7 @@
 				D4E06EFB20371D9E0095F442 /* NCClassProvider.cpp in Sources */,
 				D4E06EFC20371D9E0095F442 /* NCClassProvider.hpp in Sources */,
 				D4E06EE920371D910095F442 /* NCAST.cpp in Sources */,
+				0D73F8C22B450DA3003EA49B /* NCInvocation.mm in Sources */,
 				D4E06EEA20371D910095F442 /* NCAST.hpp in Sources */,
 				D4E06EEB20371D910095F442 /* NCParser.cpp in Sources */,
 				D4E06F2420397AAB0095F442 /* NCCocoaClass.mm in Sources */,
@@ -733,6 +803,7 @@
 				F31D7F572122FA7400E11E5F /* NCStackElement.hpp in Sources */,
 				F31D7F582122FA7400E11E5F /* NCObject.cpp in Sources */,
 				F31D7F592122FA7400E11E5F /* NCObject.hpp in Sources */,
+				0D73F8C32B450DA3003EA49B /* NCInvocation.mm in Sources */,
 				F31D7F5A2122FA7400E11E5F /* NCClassLoader.cpp in Sources */,
 				F31D7F5B2122FA7400E11E5F /* NCClassLoader.hpp in Sources */,
 				F31D7F5C2122FA7400E11E5F /* NCClassProvider.cpp in Sources */,
@@ -838,7 +909,7 @@
 /* Begin PBXTargetDependency section */
 		D4E06E652037015D0095F442 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D4E06E592037015C0095F442 /* NaiveC */;
+			target = D4E06E592037015C0095F442 /* Naive-C */;
 			targetProxy = D4E06E642037015D0095F442 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -846,6 +917,7 @@
 /* Begin XCBuildConfiguration section */
 		D4E06E6C2037015D0095F442 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 768A8E166425FEF0D0588FBB /* Pods-NaiveC.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -884,6 +956,7 @@
 		};
 		D4E06E6D2037015D0095F442 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8566828DEBF6A96D03A90329 /* Pods-NaiveC.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1073,10 +1146,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = YES;
+				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1101,10 +1174,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = YES;
+				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1174,7 +1247,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D4E06E6B2037015D0095F442 /* Build configuration list for PBXNativeTarget "NaiveC" */ = {
+		D4E06E6B2037015D0095F442 /* Build configuration list for PBXNativeTarget "Naive-C" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D4E06E6C2037015D0095F442 /* Debug */,
@@ -1201,7 +1274,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F31D7F422122FA0700E11E5F /* Build configuration list for PBXNativeTarget "libNaiveC" */ = {
+		F31D7F422122FA0700E11E5F /* Build configuration list for PBXNativeTarget "NaiveC" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F31D7F402122FA0700E11E5F /* Debug */,
