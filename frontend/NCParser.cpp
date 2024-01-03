@@ -690,6 +690,16 @@ shared_ptr<NCExpression> NCParser::primary_expression(){
     }
 }
 
+shared_ptr<NCLiteral> nameMapLiteral(const string &word) {
+    if (word == "true" || word == "YES") {
+        return shared_ptr<NCLiteral>(new NCIntegerLiteral(1));
+    } else if (word == "false" || word == "NO") {
+        return shared_ptr<NCLiteral>(new NCIntegerLiteral(0));
+    }
+    
+    return nullptr;
+}
+
 shared_ptr<NCExpression> NCParser::primary_prefix(){
     //literal
 //    pushIndex();
@@ -724,6 +734,11 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
     if (isIdentifier(word)) {
         string name = word;
         word = nextWord();
+        
+        auto mappedLiteral = nameMapLiteral(name);
+        if (mappedLiteral) {
+            return mappedLiteral;
+        }
         
         vector<shared_ptr<NCExpression>> args;
         //    pushIndex();
