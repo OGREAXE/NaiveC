@@ -17,15 +17,22 @@
 #define NC_COCOA_BRIDGE(aNSObject) (void*)CFBridgingRetain(aNSObject)
 #define NC_COCOA_UNBRIDGE(aBridgedNSObject) CFBridgingRelease(aBridgedNSObject)
 
+#define GET_NS_OBJECT  ((__bridge NSObject*)m_cocoaObject) //only for use in derived classes
 /*
  wrapper for cocoa objects
  */
 class NCCocoaBox :public NCObject, public NCBracketAccessible, public NCFastEnumerable {
-private:
+protected:
     //wrapped cocoaObject. must use non-arc to ensure correct release?
     void * m_cocoaObject;
 public:
+    NCCocoaBox(){};
     NCCocoaBox(void * cocoaObject);
+    
+    NCCocoaBox(const string &str); //wrap as nsstring
+    NCCocoaBox(NCInt value); //wrap as nsnumber
+    NCCocoaBox(NCFloat value); //wrap as nsnumber
+    
     virtual ~NCCocoaBox();
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
@@ -53,6 +60,7 @@ public:
     virtual void enumerate(std::function<bool (shared_ptr<NCStackElement> anObj)> handler);
     
     virtual NCInt toInt();
+    
 };
 
 #endif /* NCCocoaBox_hpp */

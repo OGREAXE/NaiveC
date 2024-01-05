@@ -10,6 +10,12 @@
 		0D73F8C12B450DA3003EA49B /* NCInvocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D73F8BF2B450DA3003EA49B /* NCInvocation.h */; };
 		0D73F8C22B450DA3003EA49B /* NCInvocation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D73F8C02B450DA3003EA49B /* NCInvocation.mm */; };
 		0D73F8C32B450DA3003EA49B /* NCInvocation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D73F8C02B450DA3003EA49B /* NCInvocation.mm */; };
+		0D73F8C72B46B946003EA49B /* NCNSArrayWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D73F8C52B46B946003EA49B /* NCNSArrayWrapper.mm */; };
+		0D73F8C82B46B946003EA49B /* NCNSArrayWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D73F8C52B46B946003EA49B /* NCNSArrayWrapper.mm */; };
+		0D73F8C92B46B946003EA49B /* NCNSArrayWrapper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0D73F8C62B46B946003EA49B /* NCNSArrayWrapper.hpp */; };
+		0D73F8CC2B46C9F9003EA49B /* NCNSDictionaryWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D73F8CA2B46C9F9003EA49B /* NCNSDictionaryWrapper.mm */; };
+		0D73F8CD2B46C9F9003EA49B /* NCNSDictionaryWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D73F8CA2B46C9F9003EA49B /* NCNSDictionaryWrapper.mm */; };
+		0D73F8CE2B46C9F9003EA49B /* NCNSDictionaryWrapper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0D73F8CB2B46C9F9003EA49B /* NCNSDictionaryWrapper.hpp */; };
 		D4439E4E2089EB1F005EE65B /* NCHeapMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4439E4C2089EB1F005EE65B /* NCHeapMemory.cpp */; };
 		D4439E4F2089EB1F005EE65B /* NCHeapMemory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D4439E4D2089EB1F005EE65B /* NCHeapMemory.hpp */; };
 		D44B8FFD204FD6610091B94C /* NCModuleCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44B8FFB204FD6610091B94C /* NCModuleCache.cpp */; };
@@ -223,6 +229,10 @@
 /* Begin PBXFileReference section */
 		0D73F8BF2B450DA3003EA49B /* NCInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NCInvocation.h; sourceTree = "<group>"; };
 		0D73F8C02B450DA3003EA49B /* NCInvocation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NCInvocation.mm; sourceTree = "<group>"; };
+		0D73F8C52B46B946003EA49B /* NCNSArrayWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCNSArrayWrapper.mm; sourceTree = "<group>"; };
+		0D73F8C62B46B946003EA49B /* NCNSArrayWrapper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCNSArrayWrapper.hpp; sourceTree = "<group>"; };
+		0D73F8CA2B46C9F9003EA49B /* NCNSDictionaryWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCNSDictionaryWrapper.mm; sourceTree = "<group>"; };
+		0D73F8CB2B46C9F9003EA49B /* NCNSDictionaryWrapper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCNSDictionaryWrapper.hpp; sourceTree = "<group>"; };
 		768A8E166425FEF0D0588FBB /* Pods-NaiveC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NaiveC.debug.xcconfig"; path = "Target Support Files/Pods-NaiveC/Pods-NaiveC.debug.xcconfig"; sourceTree = "<group>"; };
 		8566828DEBF6A96D03A90329 /* Pods-NaiveC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NaiveC.release.xcconfig"; path = "Target Support Files/Pods-NaiveC/Pods-NaiveC.release.xcconfig"; sourceTree = "<group>"; };
 		D3F118B0BC12705D1D82CFFE /* libPods-NaiveC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NaiveC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -332,6 +342,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D73F8C42B46B8E3003EA49B /* wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				0D73F8C52B46B946003EA49B /* NCNSArrayWrapper.mm */,
+				0D73F8C62B46B946003EA49B /* NCNSArrayWrapper.hpp */,
+				0D73F8CA2B46C9F9003EA49B /* NCNSDictionaryWrapper.mm */,
+				0D73F8CB2B46C9F9003EA49B /* NCNSDictionaryWrapper.hpp */,
+			);
+			path = wrapper;
+			sourceTree = "<group>";
+		};
 		854DEB9BE74F38D0DB48A83A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,6 +365,7 @@
 		D4E06E0C203191920095F442 /* Bridged */ = {
 			isa = PBXGroup;
 			children = (
+				0D73F8C42B46B8E3003EA49B /* wrapper */,
 				0D73F8BF2B450DA3003EA49B /* NCInvocation.h */,
 				0D73F8C02B450DA3003EA49B /* NCInvocation.mm */,
 				ED219CCD1F6D16370015293A /* NCBuiltinFunction.mm */,
@@ -529,8 +551,10 @@
 				D4E06F49204042100095F442 /* NCLog.hpp in Headers */,
 				D4E06EE7203716140095F442 /* NCCodeEngine_iOS.h in Headers */,
 				D4E06F1D203971280095F442 /* NCArray.hpp in Headers */,
+				0D73F8C92B46B946003EA49B /* NCNSArrayWrapper.hpp in Headers */,
 				F359ABE92150977100FE7D84 /* NCSourceManager.hpp in Headers */,
 				D4E06F2520397AAB0095F442 /* NCCocoaClass.hpp in Headers */,
+				0D73F8CE2B46C9F9003EA49B /* NCNSDictionaryWrapper.hpp in Headers */,
 				0D73F8C12B450DA3003EA49B /* NCInvocation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -753,12 +777,14 @@
 				D4E06EFC20371D9E0095F442 /* NCClassProvider.hpp in Sources */,
 				D4E06EE920371D910095F442 /* NCAST.cpp in Sources */,
 				0D73F8C22B450DA3003EA49B /* NCInvocation.mm in Sources */,
+				0D73F8CC2B46C9F9003EA49B /* NCNSDictionaryWrapper.mm in Sources */,
 				D4E06EEA20371D910095F442 /* NCAST.hpp in Sources */,
 				D4E06EEB20371D910095F442 /* NCParser.cpp in Sources */,
 				D4E06F2420397AAB0095F442 /* NCCocoaClass.mm in Sources */,
 				D4892EE320450A520052267E /* NCBuiltinFunctionStore.cpp in Sources */,
 				D4439E4E2089EB1F005EE65B /* NCHeapMemory.cpp in Sources */,
 				D4E06EEC20371D910095F442 /* NCParser.hpp in Sources */,
+				0D73F8C72B46B946003EA49B /* NCNSArrayWrapper.mm in Sources */,
 				D496C757204D2CB900B6A041 /* NCSourceFinder.mm in Sources */,
 				D4E06F20203972F90095F442 /* NCStandardClass.cpp in Sources */,
 				D4E06EED20371D910095F442 /* NCTokenizer.cpp in Sources */,
@@ -786,6 +812,7 @@
 				F31D7F462122FA7400E11E5F /* NCArray.hpp in Sources */,
 				F31D7F472122FA7400E11E5F /* NCStandardClass.cpp in Sources */,
 				F31D7F482122FA7400E11E5F /* NCStandardClass.hpp in Sources */,
+				0D73F8CD2B46C9F9003EA49B /* NCNSDictionaryWrapper.mm in Sources */,
 				F31D7F492122FA7400E11E5F /* CodeTest in Sources */,
 				F31D7F4A2122FA7400E11E5F /* CodeTestX in Sources */,
 				F31D7F4B2122FA7400E11E5F /* NCAST.cpp in Sources */,
@@ -836,6 +863,7 @@
 				F31D7F7A2122FA7400E11E5F /* NaiveC.h in Sources */,
 				F31D7F7C2122FA7400E11E5F /* NCCodeEngine_iOS.h in Sources */,
 				F31D7F7D2122FA7400E11E5F /* NCCodeEngine_iOS.mm in Sources */,
+				0D73F8C82B46B946003EA49B /* NCNSArrayWrapper.mm in Sources */,
 				F31D7F3E2122FA0700E11E5F /* libNaiveC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

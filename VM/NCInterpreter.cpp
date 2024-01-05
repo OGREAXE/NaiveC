@@ -14,6 +14,8 @@
 #include "NCLog.hpp"
 #include "NCException.hpp"
 #include "NCHeapMemory.hpp"
+#include "NCNSArrayWrapper.hpp"
+#include "NCNSDictionaryWrapper.hpp"
 
 void NCFrame::insertVariable(string&name, int value){
     localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackIntElement(value));
@@ -503,6 +505,83 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         }
         
         frame.stack_push(shared_ptr<NCStackPointerElement> ( new NCStackPointerElement( shared_ptr<NCObject>(pArray))));
+    }
+    else if(dynamic_cast<NCObjcStringExpr*>(currentNode.get())){
+        auto strExp = dynamic_cast<NCObjcStringExpr*>(currentNode.get());
+        auto box = new NCCocoaBox(strExp->content);
+        
+        frame.stack_push(shared_ptr<NCStackPointerElement> (new NCStackPointerElement(shared_ptr<NCCocoaBox>(box))));
+    }
+    else if(dynamic_cast<NCObjcArrayInitializer*>(currentNode.get())){
+        auto node = dynamic_cast<NCObjcArrayInitializer*>(currentNode.get());
+        
+        auto pArray = new NCNSArrayWrapper();
+        
+        auto arrInit = node->arrayInitializer;
+        
+        if (arrInit) {
+            for (auto element : arrInit->elements) {
+                visit(element, frame);
+                
+                auto value = frame.stack_popRealValue();
+                
+                pArray->addElement(value);
+            }
+            
+            frame.stack_push(shared_ptr<NCStackPointerElement> ( new NCStackPointerElement( shared_ptr<NCObject>(pArray))));
+        }
+        else {
+            NCLog(NCLogTypeInterpretor, "array init fail");
+        }
+        
+    }
+    else if(dynamic_cast<NCObjcDictionaryInitializer*>(currentNode.get())){
+        auto node = dynamic_cast<NCObjcDictionaryInitializer*>(currentNode.get());
+        
+        auto pDict = new NCNSDictionaryWrapper();
+        
+        for (auto kv : node->keyValueList) {
+            
+            visit(kv.first, frame);
+            auto keyResult = frame.stack_popRealValue();
+            
+            visit(kv.second, frame);
+            auto valueResult = frame.stack_popRealValue();
+            
+            pDict->br_set(keyResult, valueResult);
+        }
+        
+        frame.stack_push(shared_ptr<NCStackPointerElement> ( new NCStackPointerElement( shared_ptr<NCObject>(pDict))));
+    }
+    else if(dynamic_cast<NCObjcNumberExpr*>(currentNode.get())){
+        auto node = dynamic_cast<NCObjcNumberExpr*>(currentNode.get());
+        
+        visit(node->expression, frame);
+        
+        auto value = frame.stack_pop();
+        
+        NCCocoaBox *pBox = nullptr;
+        
+        do {
+            auto fval = dynamic_cast<NCStackFloatElement *>(value.get());
+            
+            if (fval) {
+                pBox = new NCCocoaBox(fval->value);
+                break;
+            }
+            
+            auto ival = dynamic_cast<NCStackIntElement *>(value.get());
+            
+            if (ival) {
+                pBox = new NCCocoaBox(ival->value);
+                break;
+            }
+            
+        } while(0);
+    
+        if (pBox) {
+            frame.stack_push(shared_ptr<NCStackPointerElement> (new NCStackPointerElement(shared_ptr<NCCocoaBox>(pBox))));
+        }
     }
     else if(dynamic_cast<NCNameExpression*>(currentNode.get())){
         auto node = dynamic_cast<NCNameExpression*>(currentNode.get());

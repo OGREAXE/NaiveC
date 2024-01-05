@@ -121,6 +121,32 @@ public:
     }
 };
 
+//support objective c style syntactic sugar starting with @
+class NCObjcSyntacticSugarExpr:public NCPrimarySuffix{
+private:
+//    shared_ptr<NCExpression> exporession;
+public:
+    //method(args);
+//    NCObjCSendMessageExpr(shared_ptr<NCExpression> &expression):expression(expression){}
+};
+
+class NCObjcStringExpr:public NCObjcSyntacticSugarExpr{
+private:
+    
+public:
+    string content;
+    NCObjcStringExpr(string &content):content(content){}
+};
+
+class NCObjcNumberExpr:public NCObjcSyntacticSugarExpr{
+private:
+    
+public:
+    //method(args);
+    shared_ptr<NCExpression> expression;
+    NCObjcNumberExpr(shared_ptr<NCExpression> &expression):expression(expression){}
+};
+
 //support calling oc message [obj msg:para1:para2]
 class NCObjCSendMessageExpr:public NCPrimarySuffix{
 private:
@@ -162,6 +188,11 @@ class NCArrayInitializer:public NCExpression{
 public:
     vector<shared_ptr<NCExpression>> elements;
 };
+
+//class NCNSDictionaryInitializer:public NCExpression{
+//public:
+//    vector<pair<shared_ptr<NCExpression>, shared_ptr<NCExpression>>> keyValueList;
+//};
 
 class NCNameExpression:public NCExpression{
 private:
@@ -461,6 +492,29 @@ class NCASTRoot:public NCASTNode {
 public:
     vector<shared_ptr<NCClassDeclaration>> classList;
     vector<shared_ptr<NCASTFunctionDefinition>> functionList;
+};
+
+
+class NCObjcArrayInitializer:public NCObjcSyntacticSugarExpr{
+private:
+    
+public:
+    //method(args);
+    shared_ptr<NCArrayInitializer> arrayInitializer;
+    NCObjcArrayInitializer(shared_ptr<NCArrayInitializer> &arrayInitializer):arrayInitializer(arrayInitializer){}
+};
+//
+//class NCObjcDictionaryExpr:public NCObjcSyntacticSugarExpr{
+//private:
+//    shared_ptr<NCNSDictionaryInitializer> dictionaryInitializer;
+//public:
+//    //method(args);
+//    NCObjcDictionaryExpr(shared_ptr<NCNSDictionaryInitializer> &dictionaryInitializer):dictionaryInitializer(dictionaryInitializer){}
+//};
+
+class NCObjcDictionaryInitializer:public NCExpression{
+public:
+    vector<pair<shared_ptr<NCExpression>, shared_ptr<NCExpression>>> keyValueList;
 };
 
 #endif /* MCAST_hpp */

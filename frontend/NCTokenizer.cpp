@@ -232,6 +232,13 @@ bool NCTokenizer::tokenize(const string&str){
             token = "^";
             status = Unknown;
         }
+        else if(c == '@'){
+            if (token.length()>0) {
+                addToken(tokens, token, i);
+            }
+            token = "@";
+            status = Unknown;
+        }
         
         if (i == str.length()-1) {
             if (token.length() > 0) {

@@ -21,6 +21,21 @@ NCCocoaBox::NCCocoaBox(void * pCocoaObject){
     m_cocoaObject = pCocoaObject;
 }
 
+NCCocoaBox::NCCocoaBox(const string &str) {
+    NSString *nsstr = [NSString stringWithUTF8String:str.c_str()];
+    m_cocoaObject = NC_COCOA_BRIDGE(nsstr);
+} //wrap as nsstring
+
+NCCocoaBox::NCCocoaBox(NCInt value) {
+    NSNumber *num = [NSNumber numberWithInt:value];
+    m_cocoaObject = NC_COCOA_BRIDGE(num);
+} //wrap as nsnumber
+
+NCCocoaBox::NCCocoaBox(NCFloat value) {
+    NSNumber *num = [NSNumber numberWithFloat:value];
+    m_cocoaObject = NC_COCOA_BRIDGE(num);
+}//wrap as nsnumber
+
 NCCocoaBox::~NCCocoaBox(){
     NC_COCOA_UNBRIDGE(m_cocoaObject);
 }

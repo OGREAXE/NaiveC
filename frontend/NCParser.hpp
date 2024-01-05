@@ -179,7 +179,13 @@ private:
     //expression-> assignment_expression| expression ',' assignment_expression
     shared_ptr<NCExpression> expression();
     
-    shared_ptr<NCExpression> array_initializer();
+    shared_ptr<NCArrayInitializer> array_initializer();
+    
+    shared_ptr<NCExpression> ns_array_initializer();
+    
+    shared_ptr<NCExpression> ns_string_expression();
+    
+    shared_ptr<NCExpression> ns_dictionary_initializer();
     
     bool expression_list(vector<shared_ptr<NCExpression>>& exprList);
     
@@ -244,8 +250,14 @@ private:
     
     bool arguments(vector<shared_ptr<NCExpression>> & args);
     
+    bool keyValueList(vector<pair<shared_ptr<NCExpression>, shared_ptr<NCExpression>>> & args);
+    
+    bool keyvalue(pair<shared_ptr<NCExpression>, shared_ptr<NCExpression>> &kv);
+    
     //argument_expression_list-> assignment_expression| argument_expression_list ',' assignment_expression
     MCParserReturnType argument_expression_list();
+    
+    shared_ptr<NCExpression> objc_syntactic_sugar();
     
     shared_ptr<NCExpression> objc_send_message();
 };

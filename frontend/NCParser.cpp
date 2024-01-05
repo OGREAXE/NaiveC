@@ -482,8 +482,8 @@ shared_ptr<NCExpression> NCParser::variable_initializer(){
     return expression();
 }
 
-shared_ptr<NCExpression> NCParser::array_initializer(){
-    if (word != "{") {
+shared_ptr<NCArrayInitializer> NCParser::array_initializer(){
+    if (word != "[") {
         return nullptr;
     }
     word = nextWord();
@@ -494,14 +494,55 @@ shared_ptr<NCExpression> NCParser::array_initializer(){
         return nullptr;
     }
     
-    if (word != "}") {
+    if (word != "]") {
         return nullptr;
     }
     word = nextWord();
-    return shared_ptr<NCExpression>(arrayInitializer);
+    return shared_ptr<NCArrayInitializer>(arrayInitializer);
+}
+
+shared_ptr<NCExpression> NCParser::ns_array_initializer() {
+    auto arrInit = array_initializer();
+    auto arr = new NCObjcArrayInitializer(arrInit);
+    return shared_ptr<NCExpression>(arr);
+}
+
+shared_ptr<NCExpression> NCParser::ns_string_expression(){
+    auto originalStr = word; //string with ""
+    
+    if (originalStr.length() >= 2) {
+        originalStr = originalStr.substr(1, originalStr.length() - 2);
+    }
+    
+    auto str = new NCObjcStringExpr(originalStr);
+    word = nextWord();
+    
+    return shared_ptr<NCObjcStringExpr>(str);
+}
+
+shared_ptr<NCExpression> NCParser::ns_dictionary_initializer(){
+    if (word != "{") {
+        return nullptr;
+    }
+    word = nextWord();
+    
+    auto dictInitializer = new NCObjcDictionaryInitializer();
+    
+    if (!keyValueList(dictInitializer->keyValueList)) {
+        return nullptr;
+    }
+    
+    if (word != "}") {
+        return nullptr;
+    }
+    
+    word = nextWord();
+    
+    return shared_ptr<NCExpression>(dictInitializer);
 }
 
 shared_ptr<NCExpression> NCParser::expression(){
+    //todo: add parse of @ in objective c here
     return conditional_expression();
 }
 
@@ -727,7 +768,22 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
     
     if (word == "[") {
         auto objcSendMsgExpr = objc_send_message();
-        return objcSendMsgExpr;
+        
+        if (objcSendMsgExpr) {
+            return objcSendMsgExpr;
+        }
+        
+        auto arrayInitor = array_initializer();
+        if (arrayInitor) {
+            return arrayInitor;
+        }
+        
+        return nullptr;
+    }
+    
+    if (word == "@") {
+        //objective c syntactic sugar
+        return objc_syntactic_sugar();
     }
     
     // name [call(args)]
@@ -753,13 +809,6 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
             return shared_ptr<NCExpression>(new NCNameExpression(name));
         }
         return shared_ptr<NCExpression>(new NCMethodCallExpr(args, name));
-    }
-    
-    if (word == "{") {
-        auto arrayInitor = array_initializer();
-        if (arrayInitor) {
-            return arrayInitor;
-        }
     }
     
     if (word == "^") {
@@ -834,6 +883,60 @@ bool NCParser::arguments(vector<shared_ptr<NCExpression>> & args){
             return false;
         }
     }
+    return true;
+}
+
+ bool NCParser::keyvalue(pair<shared_ptr<NCExpression>, shared_ptr<NCExpression>> &kv) {
+    auto key = expression();
+    
+    if (!key) {
+        return false;
+    }
+     
+    kv.first = key;
+    
+    if (word != ":") {
+        return false;
+    }
+     
+    word = nextWord();
+    
+    auto value = expression();
+    
+    if (!value) {
+        return false;
+    }
+     
+     kv.second = value;
+    
+     return true;
+}
+
+bool NCParser::keyValueList(vector<pair<shared_ptr<NCExpression>, shared_ptr<NCExpression>>> &args) {
+    pair<shared_ptr<NCExpression>, shared_ptr<NCExpression>> kv;
+    
+    bool res = keyvalue(kv);
+    
+    if (!res) {
+        return res;
+    }
+    
+    while (res) {
+        args.push_back(kv);
+        
+        if (word != ",") {
+            return true;
+        }
+        
+        word = nextWord();
+        
+        res = keyvalue(kv);
+        
+        if (!res) {
+            return false;
+        }
+    }
+    
     return true;
 }
 
@@ -1202,6 +1305,35 @@ shared_ptr<NCStatement> NCParser::expression_statement(){
         auto expStmt = new NCExpressionStatement();
         expStmt->expression = expr;
         return shared_ptr<NCStatement>(expStmt);
+    }
+}
+
+shared_ptr<NCExpression> NCParser::objc_syntactic_sugar(){
+    word = nextWord();
+    
+    if (word[0] == '"') {
+        //nsstring;
+//        auto str = new NCObjcStringExpr(word);
+//        word = nextWord();
+//        
+//        return shared_ptr<NCObjcStringExpr>(str);
+        return ns_string_expression();
+    } else if (word == "[") {
+        //nsdictionary
+//        auto arrInit = array_initializer();
+//        auto arr = new NCObjcArrayExpr(arrInit);
+//        return shared_ptr<NCExpression>(arr);
+        return ns_array_initializer();
+    } else if (word == "{") {
+        //nsdictionary
+        auto arrInit = ns_dictionary_initializer();
+        return shared_ptr<NCExpression>(arrInit);
+    } else if (word == "(" || (word[0] <= '9' && word[0] > '0')) {
+        //nsdictionary
+        auto exp = expression();
+        return shared_ptr<NCExpression>(new NCObjcNumberExpr(exp));
+    } else {
+        return nullptr;
     }
 }
 
