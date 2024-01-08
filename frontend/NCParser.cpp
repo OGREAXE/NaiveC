@@ -977,6 +977,9 @@ shared_ptr<NCExpression> NCParser::literal(){
     string str;
     if (isFloatLiteral(word, &fNum)) {
         word = nextWord();
+        if (word == "f") {
+            word = nextWord();
+        }
         return shared_ptr<NCFloatLiteral>(new NCFloatLiteral(fNum));
     }
     else if (isIntegerLiteral(word, &intNum)) {
