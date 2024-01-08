@@ -18,6 +18,12 @@
 #define NC_COCOA_UNBRIDGE(aBridgedNSObject) CFBridgingRelease(aBridgedNSObject)
 
 #define GET_NS_OBJECT  ((__bridge NSObject*)m_cocoaObject) //only for use in derived classes
+//#define GET_BOX_CONTENT(box) (NSObject *)CFBridgingRelease(box->getContent());
+
+#define MAKE_COCOA_BOX(nsObj) (new NCCocoaBox(NC_COCOA_BRIDGE(nsObj)));
+
+#define SAFE_GET_BOX_CONTENT(cocoabox) ((__bridge id)(cocoabox->getContent()))
+
 /*
  wrapper for cocoa objects
  */
@@ -36,12 +42,14 @@ public:
     virtual ~NCCocoaBox();
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> &formatArguments,vector<shared_ptr<NCStackElement>> & lastStack);;
     
     virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
     
     virtual void setAttribute(const string & attrName, shared_ptr<NCStackElement> value);
     
-    void * getContent(){return m_cocoaObject;}
+    //USING THIS DIRECTLY IS NOT RECOMMENDED, USE SAFE_GET_BOX_CONTENT
+    void *getContent(){return m_cocoaObject;}
     
     virtual string getDescription();
     

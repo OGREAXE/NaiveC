@@ -15,6 +15,9 @@ shared_ptr<NCMethodCallExpr> NCObjCSendMessageExpr::getMehodCall(){
             name += "_"+ parameter_list[i];
         }
         auto methodCall = new NCMethodCallExpr(argument_expression_list,scope,name);
+        
+        methodCall->formatArgs = format_argument_expression_list;
+        
         m_methodCallExpr = shared_ptr<NCMethodCallExpr>(methodCall);
     }
     return m_methodCallExpr;

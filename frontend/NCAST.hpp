@@ -108,9 +108,15 @@ public:
 //class.method(...)
 class NCMethodCallExpr:public NCPrimarySuffix{
 public:
-    vector<shared_ptr<NCExpression>> args;
     string name;
+    
     shared_ptr<NCExpression> scope;
+    
+    vector<shared_ptr<NCExpression>> args;
+    
+    vector<shared_ptr<NCExpression>> formatArgs;
+    
+//    bool isFormat;
 
     //method(args);
     NCMethodCallExpr(vector<shared_ptr<NCExpression>> & args,string &name):args(args), name(name), scope(nullptr){
@@ -153,8 +159,12 @@ private:
     shared_ptr<NCMethodCallExpr> m_methodCallExpr;
 public:
     vector<shared_ptr<NCExpression>> argument_expression_list;
+    
     vector<string> parameter_list;
     shared_ptr<NCExpression> scope;
+    
+//    bool isFormat = false; // format function
+    vector<shared_ptr<NCExpression>> format_argument_expression_list;
     
     //method(args);
     NCObjCSendMessageExpr(vector<shared_ptr<NCExpression>> & argument_expression_list,vector<string> parameter_list, shared_ptr<NCExpression> scope):argument_expression_list(argument_expression_list), parameter_list(parameter_list), scope(scope),m_methodCallExpr(nullptr){}

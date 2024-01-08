@@ -15,6 +15,8 @@
 #include "NCCocoaToolkit.hpp"
 #include "NCCocoaBox.hpp"
 
+#include "NCStringFormatter.hpp"
+
 shared_ptr<NCStackPointerElement> NCCocoaClass::instantiate(vector<shared_ptr<NCStackElement>> &arguments){
     
     if (this->name == NC_CLASSNAME_FRAME || this->name == "CGRectMake") {
@@ -89,10 +91,29 @@ shared_ptr<NCStackPointerElement> NCCocoaClass::instantiate(vector<shared_ptr<NC
 
 bool NCCocoaClass::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
     
+//    NSString * methodStr = [NSString stringWithUTF8String:methodName.c_str()];
+//    
+//    NSString * thisClassName =  [NSString stringWithUTF8String:this->name.c_str()];
+//    Class thisClass = NSClassFromString(thisClassName);
+//    
+//    return [NCInvocation invoke:methodStr object:nil orClass:thisClass arguments:arguments stack:lastStack];
+    
+    vector<shared_ptr<NCStackElement>> formatArguments;
+    
+    return invokeMethod(methodName, arguments, formatArguments, lastStack);
+}
+
+bool NCCocoaClass::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> &formatArguments,vector<shared_ptr<NCStackElement>> & lastStack) {
     NSString * methodStr = [NSString stringWithUTF8String:methodName.c_str()];
     
     NSString * thisClassName =  [NSString stringWithUTF8String:this->name.c_str()];
     Class thisClass = NSClassFromString(thisClassName);
+    
+    if (formatArguments.size()) {
+        auto formatResult = stringWithFormat(arguments.back(), formatArguments);
+        arguments.pop_back();
+        arguments.push_back(formatResult);
+    }
     
     return [NCInvocation invoke:methodStr object:nil orClass:thisClass arguments:arguments stack:lastStack];
 }

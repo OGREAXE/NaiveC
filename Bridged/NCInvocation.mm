@@ -270,7 +270,7 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
 +(BOOL)private_invoke:(Method)method target:(id)target arguments:(vector<shared_ptr<NCStackElement>> &)arguments stack:(vector<shared_ptr<NCStackElement>>& )lastStack{
     int argCount = method_getNumberOfArguments(method);
     
-    if(argCount != arguments.size() + 2){
+    if(argCount > arguments.size() + 2){
 //        NSLog(@"argument count not matched");
         NCLog(NCLogTypeInterpretor, "argument count not matched");
         return NO;
@@ -415,7 +415,8 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
                 auto payloadObj = pointerContainer->getPointedObject();
                 if(payloadObj && dynamic_pointer_cast<NCCocoaBox>(payloadObj)){
                     auto cocoabox = dynamic_pointer_cast<NCCocoaBox>(payloadObj);
-                    id cocoaObj = (id)CFBridgingRelease(cocoabox->getContent());
+//                    id cocoaObj = (id)CFBridgingRelease(cocoabox->getContent());
+                    id cocoaObj = SAFE_GET_BOX_CONTENT(cocoabox);
                     realObj = cocoaObj;
                     
                 }

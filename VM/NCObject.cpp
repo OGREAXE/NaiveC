@@ -108,6 +108,12 @@ bool NCStackPointerElement::invokeMethod(string methodName, vector<shared_ptr<NC
     return res;
 }
 
+bool NCStackPointerElement::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> &formatArguments,vector<shared_ptr<NCStackElement>> & lastStack) {
+    auto res = m_pObject->invokeMethod(methodName, arguments, formatArguments, lastStack);
+    
+    return res;
+}
+
 
 ///**
 // invoke a method on a 'meta' class

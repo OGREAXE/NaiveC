@@ -23,7 +23,7 @@
 static unordered_set<string> keywords =
 {
     //types
-    "int","float","string","void",
+    "int","float","void",
     //operator
     "=","+=","-=","*=","/=","++",
     "+","-","*","/",
@@ -1349,7 +1349,10 @@ shared_ptr<NCExpression> NCParser::objc_send_message(){
     }
     
     vector<string> parameter_list;
+    
     vector<shared_ptr<NCExpression>> argument_expression_list;
+    
+    vector<shared_ptr<NCExpression>> format_argument_expression_list;
     
     if (isIdentifier(word) && peek(1) == "]") {
         parameter_list.push_back(word);
@@ -1359,6 +1362,8 @@ shared_ptr<NCExpression> NCParser::objc_send_message(){
         auto objcMsgSend = new NCObjCSendMessageExpr(argument_expression_list,parameter_list,scope);
         return shared_ptr<NCExpression>(objcMsgSend);
     }
+    
+    bool isFormat = false;
     
     while (1) {
         if (!isIdentifier(word)) {
@@ -1372,21 +1377,50 @@ shared_ptr<NCExpression> NCParser::objc_send_message(){
         }
         word = nextWord();
         
-        auto aArgExpr = expression();
+        //try to parse string format like [NSString stringWithFormat:@"%d%@", 1, @" dog"];
         
-        if (!aArgExpr) {
+        format_argument_expression_list.clear();
+        
+        arguments(format_argument_expression_list);
+        
+        if (format_argument_expression_list.size() == 0) {
+            NCLog(NCLogTypeParser, "found no arguments");
             return nullptr;
+        } else if (format_argument_expression_list.size() == 1) {
+            argument_expression_list.push_back(format_argument_expression_list[0]);
+            format_argument_expression_list.clear();
+        } else if (format_argument_expression_list.size() > 1) {
+            if (word != "]") {
+                NCLog(NCLogTypeParser, "wrong format arguments");
+                return nullptr;
+            }
+            
+            argument_expression_list.push_back(format_argument_expression_list[0]);
+            
+            format_argument_expression_list.erase(format_argument_expression_list.begin());
+            
+            break;
         }
+    
         
-        argument_expression_list.push_back(aArgExpr);
+//        auto aArgExpr = expression();
+//        
+//        if (!aArgExpr) {
+//            return nullptr;
+//        }
+//        
+//        argument_expression_list.push_back(aArgExpr);
         
         if (word == "]") {
             break;
         }
     }
+    
     word = nextWord();
     
     auto objcMsgSend = new NCObjCSendMessageExpr(argument_expression_list,parameter_list,scope);
+    objcMsgSend->format_argument_expression_list = format_argument_expression_list;
+    
     return shared_ptr<NCExpression>(objcMsgSend);
 }
 

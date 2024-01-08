@@ -124,6 +124,12 @@ using namespace std;
 
 -(BOOL)run:(NSString*)sourceCode error:(NSError**)error{
     [self parseSourceCode:sourceCode];
+    
+    if (_parser->getRoot()->functionList.size() == 0 && _parser->getRoot()->classList.size() == 0) {
+        NCLog(NCLogTypeInterpretor, "parse nothing");
+        return NO;
+    }
+    
     _interpreter->initWithRoot(_parser->getRoot());
     
     try {

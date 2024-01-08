@@ -31,6 +31,10 @@ public:
     virtual shared_ptr<NCStackPointerElement> instantiate(vector<shared_ptr<NCStackElement>> &arguments);
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+    
+//    bool invokeMethod(const NCMethodCallExpr &call, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> &lastStack);
+    
+    bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> &formatArguments,vector<shared_ptr<NCStackElement>> & lastStack);
 };
 
 #endif /* NCCocoaClass_hpp */

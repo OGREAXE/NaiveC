@@ -14,6 +14,8 @@
 #include "NCException.hpp"
 
 #import "NSObject+NCInvocation.h"
+#include "NCStringFormatter.hpp"
+#import "NCInvocation.h"
 
 #pragma mark cocoaBox implementation
 
@@ -41,6 +43,22 @@ NCCocoaBox::~NCCocoaBox(){
 }
 
 bool NCCocoaBox::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
+//    if (m_cocoaObject == nullptr) {
+//        return false;
+//    }
+//    
+//    NSObject * wrappedObject = (__bridge NSObject*)m_cocoaObject;
+//    
+//    NSString * methodStr = [NSString stringWithUTF8String:methodName.c_str()];
+//    
+//    BOOL res = [wrappedObject invoke:methodStr arguments:arguments stack:lastStack];
+    
+    vector<shared_ptr<NCStackElement>> formatArguments;
+    
+    return invokeMethod(methodName, arguments, formatArguments, lastStack);
+}
+
+bool NCCocoaBox::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments, vector<shared_ptr<NCStackElement>> &formatArguments,vector<shared_ptr<NCStackElement>> & lastStack) {
     if (m_cocoaObject == nullptr) {
         return false;
     }
@@ -49,7 +67,14 @@ bool NCCocoaBox::invokeMethod(string methodName, vector<shared_ptr<NCStackElemen
     
     NSString * methodStr = [NSString stringWithUTF8String:methodName.c_str()];
     
-    BOOL res = [wrappedObject invoke:methodStr arguments:arguments stack:lastStack];
+    if (formatArguments.size()) {
+        auto formatResult = stringWithFormat(arguments.back(), formatArguments);
+        arguments.pop_back();
+        arguments.push_back(formatResult);
+    }
+    
+//    BOOL res = [wrappedObject invoke:methodStr arguments:arguments stack:lastStack];
+    BOOL res = [NCInvocation invoke:methodStr object:wrappedObject orClass:nil arguments:arguments stack:lastStack];
     
     return res;
 }

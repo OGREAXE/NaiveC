@@ -1,0 +1,16 @@
+PODS:
+  - Toast (4.0.0)
+
+DEPENDENCIES:
+  - Toast (~> 4.0.0)
+
+SPEC REPOS:
+  trunk:
+    - Toast
+
+SPEC CHECKSUMS:
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
+
+PODFILE CHECKSUM: d9aee1d4ea5229ab00c825e5317d4bbdf7dd4602
+
+COCOAPODS: 1.14.3

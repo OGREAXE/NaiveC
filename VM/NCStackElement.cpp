@@ -257,6 +257,10 @@ bool NCStackVariableElement::invokeMethod(string methodName, vector<shared_ptr<N
     return this->valueElement->invokeMethod(methodName, arguments, lastStack);
 }
 
+bool NCStackVariableElement::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> &formatArguments,vector<shared_ptr<NCStackElement>> & lastStack){
+    return this->valueElement->invokeMethod(methodName, arguments, formatArguments, lastStack);
+}
+
 /*NCFieldAccessor
  */
 void NCFieldAccessor::set(shared_ptr<NCStackElement> value){

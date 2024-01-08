@@ -25,6 +25,8 @@ public:
 //    vector<shared_ptr<NCStackElement>> fields;
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){return false;};
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> &formatArguments,vector<shared_ptr<NCStackElement>> & lastStack){return false;};
+    
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments){return true;}
     
     virtual shared_ptr<NCStackElement> getAttribute(const string & attrName){return nullptr;}
@@ -120,6 +122,7 @@ public:
     virtual shared_ptr<NCStackElement> copy();
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> &formatArguments,vector<shared_ptr<NCStackElement>> & lastStack);
     
     virtual shared_ptr<NCStackElement> getAttribute(const string & attrName){return m_pObject->getAttribute(attrName);};
     

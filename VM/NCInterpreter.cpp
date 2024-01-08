@@ -826,49 +826,30 @@ bool NCInterpreter::tree_doClassMehothodCall(NCFrame & frame, NCMethodCallExpr*n
     
     vector<shared_ptr<NCStackElement>> arguments;
     
+    vector<shared_ptr<NCStackElement>> formtArguments;
+    
     for (int i = 0; i<parametersExpr.size(); i++) {
         auto argExp = node->args[i];
         visit(argExp, frame);
-        
-//        auto val = frame.stack.back();
-//        arguments.push_back(shared_ptr<NCStackElement>(val));
-//        frame.stack.pop_back();
+
         auto val = frame.stack_popRealValue();
         arguments.push_back(val);
     }
     
-//    auto pStackTop = (frame.stack.back()).get();
-//    auto varElement = dynamic_cast<NCStackVariableElement*>(pStackTop);
-//    if(varElement){
-//        auto strElement = dynamic_cast<NCStackStringElement*>(varElement->valueElement.get());
-//        if(strElement){
-//            //string is not pointer, require dealing with specially
-//            return strElement->invokeMethod(node->name, arguments, frame.stack);;
-//        }
-//    }
-//
-//    auto pArrayAccessor = dynamic_cast<NCArrayAccessor*>(pStackTop);
-//    if (pArrayAccessor) {
-//        //???
-//    }
-//
-//    auto scope = stackPopObjectPointer(frame);
-//
-////    auto pPointer = scope.get()->getObjectPointer().get();
-//    auto pPointer = scope.get()->getNakedPointer();
-//
-//    if (dynamic_cast<NCObject*>(pPointer)) {
-//        auto classInst = dynamic_cast<NCObject*>(pPointer);
-//
-//        return classInst->invokeMethod(node->name, arguments, frame.stack);
-//    }
+    for (int i = 0; i < node->formatArgs.size(); i ++) {
+        auto argExp = node->formatArgs[i];
+        visit(argExp, frame);
+
+        auto val = frame.stack_popRealValue();
+        formtArguments.push_back(val);
+    }
     
     if (frame.stack_empty()) {
         return false;
     }
     
     auto rScope = frame.stack_pop();
-    bool res = rScope->invokeMethod(node->name, arguments, frame.stack);
+    bool res = rScope->invokeMethod(node->name, arguments, formtArguments, frame.stack);
     
     return res;
 }

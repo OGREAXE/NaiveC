@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D4F53022B4B8AEA003EF544 /* NCStringFormatter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D4F53002B4B8AEA003EF544 /* NCStringFormatter.mm */; };
+		0D4F53032B4B8AEA003EF544 /* NCStringFormatter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D4F53002B4B8AEA003EF544 /* NCStringFormatter.mm */; };
+		0D4F53042B4B8AEA003EF544 /* NCStringFormatter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0D4F53012B4B8AEA003EF544 /* NCStringFormatter.hpp */; };
 		0D73F8C12B450DA3003EA49B /* NCInvocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D73F8BF2B450DA3003EA49B /* NCInvocation.h */; };
 		0D73F8C22B450DA3003EA49B /* NCInvocation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D73F8C02B450DA3003EA49B /* NCInvocation.mm */; };
 		0D73F8C32B450DA3003EA49B /* NCInvocation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D73F8C02B450DA3003EA49B /* NCInvocation.mm */; };
@@ -227,6 +230,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0D4F53002B4B8AEA003EF544 /* NCStringFormatter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCStringFormatter.mm; sourceTree = "<group>"; };
+		0D4F53012B4B8AEA003EF544 /* NCStringFormatter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCStringFormatter.hpp; sourceTree = "<group>"; };
 		0D73F8BF2B450DA3003EA49B /* NCInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NCInvocation.h; sourceTree = "<group>"; };
 		0D73F8C02B450DA3003EA49B /* NCInvocation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NCInvocation.mm; sourceTree = "<group>"; };
 		0D73F8C52B46B946003EA49B /* NCNSArrayWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCNSArrayWrapper.mm; sourceTree = "<group>"; };
@@ -384,6 +389,8 @@
 				D496C756204D2CB900B6A041 /* NCSourceFinder.hpp */,
 				F359ABE62150977100FE7D84 /* NCSourceManager.mm */,
 				F359ABE72150977100FE7D84 /* NCSourceManager.hpp */,
+				0D4F53002B4B8AEA003EF544 /* NCStringFormatter.mm */,
+				0D4F53012B4B8AEA003EF544 /* NCStringFormatter.hpp */,
 			);
 			path = Bridged;
 			sourceTree = "<group>";
@@ -545,6 +552,7 @@
 				D44B8FFE204FD6610091B94C /* NCModuleCache.hpp in Headers */,
 				D4892EE420450A520052267E /* NCBuiltinFunctionStore.hpp in Headers */,
 				D4E06F0F203871E10095F442 /* NCClass.hpp in Headers */,
+				0D4F53042B4B8AEA003EF544 /* NCStringFormatter.hpp in Headers */,
 				D496C710204AFFE500B6A041 /* NCException.hpp in Headers */,
 				D496C758204D2CB900B6A041 /* NCSourceFinder.hpp in Headers */,
 				D4E06F29203C3E1B0095F442 /* NCCocoaToolkit.hpp in Headers */,
@@ -764,6 +772,7 @@
 				D4E06EF120371D9E0095F442 /* NCCode.cpp in Sources */,
 				D4E06EF220371D9E0095F442 /* NCCode.hpp in Sources */,
 				D4E06EF320371D9E0095F442 /* NCInterpreter.cpp in Sources */,
+				0D4F53022B4B8AEA003EF544 /* NCStringFormatter.mm in Sources */,
 				F359ABE82150977100FE7D84 /* NCSourceManager.mm in Sources */,
 				D4E06EF420371D9E0095F442 /* NCInterpreter.hpp in Sources */,
 				D4E06EF520371D9E0095F442 /* NCStackElement.cpp in Sources */,
@@ -823,6 +832,7 @@
 				F31D7F502122FA7400E11E5F /* NCParser.hpp in Sources */,
 				F31D7F512122FA7400E11E5F /* NCBuiltinFunction.hpp in Sources */,
 				F31D7F522122FA7400E11E5F /* NCCode.cpp in Sources */,
+				0D4F53032B4B8AEA003EF544 /* NCStringFormatter.mm in Sources */,
 				F31D7F532122FA7400E11E5F /* NCCode.hpp in Sources */,
 				F31D7F542122FA7400E11E5F /* NCInterpreter.cpp in Sources */,
 				F31D7F552122FA7400E11E5F /* NCInterpreter.hpp in Sources */,
