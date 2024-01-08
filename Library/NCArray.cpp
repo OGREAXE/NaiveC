@@ -97,40 +97,40 @@ void NCArray::enumerate(std::function<bool (shared_ptr<NCStackElement> anObj)> h
 /*
  array accessor definitions
  */
-shared_ptr<NCStackElement> NCArrayAccessor::doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){
+shared_ptr<NCStackElement> NCIndexedAccessor::doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){
     return this->value()->doOperator(op, rightOperand);
 }
 
-NCInt NCArrayAccessor::toInt(){
+NCInt NCIndexedAccessor::toInt(){
     return this->value()->toInt();
 }
-NCFloat NCArrayAccessor::toFloat(){
+NCFloat NCIndexedAccessor::toFloat(){
     return this->value()->toFloat();
 }
-string NCArrayAccessor::toString(){
+string NCIndexedAccessor::toString(){
     return this->value()->toString();
 }
 
-shared_ptr<NCStackElement> NCArrayAccessor::copy(){
+shared_ptr<NCStackElement> NCIndexedAccessor::copy(){
     return shared_ptr<NCStackElement>(nullptr);
 }
 
-void NCArrayAccessor::set(shared_ptr<NCStackElement> value){
+void NCIndexedAccessor::set(shared_ptr<NCStackElement> value){
     m_accessible->br_set(m_key, value);
 }
 
-shared_ptr<NCStackElement> NCArrayAccessor::value(){
+shared_ptr<NCStackElement> NCIndexedAccessor::value(){
     return m_accessible->br_getValue(m_key);
 }
 
-bool NCArrayAccessor::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
+bool NCIndexedAccessor::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
     return this->value()->invokeMethod(methodName, arguments, lastStack);
 }
 
-shared_ptr<NCStackElement> NCArrayAccessor::getAttribute(const string & attrName){
+shared_ptr<NCStackElement> NCIndexedAccessor::getAttribute(const string & attrName){
     return this->value()->getAttribute(attrName);
 }
 
-void NCArrayAccessor::setAttribute(const string & attrName, shared_ptr<NCStackElement> value){
+void NCIndexedAccessor::setAttribute(const string & attrName, shared_ptr<NCStackElement> value){
     this->value()->setAttribute(attrName, value);
 }
