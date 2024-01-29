@@ -14,6 +14,8 @@
 #include "NCAST.hpp"
 #include "NCStackElement.hpp"
 
+#define MAKE_SHARED_POINTER(p) shared_ptr<NCStackPointerElement>(new NCStackPointerElement(p))
+
 class NCObject {
 public:
     

@@ -19,6 +19,9 @@
 #include "NCException.hpp"
 #include "NCLog.hpp"
 
+#include "NPFunction.h"
+#include "NCObject.hpp"
+
 #include <memory>
 
 #define SAFE_RELEASE(p) {if(p){delete p;p=NULL;}}
@@ -120,6 +123,36 @@ using namespace std;
     }
     
     return YES;
+}
+
+-(id)run:(NSString*)sourceCode arguments:(NSArray *)arguments error:(NSError**)error {
+    [self parseSourceCode:sourceCode];
+    
+    if (_parser->getRoot()->functionList.size() == 0) {
+        NCLog(NCLogTypeInterpretor, "parse nothing");
+        return nil;
+    }
+    
+    _interpreter->initWithRoot(_parser->getRoot());
+    
+    try {
+        vector<shared_ptr<NCStackElement>> args;
+        
+        for (NPValue *v in arguments) {
+            NCStackElement *e = v.stackElement;
+            args.push_back(shared_ptr<NCStackElement>(e));
+        }
+        
+        vector<shared_ptr<NCStackElement>> lastStack;
+        _interpreter->invoke("main", args, lastStack);
+    } catch (NCRuntimeException & e) {
+        string errMsg = "VM terminated: ";
+        errMsg += e.getErrorMessage();
+        
+        NCLog(NCLogTypeInterpretor, errMsg.c_str());
+    }
+    
+    return nil;
 }
 
 -(BOOL)run:(NSString*)sourceCode error:(NSError**)error{

@@ -30,4 +30,7 @@ typedef NS_ENUM(NSUInteger, NCInterpretorMode) {
 //run a piece of code
 -(BOOL)run:(NSString*)sourceCode error:(NSError**)error;
 -(BOOL)run:(NSString*)sourceCode mode:(NCInterpretorMode)mode error:(NSError**)error;
+
+//arguments type should be NPValue
+-(id)run:(NSString*)sourceCode arguments:(NSArray *)arguments error:(NSError**)error;
 @end

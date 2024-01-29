@@ -10,7 +10,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#include "NSObject+NCInvocation.h"
+//#include "NSObject+NCInvocation.h"
 #include "NCCocoaClass.hpp"
 #include "NCCocoaToolkit.hpp"
 

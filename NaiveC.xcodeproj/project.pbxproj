@@ -10,6 +10,10 @@
 		0D4F53022B4B8AEA003EF544 /* NCStringFormatter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D4F53002B4B8AEA003EF544 /* NCStringFormatter.mm */; };
 		0D4F53032B4B8AEA003EF544 /* NCStringFormatter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D4F53002B4B8AEA003EF544 /* NCStringFormatter.mm */; };
 		0D4F53042B4B8AEA003EF544 /* NCStringFormatter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0D4F53012B4B8AEA003EF544 /* NCStringFormatter.hpp */; };
+		0D7285A82B6781B8002DBE5C /* NPFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D7285A62B6781B8002DBE5C /* NPFunction.h */; };
+		0D7285A92B6781B8002DBE5C /* NPFunction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D7285A72B6781B8002DBE5C /* NPFunction.mm */; };
+		0D7285AA2B6781B8002DBE5C /* NPFunction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D7285A72B6781B8002DBE5C /* NPFunction.mm */; };
+		0D7285AB2B6781B8002DBE5C /* NPFunction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D7285A72B6781B8002DBE5C /* NPFunction.mm */; };
 		0D73F8C12B450DA3003EA49B /* NCInvocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D73F8BF2B450DA3003EA49B /* NCInvocation.h */; };
 		0D73F8C22B450DA3003EA49B /* NCInvocation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D73F8C02B450DA3003EA49B /* NCInvocation.mm */; };
 		0D73F8C32B450DA3003EA49B /* NCInvocation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D73F8C02B450DA3003EA49B /* NCInvocation.mm */; };
@@ -58,8 +62,6 @@
 		D4E06F0220371DAB0095F442 /* NCCocoaClassProvider.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E0E203192CB0095F442 /* NCCocoaClassProvider.hpp */; };
 		D4E06F0520371DAB0095F442 /* NCCocoaBox.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E2A2032F2C50095F442 /* NCCocoaBox.mm */; };
 		D4E06F0620371DAB0095F442 /* NCCocoaBox.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E2B2032F2C50095F442 /* NCCocoaBox.hpp */; };
-		D4E06F0720371DAB0095F442 /* NSObject+NCInvocation.h in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E2D203552CD0095F442 /* NSObject+NCInvocation.h */; };
-		D4E06F0820371DAB0095F442 /* NSObject+NCInvocation.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E2E203552CD0095F442 /* NSObject+NCInvocation.mm */; };
 		D4E06F0E203871E10095F442 /* NCClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F0C203871E10095F442 /* NCClass.cpp */; };
 		D4E06F0F203871E10095F442 /* NCClass.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D4E06F0D203871E10095F442 /* NCClass.hpp */; };
 		D4E06F102038727D0095F442 /* NCClass.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F0D203871E10095F442 /* NCClass.hpp */; };
@@ -125,8 +127,6 @@
 		F31D7F702122FA7400E11E5F /* NCCocoaBox.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E2B2032F2C50095F442 /* NCCocoaBox.hpp */; };
 		F31D7F712122FA7400E11E5F /* NCCocoaToolkit.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F26203C3E1B0095F442 /* NCCocoaToolkit.mm */; };
 		F31D7F722122FA7400E11E5F /* NCCocoaToolkit.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F27203C3E1B0095F442 /* NCCocoaToolkit.hpp */; };
-		F31D7F732122FA7400E11E5F /* NSObject+NCInvocation.h in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E2D203552CD0095F442 /* NSObject+NCInvocation.h */; };
-		F31D7F742122FA7400E11E5F /* NSObject+NCInvocation.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E2E203552CD0095F442 /* NSObject+NCInvocation.mm */; };
 		F31D7F752122FA7400E11E5F /* NCSourceFinder.mm in Sources */ = {isa = PBXBuildFile; fileRef = D496C755204D2CB900B6A041 /* NCSourceFinder.mm */; };
 		F31D7F762122FA7400E11E5F /* NCSourceFinder.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D496C756204D2CB900B6A041 /* NCSourceFinder.hpp */; };
 		F31D7F7A2122FA7400E11E5F /* NaiveC.h in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E5C2037015C0095F442 /* NaiveC.h */; };
@@ -183,8 +183,6 @@
 		F366D92221E7520B001824AE /* NCCocoaBox.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E2B2032F2C50095F442 /* NCCocoaBox.hpp */; };
 		F366D92321E7520B001824AE /* NCCocoaToolkit.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F26203C3E1B0095F442 /* NCCocoaToolkit.mm */; };
 		F366D92421E7520B001824AE /* NCCocoaToolkit.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E06F27203C3E1B0095F442 /* NCCocoaToolkit.hpp */; };
-		F366D92521E7520B001824AE /* NSObject+NCInvocation.h in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E2D203552CD0095F442 /* NSObject+NCInvocation.h */; };
-		F366D92621E7520B001824AE /* NSObject+NCInvocation.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E2E203552CD0095F442 /* NSObject+NCInvocation.mm */; };
 		F366D92721E7520B001824AE /* NCSourceFinder.mm in Sources */ = {isa = PBXBuildFile; fileRef = D496C755204D2CB900B6A041 /* NCSourceFinder.mm */; };
 		F366D92821E7520B001824AE /* NCSourceFinder.hpp in Sources */ = {isa = PBXBuildFile; fileRef = D496C756204D2CB900B6A041 /* NCSourceFinder.hpp */; };
 		F366D92921E7520B001824AE /* NaiveC.h in Sources */ = {isa = PBXBuildFile; fileRef = D4E06E5C2037015C0095F442 /* NaiveC.h */; };
@@ -232,6 +230,8 @@
 /* Begin PBXFileReference section */
 		0D4F53002B4B8AEA003EF544 /* NCStringFormatter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCStringFormatter.mm; sourceTree = "<group>"; };
 		0D4F53012B4B8AEA003EF544 /* NCStringFormatter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCStringFormatter.hpp; sourceTree = "<group>"; };
+		0D7285A62B6781B8002DBE5C /* NPFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPFunction.h; sourceTree = "<group>"; };
+		0D7285A72B6781B8002DBE5C /* NPFunction.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NPFunction.mm; sourceTree = "<group>"; };
 		0D73F8BF2B450DA3003EA49B /* NCInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NCInvocation.h; sourceTree = "<group>"; };
 		0D73F8C02B450DA3003EA49B /* NCInvocation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NCInvocation.mm; sourceTree = "<group>"; };
 		0D73F8C52B46B946003EA49B /* NCNSArrayWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCNSArrayWrapper.mm; sourceTree = "<group>"; };
@@ -260,8 +260,6 @@
 		D4E06E0E203192CB0095F442 /* NCCocoaClassProvider.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCCocoaClassProvider.hpp; sourceTree = "<group>"; };
 		D4E06E2A2032F2C50095F442 /* NCCocoaBox.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCCocoaBox.mm; sourceTree = "<group>"; };
 		D4E06E2B2032F2C50095F442 /* NCCocoaBox.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCCocoaBox.hpp; sourceTree = "<group>"; };
-		D4E06E2D203552CD0095F442 /* NSObject+NCInvocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+NCInvocation.h"; sourceTree = "<group>"; };
-		D4E06E2E203552CD0095F442 /* NSObject+NCInvocation.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+NCInvocation.mm"; sourceTree = "<group>"; };
 		D4E06E5A2037015C0095F442 /* Naive_C.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Naive_C.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4E06E5C2037015C0095F442 /* NaiveC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NaiveC.h; sourceTree = "<group>"; };
 		D4E06E5D2037015C0095F442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -383,8 +381,6 @@
 				D4E06E2B2032F2C50095F442 /* NCCocoaBox.hpp */,
 				D4E06F26203C3E1B0095F442 /* NCCocoaToolkit.mm */,
 				D4E06F27203C3E1B0095F442 /* NCCocoaToolkit.hpp */,
-				D4E06E2D203552CD0095F442 /* NSObject+NCInvocation.h */,
-				D4E06E2E203552CD0095F442 /* NSObject+NCInvocation.mm */,
 				D496C755204D2CB900B6A041 /* NCSourceFinder.mm */,
 				D496C756204D2CB900B6A041 /* NCSourceFinder.hpp */,
 				F359ABE62150977100FE7D84 /* NCSourceManager.mm */,
@@ -414,6 +410,8 @@
 				D4E06E5D2037015C0095F442 /* Info.plist */,
 				D4E06EE5203716140095F442 /* NCCodeEngine_iOS.h */,
 				D4E06EE6203716140095F442 /* NCCodeEngine_iOS.mm */,
+				0D7285A62B6781B8002DBE5C /* NPFunction.h */,
+				0D7285A72B6781B8002DBE5C /* NPFunction.mm */,
 			);
 			path = NaiveC;
 			sourceTree = "<group>";
@@ -555,6 +553,7 @@
 				0D4F53042B4B8AEA003EF544 /* NCStringFormatter.hpp in Headers */,
 				D496C710204AFFE500B6A041 /* NCException.hpp in Headers */,
 				D496C758204D2CB900B6A041 /* NCSourceFinder.hpp in Headers */,
+				0D7285A82B6781B8002DBE5C /* NPFunction.h in Headers */,
 				D4E06F29203C3E1B0095F442 /* NCCocoaToolkit.hpp in Headers */,
 				D4E06F49204042100095F442 /* NCLog.hpp in Headers */,
 				D4E06EE7203716140095F442 /* NCCodeEngine_iOS.h in Headers */,
@@ -762,8 +761,6 @@
 				D4E06F48204042100095F442 /* NCLog.mm in Sources */,
 				D4E06F0620371DAB0095F442 /* NCCocoaBox.hpp in Sources */,
 				D4E06F0E203871E10095F442 /* NCClass.cpp in Sources */,
-				D4E06F0720371DAB0095F442 /* NSObject+NCInvocation.h in Sources */,
-				D4E06F0820371DAB0095F442 /* NSObject+NCInvocation.mm in Sources */,
 				D4E06F0120371DA50095F442 /* NCCocoaClassProvider.mm in Sources */,
 				D4E06EEF20371D9E0095F442 /* NCBuiltinFunction.hpp in Sources */,
 				D4E06F28203C3E1B0095F442 /* NCCocoaToolkit.mm in Sources */,
@@ -797,6 +794,7 @@
 				D496C757204D2CB900B6A041 /* NCSourceFinder.mm in Sources */,
 				D4E06F20203972F90095F442 /* NCStandardClass.cpp in Sources */,
 				D4E06EED20371D910095F442 /* NCTokenizer.cpp in Sources */,
+				0D7285A92B6781B8002DBE5C /* NPFunction.mm in Sources */,
 				D4E06EEE20371D910095F442 /* NCTokenizer.hpp in Sources */,
 				D4E06EE8203716140095F442 /* NCCodeEngine_iOS.mm in Sources */,
 			);
@@ -866,13 +864,12 @@
 				F31D7F702122FA7400E11E5F /* NCCocoaBox.hpp in Sources */,
 				F31D7F712122FA7400E11E5F /* NCCocoaToolkit.mm in Sources */,
 				F31D7F722122FA7400E11E5F /* NCCocoaToolkit.hpp in Sources */,
-				F31D7F732122FA7400E11E5F /* NSObject+NCInvocation.h in Sources */,
-				F31D7F742122FA7400E11E5F /* NSObject+NCInvocation.mm in Sources */,
 				F31D7F752122FA7400E11E5F /* NCSourceFinder.mm in Sources */,
 				F31D7F762122FA7400E11E5F /* NCSourceFinder.hpp in Sources */,
 				F31D7F7A2122FA7400E11E5F /* NaiveC.h in Sources */,
 				F31D7F7C2122FA7400E11E5F /* NCCodeEngine_iOS.h in Sources */,
 				F31D7F7D2122FA7400E11E5F /* NCCodeEngine_iOS.mm in Sources */,
+				0D7285AA2B6781B8002DBE5C /* NPFunction.mm in Sources */,
 				0D73F8C82B46B946003EA49B /* NCNSArrayWrapper.mm in Sources */,
 				F31D7F3E2122FA0700E11E5F /* libNaiveC.m in Sources */,
 			);
@@ -931,8 +928,7 @@
 				F366D92221E7520B001824AE /* NCCocoaBox.hpp in Sources */,
 				F366D92321E7520B001824AE /* NCCocoaToolkit.mm in Sources */,
 				F366D92421E7520B001824AE /* NCCocoaToolkit.hpp in Sources */,
-				F366D92521E7520B001824AE /* NSObject+NCInvocation.h in Sources */,
-				F366D92621E7520B001824AE /* NSObject+NCInvocation.mm in Sources */,
+				0D7285AB2B6781B8002DBE5C /* NPFunction.mm in Sources */,
 				F366D92721E7520B001824AE /* NCSourceFinder.mm in Sources */,
 				F366D92821E7520B001824AE /* NCSourceFinder.hpp in Sources */,
 				F366D92921E7520B001824AE /* NaiveC.h in Sources */,

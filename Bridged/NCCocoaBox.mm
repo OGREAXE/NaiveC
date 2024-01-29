@@ -13,7 +13,7 @@
 #import <objc/message.h>
 #include "NCException.hpp"
 
-#import "NSObject+NCInvocation.h"
+//#import "NSObject+NCInvocation.h"
 #include "NCStringFormatter.hpp"
 #import "NCInvocation.h"
 
@@ -87,7 +87,8 @@ shared_ptr<NCStackElement> NCCocoaBox::getAttribute(const string & attrName){
     vector<shared_ptr<NCStackElement>> argments;
     vector<shared_ptr<NCStackElement>> resultContainer;
     
-    [wrappedObject invoke:methodStr arguments:argments stack:resultContainer];
+//    [wrappedObject invoke:methodStr arguments:argments stack:resultContainer];
+    [NCInvocation invoke:methodStr object:wrappedObject orClass:nil arguments:argments stack:resultContainer];
     
     if (resultContainer.size() > 0) {
         return resultContainer[0];
@@ -110,7 +111,8 @@ void NCCocoaBox::setAttribute(const string & attrName, shared_ptr<NCStackElement
     vector<shared_ptr<NCStackElement>> argments = {value};
     vector<shared_ptr<NCStackElement>> resultContainer;
     
-    [wrappedObject invoke:methodStr arguments:argments stack:resultContainer];
+//    [wrappedObject invoke:methodStr arguments:argments stack:resultContainer];
+    [NCInvocation invoke:methodStr object:wrappedObject orClass:nil arguments:argments stack:resultContainer];
 }
 
 string NCCocoaBox::getDescription(){
@@ -140,7 +142,8 @@ shared_ptr<NCStackElement> NCCocoaBox::br_getValue(shared_ptr<NCStackElement> & 
         vector<shared_ptr<NCStackElement>> argments = {index};
         vector<shared_ptr<NCStackElement>> resultContainer;
         
-        [wrappedObject invoke:@"objectAtIndex" arguments:argments stack:resultContainer];
+//        [wrappedObject invoke:@"objectAtIndex" arguments:argments stack:resultContainer];
+        [NCInvocation invoke:@"objectAtIndex" object:wrappedObject orClass:nil arguments:argments stack:resultContainer];
         
         if (resultContainer.size() > 0) {
             return resultContainer[0];
