@@ -21,12 +21,25 @@
 
 #include "NPFunction.h"
 #include "NCObject.hpp"
+#include "NCCocoaBox.hpp"
 
 #include <memory>
 
 #define SAFE_RELEASE(p) {if(p){delete p;p=NULL;}}
 
 using namespace std;
+
+//to do remove JPBoxing dependency!
+@interface JPBoxing : NSObject
+@property (nonatomic) id obj;
+@property (nonatomic) void *pointer;
+@property (nonatomic) Class cls;
+@property (nonatomic, weak) id weakObj;
+@property (nonatomic, assign) id assignObj;
+- (id)unbox;
+- (void *)unboxPointer;
+- (Class)unboxClass;
+@end
 
 @interface NCCodeEngine_iOS()
 @end
@@ -137,7 +150,13 @@ using namespace std;
 }
 
 -(id)run:(NSString*)sourceCode arguments:(NSArray *)arguments error:(NSError**)error {
-    [self parseSourceCode:sourceCode];
+    NSAssert(NO, @"use runWithMethod");
+    return nil;
+}
+    
+-(id)runWithMethod:(NPPatchedMethod*)method arguments:(NSArray *)arguments error:(NSError**)error {
+    NSString * completedSource = [self completedMainSourceWithBody:method.body];
+    [self parseSourceCode:completedSource];
     
     if (_parser->getRoot()->functionList.size() == 0) {
         NCLog(NCLogTypeInterpretor, "parse nothing");
@@ -147,15 +166,37 @@ using namespace std;
     _interpreter->initWithRoot(_parser->getRoot());
     
     try {
+        vector<string> argNames;
+        
         vector<shared_ptr<NCStackElement>> args;
         
-        for (NPValue *v in arguments) {
-            NCStackElement *e = v.stackElement;
-            args.push_back(shared_ptr<NCStackElement>(e));
+        for (int i = 0; i < arguments.count; i ++) {
+            id v = arguments[i];
+            
+            if ([v isKindOfClass:NPValue.class]) {
+                NPValue *v = arguments[i];
+                
+                NCStackElement *e = v.stackElement;
+                args.push_back(shared_ptr<NCStackElement>(e));
+            }
+            else if ([v isKindOfClass:JPBoxing.class]) {
+                JPBoxing *v = arguments[i];
+                
+                NCStackElement *e = MAKE_COCOA_POINTER(v.weakObj);
+                args.push_back(shared_ptr<NCStackElement>(e));
+            }
+            else if ([v isKindOfClass:NSObject.class]) {
+                NCStackElement *e = MAKE_COCOA_POINTER(v);
+                args.push_back(shared_ptr<NCStackElement>(e));
+            }
+            
+            
+            string name = [method.parameterPairs objectAtIndex:i].name.UTF8String;
+            argNames.push_back(name);
         }
         
         vector<shared_ptr<NCStackElement>> lastStack;
-        _interpreter->invoke("main", args, lastStack);
+        _interpreter->invoke("main", argNames, args, lastStack);
     } catch (NCRuntimeException & e) {
         string errMsg = "VM terminated: ";
         errMsg += e.getErrorMessage();
@@ -188,9 +229,16 @@ using namespace std;
     return YES;
 }
 
+- (NSString *)completedMainSourceWithBody:(NSString *)body {
+    NSString * completedSource = [NSString stringWithFormat:@"void main(){%@\n}",body];
+    
+    return completedSource;
+}
+
 -(BOOL)run:(NSString*)sourceCode mode:(NCInterpretorMode)mode error:(NSError**)error{
     if (mode == NCInterpretorModeCommandLine) {
-        NSString * completedSource = [NSString stringWithFormat:@"void main(){%@\n}",sourceCode];
+//        NSString * completedSource = [NSString stringWithFormat:@"void main(){%@\n}",sourceCode];
+        NSString * completedSource = [self completedMainSourceWithBody:sourceCode];
         return [self run:completedSource error:error];
     }
     else {

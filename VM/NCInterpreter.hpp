@@ -101,6 +101,7 @@ public:
     
     bool initWithRoot(shared_ptr<NCASTRoot> root);
     
+    bool invoke(string function, vector<string> &argumentNames, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
     bool invoke(string function, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
     
     bool invoke_constructor(string function, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);

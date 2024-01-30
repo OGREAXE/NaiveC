@@ -86,7 +86,13 @@ bool NCInterpreter::isClassName(const string & name){
     return false;
 }
 
-bool NCInterpreter::invoke(string function, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
+bool NCInterpreter::invoke(string function, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack) {
+    vector<string> v;
+    return invoke(function, v, arguments, lastStack);
+}
+
+bool NCInterpreter::invoke(string function, vector<string> &argumentNames, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack)
+ {
     if (isClassName(function)) {
         return invoke_constructor(function, arguments, lastStack);
     }
@@ -106,7 +112,9 @@ bool NCInterpreter::invoke(string function, vector<shared_ptr<NCStackElement>> &
     auto frame = shared_ptr<NCFrame>(new NCFrame());
     for (int i = 0; i<arguments.size(); i++) {
         auto & var = arguments[i];
-        frame->localVariableMap.insert(make_pair(funcDef->parameters[i].name, var));
+        
+        auto name = argumentNames.size()?argumentNames[i]:funcDef->parameters[i].name;
+        frame->localVariableMap.insert(make_pair(name, var));
     }
 //    for (auto var :arguments) {
 ////        frame->localVariableMap.insert(make_pair(var->name, var));

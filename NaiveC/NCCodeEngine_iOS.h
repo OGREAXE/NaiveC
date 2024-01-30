@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NPPatchedClass.h"
 
 typedef NS_ENUM(NSUInteger, NCInterpretorMode) {
     NCInterpretorModeModular = 0,
@@ -34,5 +35,5 @@ typedef NS_ENUM(NSUInteger, NCInterpretorMode) {
 -(BOOL)run:(NSString*)sourceCode mode:(NCInterpretorMode)mode error:(NSError**)error;
 
 //arguments type should be NPValue
--(id)run:(NSString*)sourceCode arguments:(NSArray *)arguments error:(NSError**)error;
+-(id)runWithMethod:(NPPatchedMethod*)method arguments:(NSArray *)arguments error:(NSError**)error;
 @end

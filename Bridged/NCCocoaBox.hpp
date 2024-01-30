@@ -20,7 +20,7 @@
 #define GET_NS_OBJECT  ((__bridge NSObject*)m_cocoaObject) //only for use in derived classes
 //#define GET_BOX_CONTENT(box) (NSObject *)CFBridgingRelease(box->getContent());
 
-#define MAKE_COCOA_BOX(nsObj) (new NCCocoaBox(NC_COCOA_BRIDGE(nsObj)));
+#define MAKE_COCOA_BOX(nsObj) (new NCCocoaBox(NC_COCOA_BRIDGE(nsObj)))
 
 #define SAFE_GET_BOX_CONTENT(cocoabox) ((__bridge id)(cocoabox->getContent()))
 

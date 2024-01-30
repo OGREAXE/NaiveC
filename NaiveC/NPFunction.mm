@@ -106,7 +106,7 @@ extern NCStackElement *CreateStackElementFromRect(CGRect rect);
 
 - (NPValue *)callWithArguments:(NSArray<NPValue*> *)args {
     NSError *error;
-    id ret = [[NCCodeEngine_iOS defaultEngine] run:self.code arguments:args error:&error];
+    id ret = [[NCCodeEngine_iOS defaultEngine] runWithMethod:self.method arguments:args error:&error];
     return NULL;
 }
 
