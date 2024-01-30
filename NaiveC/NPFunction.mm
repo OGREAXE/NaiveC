@@ -8,6 +8,7 @@
 #import "NPFunction.h"
 #include "NCStackElement.hpp"
 #include "NCCocoaToolkit.hpp"
+#import "NCCodeEngine_iOS.h"
 
 @interface NPValue ()
 @property (nonatomic) NCStackElement *stackElement;
@@ -104,6 +105,8 @@ extern NCStackElement *CreateStackElementFromRect(CGRect rect);
 @implementation NPFunction
 
 - (NPValue *)callWithArguments:(NSArray<NPValue*> *)args {
+    NSError *error;
+    id ret = [[NCCodeEngine_iOS defaultEngine] run:self.code arguments:args error:&error];
     return NULL;
 }
 

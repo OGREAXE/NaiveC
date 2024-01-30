@@ -44,6 +44,17 @@ using namespace std;
     shared_ptr<NCSourceManager>  _sourceManager;
 }
 
++ (NCCodeEngine_iOS *)defaultEngine {
+    static NCCodeEngine_iOS *_engine = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _engine = [[NCCodeEngine_iOS alloc] init];
+    });
+    
+    return _engine;
+}
+
 -(id)init{
     self = [super init];
     if (self) {

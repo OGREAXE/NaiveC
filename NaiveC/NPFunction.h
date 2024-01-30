@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NPFunction : NSObject
 
+@property (nonatomic) NSString *code;
+
 - (NPValue *)callWithArguments:(NSArray<NPValue*> *)args;
 
 @end
