@@ -419,6 +419,10 @@ shared_ptr<NCExpression> NCParser::variable_declaration_expression(){
     
     varExprStmt->type = type;
     
+    if (word == "*"){
+        word = nextWord();
+    }
+    
     auto declarator = variable_declarator();
     if (!declarator) {
         return nullptr;
@@ -486,15 +490,19 @@ shared_ptr<NCArrayInitializer> NCParser::array_initializer(){
     if (word != "[") {
         return nullptr;
     }
+    
+    pushIndex();
     word = nextWord();
     
     auto arrayInitializer = new NCArrayInitializer();
     
     if (!arguments(arrayInitializer->elements)) {
+        popIndex();
         return nullptr;
     }
     
     if (word != "]") {
+        popIndex();
         return nullptr;
     }
     word = nextWord();
