@@ -299,7 +299,7 @@ static void JPForwardInvocation(__unsafe_unretained id assignSlf, SEL selector, 
     NSInteger numberOfArguments = [methodSignature numberOfArguments];
     NSString *selectorName = isBlock ? @"" : NSStringFromSelector(invocation.selector);
     NSString *JPSelectorName = [NSString stringWithFormat:@"_NP%@", selectorName];
-    NPFunction *jsFunc = isBlock ? objc_getAssociatedObject(assignSlf, "_JSValue")[@"cb"] : getJSFunctionInObjectHierachy(slf, JPSelectorName);
+    NPFunction *jsFunc = isBlock ? objc_getAssociatedObject(assignSlf, "_JSValue") : getJSFunctionInObjectHierachy(slf, JPSelectorName);
     if (!jsFunc) {
         JPExecuteORIGForwardInvocation(slf, selector, invocation);
         return;
@@ -644,7 +644,7 @@ static id formatJSToOC(NPValue *jsval)
     return obj;
 }
 
-static id genCallbackBlock(NPValue *jsVal)
+static id genCallbackBlock(NSArray *argTypes)
 {
     void (^block)(void) = ^(void){};
     uint8_t *p = (uint8_t *)((__bridge void *)block);
@@ -690,9 +690,11 @@ static id genCallbackBlock(NPValue *jsVal)
     }
     
 //    NSString *types = [jsVal[@"args"] toString];
-    NSString *types = jsVal.types;
+//    NSString *types = jsVal.types;
+//    
+//    NSArray *lt = [types componentsSeparatedByString:@","];
     
-    NSArray *lt = [types componentsSeparatedByString:@","];
+    NSArray *lt = argTypes;
     
     NSString *funcSignature = @"@?0";
     
@@ -730,7 +732,7 @@ static id genCallbackBlock(NPValue *jsVal)
     strcpy(s, fs);
     *signature = s;
     
-    objc_setAssociatedObject(block, "_JSValue", jsVal, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//    objc_setAssociatedObject(block, "_JSValue", jsVal, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -751,6 +753,10 @@ NSMethodSignature *block_methodSignatureForSelector(id self, SEL _cmd, SEL aSele
     p += sizeof(void *) * 2 + sizeof(int32_t) *2 + sizeof(uintptr_t) * 2;
     const char **signature = (const char **)p;
     return [NSMethodSignature signatureWithObjCTypes:*signature];
+}
+
++ (id)genCallbackBlock:(NSArray *)argTypes {
+    return genCallbackBlock(argTypes);
 }
 
 @end

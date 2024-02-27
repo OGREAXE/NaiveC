@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSMutableDictionary *)registeredStruct;
 
++ (id)genCallbackBlock:(NSArray *)argTypes;
+
 @end
 
 @interface JPBoxing : NSObject

@@ -19,6 +19,9 @@
 #include "NCLog.hpp"
 #include "NCInterpreter.hpp"
 
+#import "NPEngine.h"
+#import "NPFunction.h"
+
 static NCInterpreter *g_interpretor = new NCInterpreter();
 
 #define COMP_ENCODE(type, type2) (strcmp(type,@encode(type2)) == 0)
@@ -454,19 +457,32 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
 //                NCLambdaObject * lambdaObjectCopy = new NCLambdaObject(lambaObj->getLambdaExpression());
                 auto lambdaObjectCopy = lambaObj->copy();
                 
-                auto block_literal_1 = new __block_literal_1;
-                block_literal_1->isa = _NSConcreteGlobalBlock;
-                block_literal_1->flags = CTBlockDescriptionFlagsIsGlobal;
-//                block_literal_1->invoke = (void*)(int (*) (__block_literal_1 *, ...) ) __block_invoke_1;
-                block_literal_1->invoke =  __block_invoke_1;
+//                auto block_literal_1 = new __block_literal_1;
+//                block_literal_1->isa = _NSConcreteGlobalBlock;
+//                block_literal_1->flags = CTBlockDescriptionFlagsIsGlobal;
+//                block_literal_1->invoke =  __block_invoke_1;
+//                block_literal_1->stored_obj = (void*)lambdaObjectCopy;
+//                [invocation setArgument:&block_literal_1 atIndex:argPos];
                 
-//                block_literal_1->descriptor = &_descriptor;
-//                id str =@"hello world";
-//                block_literal_1->stored_obj = (void*)CFBridgingRetain(str);
+                auto lambdaExpr = lambaObj->getLambdaExpression();
                 
-                block_literal_1->stored_obj = (void*)lambdaObjectCopy;
+                NSMutableArray *args = [NSMutableArray array];
                 
-                [invocation setArgument:&block_literal_1 atIndex:argPos];
+                [args addObject:@"block"];
+                
+                for (int i=0; i<lambdaExpr->parameters.size(); i++) {
+                    auto argumentType = lambdaExpr->parameters[i].type;
+                    NSString *typeStr = [NSString stringWithUTF8String:argumentType.c_str()];
+                    
+                    [args addObject:typeStr];
+                }
+                
+                id genBlock = [NPEngine genCallbackBlock:args];
+                
+                NPFunction *func = [[NPFunction alloc] init];
+                objc_setAssociatedObject(genBlock, "_JSValue", func, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                
+                [invocation setArgument:&genBlock atIndex:argPos];
             }
             while (0);
             
