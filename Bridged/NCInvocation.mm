@@ -96,7 +96,7 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
     for (int i=0; i<lambdaExpr->parameters.size(); i++) {
         auto argumentType = lambdaExpr->parameters[i].type;
     
-#define COMP_TYPE(t0, t1) (t0=="t1")
+#define COMP_TYPE(t0, t1) (t0=="int")
         if(COMP_TYPE(argumentType, NSInteger)){
             NCInt val=va_arg(vl,NSInteger);
             argmuments.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement(val)));
@@ -202,7 +202,7 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
     //insert captured objects
     auto capturedObjs = lambdaObj->getCapturedObjects();
     for (auto & captured : capturedObjs) {
-        frame.insertVariable(captured.name, captured.object);
+//        frame.insertVariable(captured.name, captured.object);
     }
     
     g_interpretor->visit(lambdaExpr->blockStmt, frame);

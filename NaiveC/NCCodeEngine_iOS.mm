@@ -41,6 +41,10 @@ using namespace std;
 - (Class)unboxClass;
 @end
 
+@interface NPValue (CodeEngine)
+@property (nonatomic, readonly) NCStackElement *stackElement;
+@end
+
 @interface NCCodeEngine_iOS()
 @end
 

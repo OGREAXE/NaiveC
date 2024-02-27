@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#include "NCObject.hpp"
+//#include "NCStackElement.hpp"
 #import "NPPatchedClass.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) NSString *types;
 
-@property (nonatomic, readonly) NCStackElement *stackElement;
+//@property (nonatomic, readonly) NCStackElement *stackElement;
 
 - (id)toObject;
 - (CGRect)toRect;
