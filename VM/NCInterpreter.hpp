@@ -85,7 +85,6 @@ private:
     int stackPopInt(NCFrame & frame);
     float stackPopFloat(NCFrame & frame);
     string stackPopString(NCFrame & frame);
-    shared_ptr<NCStackPointerElement> stackPopObjectPointer(NCFrame & frame);
     
     bool isClassName(const string & name);
     
@@ -122,6 +121,8 @@ public:
 //        m_builtinFunctionStore.addFunction(func);
         NCModuleCache::GetGlobalCache()->addSystemFunction(func);
     }
+    
+    shared_ptr<NCStackPointerElement> stackPopObjectPointer(NCFrame & frame);
 };
 
 #endif /* NCInterpreter_hpp */

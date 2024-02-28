@@ -13,6 +13,11 @@
 
 @interface NPValue ()
 @property (nonatomic) shared_ptr<NCStackElement> stackElement;
+
+@property (nonatomic) id object;
+
+@property (nonatomic) NSString *objectType;
+
 @end
 
 @implementation NPValue
@@ -99,32 +104,64 @@ NSObject *NSObjectFromStackElement(NCStackElement *e) {
 }
 
 - (id)toObject {
+//    do{
+//        auto pStackTop = self.stackElement.get();
+//        
+//        auto intElement = dynamic_cast<NCStackIntElement*>(pStackTop);
+//        
+//        if(intElement){
+//            return @(intElement->value);
+//            break;
+//        }
+//        
+//        auto floatElement = dynamic_cast<NCStackFloatElement*>(pStackTop);
+//        
+//        if(floatElement){
+//            return @(floatElement->value);
+//            break;
+//        }
+//        
+//        id nsObj = NSObjectFromStackElement(pStackTop);
+//        
+//        if (nsObj) {
+//            return nsObj;
+//        }
+//    } while (0);
+//    
+//    return NULL;
+    
+    return self.object;
+}
+
+- (void)genObject {
     do{
         auto pStackTop = self.stackElement.get();
         
         auto intElement = dynamic_cast<NCStackIntElement*>(pStackTop);
         
         if(intElement){
-            return @(intElement->value);
+            self.object = @(intElement->value);
+            self.objectType = @"q";
             break;
         }
         
         auto floatElement = dynamic_cast<NCStackFloatElement*>(pStackTop);
         
         if(floatElement){
-            return @(floatElement->value);
+            self.object = @(floatElement->value);
+            self.objectType = @"d";
             break;
         }
         
         id nsObj = NSObjectFromStackElement(pStackTop);
         
         if (nsObj) {
-            return nsObj;
+            self.object = nsObj;
+            self.objectType = @"@";
         }
     } while (0);
-    
-    return NULL;
 }
+
 - (CGRect)toRect {
     return CGRectZero;
 }
@@ -153,7 +190,8 @@ NSObject *NSObjectFromStackElement(NCStackElement *e) {
 
 - (NPValue *)callWithArguments:(NSArray<NPValue*> *)args {
     NSError *error;
-    id ret = [[NCCodeEngine_iOS defaultEngine] runWithFunction:self arguments:args error:&error];
+    NPValue *ret = [[NCCodeEngine_iOS defaultEngine] runWithFunction:self arguments:args error:&error];
+    [ret genObject];
     return ret;
 }
 

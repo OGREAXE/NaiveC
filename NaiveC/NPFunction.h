@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NPValue *)valueWithRange:(NSRange)range;
 + (NPValue *)valueWithInset:(UIEdgeInsets)inset;
 
-@property (nonatomic) NSString *types;
+@property (nonatomic, readonly) NSString *objectType;
 
 //@property (nonatomic, readonly) NCStackElement *stackElement;
 

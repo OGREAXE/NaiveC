@@ -269,6 +269,8 @@ using namespace std;
         
         _interpreter->visit(lambdaExpr->blockStmt, frame);
         
+        [self extractObjectPointerWithFrame:frame];
+        
         NPValue *ret = [[NPValue alloc] init];
         ret.stackElement = frame.stack_pop();
         
@@ -282,6 +284,17 @@ using namespace std;
     }
     
     return nil;
+}
+
+- (void)extractObjectPointerWithFrame:(NCFrame &)frame {
+    if (frame.stack.size() == 0) return;
+    
+    auto stacktop = frame.stack.back();
+    
+    if (dynamic_cast<NCStackVariableElement *>(stacktop.get())) {
+        auto pointer = _interpreter->stackPopObjectPointer(frame);
+        frame.stack_push(pointer);
+    }
 }
 
 -(BOOL)run:(NSString*)sourceCode error:(NSError**)error{

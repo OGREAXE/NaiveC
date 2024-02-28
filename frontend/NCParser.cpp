@@ -325,6 +325,11 @@ bool NCParser::parameter(NCParameter ** ppp){
     if (type.length() == 0) {
         return false;
     }
+    
+    if (word == "*") {
+        word = nextWord();
+    }
+    
     if (!isIdentifier(word)) {
         return false;
     }

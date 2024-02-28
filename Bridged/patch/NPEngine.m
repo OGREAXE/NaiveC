@@ -437,13 +437,30 @@ static void JPForwardInvocation(__unsafe_unretained id assignSlf, SEL selector, 
 //    if (strcmp(returnType, @encode(JPFloat)) == 0) {
 //        strcpy(returnType, @encode(float));
 //    }
+    
+//#ifdef DEBUG
+//    if (isBlock) {
+//        strcpy(returnType, "q");
+//    }
+//#endif
+    
+    NPValue *jsval;
+    [_JSMethodForwardCallLock lock];
+    jsval = [jsFunc callWithArguments:params];
+    [_JSMethodForwardCallLock unlock];
+    
+    if (isBlock) {
+        if (jsval.objectType) {
+            strcpy(returnType, jsval.objectType.UTF8String);
+        }
+    }
 
     switch (returnType[0] == 'r' ? returnType[1] : returnType[0]) {
         #define JP_FWD_RET_CALL_JS \
-            NPValue *jsval; \
-            [_JSMethodForwardCallLock lock];   \
-            jsval = [jsFunc callWithArguments:params]; \
-            [_JSMethodForwardCallLock unlock]; \
+//            NPValue *jsval; \
+//            [_JSMethodForwardCallLock lock];   \
+//            jsval = [jsFunc callWithArguments:params]; \
+//            [_JSMethodForwardCallLock unlock]; \
             
 
         #define JP_FWD_RET_CASE_RET(_typeChar, _type, _retCode)   \
