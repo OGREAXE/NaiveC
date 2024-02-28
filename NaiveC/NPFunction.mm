@@ -102,11 +102,17 @@ extern NCStackElement *CreateStackElementFromRect(CGRect rect);
 
 @end
 
+@interface NPFunction()
+
+@property (nonatomic) NCLambdaObject *blockObj;
+
+@end
+
 @implementation NPFunction
 
 - (NPValue *)callWithArguments:(NSArray<NPValue*> *)args {
     NSError *error;
-    id ret = [[NCCodeEngine_iOS defaultEngine] runWithMethod:self.method arguments:args error:&error];
+    id ret = [[NCCodeEngine_iOS defaultEngine] runWithFunction:self arguments:args error:&error];
     return NULL;
 }
 

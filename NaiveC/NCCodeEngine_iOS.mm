@@ -45,6 +45,10 @@ using namespace std;
 @property (nonatomic, readonly) NCStackElement *stackElement;
 @end
 
+@interface NPFunction(CodeEngine)
+@property (nonatomic) NCLambdaObject *blockObj;
+@end
+
 @interface NCCodeEngine_iOS()
 @end
 
@@ -157,8 +161,20 @@ using namespace std;
     NSAssert(NO, @"use runWithMethod");
     return nil;
 }
+
+-(id)runWithFunction:(NPFunction*)function arguments:(NSArray *)arguments error:(NSError**)error {
+    if (function.method) {
+        return [self runWithMethod:function.method arguments:arguments error:error];
+    }
     
--(id)runWithMethod:(NPPatchedMethod*)method arguments:(NSArray *)arguments error:(NSError**)error {
+    if (function.blockObj) {
+        return [self runWithBlock:function.blockObj arguments:arguments error:error];
+    }
+    
+    return NULL;
+}
+    
+- (id)runWithMethod:(NPPatchedMethod*)method arguments:(NSArray *)arguments error:(NSError**)error {
     NSString * completedSource = [self completedMainSourceWithBody:method.body];
     [self parseSourceCode:completedSource];
     
@@ -201,6 +217,60 @@ using namespace std;
         
         vector<shared_ptr<NCStackElement>> lastStack;
         _interpreter->invoke("main", argNames, args, lastStack);
+    } catch (NCRuntimeException & e) {
+        string errMsg = "VM terminated: ";
+        errMsg += e.getErrorMessage();
+        
+        NCLog(NCLogTypeInterpretor, errMsg.c_str());
+    }
+    
+    return nil;
+}
+
+- (id)runWithBlock:(NCLambdaObject *)block arguments:(NSArray *)arguments error:(NSError**)error {
+    try {
+        vector<string> argNames;
+        
+        vector<shared_ptr<NCStackElement>> args;
+        
+        auto lambdaExpr = block->getLambdaExpression();
+        
+        for (int i = 0; i < arguments.count; i ++) {
+            id v = arguments[i];
+            
+            if ([v isKindOfClass:NPValue.class]) {
+                NPValue *v = arguments[i];
+                
+                NCStackElement *e = v.stackElement;
+                args.push_back(shared_ptr<NCStackElement>(e));
+            }
+            else if ([v isKindOfClass:JPBoxing.class]) {
+                JPBoxing *v = arguments[i];
+                
+                NCStackElement *e = MAKE_COCOA_POINTER(v.weakObj);
+                args.push_back(shared_ptr<NCStackElement>(e));
+            }
+            else if ([v isKindOfClass:NSObject.class]) {
+                NCStackElement *e = MAKE_COCOA_POINTER(v);
+                args.push_back(shared_ptr<NCStackElement>(e));
+            }
+        }
+        
+        
+        auto names = lambdaExpr->parameters;
+        NCFrame frame;
+        
+        for (int i = 0; i < args.size(); i++) {
+            frame.insertVariable(names[i].name, args[i]);
+        }
+        //insert captured objects
+        auto capturedObjs = block->getCapturedObjects();
+        for (auto & captured : capturedObjs) {
+    //        frame.insertVariable(captured.name, captured.object);
+        }
+        
+        _interpreter->visit(lambdaExpr->blockStmt, frame);
+        
     } catch (NCRuntimeException & e) {
         string errMsg = "VM terminated: ";
         errMsg += e.getErrorMessage();

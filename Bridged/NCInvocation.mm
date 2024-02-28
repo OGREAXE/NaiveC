@@ -22,6 +22,10 @@
 #import "NPEngine.h"
 #import "NPFunction.h"
 
+@interface NPFunction(CodeEngine)
+@property (nonatomic) NCLambdaObject *blockObj;
+@end
+
 static NCInterpreter *g_interpretor = new NCInterpreter();
 
 #define COMP_ENCODE(type, type2) (strcmp(type,@encode(type2)) == 0)
@@ -480,6 +484,8 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
                 id genBlock = [NPEngine genCallbackBlock:args];
                 
                 NPFunction *func = [[NPFunction alloc] init];
+                func.blockObj = lambaObj.get();
+                
                 objc_setAssociatedObject(genBlock, "_JSValue", func, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 
                 [invocation setArgument:&genBlock atIndex:argPos];
