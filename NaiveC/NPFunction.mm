@@ -9,9 +9,10 @@
 #include "NCStackElement.hpp"
 #include "NCCocoaToolkit.hpp"
 #import "NCCodeEngine_iOS.h"
+#include "NCCocoaBox.hpp"
 
 @interface NPValue ()
-@property (nonatomic) NCStackElement *stackElement;
+@property (nonatomic) shared_ptr<NCStackElement> stackElement;
 @end
 
 @implementation NPValue
@@ -24,7 +25,7 @@ extern NCStackElement *CreateStackElementFromRect(CGRect rect);
 #define NP_MAKE_STACK_ELEMENT(_typeChar, _call, nctype, elementType) \
     if (type == _typeChar) {  \
         nctype v = [number _call]; \
-        n.stackElement = new elementType(v); \
+        n.stackElement = shared_ptr<NCStackElement>(new elementType(v)); \
         break;  \
     }\
 //        JP_FWD_ARG_CASE('c', unsigned char)
@@ -61,7 +62,7 @@ extern NCStackElement *CreateStackElementFromRect(CGRect rect);
 + (NPValue *)valueWithRect:(CGRect)rect {
     NPValue *v = [NPValue new];
     NCRect *ncRect = new NCRect(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-    v.stackElement = new NCStackPointerElement(ncRect);
+    v.stackElement = shared_ptr<NCStackPointerElement>(new NCStackPointerElement(ncRect));
     return NULL;
 }
 
@@ -81,7 +82,47 @@ extern NCStackElement *CreateStackElementFromRect(CGRect rect);
     return NULL;
 }
 
+NSObject *NSObjectFromStackElement(NCStackElement *e) {
+    auto p = dynamic_cast<NCStackPointerElement *>(e);
+    
+    if (!p) return NULL;
+    
+    auto box = dynamic_cast<NCCocoaBox *>(p->getPointedObject().get());
+    
+    if (!box) return NULL;
+    
+    auto c = box->getContent();
+    
+    NSObject *nso = (__bridge NSObject*)c;
+    
+    return nso;
+}
+
 - (id)toObject {
+    do{
+        auto pStackTop = self.stackElement.get();
+        
+        auto intElement = dynamic_cast<NCStackIntElement*>(pStackTop);
+        
+        if(intElement){
+            return @(intElement->value);
+            break;
+        }
+        
+        auto floatElement = dynamic_cast<NCStackFloatElement*>(pStackTop);
+        
+        if(floatElement){
+            return @(floatElement->value);
+            break;
+        }
+        
+        id nsObj = NSObjectFromStackElement(pStackTop);
+        
+        if (nsObj) {
+            return nsObj;
+        }
+    } while (0);
+    
     return NULL;
 }
 - (CGRect)toRect {
@@ -113,7 +154,7 @@ extern NCStackElement *CreateStackElementFromRect(CGRect rect);
 - (NPValue *)callWithArguments:(NSArray<NPValue*> *)args {
     NSError *error;
     id ret = [[NCCodeEngine_iOS defaultEngine] runWithFunction:self arguments:args error:&error];
-    return NULL;
+    return ret;
 }
 
 @end

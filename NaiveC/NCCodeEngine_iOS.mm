@@ -42,7 +42,7 @@ using namespace std;
 @end
 
 @interface NPValue (CodeEngine)
-@property (nonatomic, readonly) NCStackElement *stackElement;
+@property (nonatomic) shared_ptr<NCStackElement> stackElement;
 @end
 
 @interface NPFunction(CodeEngine)
@@ -196,8 +196,7 @@ using namespace std;
             if ([v isKindOfClass:NPValue.class]) {
                 NPValue *v = arguments[i];
                 
-                NCStackElement *e = v.stackElement;
-                args.push_back(shared_ptr<NCStackElement>(e));
+                args.push_back(shared_ptr<NCStackElement>(v.stackElement));
             }
             else if ([v isKindOfClass:JPBoxing.class]) {
                 JPBoxing *v = arguments[i];
@@ -241,8 +240,7 @@ using namespace std;
             if ([v isKindOfClass:NPValue.class]) {
                 NPValue *v = arguments[i];
                 
-                NCStackElement *e = v.stackElement;
-                args.push_back(shared_ptr<NCStackElement>(e));
+                args.push_back(shared_ptr<NCStackElement>(v.stackElement));
             }
             else if ([v isKindOfClass:JPBoxing.class]) {
                 JPBoxing *v = arguments[i];
@@ -270,6 +268,11 @@ using namespace std;
         }
         
         _interpreter->visit(lambdaExpr->blockStmt, frame);
+        
+        NPValue *ret = [[NPValue alloc] init];
+        ret.stackElement = frame.stack_pop();
+        
+        return ret;
         
     } catch (NCRuntimeException & e) {
         string errMsg = "VM terminated: ";
