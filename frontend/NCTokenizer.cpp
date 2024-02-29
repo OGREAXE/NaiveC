@@ -266,7 +266,7 @@ bool NCTokenizer::isNumber(char c) {
 
 bool NCTokenizer::isOperator(char c) {
     return c == '*' || c == '/' || c == '+' || c == '-' || c == '='
-    ||c == '>' || c == '<'|| c == '&'|| c == '|'|| c == '!' ;
+    ||c == '>' || c == '<'|| c == '&'|| c == '|'|| c == '!'|| c == '?' ;
 }
 
 bool NCTokenizer::isParenthesis(char c) {

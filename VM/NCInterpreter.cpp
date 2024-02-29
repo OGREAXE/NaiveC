@@ -254,6 +254,45 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         
         frame.stack.push_back(leftOperand->doOperator(node->op,rightOperand));
     }
+    else if(dynamic_cast<NCConditionalExpression*>(currentNode.get())){
+        auto node = dynamic_cast<NCConditionalExpression*>(currentNode.get());
+        
+        visit(node->condition, frame);
+        
+        auto conditionalResult = frame.stack_pop();
+        if (!conditionalResult) {
+            NCLog(NCLogTypeInterpretor, "conditional expression result null");
+            return false;
+        }
+        
+        if (conditionalResult->toInt()) {
+            //true
+            if (node->expressionIfTrue) {
+                visit(node->expressionIfTrue, frame);
+                
+                auto resultOfTrue = frame.stack_pop();
+                if (!resultOfTrue) {
+                    NCLog(NCLogTypeInterpretor, "conditional expression result if true null");
+                    return false;
+                }
+                
+                frame.stack.push_back(resultOfTrue);
+                
+            } else {
+                frame.stack.push_back(conditionalResult);
+            }
+        } else {
+            visit(node->expressionIfFalse, frame);
+            
+            auto resultOfFalse = frame.stack_pop();
+            if (!resultOfFalse) {
+                NCLog(NCLogTypeInterpretor, "conditional expression result if false null");
+                return false;
+            }
+            
+            frame.stack.push_back(resultOfFalse);
+        }
+    }
     else if(dynamic_cast<IfStatement*>(currentNode.get())){
         auto node = dynamic_cast<IfStatement*>(currentNode.get());
         

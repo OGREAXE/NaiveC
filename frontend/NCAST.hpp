@@ -65,6 +65,13 @@ public:
 //    NCExpression expression;
 //};
 
+class NCConditionalExpression:public NCExpression{
+public:
+    shared_ptr<NCExpression> condition;
+    shared_ptr<NCExpression> expressionIfTrue;
+    shared_ptr<NCExpression> expressionIfFalse;
+};
+
 class NCUnaryExpression:public NCExpression{
 public:
     string op;

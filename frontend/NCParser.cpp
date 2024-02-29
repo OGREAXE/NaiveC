@@ -641,6 +641,51 @@ shared_ptr<NCExpression> NCParser::conditional_expression(){
         auto assignmentExpr = new NCAssignExpr(expr,op, value);
         return shared_ptr<NCExpression>(assignmentExpr);
     }
+    else if (word == "?") {
+        word = nextWord();
+        
+        if (word == ":") {
+            word = nextWord();
+            
+            auto exprIfFalse = expression();
+            
+            if (!exprIfFalse) {
+                return nullptr;
+            }
+            
+            auto conditional = shared_ptr<NCConditionalExpression>(new NCConditionalExpression());
+            conditional->condition = expr;
+            conditional->expressionIfFalse = exprIfFalse;
+            
+            return conditional;
+            
+        } else {
+            auto exprIfTrue = expression();
+            
+            if (!exprIfTrue) {
+                return nullptr;
+            }
+            
+            if (word != ":") {
+                return nullptr;
+            }
+            
+            word = nextWord();
+            
+            auto exprIfFalse = expression();
+            
+            if (!exprIfFalse) {
+                return nullptr;
+            }
+            
+            auto conditional = shared_ptr<NCConditionalExpression>(new NCConditionalExpression());
+            conditional->condition = expr;
+            conditional->expressionIfTrue = exprIfTrue;
+            conditional->expressionIfFalse = exprIfFalse;
+            
+            return conditional;
+        }
+    }
     else {
         return expr;
     }
