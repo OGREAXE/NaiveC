@@ -201,8 +201,15 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
 //                frame.insertVariable(name, arrayPointerElement);
 //            }
             else {
-                auto pointerElement = stackPopObjectPointer(frame);
-                frame.insertVariable(name, pointerElement);
+                auto back = frame.stack.back();
+                
+                if (dynamic_cast<NCStackVariableElement *>(back.get())) {
+                    auto pointerElement = stackPopObjectPointer(frame);
+                    frame.insertVariable(name, pointerElement);
+                } else {
+                    auto top = frame.stack_pop();
+                    frame.insertVariable(name, top);
+                }
             }
         }
     }

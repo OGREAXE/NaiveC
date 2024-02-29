@@ -437,6 +437,7 @@ shared_ptr<NCExpression> NCParser::variable_declaration_expression(){
         varExprStmt->variables.push_back(declarator);
         
         if (word == ",") {
+            word = nextWord();
             declarator = variable_declarator();
             if (!declarator) {
                 return nullptr;
