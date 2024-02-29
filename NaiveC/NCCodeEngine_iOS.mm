@@ -258,13 +258,14 @@ using namespace std;
         auto names = lambdaExpr->parameters;
         NCFrame frame;
         
-        for (int i = 0; i < args.size(); i++) {
-            frame.insertVariable(names[i].name, args[i]);
-        }
         //insert captured objects
         auto capturedObjs = block->getCapturedObjects();
         for (auto & captured : capturedObjs) {
-    //        frame.insertVariable(captured.name, captured.object);
+            frame.insertVariable(captured.name, captured.object);
+        }
+        
+        for (int i = 0; i < args.size(); i++) {
+            frame.insertVariable(names[i].name, args[i]);
         }
         
         _interpreter->visit(lambdaExpr->blockStmt, frame);
