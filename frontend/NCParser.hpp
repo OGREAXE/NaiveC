@@ -48,7 +48,7 @@ private:
     string word;
     
     bool lambdaFlag;  //indicate a lambda parse phrase start
-    vector<string> lambdaCapturedSymbols;
+    set<string> lambdaCapturedSymbols;
     
     bool isIdentifier(string & word);
     

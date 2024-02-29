@@ -817,7 +817,7 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
             //        popIndex();
             POP_INDEX2
             if (lambdaFlag) {
-                lambdaCapturedSymbols.push_back(name);
+                lambdaCapturedSymbols.insert(name);
             }
             return shared_ptr<NCExpression>(new NCNameExpression(name));
         }
