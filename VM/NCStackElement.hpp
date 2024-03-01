@@ -11,8 +11,11 @@
 
 #include <stdio.h>
 #include "NCAST.hpp"
+//#include "NCObject.hpp"
 
 #define NCAssert(cond, msg) if(!(cond)){throw  NCRuntimeException(0,msg);}
+
+class NCObject;
 
 struct NCStackElement{
     NCStackElement(){}
@@ -24,6 +27,7 @@ struct NCStackElement{
     virtual NCInt toInt(){return 0;};
     virtual NCFloat toFloat(){return 0;};
     virtual string toString(){return "";};
+    virtual shared_ptr<NCObject> toObject() {return nullptr;}
     
     static shared_ptr<NCStackElement> createStackElement(NCLiteral* literal);
     
@@ -89,6 +93,7 @@ struct NCStackVariableElement:NCStackElement{
     virtual NCInt toInt();
     virtual NCFloat toFloat();
     virtual string toString();
+    virtual shared_ptr<NCObject> toObject();
     virtual shared_ptr<NCStackElement> copy();
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);

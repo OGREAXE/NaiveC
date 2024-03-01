@@ -72,6 +72,10 @@ string NCStackPointerElement::toString(){
     return m_pObject->getDescription();
 }
 
+shared_ptr<NCObject> NCStackPointerElement::toObject() {
+    return this->getPointedObject();
+}
+
 shared_ptr<NCStackElement> NCStackPointerElement::copy(){
     return shared_ptr<NCStackElement>(new NCStackPointerElement(m_pObject));
 }

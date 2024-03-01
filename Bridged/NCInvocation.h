@@ -19,4 +19,6 @@
 
 -(shared_ptr<NCStackElement>)attributeForName:(const string & )attrName;
 
++(shared_ptr<NCStackElement>)instanceVariableForName:(NSString*)ivarName withObject:(NSObject*)aObject;
+
 @end

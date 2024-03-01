@@ -668,6 +668,17 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
                 frame.stack.push_back(shared_ptr<NCStackElement>(placeholder));
             }
             else {
+                if (node->name[0] == '_'){
+                    auto selfInstance = frame.localVariableMap["self"];
+                    auto ivar = selfInstance->getAttribute(node->name);
+                    
+                    if (ivar) {
+                        frame.stack.push_back(shared_ptr<NCStackElement>(ivar));
+                        return true;
+                    }
+                }
+                
+                NCLogInterpretor("can't find variable %s", node->name.c_str());
                 return false;
             }
         }

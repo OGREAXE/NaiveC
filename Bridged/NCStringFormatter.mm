@@ -100,21 +100,23 @@ NSString *stringWithFormat(string &strformat, vector<shared_ptr<NCStackElement>>
         
         if ([component hasPrefix:@"@"]) {
             auto value = argument;
-            NCObject *obj = nullptr;
             
             NSObject *nsObj = NULL;
             
-            if (dynamic_pointer_cast<NCStackVariableElement>(value)) {
-                auto pVar = dynamic_pointer_cast<NCStackVariableElement>(value);
-                if (dynamic_pointer_cast<NCStackPointerElement>(pVar->valueElement)) {
-                    auto pRet = dynamic_pointer_cast<NCStackPointerElement> (pVar->valueElement);
-                    obj = (pRet->getPointedObject()).get();
-                }
-            }
-            else if (dynamic_pointer_cast<NCStackPointerElement>(value)) {
-                auto pRet = dynamic_pointer_cast<NCStackPointerElement> (value);
-                obj = (pRet->getPointedObject()).get();
-            }
+//            NCObject *obj = nullptr;
+//            if (dynamic_pointer_cast<NCStackVariableElement>(value)) {
+//                auto pVar = dynamic_pointer_cast<NCStackVariableElement>(value);
+//                if (dynamic_pointer_cast<NCStackPointerElement>(pVar->valueElement)) {
+//                    auto pRet = dynamic_pointer_cast<NCStackPointerElement> (pVar->valueElement);
+//                    obj = (pRet->getPointedObject()).get();
+//                }
+//            }
+//            else if (dynamic_pointer_cast<NCStackPointerElement>(value)) {
+//                auto pRet = dynamic_pointer_cast<NCStackPointerElement> (value);
+//                obj = (pRet->getPointedObject()).get();
+//            }
+            
+            NCObject *obj = value->toObject().get();
             
             if (obj) {
                 auto box = dynamic_cast<NCCocoaBox *>(obj);

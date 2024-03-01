@@ -84,6 +84,11 @@ shared_ptr<NCStackElement> NCCocoaBox::getAttribute(const string & attrName){
     
     NSString * methodStr = [NSString stringWithUTF8String:attrName.c_str()];
     
+    if ([methodStr hasPrefix:@"_"]) {
+        //instance variable
+        return [NCInvocation instanceVariableForName:methodStr withObject:wrappedObject];
+    }
+    
     vector<shared_ptr<NCStackElement>> argments;
     vector<shared_ptr<NCStackElement>> resultContainer;
     

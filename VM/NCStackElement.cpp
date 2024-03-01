@@ -7,6 +7,7 @@
 //
 
 #include "NCStackElement.hpp"
+#include "NCObject.hpp"
 
 template <class T>
 T doOperatorPrimitive(T left, T right, const string&op){
@@ -235,18 +236,33 @@ shared_ptr<NCStackElement> NCStackStringElement::copy(){
 shared_ptr<NCStackElement> NCStackVariableElement::doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){
     return valueElement->doOperator(op, rightOperand);
 }
+
 NCInt NCStackVariableElement::toInt(){
     return valueElement->toInt();
 }
+
 NCFloat NCStackVariableElement::toFloat(){
     return valueElement->toFloat();
 }
+
 string NCStackVariableElement::toString(){
     if(!valueElement){
         return "NULL";
     }
     return valueElement->toString();
 }
+
+shared_ptr<NCObject> NCStackVariableElement::toObject() {
+    NCObject *obj = nullptr;
+    
+    if (dynamic_pointer_cast<NCStackPointerElement>(this->valueElement)) {
+        auto pRet = dynamic_pointer_cast<NCStackPointerElement> (this->valueElement);
+        obj = (pRet->getPointedObject()).get();
+    }
+    
+    return shared_ptr<NCObject>(obj);
+}
+
 shared_ptr<NCStackElement> NCStackVariableElement::copy(){
     auto aCopy = new NCStackVariableElement(this->name,this->valueElement);
     aCopy->isArray = this->isArray;

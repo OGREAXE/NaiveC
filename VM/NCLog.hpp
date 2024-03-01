@@ -20,6 +20,8 @@ typedef enum NCLogType{
 extern "c" {
 #endif
 void NCLog(NCLogType type, const char*format, ...);
+void NCLogParser(const char*format, ...);
+void NCLogInterpretor(const char*format, ...);
 #ifdef CPLUSPLUS
 }
 #endif

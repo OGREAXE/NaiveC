@@ -18,6 +18,26 @@
 
 using namespace std;
 
+void NCLogParser(const char*format, ...) {
+    va_list args;
+    char buffer[1024];
+    va_start (args, format);
+    vsprintf (buffer,format, args);
+    va_end (args);
+    
+    NCLog(NCLogTypeParser, buffer);
+}
+
+void NCLogInterpretor(const char*format, ...) {
+    va_list args;
+    char buffer[1024];
+    va_start (args, format);
+    vsprintf (buffer,format, args);
+    va_end (args);
+    
+    NCLog(NCLogTypeInterpretor, buffer);
+}
+
 void NCLog(NCLogType type, const char*format, ...){
     va_list args;
     char buffer[1024];

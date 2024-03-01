@@ -601,10 +601,11 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
     
     return YES;
 }
+
 /*
  covert from A:B:C to A_B_C
  */
-+(NSString *) convertSelectorString:(NSString *) selectorString{
++ (NSString *) convertSelectorString:(NSString *) selectorString{
 //    NSArray * comps = [selectorString componentsSeparatedByString:@":"];
 //    NSMutableString * str = [NSMutableString string];
 //    [comps enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -622,13 +623,106 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
     return converted;
 }
 
--(BOOL)invoke:(NSString*)methodName arguments:(vector<shared_ptr<NCStackElement>> &)arguments stack:(vector<shared_ptr<NCStackElement>>& )lastStack{
+- (BOOL)invoke:(NSString*)methodName arguments:(vector<shared_ptr<NCStackElement>> &)arguments stack:(vector<shared_ptr<NCStackElement>>& )lastStack{
     
     return [self.class invoke:methodName object:self orClass:nil arguments:arguments stack:lastStack];
 }
 
--(shared_ptr<NCStackElement>)attributeForName:(const string & )attrName{
+- (shared_ptr<NCStackElement>)attributeForName:(const string & )attrName{
     return nullptr;
+}
+
++ (shared_ptr<NCStackElement>)instanceVariableForName:(NSString*)ivarName withObject:(NSObject*)aObject {
+    NSObject *val = [aObject valueForKey:ivarName];
+    
+    if (!val) return nullptr;
+    
+    shared_ptr<NCStackElement> ret = nullptr;
+    
+    if ([val isKindOfClass:NSNumber.class]) {
+        NSNumber *numberVal = (NSNumber *)val;
+        
+        const char *type = numberVal.objCType;
+        
+        if(COMP_ENCODE(type, BOOL)){
+            BOOL pret = numberVal.boolValue;
+            ret = shared_ptr<NCStackElement>(new NCStackIntElement(pret));
+        }
+        else if(COMP_ENCODE(type, unsigned int)){
+            unsigned int pret = numberVal.unsignedIntValue;
+            ret = shared_ptr<NCStackElement>(new NCStackIntElement(pret));
+        }
+        else if(COMP_ENCODE(type, int)){
+            int pret = numberVal.intValue;
+            ret = shared_ptr<NCStackElement>(new NCStackIntElement(pret));
+        }
+        else if(COMP_ENCODE(type, unsigned long)){
+            unsigned long pret = numberVal.unsignedLongValue;
+            ret = shared_ptr<NCStackElement>(new NCStackIntElement(pret));
+        }
+        else if(COMP_ENCODE(type, long)){
+            long pret = numberVal.longValue;
+            ret = shared_ptr<NCStackElement>(new NCStackIntElement(pret));
+        }
+        else if(COMP_ENCODE(type, unsigned long long)){
+            unsigned long long pret = numberVal.unsignedLongLongValue;
+            ret = shared_ptr<NCStackElement>(new NCStackIntElement(pret));
+        }
+        else if(COMP_ENCODE(type, long long)){
+            long long pret = numberVal.longLongValue;
+            ret = shared_ptr<NCStackElement>(new NCStackIntElement(pret));
+        }
+        else if(COMP_ENCODE(type, double)){
+            double pret = numberVal.doubleValue;
+            ret = shared_ptr<NCStackElement>(new NCStackIntElement(pret));
+        }
+        else if(COMP_ENCODE(type, float)){
+            float pret = numberVal.floatValue;
+            ret = shared_ptr<NCStackElement>(new NCStackIntElement(pret));
+        }
+        
+    } else if ([val isKindOfClass:NSValue.class]) {
+        NSValue *value = (NSValue *)val;
+        
+        const char *type = value.objCType;
+        
+        if(COMP_ENCODE(type, CGRect)){
+            CGRect pret = value.CGRectValue;
+            NCRect * pframe = new NCRect(pret.origin.x,pret.origin.y,pret.size.width,pret.size.height);
+            ret = shared_ptr<NCStackPointerElement>(new NCStackPointerElement(pframe));
+        }
+        else if(COMP_ENCODE(type, CGSize)){
+            CGSize pret = value.CGSizeValue;
+            NCSize * pSize = new NCSize(pret.width,pret.height);
+            ret = shared_ptr<NCStackPointerElement>(new NCStackPointerElement(pSize));
+        }
+        else if(COMP_ENCODE(type, CGPoint)){
+            CGPoint pret = value.CGPointValue;
+            NCPoint * pPoint = new NCPoint(pret.x,pret.y);
+            ret = shared_ptr<NCStackPointerElement>(new NCStackPointerElement(pPoint));
+        }
+        else if(COMP_ENCODE(type, NSRange)){
+            NSRange pret = value.rangeValue;
+            NCRange * pRange = new NCRange(pret.location,pret.length);
+            ret = shared_ptr<NCStackPointerElement>(new NCStackPointerElement(pRange));
+        }
+        else if(COMP_ENCODE(type, UIEdgeInsets)){
+            UIEdgeInsets pret = value.UIEdgeInsetsValue;
+            NCEdgeInset * pInsets = new NCEdgeInset(pret.top,pret.left,pret.bottom,pret.right);
+            ret = shared_ptr<NCStackPointerElement>(new NCStackPointerElement(pInsets));
+        }
+    } else if ([val isKindOfClass:NSValue.class]) {
+        Class pCls = (Class)val;
+        auto pOcCls = new NCOcClass((__bridge void *)pCls);
+        ret = shared_ptr<NCStackPointerElement>(new NCStackPointerElement(pOcCls));
+    } else {
+        //id
+        NCCocoaBox * box = new NCCocoaBox(NC_COCOA_BRIDGE(val));
+        
+        ret = shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(box)));
+    }
+    
+    return ret;
 }
 
 @end

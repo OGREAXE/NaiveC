@@ -123,6 +123,7 @@ public:
     virtual NCInt toInt();
     virtual NCFloat toFloat();
     virtual string toString();
+    virtual shared_ptr<NCObject> toObject();
     virtual shared_ptr<NCStackElement> copy();
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
