@@ -219,7 +219,10 @@ public:
     string name;
     
     void setShouldAddKeyIfKeyNotFound(bool shouldAdd){shouldAddKeyIfKeyNotFound = shouldAdd;}
-    bool getShouldAddKeyIfKeyNotFound(){return shouldAddKeyIfKeyNotFound;}
+    bool getShouldAddKeyIfKeyNotFound(){
+        if (name[0] == '_')return false;
+        return shouldAddKeyIfKeyNotFound;
+    }
 };
 
 class NCLiteral:public NCExpression{

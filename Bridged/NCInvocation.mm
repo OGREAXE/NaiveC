@@ -725,4 +725,67 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
     return ret;
 }
 
+NSObject *NSObjectFromStackElement(NCStackElement *e) {
+    auto p = dynamic_cast<NCStackPointerElement *>(e);
+    
+    if (!p) return NULL;
+    
+    auto box = dynamic_cast<NCCocoaBox *>(p->getPointedObject().get());
+    
+    if (!box) return NULL;
+    
+    auto c = box->getContent();
+    
+    NSObject *nso = (__bridge NSObject*)c;
+    
+    return nso;
+}
+
++ (NSDictionary *)genObjectWithStackElement:(shared_ptr<NCStackElement>)element {
+    NSString *objectType;
+    id object;
+    
+    do{
+        auto pStackTop = element.get();
+ 
+        auto intElement = dynamic_cast<NCStackIntElement*>(pStackTop);
+        
+        if(intElement){
+            object = @(intElement->value);
+            objectType = @"q";
+            break;
+        }
+        
+        auto floatElement = dynamic_cast<NCStackFloatElement*>(pStackTop);
+        
+        if(floatElement){
+            object = @(floatElement->value);
+            objectType = @"d";
+            break;
+        }
+        
+        id nsObj = NSObjectFromStackElement(pStackTop);
+        
+        if (nsObj) {
+            object = nsObj;
+            objectType = @"@";
+        }
+    } while (0);
+    
+    if (objectType && object) {
+        return @{@"type":objectType,
+                 @"object":object};
+    }
+    
+    return NULL;
+}
+
++ (void)setInstanceVariable:(shared_ptr<NCStackElement>)ivar forName:(NSString*)ivarName withObject:(NSObject*)aObject {
+    id val = [NCInvocation genObjectWithStackElement:ivar][@"object"];
+    
+    if (val) {
+        [aObject setValue:val forKey:ivarName];
+    }
+}
+
 @end

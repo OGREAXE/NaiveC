@@ -104,12 +104,17 @@ shared_ptr<NCStackElement> NCCocoaBox::getAttribute(const string & attrName){
 
 void NCCocoaBox::setAttribute(const string & attrName, shared_ptr<NCStackElement> value){
     
+    NSObject * wrappedObject = (__bridge NSObject*)m_cocoaObject;
+    
+    if (attrName[0] == '_') {
+        [NCInvocation setInstanceVariable:value forName:[NSString stringWithUTF8String:attrName.c_str()] withObject:wrappedObject];
+        return;
+    }
+    
     string firstUpperAttrName = attrName;
     if (firstUpperAttrName[0] >= 'a' && firstUpperAttrName[0] <= 'z') {
         firstUpperAttrName[0] += 'A' -'a';
     }
-    
-    NSObject * wrappedObject = (__bridge NSObject*)m_cocoaObject;
     
     NSString * methodStr = [NSString stringWithFormat:@"set%@",[NSString stringWithUTF8String:firstUpperAttrName.c_str()]] ;
     

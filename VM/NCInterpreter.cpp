@@ -508,18 +508,32 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
                 if (!value) {
                     return false;
                 }
+                
+                shared_ptr<NCStackElement> stackVal = nullptr;
+                
                 if (dynamic_pointer_cast<NCAccessor>(value)) {
                     auto accessor = dynamic_pointer_cast<NCAccessor>(value);
-                    frame.insertVariable(nameExpr->name, accessor->value());
-                }else {
+                    stackVal = accessor->value();
+//                    frame.insertVariable(nameExpr->name, accessor->value());
+                } else {
                     if (dynamic_pointer_cast<NCObject>(value)) {
                         auto object = dynamic_pointer_cast<NCObject>(value);
                         auto pointer = shared_ptr<NCStackPointerElement>(new NCStackPointerElement(object));
-                        
-                        frame.insertVariable(nameExpr->name, pointer);
+                        stackVal = pointer;
+//                        frame.insertVariable(nameExpr->name, pointer);
                     }
                     else {
-                        frame.insertVariable(nameExpr->name, value);
+                        stackVal = value;
+//                        frame.insertVariable(nameExpr->name, value);
+                    }
+                }
+                
+                if (stackVal) {
+                    if (frame.localVariableMap.find("self") != frame.localVariableMap.end() && nameExpr->name[0] == '_') {
+                        //objective c set ivar
+                        frame.localVariableMap["self"]->setAttribute(nameExpr->name, stackVal);
+                    } else {
+                        frame.insertVariable(nameExpr->name, stackVal);
                     }
                 }
             }

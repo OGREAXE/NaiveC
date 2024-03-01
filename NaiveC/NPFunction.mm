@@ -10,6 +10,7 @@
 #include "NCCocoaToolkit.hpp"
 #import "NCCodeEngine_iOS.h"
 #include "NCCocoaBox.hpp"
+#include "NCInvocation.h"
 
 @interface NPValue ()
 @property (nonatomic) shared_ptr<NCStackElement> stackElement;
@@ -87,21 +88,6 @@ extern NCStackElement *CreateStackElementFromRect(CGRect rect);
     return NULL;
 }
 
-NSObject *NSObjectFromStackElement(NCStackElement *e) {
-    auto p = dynamic_cast<NCStackPointerElement *>(e);
-    
-    if (!p) return NULL;
-    
-    auto box = dynamic_cast<NCCocoaBox *>(p->getPointedObject().get());
-    
-    if (!box) return NULL;
-    
-    auto c = box->getContent();
-    
-    NSObject *nso = (__bridge NSObject*)c;
-    
-    return nso;
-}
 
 - (id)toObject {
 //    do{
@@ -134,32 +120,37 @@ NSObject *NSObjectFromStackElement(NCStackElement *e) {
 }
 
 - (void)genObject {
-    do{
-        auto pStackTop = self.stackElement.get();
-        
-        auto intElement = dynamic_cast<NCStackIntElement*>(pStackTop);
-        
-        if(intElement){
-            self.object = @(intElement->value);
-            self.objectType = @"q";
-            break;
-        }
-        
-        auto floatElement = dynamic_cast<NCStackFloatElement*>(pStackTop);
-        
-        if(floatElement){
-            self.object = @(floatElement->value);
-            self.objectType = @"d";
-            break;
-        }
-        
-        id nsObj = NSObjectFromStackElement(pStackTop);
-        
-        if (nsObj) {
-            self.object = nsObj;
-            self.objectType = @"@";
-        }
-    } while (0);
+//    do{
+//        auto pStackTop = self.stackElement.get();
+//        
+//        auto intElement = dynamic_cast<NCStackIntElement*>(pStackTop);
+//        
+//        if(intElement){
+//            self.object = @(intElement->value);
+//            self.objectType = @"q";
+//            break;
+//        }
+//        
+//        auto floatElement = dynamic_cast<NCStackFloatElement*>(pStackTop);
+//        
+//        if(floatElement){
+//            self.object = @(floatElement->value);
+//            self.objectType = @"d";
+//            break;
+//        }
+//        
+//        id nsObj = NSObjectFromStackElement(pStackTop);
+//        
+//        if (nsObj) {
+//            self.object = nsObj;
+//            self.objectType = @"@";
+//        }
+//    } while (0);
+    
+    NSDictionary *info = [NCInvocation genObjectWithStackElement:self.stackElement];
+    
+    self.object = info[@"object"];
+    self.objectType = info[@"type"];
 }
 
 - (CGRect)toRect {
