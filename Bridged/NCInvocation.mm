@@ -230,7 +230,15 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
 
 @implementation NCInvocation
 
-+(BOOL)invoke:(NSString*)methodName object:(NSObject*)aObject orClass:(Class)aClass arguments:(vector<shared_ptr<NCStackElement>> &)arguments stack:(vector<shared_ptr<NCStackElement>>& )lastStack{
++(BOOL)invoke:(NSString*)methodName object:(NSObject*)aObject orClass:(Class)aClass arguments:(vector<shared_ptr<NCStackElement>> &)arguments stack:(vector<shared_ptr<NCStackElement>>& )lastStack {
+    return [self invoke:methodName object:aObject orClass:aClass arguments:arguments stack:lastStack isSuper:NO];
+}
+
++(BOOL)invokeSuper:(NSString*)methodName object:(NSObject*)aObject orClass:(Class)aClass arguments:(vector<shared_ptr<NCStackElement>> &)arguments stack:(vector<shared_ptr<NCStackElement>>& )lastStack {
+    return [self invoke:methodName object:aObject orClass:aClass arguments:arguments stack:lastStack isSuper:YES];
+}
+
++(BOOL)invoke:(NSString*)methodName object:(NSObject*)aObject orClass:(Class)aClass arguments:(vector<shared_ptr<NCStackElement>> &)arguments stack:(vector<shared_ptr<NCStackElement>>& )lastStack isSuper:(BOOL)isSuper {
     unsigned int methodCount = 0;
     
     Method * methodList = NULL;
@@ -258,7 +266,11 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
             NSString * convertedString = [self convertSelectorString:selectorString];
             
             if([methodName isEqualToString:convertedString]){
-                res = [self private_invoke:aMethod target:aObject?aObject:aClass arguments:arguments stack:lastStack];
+                res = [self private_invoke:aMethod 
+                                    target:aObject?aObject:aClass
+                                 arguments:arguments
+                                     stack:lastStack
+                                   isSuper:isSuper];
                 free(methodList);
                 return res;
             }
@@ -274,7 +286,7 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
     return res;
 }
 
-+(BOOL)private_invoke:(Method)method target:(id)target arguments:(vector<shared_ptr<NCStackElement>> &)arguments stack:(vector<shared_ptr<NCStackElement>>& )lastStack{
++ (BOOL)private_invoke:(Method)method target:(id)target arguments:(vector<shared_ptr<NCStackElement>> &)arguments stack:(vector<shared_ptr<NCStackElement>>& )lastStack  isSuper:(BOOL)isSuper {
     int argCount = method_getNumberOfArguments(method);
     
     if(argCount > arguments.size() + 2){
@@ -285,6 +297,23 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
     
     SEL selector = method_getName(method);
     NSMethodSignature * signature = [target methodSignatureForSelector:selector];
+    
+    if (isSuper) {
+        NSString *selectorName = NSStringFromSelector(selector);
+        
+        Class cls = object_getClass(target);
+        Class superCls = [cls superclass];
+        
+        NSString *superSelectorName = [NSString stringWithFormat:@"NP_SUPER_%@", selectorName];
+        SEL superSelector = NSSelectorFromString(superSelectorName);
+        
+        Method superMethod = class_getInstanceMethod(superCls, selector);
+        IMP superIMP = method_getImplementation(superMethod);
+        
+        class_addMethod(cls, superSelector, superIMP, method_getTypeEncoding(superMethod));
+        
+        selector = superSelector;
+    }
     
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
     [invocation setSelector:selector];

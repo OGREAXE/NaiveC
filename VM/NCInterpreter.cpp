@@ -682,12 +682,34 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
                 frame.stack.push_back(shared_ptr<NCStackElement>(placeholder));
             }
             else {
+                //objective c ivar
                 if (node->name[0] == '_'){
                     auto selfInstance = frame.localVariableMap["self"];
                     auto ivar = selfInstance->getAttribute(node->name);
                     
                     if (ivar) {
                         frame.stack.push_back(shared_ptr<NCStackElement>(ivar));
+                        return true;
+                    }
+                } else if (node->name == "super") {
+                    auto superInstance = frame.localVariableMap["super"];
+                    
+                    if (superInstance == nullptr) {
+                        auto selfInstance = frame.localVariableMap["self"];
+                        
+                        auto pCocoa = dynamic_pointer_cast<NCCocoaBox>(selfInstance->toObject());
+                        
+                        if (pCocoa) {
+                            auto cocoaCopy = pCocoa->copy();
+                            dynamic_cast<NCCocoaBox *>(cocoaCopy)->isSuper = true;
+                            frame.localVariableMap["super"] = shared_ptr<NCStackPointerElement>(new NCStackPointerElement(cocoaCopy));
+                            
+                            superInstance = frame.localVariableMap["super"];
+                        }
+                    }
+                    
+                    if (superInstance) {
+                        frame.stack.push_back(superInstance);
                         return true;
                     }
                 }

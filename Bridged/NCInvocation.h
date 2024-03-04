@@ -13,7 +13,13 @@
 
 @interface NCInvocation : NSObject
 
-+(BOOL)invoke:(NSString*)methodName object:(NSObject*)aObject orClass:(Class)aClass arguments:(vector<shared_ptr<NCStackElement>> &)arguments stack:(vector<shared_ptr<NCStackElement>>& )lastStack;
++ (BOOL)invoke:(NSString*)methodName object:(NSObject*)aObject orClass:(Class)aClass arguments:(vector<shared_ptr<NCStackElement>> &)arguments stack:(vector<shared_ptr<NCStackElement>>& )lastStack;
+
++ (BOOL)invokeSuper:(NSString*)methodName
+             object:(NSObject*)aObject
+            orClass:(Class)aClass
+          arguments:(vector<shared_ptr<NCStackElement>> &)arguments
+              stack:(vector<shared_ptr<NCStackElement>>& )lastStack;
 
 -(BOOL)invoke:(NSString*)methodName arguments:(vector<shared_ptr<NCStackElement>> &)arguments stack:(vector<shared_ptr<NCStackElement>>& )lastStack;
 

@@ -39,6 +39,8 @@ public:
     NCCocoaBox(NCInt value); //wrap as nsnumber
     NCCocoaBox(NCFloat value); //wrap as nsnumber
     
+    bool isSuper = false;
+    
     virtual ~NCCocoaBox();
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
@@ -53,6 +55,7 @@ public:
     
     virtual string getDescription();
     
+    virtual NCObject* copy();
     /*
      bracket access support
      */
