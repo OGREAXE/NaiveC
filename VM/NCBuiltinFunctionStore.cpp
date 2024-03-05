@@ -12,6 +12,9 @@ NCBuiltinFunctionStore::NCBuiltinFunctionStore(){
     auto fPrintObj = shared_ptr<NCBuiltinFunction>(new NCBuiltinPrint());
     addFunction(fPrintObj);
     
+    auto fNSLogObj = shared_ptr<NCBuiltinFunction>(new NCBuiltinNSLog());
+    addFunction(fNSLogObj);
+    
     auto fGetObj = shared_ptr<NCBuiltinFunction>(new NCBuiltinGetObject());
     addFunction(fGetObj);
     

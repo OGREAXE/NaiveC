@@ -850,7 +850,7 @@ bool NCInterpreter::tree_doStaticMehothodCall(NCFrame & frame,NCMethodCallExpr*n
             vector<shared_ptr<NCStackElement>> arguments;
             
             for (int i = 0; i<node->args.size(); i++) {
-                if (i>=parameters.size()) {
+                if (i>=parameters.size() && !funcDef->isVariableArguments) {
                     throw NCRuntimeException(0, "arguments exceed expected");
                 }
                 auto & parameter = parameters[i];
@@ -861,8 +861,12 @@ bool NCInterpreter::tree_doStaticMehothodCall(NCFrame & frame,NCMethodCallExpr*n
                 if (frame.stack.size() == 0) {
                     throw NCRuntimeException(0, "get argument fail");
                 }
-
-                if (parameter->type == "original") {
+                
+                if (funcDef->isVariableArguments) {
+                    auto value = frame.stack_pop();
+                    arguments.push_back(value);
+                }
+                else if (parameter->type == "original") {
                     auto value = frame.stack_pop();
                     arguments.push_back(value);
                 }

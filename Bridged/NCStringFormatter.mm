@@ -148,3 +148,13 @@ shared_ptr<NCStackElement> stringWithFormat(shared_ptr<NCStackElement> &strforma
     
     return shared_ptr<NCStackElement>(new NCStackPointerElement(box));
 }
+
+shared_ptr<NCStackElement> stringWithFormat(vector<shared_ptr<NCStackElement>> &arguments) {
+    auto format = arguments[0];
+    
+    auto restArgs = arguments;
+    
+    restArgs.erase(restArgs.begin());
+    
+    return stringWithFormat(format, restArgs);
+}

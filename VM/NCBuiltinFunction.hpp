@@ -19,6 +19,7 @@ public:
     virtual ~NCBuiltinFunction(){}
     
     bool hasReturn;
+    bool isVariableArguments = false;
     string name;
     vector<shared_ptr<NCParameter>> parameters; //formal parameters
     
@@ -28,9 +29,19 @@ public:
     virtual bool invoke(vector<shared_ptr<NCStackElement>> &arguments)=0;
 };
 
+//print
 class NCBuiltinPrint:public NCBuiltinFunction{
 public:
     NCBuiltinPrint();
+    
+    virtual bool invoke(vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+    virtual bool invoke(vector<shared_ptr<NCStackElement>> &arguments);
+};
+
+//print
+class NCBuiltinNSLog:public NCBuiltinFunction{
+public:
+    NCBuiltinNSLog();
     
     virtual bool invoke(vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
     virtual bool invoke(vector<shared_ptr<NCStackElement>> &arguments);

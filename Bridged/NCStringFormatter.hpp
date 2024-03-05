@@ -13,5 +13,6 @@
 #include "NCObject.hpp"
 
 shared_ptr<NCStackElement> stringWithFormat(shared_ptr<NCStackElement> &strformat, vector<shared_ptr<NCStackElement>> &arguments);
+shared_ptr<NCStackElement> stringWithFormat(vector<shared_ptr<NCStackElement>> &arguments);
 
 #endif /* NCStringFormatter_hpp */

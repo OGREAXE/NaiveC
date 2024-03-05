@@ -9,6 +9,7 @@
 #include "NCBuiltinFunction.hpp"
 #include "NCException.hpp"
 #include "NCCocoaBox.hpp"
+#include "NCStringFormatter.hpp"
 
 #include <cstdlib>
 
@@ -32,6 +33,27 @@ bool NCBuiltinPrint::invoke(vector<shared_ptr<NCStackElement>> &arguments){
 }
 
 bool NCBuiltinPrint::invoke(vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
+    return invoke(arguments);
+}
+
+/*
+ NSLog
+ */
+NCBuiltinNSLog::NCBuiltinNSLog(){
+    name = "NSLog";
+    isVariableArguments = true;
+//    parameters.push_back(shared_ptr<NCParameter>(new NCParameter("string","str")));
+}
+
+bool NCBuiltinNSLog::invoke(vector<shared_ptr<NCStackElement>> &arguments){
+    auto origString = stringWithFormat(arguments);
+    
+    NSLog(@"%@", [NSString stringWithUTF8String:origString->toString().c_str()]);
+    
+    return true;
+}
+
+bool NCBuiltinNSLog::invoke(vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
     return invoke(arguments);
 }
 
