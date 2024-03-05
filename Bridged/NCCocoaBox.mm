@@ -76,8 +76,7 @@ bool NCCocoaBox::invokeMethod(string methodName, vector<shared_ptr<NCStackElemen
 //    BOOL res = [wrappedObject invoke:methodStr arguments:arguments stack:lastStack];
     BOOL res = isSuper?
     [NCInvocation invokeSuper:methodStr object:wrappedObject orClass:nil arguments:arguments stack:lastStack]:
-    [NCInvocation invoke:methodStr object:wrappedObject orClass:nil arguments:arguments stack:lastStack]
-    ;
+    [NCInvocation invoke:methodStr object:wrappedObject orClass:nil arguments:arguments stack:lastStack];
     
     return res;
 }

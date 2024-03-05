@@ -749,7 +749,7 @@ static id genCallbackBlock(NSArray *argTypes)
     strcpy(s, fs);
     *signature = s;
     
-//    objc_setAssociatedObject(block, "_JSValue", jsVal, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(block, "_block_signature", funcSignature, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

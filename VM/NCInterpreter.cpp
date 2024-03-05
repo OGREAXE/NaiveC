@@ -899,17 +899,30 @@ bool NCInterpreter::tree_doStaticMehothodCall(NCFrame & frame,NCMethodCallExpr*n
             auto cls = NCClassLoader::GetInstance()->loadClass(node->name);
 //            auto cls = NCModuleCache::GetGlobalCache()->getClass(node->name);
             
-            if (!cls) {
-                throw NCRuntimeException(0, "class %s not found", node->name.c_str());
+            if (cls) {
+                vector<shared_ptr<NCStackElement>> arguments;
+                
+                initArguments(node->args, arguments, frame);
+                
+                auto aInstance = cls->instantiate(arguments);
+                
+                frame.stack.push_back(shared_ptr<NCStackPointerElement> ( aInstance));
+            } else {
+                //block invoke?
+                if (frame.localVariableMap.find(node->name) != frame.localVariableMap.end()) {
+                    auto block = frame.localVariableMap[node->name];
+                    
+                    vector<shared_ptr<NCStackElement>> arguments;
+                    
+                    initArguments(node->args, arguments, frame);
+                    
+                    block->invokeMethod("invoke", arguments, frame.stack);
+                }
+                else {
+                    //every candidate has been tried and fail. exit
+                    throw NCRuntimeException(0, "class %s not found", node->name.c_str());
+                }
             }
-            
-            vector<shared_ptr<NCStackElement>> arguments;
-            
-            initArguments(node->args, arguments, frame);
-            
-            auto aInstance = cls->instantiate(arguments);
-            
-            frame.stack.push_back(shared_ptr<NCStackPointerElement> ( aInstance));
         }
     }
     return true;

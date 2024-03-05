@@ -71,25 +71,27 @@ struct __block_literal_1 {
     void * stored_obj;
 };
 
+static const char *block_signature(id blockObj)
+{
+    struct __block_literal_1 *block = (__bridge struct __block_literal_1 *)blockObj;
+    struct __block_descriptor_1 *descriptor = block->descriptor;
+
+    int copyDisposeFlag = 1 << 25;
+    int signatureFlag = 1 << 30;
+
+    assert(block->flags & signatureFlag);
+    
+    if(block->flags & copyDisposeFlag) {
+        return descriptor->signature;
+    } else {
+        struct __block_descriptor_2 *descriptor2 = (struct __block_descriptor_2 *)descriptor;
+        return descriptor2->signature;
+    }
+}
+
 struct __block_descriptor_1 _descriptor = { 0, sizeof(struct __block_literal_1)};
 
 int __block_invoke_1(struct __block_literal_1 *_block, ...) {
-//    if (!(CTBlockDescriptionFlagsHasSignature & _block->flags)) {
-//        //block doesn't have signature, which means we don't know how to assemble arguments.
-//        return 0;
-//    }
-//
-//    const char *_sig = NULL;
-//
-//    if(CTBlockDescriptionFlagsHasCopyDispose & _block->flags){
-//        _sig = ((__block_descriptor_1 *)_block->descriptor)->signature;
-//    }
-//    else {
-//        _sig = ((__block_descriptor_2 *)_block->descriptor)->signature;
-//    }
-//
-//    NSMethodSignature * signature = [NSMethodSignature signatureWithObjCTypes:_sig];
-    
     NCLambdaObject * lambdaObj = (NCLambdaObject*)(_block->stored_obj);
     auto lambdaExpr = lambdaObj->getLambdaExpression();
     
@@ -295,8 +297,15 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
         return NO;
     }
     
+    bool isBlock = [target isKindOfClass:NSClassFromString(@"NSBlock")];
+    
     SEL selector = method_getName(method);
     NSMethodSignature * signature = [target methodSignatureForSelector:selector];
+    
+    if (isBlock) {
+        NSString *blockSignature = objc_getAssociatedObject(target, "_block_signature");
+        if (blockSignature)signature = [NSMethodSignature signatureWithObjCTypes:blockSignature.UTF8String];
+    }
     
     if (isSuper) {
         NSString *selectorName = NSStringFromSelector(selector);
@@ -319,12 +328,23 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
     [invocation setSelector:selector];
     [invocation setTarget:target];
     
-    for(int i=0;i<argCount-2;i++){
+    int argOffset = 2; //normal selector takes self at #1 and sel at #2
+    
+    if (isBlock) {
+        argOffset = 1; //block takes block itself at #1
+    }
+    
+    for(int i = 0;i < argCount - argOffset;i++){
 #define TYPE_BUFFER_SIZE 128
         char argumentType[TYPE_BUFFER_SIZE];
         
-        int argPos = i+2;
-        method_getArgumentType(method, argPos, argumentType, TYPE_BUFFER_SIZE);
+        int argPos = i + argOffset;
+//        method_getArgumentType(method, argPos, argumentType, TYPE_BUFFER_SIZE);
+        
+//        if (isBlock) 
+        {
+            strcpy(argumentType, [signature getArgumentTypeAtIndex:argPos]);
+        }
         
         if (!arguments[i]) {
             NSString * notfoundMsg = [NSString stringWithFormat:@"argument:%d is null",i];
