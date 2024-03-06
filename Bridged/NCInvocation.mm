@@ -500,6 +500,17 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
                 }
             }
         }
+        else if(COMP_ENCODE(argumentType, SEL)){
+            auto pointer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
+            
+            if (pointer) {
+                auto selStr = pointer->toString();
+                
+                SEL selector = NSSelectorFromString([NSString stringWithUTF8String:selStr.c_str()]);
+                
+                [invocation setArgument:&selector atIndex:argPos];
+            }
+        }
         else if (strcmp("@?", argumentType)==0){
             auto pointerContainer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
             

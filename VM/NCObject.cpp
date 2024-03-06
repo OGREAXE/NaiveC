@@ -133,6 +133,27 @@ bool NCStackPointerElement::invokeMethod(string methodName, vector<shared_ptr<NC
 //    return result;
 //}
 
+ bool NCLambdaObject::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack) {
+     auto frame = shared_ptr<NCFrame>(new NCFrame());
+     
+     for (int i = 0; i < arguments.size(); i++) {
+         auto & var = arguments[i];
+         frame->localVariableMap.insert(make_pair(m_lambdaExpr->parameters[i].name, var));
+     }
+     
+     for (int i = 0; i < m_capturedObjects.size(); i++) {
+         auto & cap = m_capturedObjects[i];
+         frame->localVariableMap.insert(make_pair(cap.name, cap.object));
+     }
+     
+     if (!g_subInterpretor->visit(m_lambdaExpr->blockStmt, *frame))return false;
+     if (frame->stack.size() > 0) {
+         lastStack.push_back((frame->stack.back()));
+     }
+     
+     return true;
+}
+
 NCObject* NCLambdaObject::copy(){
     auto copy = new NCLambdaObject(m_lambdaExpr);
     

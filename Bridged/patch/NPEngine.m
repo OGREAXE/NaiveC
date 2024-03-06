@@ -178,6 +178,7 @@ static NSDictionary *defineClass(NSString *classDeclaration, NSArray<NPPatchedMe
             if (class_respondsToSelector(currCls, NSSelectorFromString(method.selector))) {
                 overrideMethod(currCls, method.selector, ncMethod, !isInstance, NULL);
             } else {
+                NSLog(@"define method fail :%@", method.selector);
 //                BOOL overrided = NO;
 //                for (NSString *protocolName in protocols) {
 //                    char *types = methodTypesInProtocol(protocolName, selectorName, isInstance, YES);

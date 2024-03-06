@@ -160,6 +160,13 @@ public:
     NCObjcNumberExpr(shared_ptr<NCExpression> &expression):expression(expression){}
 };
 
+class NCObjcSelectorExpr:public NCObjcSyntacticSugarExpr{
+private:
+    
+public:
+    string selectorString;
+};
+
 //support calling oc message [obj msg:para1:para2]
 class NCObjCSendMessageExpr:public NCPrimarySuffix{
 private:

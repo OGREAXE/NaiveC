@@ -555,6 +555,30 @@ shared_ptr<NCExpression> NCParser::ns_dictionary_initializer(){
     return shared_ptr<NCExpression>(dictInitializer);
 }
 
+shared_ptr<NCExpression> NCParser::ns_selector_initializer() {
+    word = nextWord();
+    
+    if (word != "(")return nullptr;
+    
+    word = nextWord();
+    
+    string selectorString;
+    
+    while (word.length() && word != ")") {
+        selectorString += word;
+        word = nextWord();
+    }
+    
+    if (word != ")")return nullptr;
+    
+    word = nextWord();
+    
+    auto sel = new NCObjcSelectorExpr();
+    sel->selectorString = selectorString;
+    
+    return shared_ptr<NCExpression>(sel);
+}
+
 shared_ptr<NCExpression> NCParser::expression(){
     //todo: add parse of @ in objective c here
     return conditional_expression();
@@ -1394,6 +1418,10 @@ shared_ptr<NCExpression> NCParser::objc_syntactic_sugar(){
         //nsdictionary
         auto exp = expression();
         return shared_ptr<NCExpression>(new NCObjcNumberExpr(exp));
+    }  else if (word == "selector") {
+        //nsdictionary
+        auto sel = ns_selector_initializer();
+        return shared_ptr<NCExpression>(sel);
     } else {
         return nullptr;
     }

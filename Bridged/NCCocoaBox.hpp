@@ -39,6 +39,8 @@ public:
     NCCocoaBox(NCInt value); //wrap as nsnumber
     NCCocoaBox(NCFloat value); //wrap as nsnumber
     
+    static NCCocoaBox *selectorFromString(const string &str);
+    
     bool isSuper = false;
     
     virtual ~NCCocoaBox();

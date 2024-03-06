@@ -87,6 +87,17 @@
             if (pair.formal.length)ret = [ret stringByAppendingFormat:@"%@:", pair.formal];
         }
         
+        if (ret.length == 0) {
+            
+            NSArray *noParameterMethodArray = [str componentsSeparatedByString:@")"];
+            if (noParameterMethodArray.count > 1) {
+                NSString *methodName = noParameterMethodArray[1];
+                ret = [methodName stringByTrimmingCharactersInSet:
+                                              [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            }
+            
+        }
+        
         return ret;
     }
 

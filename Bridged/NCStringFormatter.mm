@@ -101,32 +101,21 @@ NSString *stringWithFormat(string &strformat, vector<shared_ptr<NCStackElement>>
         if ([component hasPrefix:@"@"]) {
             auto value = argument;
             
-            NSObject *nsObj = NULL;
-            
-//            NCObject *obj = nullptr;
-//            if (dynamic_pointer_cast<NCStackVariableElement>(value)) {
-//                auto pVar = dynamic_pointer_cast<NCStackVariableElement>(value);
-//                if (dynamic_pointer_cast<NCStackPointerElement>(pVar->valueElement)) {
-//                    auto pRet = dynamic_pointer_cast<NCStackPointerElement> (pVar->valueElement);
-//                    obj = (pRet->getPointedObject()).get();
+//            NSObject *nsObj = NULL;
+//            
+//            NCObject *obj = value->toObject().get();
+//            
+//            if (obj) {
+//                auto box = dynamic_cast<NCCocoaBox *>(obj);
+//                
+//                if (box) {
+//                    nsObj = SAFE_GET_BOX_CONTENT(box);
 //                }
 //            }
-//            else if (dynamic_pointer_cast<NCStackPointerElement>(value)) {
-//                auto pRet = dynamic_pointer_cast<NCStackPointerElement> (value);
-//                obj = (pRet->getPointedObject()).get();
-//            }
             
-            NCObject *obj = value->toObject().get();
+            NSString *desc = [NSString stringWithUTF8String:value->toString().c_str()];
             
-            if (obj) {
-                auto box = dynamic_cast<NCCocoaBox *>(obj);
-                
-                if (box) {
-                    nsObj = SAFE_GET_BOX_CONTENT(box);
-                }
-            }
-            
-            s = [s stringByAppendingFormat:[@"%" stringByAppendingString:component], nsObj];
+            s = [s stringByAppendingFormat:[@"%" stringByAppendingString:component], desc];
             
         } else if (isPrefixInt(component)) {
             

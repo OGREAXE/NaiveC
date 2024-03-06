@@ -58,6 +58,18 @@ bool NCCocoaBox::invokeMethod(string methodName, vector<shared_ptr<NCStackElemen
     return invokeMethod(methodName, arguments, formatArguments, lastStack);
 }
 
+NCCocoaBox *NCCocoaBox::selectorFromString(const string &str) {
+    auto box = new NCCocoaBox(str);
+    
+//    NSString *selectorStr = [NSString stringWithUTF8String:str.c_str()];
+//                             
+//    SEL selector = NSSelectorFromString(selectorStr);
+//    
+//    box->m_cocoaObject = (void *)(selector);
+    
+    return box;
+}
+
 bool NCCocoaBox::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments, vector<shared_ptr<NCStackElement>> &formatArguments,vector<shared_ptr<NCStackElement>> & lastStack) {
     if (m_cocoaObject == nullptr) {
         return false;

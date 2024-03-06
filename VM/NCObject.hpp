@@ -95,6 +95,8 @@ public:
         m_capturedObjects.push_back(capturedObj);
     }
     
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+    
     virtual NCObject* copy();
 };
 

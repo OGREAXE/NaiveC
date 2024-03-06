@@ -22,6 +22,7 @@ bool NCCocoaClassProvider::classExist(const std::string & className){
         ||className == "CGRectMake"
         ||className == "CGPointMake"
         ||className == "CGSizeMake"
+        ||className == "NSMakeRange"
         ||className == "UIEdgeInsetsMake") {
         return true;
     }

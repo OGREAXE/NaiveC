@@ -228,6 +228,13 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         
         tree_doClassMehothodCall(frame, node->getMehodCall().get());
     }
+    else if (dynamic_pointer_cast<NCObjcSelectorExpr>(currentNode)) {
+        auto node = dynamic_pointer_cast<NCObjcSelectorExpr>(currentNode);
+        
+        auto box = NCCocoaBox::selectorFromString(node->selectorString);
+        
+        frame.stack_push(shared_ptr<NCStackElement>(new NCStackPointerElement(box)));
+    }
     else if (dynamic_cast<NCFieldAccessExpr*>(currentNode.get())) {
         auto node = dynamic_cast<NCFieldAccessExpr*>(currentNode.get());
         visit(node->scope, frame);
