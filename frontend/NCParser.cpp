@@ -1375,6 +1375,7 @@ shared_ptr<NCStatement> NCParser::expression_statement(){
     }
     
     if (isAssignOperator(word)) {
+        string op = word;
         word = nextWord();
         
         auto value = expression();
@@ -1382,7 +1383,7 @@ shared_ptr<NCStatement> NCParser::expression_statement(){
             return nullptr;
         }
         
-        auto assignExpr = new NCAssignExpr(expr,word,value);
+        auto assignExpr = new NCAssignExpr(expr,op,value);
         auto expStmt = new NCExpressionStatement();
         expStmt->expression = shared_ptr<NCExpression>(assignExpr);
         return shared_ptr<NCStatement>(expStmt);

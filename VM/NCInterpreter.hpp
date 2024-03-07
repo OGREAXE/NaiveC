@@ -42,8 +42,10 @@ using namespace std;
 
 class NCFrame{
 public:
-    void insertVariable(string&name, int value);
-    void insertVariable(string&name, float value);
+    void insertVariable(string&name, NCInt value);
+    void insertVariable(string&name, NCFloat value);
+    void insertVariable(string&name, NCInt value, const string &opcode);
+    void insertVariable(string&name, NCFloat value, const string &opcode);
     void insertVariable(string&name, string& value);
     void insertVariable(string&name, shared_ptr<NCStackElement> pObject);
     void insertVariable(string&name, NCStackPointerElement & pObject);
@@ -82,8 +84,8 @@ private:
     bool isStackTopFloat(NCFrame & frame);
     bool isStackTopString(NCFrame & frame);
     
-    int stackPopInt(NCFrame & frame);
-    float stackPopFloat(NCFrame & frame);
+    NCInt stackPopInt(NCFrame & frame);
+    NCFloat stackPopFloat(NCFrame & frame);
     string stackPopString(NCFrame & frame);
     
     bool isClassName(const string & name);

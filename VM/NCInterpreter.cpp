@@ -17,13 +17,46 @@
 #include "NCNSArrayWrapper.hpp"
 #include "NCNSDictionaryWrapper.hpp"
 
-void NCFrame::insertVariable(string&name, int value){
+void NCFrame::insertVariable(string&name, NCInt value){
     localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackIntElement(value));
 }
-void NCFrame::insertVariable(string&name, float value){
+
+void NCFrame::insertVariable(string&name, NCFloat value){
     localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackFloatElement(value));
-    
 }
+
+void NCFrame::insertVariable(string&name, NCInt value, const string &opcode) {
+    NCInt newValue = localVariableMap[name]->toInt();
+    
+    if (opcode == "+=") {
+        newValue += value;
+    } else if (opcode == "-=") {
+        newValue -= value;
+    } else if (opcode == "*=") {
+        newValue *= value;
+    } else if (opcode == "/=") {
+        newValue /= value;
+    }
+    
+    localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackIntElement(newValue));
+}
+
+void NCFrame::insertVariable(string&name, NCFloat value, const string &opcode) {
+    NCFloat newValue = localVariableMap[name]->toFloat();
+    
+    if (opcode == "+=") {
+        newValue += value;
+    } else if (opcode == "-=") {
+        newValue -= value;
+    } else if (opcode == "*=") {
+        newValue *= value;
+    } else if (opcode == "/=") {
+        newValue /= value;
+    }
+    
+    localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackFloatElement(newValue));
+}
+
 void NCFrame::insertVariable(string&name, string& value){
     localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackStringElement(value));
 }
@@ -185,11 +218,11 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
             visit(node->expression, frame);
             string name = node->id_str();
             if (type == "int") {
-                int value = stackPopInt(frame);
+                NCInt value = stackPopInt(frame);
                 frame.insertVariable(name, value);
             }
             else if (type == "float") {
-                float value = stackPopFloat(frame);
+                NCFloat value = stackPopFloat(frame);
                 frame.insertVariable(name, value);
             }
             else if (type == "string") {
@@ -201,7 +234,9 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
 //                frame.insertVariable(name, arrayPointerElement);
 //            }
             else {
-                auto back = frame.stack.back();
+                if (!frame.stack.size()) return false;
+                
+                auto back =  frame.stack.back();
                 
                 if (dynamic_cast<NCStackVariableElement *>(back.get())) {
                     auto pointerElement = stackPopObjectPointer(frame);
@@ -480,10 +515,10 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
             
             //primitive types, like int ,float and string pass by value
             if (var->valueElement->type == "int") {
-                frame.insertVariable(var->name, stackPopInt(frame));
+                frame.insertVariable(var->name, stackPopInt(frame), node->op);
             }
             else if (var->valueElement->type == "float") {
-                frame.insertVariable(var->name, stackPopFloat(frame));
+                frame.insertVariable(var->name, stackPopFloat(frame), node->op);
             }
             else if (var->valueElement->type == "string") {
                 string str = stackPopString(frame);
@@ -664,7 +699,7 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
     else if(dynamic_cast<NCNameExpression*>(currentNode.get())){
         auto node = dynamic_cast<NCNameExpression*>(currentNode.get());
         
-        if (node->name == "null") {
+        if (node->name == "null" || node->name == "NULL" || node->name == "nil") {
             auto nullPtr = shared_ptr<NCStackElement>( new NCStackPointerElement());
             frame.stack.push_back(nullPtr);
             return true;
@@ -994,7 +1029,7 @@ bool NCInterpreter::isStackTopString(NCFrame & frame){
     return dynamic_cast<NCStackStringElement*>((frame.stack.back()).get()) == nullptr;
 }
 
-int NCInterpreter::stackPopInt(NCFrame & frame){
+NCInt NCInterpreter::stackPopInt(NCFrame & frame){
     int ret = 0;
     
     if (frame.stack.size() <= 0) {
@@ -1051,7 +1086,7 @@ int NCInterpreter::stackPopInt(NCFrame & frame){
     return ret;
 }
 
-float NCInterpreter::stackPopFloat(NCFrame & frame){
+NCFloat NCInterpreter::stackPopFloat(NCFrame & frame){
 //    auto stackTop= dynamic_cast<NCStackFloatElement*>((*frame.stack.end()).get());
 //    float ret = stackTop->value;
 //    frame.stack.pop_back();
@@ -1146,6 +1181,8 @@ string NCInterpreter::stackPopString(NCFrame & frame){
 }
 
 shared_ptr<NCStackPointerElement>  NCInterpreter::stackPopObjectPointer(NCFrame & frame){
+    if (frame.stack.size() == 0) return nullptr;
+    
     auto pStackTop = frame.stack.back();
     
     //fix smart pointer released

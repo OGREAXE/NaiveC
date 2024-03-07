@@ -58,7 +58,7 @@ struct NCStackIntElement:NCStackElement{
 };
 
 struct NCStackFloatElement:NCStackElement{
-    NCStackFloatElement(float val):value(val){type="float";}
+    NCStackFloatElement(NCFloat val):value(val){type="float";}
     NCFloat value;
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);

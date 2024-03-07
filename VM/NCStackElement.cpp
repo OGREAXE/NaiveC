@@ -238,6 +238,7 @@ shared_ptr<NCStackElement> NCStackVariableElement::doOperator(const string&op, s
 }
 
 NCInt NCStackVariableElement::toInt(){
+    if (valueElement == nullptr) return 0;
     return valueElement->toInt();
 }
 
