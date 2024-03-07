@@ -840,13 +840,31 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
     
     if (word == "(") {
         word = nextWord();
+        
+        pushIndex();
         auto exp = expression();
+        
+        bool isTypeConvertExp =  false;
+  
+        if (!exp) {
+            popIndex();
+            
+            isTypeConvertExp = type_specifier().size()>0;
+        } else {
+            isTypeConvertExp = dynamic_pointer_cast<NCNameExpression>(exp) != nullptr;
+        }
+        
         if (word!=")") {
 //            popIndex();
             return nullptr;
         }
+        
         word = nextWord();
-        return exp;
+
+        if (isTypeConvertExp)
+            return expression();
+        else
+            return exp;
     }
     
     if (word == "[") {
