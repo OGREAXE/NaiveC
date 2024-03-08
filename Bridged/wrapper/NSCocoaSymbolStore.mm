@@ -30,14 +30,4 @@ using namespace std;
     return store[name];
 }
 
-- (void)load {
-    [NSCocoaSymbolStore test];
-}
-
-+(void)test {
-    NSValue *v = [NSCocoaSymbolStore symbolForName:@"DISPATCH_QUEUE_SERIAL"];
-    
-    dispatch_queue_attr_t attr = (dispatch_queue_attr_t)v.pointerValue;
-}
-
 @end
