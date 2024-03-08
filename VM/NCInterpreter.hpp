@@ -17,6 +17,7 @@
 #include "NCObject.hpp"
 #include "NCBuiltinFunctionStore.hpp"
 #include "NCModuleCache.hpp"
+#include "NCSymbolStore.hpp"
 
 using namespace std;
 
@@ -79,6 +80,8 @@ private:
 //    NCBuiltinFunctionStore m_builtinFunctionStore;
 //
 //    unordered_map<string, shared_ptr<NCClassDeclaration>> classDefinitionMap;
+    
+    NCSymbolStore *m_symStore = new NCSymbolStore();
     
     bool isStackTopInt(NCFrame & frame);
     bool isStackTopFloat(NCFrame & frame);

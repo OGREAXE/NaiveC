@@ -17,7 +17,9 @@
 
 #include "NCStringFormatter.hpp"
 
-shared_ptr<NCStackPointerElement> NCCocoaClass::instantiate(vector<shared_ptr<NCStackElement>> &arguments){
+//#import "NSCocoaSymbolStore.h"
+
+shared_ptr<NCStackElement> NCCocoaClass::instantiate(vector<shared_ptr<NCStackElement>> &arguments){
     
     if (this->name == NC_CLASSNAME_FRAME || this->name == "CGRectMake") {
         if (arguments.size() == 4) {
@@ -76,6 +78,70 @@ shared_ptr<NCStackPointerElement> NCCocoaClass::instantiate(vector<shared_ptr<NC
         }
         else {
             return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(new NCEdgeInset())));
+        }
+    } else if (this->name == "dispatch_queue_create") {
+        if (arguments.size() == 2) {
+            auto arg0 = arguments[0]->toString();
+            auto arg1 = arguments[1]->toObject();
+            
+            auto box = dynamic_pointer_cast<NCCocoaBox>(arg1);
+            
+            dispatch_queue_attr_t attr = NULL;
+            
+            if (box) {
+                attr = SAFE_GET_BOX_CONTENT(box);
+                
+                if ([attr isKindOfClass:NSNull.class]) {
+                    attr = NULL;
+                }
+            }
+            
+            dispatch_queue_t q = dispatch_queue_create(arg0.c_str(), attr);
+            auto outbox = MAKE_COCOA_BOX(q);
+            
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(outbox));
+        }
+    } else if (this->name == "dispatch_time") {
+        if (arguments.size() == 2) {
+            auto arg0 = arguments[0]->toInt();
+            auto arg1 = arguments[1]->toInt();
+            
+            dispatch_time_t time = dispatch_time(arg0,  arg1);
+            
+            return shared_ptr<NCStackElement>(new NCStackIntElement(time));
+        }
+    } else if (this->name == "dispatch_after") {
+        if (arguments.size() == 3) {
+            auto arg0 = arguments[0]->toInt();
+            auto arg1 = arguments[1]->toObject();
+            auto arg2 = arguments[2]->toObject();
+            
+            auto box1 = dynamic_pointer_cast<NCCocoaBox>(arg1);
+            
+            dispatch_queue_t q = NULL;
+            
+            if (box1) {
+                q = SAFE_GET_BOX_CONTENT(box1);
+            }
+            
+            auto box2 = dynamic_pointer_cast<NCCocoaBox>(arg2);
+            
+            dispatch_block_t block = NULL;
+            
+            if (box2) {
+                //
+                block = SAFE_GET_BOX_CONTENT(box2);
+                dispatch_after(arg0, q, block);
+            } else {
+                auto lambda = dynamic_pointer_cast<NCLambdaObject>(arg2);
+                
+                dispatch_after(arg0, q, ^{
+                    vector<shared_ptr<NCStackElement>> arg;
+                    vector<shared_ptr<NCStackElement>> stack;
+                    lambda->invokeMethod("invoke", arg, stack);
+                });
+            }
+            
         }
     }
     

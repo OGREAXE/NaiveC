@@ -16,7 +16,7 @@ NCNativeClass::NCNativeClass(shared_ptr<NCClassDeclaration> & classDef):NCClass(
   
 }
 
-shared_ptr<NCStackPointerElement>  NCNativeClass::instantiate(vector<shared_ptr<NCStackElement>> &arguments){
+shared_ptr<NCStackElement>  NCNativeClass::instantiate(vector<shared_ptr<NCStackElement>> &arguments){
     auto newObject = new NCNativeObject();
     newObject->classDefinition = m_classDef;
     

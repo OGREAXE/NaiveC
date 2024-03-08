@@ -754,6 +754,13 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
                         frame.stack.push_back(superInstance);
                         return true;
                     }
+                } else {
+                    auto globalObj = m_symStore->objectForName(node->name);
+                    
+                    if (globalObj) {
+                        frame.stack.push_back(globalObj);
+                        return true;
+                    }
                 }
                 
                 NCLogInterpretor("can't find variable %s", node->name.c_str());
@@ -944,11 +951,13 @@ bool NCInterpreter::tree_doStaticMehothodCall(NCFrame & frame,NCMethodCallExpr*n
             if (cls) {
                 vector<shared_ptr<NCStackElement>> arguments;
                 
-                initArguments(node->args, arguments, frame);
+                if (!initArguments(node->args, arguments, frame)) {
+                    return false;
+                }
                 
                 auto aInstance = cls->instantiate(arguments);
                 
-                frame.stack.push_back(shared_ptr<NCStackPointerElement> ( aInstance));
+                frame.stack.push_back(shared_ptr<NCStackElement> ( aInstance));
             } else {
                 //block invoke?
                 if (frame.localVariableMap.find(node->name) != frame.localVariableMap.end()) {
@@ -976,6 +985,8 @@ bool NCInterpreter::initArguments(vector<shared_ptr<NCExpression>> &intput_argum
         visit(argExp, frame);
         
         auto argValue = frame.stack_pop();
+        
+        if (!argValue) return false;
         
         output_arguments.push_back(argValue);
     }

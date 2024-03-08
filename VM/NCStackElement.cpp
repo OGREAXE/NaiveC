@@ -254,14 +254,12 @@ string NCStackVariableElement::toString(){
 }
 
 shared_ptr<NCObject> NCStackVariableElement::toObject() {
-    NCObject *obj = nullptr;
-    
     if (dynamic_pointer_cast<NCStackPointerElement>(this->valueElement)) {
         auto pRet = dynamic_pointer_cast<NCStackPointerElement> (this->valueElement);
-        obj = (pRet->getPointedObject()).get();
+        return pRet->getPointedObject();
     }
     
-    return shared_ptr<NCObject>(obj);
+    return nullptr;
 }
 
 shared_ptr<NCStackElement> NCStackVariableElement::copy(){

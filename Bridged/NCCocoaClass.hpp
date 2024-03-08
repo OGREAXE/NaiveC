@@ -28,7 +28,7 @@ public:
      @param arguments <#arguments description#>
      @return <#return value description#>
      */
-    virtual shared_ptr<NCStackPointerElement> instantiate(vector<shared_ptr<NCStackElement>> &arguments);
+    virtual shared_ptr<NCStackElement> instantiate(vector<shared_ptr<NCStackElement>> &arguments);
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
     
