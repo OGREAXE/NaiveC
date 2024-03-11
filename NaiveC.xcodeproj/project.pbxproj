@@ -21,12 +21,9 @@
 		0D00F7BE2B8CC00F00A8E9AD /* NPEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D00F7A92B8CC00E00A8E9AD /* NPEngine.h */; };
 		0D00F7BF2B8CC00F00A8E9AD /* NCObjCSourceParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D00F7AA2B8CC00E00A8E9AD /* NCObjCSourceParser.m */; };
 		0D00F7C12B8CC00F00A8E9AD /* NPEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D00F7AC2B8CC00E00A8E9AD /* NPEngine.m */; };
-		0D00F7C22B8CC00F00A8E9AD /* NPMethodSignature.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D00F7AD2B8CC00E00A8E9AD /* NPMethodSignature.h */; };
-		0D00F7C32B8CC00F00A8E9AD /* NPMethodSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D00F7AE2B8CC00F00A8E9AD /* NPMethodSignature.m */; };
 		0D00F7C42B8CC00F00A8E9AD /* NCObjCSourceParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D00F7AF2B8CC00F00A8E9AD /* NCObjCSourceParser.h */; };
 		0D00F7C62B8CC17700A8E9AD /* NPEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D00F7AC2B8CC00E00A8E9AD /* NPEngine.m */; };
 		0D00F7C72B8CC19400A8E9AD /* NCObjCSourceParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D00F7AA2B8CC00E00A8E9AD /* NCObjCSourceParser.m */; };
-		0D00F7C92B8CC19400A8E9AD /* NPMethodSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D00F7AE2B8CC00F00A8E9AD /* NPMethodSignature.m */; };
 		0D2264132B9B11B300BFA519 /* NCSymbolStore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D2264112B9B11B300BFA519 /* NCSymbolStore.mm */; };
 		0D2264142B9B11B300BFA519 /* NCSymbolStore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D2264112B9B11B300BFA519 /* NCSymbolStore.mm */; };
 		0D2264152B9B11B400BFA519 /* NCSymbolStore.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0D2264122B9B11B300BFA519 /* NCSymbolStore.hpp */; };
@@ -272,8 +269,6 @@
 		0D00F7A92B8CC00E00A8E9AD /* NPEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPEngine.h; sourceTree = "<group>"; };
 		0D00F7AA2B8CC00E00A8E9AD /* NCObjCSourceParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NCObjCSourceParser.m; sourceTree = "<group>"; };
 		0D00F7AC2B8CC00E00A8E9AD /* NPEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPEngine.m; sourceTree = "<group>"; };
-		0D00F7AD2B8CC00E00A8E9AD /* NPMethodSignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPMethodSignature.h; sourceTree = "<group>"; };
-		0D00F7AE2B8CC00F00A8E9AD /* NPMethodSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPMethodSignature.m; sourceTree = "<group>"; };
 		0D00F7AF2B8CC00F00A8E9AD /* NCObjCSourceParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NCObjCSourceParser.h; sourceTree = "<group>"; };
 		0D2264112B9B11B300BFA519 /* NCSymbolStore.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCSymbolStore.mm; sourceTree = "<group>"; };
 		0D2264122B9B11B300BFA519 /* NCSymbolStore.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCSymbolStore.hpp; sourceTree = "<group>"; };
@@ -425,8 +420,6 @@
 				0D00F7AA2B8CC00E00A8E9AD /* NCObjCSourceParser.m */,
 				0D00F7A92B8CC00E00A8E9AD /* NPEngine.h */,
 				0D00F7AC2B8CC00E00A8E9AD /* NPEngine.m */,
-				0D00F7AD2B8CC00E00A8E9AD /* NPMethodSignature.h */,
-				0D00F7AE2B8CC00F00A8E9AD /* NPMethodSignature.m */,
 				0D7285C52B68FF28002DBE5C /* NPPatchedClass.h */,
 				0D7285C62B68FF28002DBE5C /* NPPatchedClass.m */,
 			);
@@ -639,7 +632,6 @@
 				D4439E4F2089EB1F005EE65B /* NCHeapMemory.hpp in Headers */,
 				0D00F7B82B8CC00F00A8E9AD /* ffi_x86_64.h in Headers */,
 				D4E06E6A2037015D0095F442 /* NaiveC.h in Headers */,
-				0D00F7C22B8CC00F00A8E9AD /* NPMethodSignature.h in Headers */,
 				D4E06F21203972F90095F442 /* NCStandardClass.hpp in Headers */,
 				0DF2A76C2B99B5DE00810044 /* NSCocoaSymbolStore.h in Headers */,
 				D4E06F1920396FD10095F442 /* NCStandardLibraryProvider.hpp in Headers */,
@@ -893,7 +885,6 @@
 				D4E06EFB20371D9E0095F442 /* NCClassProvider.cpp in Sources */,
 				D4E06EFC20371D9E0095F442 /* NCClassProvider.hpp in Sources */,
 				D4E06EE920371D910095F442 /* NCAST.cpp in Sources */,
-				0D00F7C32B8CC00F00A8E9AD /* NPMethodSignature.m in Sources */,
 				0D73F8C22B450DA3003EA49B /* NCInvocation.mm in Sources */,
 				0D7285C82B68FF28002DBE5C /* NPPatchedClass.m in Sources */,
 				0D73F8CC2B46C9F9003EA49B /* NCNSDictionaryWrapper.mm in Sources */,
@@ -928,7 +919,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D00F7C72B8CC19400A8E9AD /* NCObjCSourceParser.m in Sources */,
-				0D00F7C92B8CC19400A8E9AD /* NPMethodSignature.m in Sources */,
 				0D00F7C62B8CC17700A8E9AD /* NPEngine.m in Sources */,
 				F3F2A93E215A0E91004CE143 /* NCSourceManager.mm in Sources */,
 				F31D7F432122FA7400E11E5F /* NCStandardLibraryProvider.cpp in Sources */,

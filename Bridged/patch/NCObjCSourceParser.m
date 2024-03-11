@@ -28,6 +28,12 @@
         NSString *className = [[impContent componentsSeparatedByString:@"\n"] objectAtIndex:0];
         className = [className stringByTrimmingCharactersInSet:
                                       [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
+        //for class {ivar _a};
+        NSArray *classDefComps = [className componentsSeparatedByString:@"{"];
+        if (classDefComps.count) {
+            className = classDefComps[0];
+        }
 //        [matches addObject:impContent];
 //         NSLog(@"%@", [matches lastObject]);
         
