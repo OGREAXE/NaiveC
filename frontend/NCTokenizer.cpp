@@ -23,6 +23,8 @@ NCTokenizer::NCTokenizer(string&str){
     tokenize(str);
 }
 
+#define IS_STATUS_COMMENT (status == Comment || status == CommentWrap)
+
 bool NCTokenizer::tokenize(const string&str){
     
     tokens->clear();
@@ -46,8 +48,9 @@ bool NCTokenizer::tokenize(const string&str){
             if (status == Comment) {
                 status = Unknown;
                 continue;
-            }
-            else {
+            } else if (status == CommentWrap) {
+                continue;
+            } else {
                 if (token.length() > 0){
                     addToken(tokens, token, i);
                 }
@@ -56,13 +59,17 @@ bool NCTokenizer::tokenize(const string&str){
             }
         }
         else if (c == 0x5c){ // is '\'
-            if (status == Comment) {
+            if (IS_STATUS_COMMENT) {
                 if (token.length() > 0){
                     addToken(tokens, token, i);
                 }
             }
         }
-        else if(status == Comment){
+        else if(c=='*' && i+1 <str.size() && str[i+1]=='/' && status == CommentWrap){
+            i++;
+            status = Unknown;
+        }
+        else if(IS_STATUS_COMMENT){
             continue;
         }
         else if(c=='/' && i+1 <str.size() && str[i+1]=='/' && status != String){
@@ -70,6 +77,13 @@ bool NCTokenizer::tokenize(const string&str){
                 addToken(tokens, token, i);
             }
             status = Comment;
+            token = "";
+        }
+        else if(c=='/' && i+1 <str.size() && str[i+1]=='*' && status != String){
+            if (token.length() > 0){
+                addToken(tokens, token, i);
+            }
+            status = CommentWrap;
             token = "";
         }
         else if (c == ','  && status != String) {
@@ -249,6 +263,7 @@ bool NCTokenizer::tokenize(const string&str){
         }
     }
     
+    status = Unknown;
     return true;
 }
 
