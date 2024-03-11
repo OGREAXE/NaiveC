@@ -143,6 +143,43 @@ shared_ptr<NCStackElement> NCCocoaClass::instantiate(vector<shared_ptr<NCStackEl
             }
             
         }
+    } else if (this->name == "dispatch_async") {
+        if (arguments.size() == 2) {
+            auto arg0 = arguments[0]->toObject();
+            auto arg1 = arguments[1]->toObject();
+            
+            auto box0 = dynamic_pointer_cast<NCCocoaBox>(arg0);
+            
+            dispatch_queue_t q = NULL;
+            
+            if (box0) {
+                q = SAFE_GET_BOX_CONTENT(box0);
+            }
+            
+            auto box1 = dynamic_pointer_cast<NCCocoaBox>(arg1);
+            
+            dispatch_block_t block = NULL;
+            
+            if (box1) {
+                //
+                block = SAFE_GET_BOX_CONTENT(box1);
+                dispatch_async(q, block);
+            } else {
+                auto lambda = dynamic_pointer_cast<NCLambdaObject>(arg1);
+                
+                dispatch_async(q, ^{
+                    vector<shared_ptr<NCStackElement>> arg;
+                    vector<shared_ptr<NCStackElement>> stack;
+                    lambda->invokeMethod("invoke", arg, stack);
+                });
+            }
+            
+        }
+    } else if (this->name == "dispatch_get_main_queue") {
+        dispatch_queue_t q = dispatch_get_main_queue();
+        auto outbox = MAKE_COCOA_BOX(q);
+        
+        return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(outbox));
     }
     
     //instantiate NSObject subclass

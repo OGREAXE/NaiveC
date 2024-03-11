@@ -26,7 +26,9 @@ bool NCCocoaClassProvider::classExist(const std::string & className){
         ||className == "UIEdgeInsetsMake"
         ||className == "dispatch_queue_create"
         ||className == "dispatch_after"
-        ||className == "dispatch_time") {
+        ||className == "dispatch_time"
+        ||className == "dispatch_async"
+        ||className == "dispatch_get_main_queue") {
         return true;
     }
     
