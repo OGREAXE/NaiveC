@@ -23,7 +23,7 @@
 static unordered_set<string> keywords =
 {
     //types
-    "int","float","void",
+    //"int","float","void",
     //operator
     "=","+=","-=","*=","/=","++",
     "+","-","*","/",
@@ -325,11 +325,7 @@ bool NCParser::parameter(NCParameter ** ppp){
     if (type.length() == 0) {
         return false;
     }
-    
-    if (word == "*") {
-        word = nextWord();
-    }
-    
+
     if (!isIdentifier(word)) {
         return false;
     }
@@ -920,13 +916,17 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
         if (word == "(") {
             word = nextWord();
             
-            if (!parameterlist(lambdaExpr->parameters)) {
-                return nullptr;
+            if (word == ")") {
+                word = nextWord();
+            } else {
+                if (!parameterlist(lambdaExpr->parameters)) {
+                    return nullptr;
+                }
+                if (word!= ")") {
+                    return nullptr;
+                }
+                word = nextWord();
             }
-            if (word!= ")") {
-                return nullptr;
-            }
-            word = nextWord();
         }
         
         lambdaFlag = true;
@@ -1540,22 +1540,48 @@ bool NCParser::isAssignOperator(string&op){
     return op == "="|op == "+="|op == "-="|op == "*="|op == "="|op == "/=";
 }
 
+bool isIgnorableAnotation(string &word) {
+    return word == "_Nullable" || word == "_Nonnull";
+}
+
 //type_specifier-> string|int|float|void
 MCType NCParser::type_specifier(){
-    if (word == "string"||word == "int"||word == "float"||word == "void") {
-        auto ret = word;
-        word = nextWord();
-        return ret;
-    }
-    else if((word[0] >= 'a' && word[0] <= 'z')||(word[0] >= 'A' && word[0] <= 'Z') || word[0] == '_'){
+//    if (word == "string"||word == "int"||word == "float"||word == "void") {
+//        auto ret = word;
+//        
+//        word = nextWord();
+//        
+//        if (word == "*") {
+//            word = nextWord();
+//        }
+//        
+//        while (isIgnorableAnotation(word)) {
+//            word = nextWord();
+//        }
+// 
+//        return ret;
+//    }
+//    else 
+    if((word[0] >= 'a' && word[0] <= 'z')||(word[0] >= 'A' && word[0] <= 'Z') || word[0] == '_') {
         if(keywords.find(word) != keywords.end()){
             return "";
         }
         
         auto ret = word;
+        
         word = nextWord();
+        
+        if (word == "*") {
+            word = nextWord();
+        }
+        
+        while (isIgnorableAnotation(word)) {
+            word = nextWord();
+        }
+        
         return ret;
     }
+    
     return "";
 }
 
