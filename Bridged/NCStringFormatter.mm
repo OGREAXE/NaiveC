@@ -9,6 +9,7 @@
 #include "NCStringFormatter.hpp"
 #import <Foundation/Foundation.h>
 #include "NCCocoaBox.hpp"
+#import "NCCocoaMapper.h"
 
 #include <string>
 
@@ -133,7 +134,9 @@ shared_ptr<NCStackElement> stringWithFormat(shared_ptr<NCStackElement> &strforma
     
     NSString *nsstr = stringWithFormat(str, arguments);
     
-    auto box = MAKE_COCOA_BOX(nsstr);
+//    auto box = MAKE_COCOA_BOX(nsstr);
+    auto box = new NCCocoaBox();
+    LINK_COCOA_BOX(box, nsstr);
     
     return shared_ptr<NCStackElement>(new NCStackPointerElement(box));
 }

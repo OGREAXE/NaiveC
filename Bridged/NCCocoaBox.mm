@@ -16,30 +16,46 @@
 //#import "NSObject+NCInvocation.h"
 #include "NCStringFormatter.hpp"
 #import "NCInvocation.h"
+#include <sstream> //for std::stringstream
+#import "NCCocoaMapper.h"
 
 #pragma mark cocoaBox implementation
 
-NCCocoaBox::NCCocoaBox(void * pCocoaObject){
-    m_cocoaObject = pCocoaObject;
-}
+//NCCocoaBox::NCCocoaBox(void * pCocoaObject){
+//    m_cocoaObject = pCocoaObject;
+//}
 
 NCCocoaBox::NCCocoaBox(const string &str) {
     NSString *nsstr = [NSString stringWithUTF8String:str.c_str()];
-    m_cocoaObject = NC_COCOA_BRIDGE(nsstr);
+//    m_cocoaObject = NC_COCOA_BRIDGE(nsstr);
+    LINK_COCOA_BOX(this, nsstr);
 } //wrap as nsstring
 
 NCCocoaBox::NCCocoaBox(NCInt value) {
     NSNumber *num = [NSNumber numberWithInt:value];
-    m_cocoaObject = NC_COCOA_BRIDGE(num);
+//    m_cocoaObject = NC_COCOA_BRIDGE(num);
+    LINK_COCOA_BOX(this, num);
 } //wrap as nsnumber
 
 NCCocoaBox::NCCocoaBox(NCFloat value) {
     NSNumber *num = [NSNumber numberWithFloat:value];
-    m_cocoaObject = NC_COCOA_BRIDGE(num);
+//    m_cocoaObject = NC_COCOA_BRIDGE(num);
+    LINK_COCOA_BOX(this, num);
 }//wrap as nsnumber
 
 NCCocoaBox::~NCCocoaBox(){
-    NC_COCOA_UNBRIDGE(m_cocoaObject);
+//    NC_COCOA_UNBRIDGE(m_cocoaObject);
+}
+
+string NCCocoaBox::getKey() {
+    if (!m_key.size()) {
+        const void * address = static_cast<const void*>(this);
+        std::stringstream ss;
+        ss << address;
+        m_key = ss.str();
+    }
+    
+    return m_key;
 }
 
 bool NCCocoaBox::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
@@ -71,11 +87,14 @@ NCCocoaBox *NCCocoaBox::selectorFromString(const string &str) {
 }
 
 bool NCCocoaBox::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments, vector<shared_ptr<NCStackElement>> &formatArguments,vector<shared_ptr<NCStackElement>> & lastStack) {
-    if (m_cocoaObject == nullptr) {
+    
+    id wrappedObject = GET_NS_OBJECT;
+    
+    if (wrappedObject == nullptr) {
         return false;
     }
     
-    NSObject * wrappedObject = (__bridge NSObject*)m_cocoaObject;
+//    NSObject * wrappedObject = (__bridge NSObject*)m_cocoaObject;
     
     NSString * methodStr = [NSString stringWithUTF8String:methodName.c_str()];
     
@@ -94,7 +113,7 @@ bool NCCocoaBox::invokeMethod(string methodName, vector<shared_ptr<NCStackElemen
 }
 
 shared_ptr<NCStackElement> NCCocoaBox::getAttribute(const string & attrName){
-    NSObject * wrappedObject = (__bridge NSObject*)m_cocoaObject;
+    NSObject * wrappedObject = GET_NS_OBJECT;
     
     NSString * methodStr = [NSString stringWithUTF8String:attrName.c_str()];
     
@@ -118,7 +137,7 @@ shared_ptr<NCStackElement> NCCocoaBox::getAttribute(const string & attrName){
 
 void NCCocoaBox::setAttribute(const string & attrName, shared_ptr<NCStackElement> value){
     
-    NSObject * wrappedObject = (__bridge NSObject*)m_cocoaObject;
+    NSObject * wrappedObject = GET_NS_OBJECT;
     
     if (attrName[0] == '_') {
         [NCInvocation setInstanceVariable:value forName:[NSString stringWithUTF8String:attrName.c_str()] withObject:wrappedObject];
@@ -140,10 +159,13 @@ void NCCocoaBox::setAttribute(const string & attrName, shared_ptr<NCStackElement
 }
 
 string NCCocoaBox::getDescription(){
-    if (!m_cocoaObject) {
+    
+    NSObject * wrappedObject = GET_NS_OBJECT;
+    
+    if (!wrappedObject) {
         return "NULL";
     }
-    NSObject * wrappedObject = (__bridge NSObject*)m_cocoaObject;
+    
     string desc = wrappedObject.description.UTF8String;
     return desc;
 }
@@ -155,7 +177,8 @@ void NCCocoaBox::br_set(shared_ptr<NCStackElement> & key,shared_ptr<NCStackEleme
 }
 
 shared_ptr<NCStackElement> NCCocoaBox::br_getValue(shared_ptr<NCStackElement> & key){
-    NSObject * wrappedObject = (__bridge NSObject*)m_cocoaObject;
+    NSObject * wrappedObject = GET_NS_OBJECT;
+    
     if ([wrappedObject isKindOfClass:[NSArray class]]) {
         NSArray * array = (NSArray *)wrappedObject;
         if (key->toInt() > array.count-1) {
@@ -177,11 +200,15 @@ shared_ptr<NCStackElement> NCCocoaBox::br_getValue(shared_ptr<NCStackElement> & 
 }
 
 void NCCocoaBox::enumerate(std::function<bool (shared_ptr<NCStackElement> anObj)> handler){
-    NSObject * wrappedObject = (__bridge NSObject*)m_cocoaObject;
+    NSObject * wrappedObject = GET_NS_OBJECT;
+    
     if ([wrappedObject isKindOfClass:[NSArray class]]) {
         NSArray *array = (NSArray*)wrappedObject;
         [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NCCocoaBox * box = new NCCocoaBox(NC_COCOA_BRIDGE(obj));
+            
+            NCCocoaBox * box = new NCCocoaBox();
+            LINK_COCOA_BOX(box, obj);
+            
             NCStackPointerElement * pval = new NCStackPointerElement(shared_ptr<NCObject>(box));
             bool res = handler(shared_ptr<NCStackElement> (pval));
             if (res) {
@@ -192,9 +219,14 @@ void NCCocoaBox::enumerate(std::function<bool (shared_ptr<NCStackElement> anObj)
 }
 
 NCInt NCCocoaBox::toInt(){
-    return m_cocoaObject != NULL;
+    return GET_NS_OBJECT != NULL;
 }
 
 NCObject* NCCocoaBox::copy() {
-    return new NCCocoaBox(this->m_cocoaObject);
+//    return new NCCocoaBox(this->m_cocoaObject);
+    auto cp = new NCCocoaBox();
+    
+    LINK_COCOA_BOX(cp, GET_NS_OBJECT);
+    
+    return cp;
 }

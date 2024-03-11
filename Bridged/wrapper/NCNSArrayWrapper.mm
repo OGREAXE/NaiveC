@@ -9,11 +9,13 @@
 #include "NCNSArrayWrapper.hpp"
 #include "NCLog.hpp"
 #import <Foundation/Foundation.h>
+#import "NCCocoaMapper.h"
 
 NCNSArrayWrapper::NCNSArrayWrapper() {
     NSMutableArray *arr = [NSMutableArray array];
     
-    m_cocoaObject = NC_COCOA_BRIDGE(arr);
+//    m_cocoaObject = NC_COCOA_BRIDGE(arr);
+    LINK_COCOA_BOX(this, arr);
 }
 
 string NCNSArrayWrapper::getDescription() {
@@ -23,19 +25,17 @@ string NCNSArrayWrapper::getDescription() {
 }
 
 NSObject *getNsObjectFromStackElement(shared_ptr<NCStackElement> &e) {
-    auto p = dynamic_cast<NCStackPointerElement *>(e.get());
+    auto p = dynamic_pointer_cast<NCStackPointerElement>(e);
     
     if (!p) return NULL;
     
-    auto box = dynamic_cast<NCCocoaBox *>(p->getPointedObject().get());
+//    auto box = dynamic_cast<NCCocoaBox *>(p->getPointedObject().get());
+    
+    auto box = dynamic_pointer_cast<NCCocoaBox>(p->getPointedObject());
     
     if (!box) return NULL;
     
-    auto c = box->getContent();
-    
-    NSObject *nso = (__bridge NSObject*)c;
-    
-    return nso;
+    return GET_NS_OBJECT_P(box);
 }
 
 /*
@@ -73,7 +73,8 @@ shared_ptr<NCStackElement> NCNSArrayWrapper::br_getValue(shared_ptr<NCStackEleme
     
     NSObject *obj = arr[k->value];
     
-    NCCocoaBox *box = new NCCocoaBox(NC_COCOA_BRIDGE(obj));
+    NCCocoaBox *box = new NCCocoaBox();
+    LINK_COCOA_BOX(box, obj);
     
     return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(box));
 }

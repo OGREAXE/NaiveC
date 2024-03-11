@@ -16,7 +16,7 @@
 
 #define MAKE_SHARED_POINTER(p) shared_ptr<NCStackPointerElement>(new NCStackPointerElement(p))
 
-#define MAKE_COCOA_POINTER(p) new NCStackPointerElement(shared_ptr<NCCocoaBox>(MAKE_COCOA_BOX(p)))
+#define MAKE_COCOA_POINTER(box) new NCStackPointerElement(shared_ptr<NCCocoaBox>(box))
 
 class NCObject {
 public:

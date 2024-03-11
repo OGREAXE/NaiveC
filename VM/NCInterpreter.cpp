@@ -671,7 +671,7 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         
         visit(node->expression, frame);
         
-        auto value = frame.stack_pop();
+        auto value = frame.stack_popRealValue();
         
         NCCocoaBox *pBox = nullptr;
         

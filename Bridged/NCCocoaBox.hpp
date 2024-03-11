@@ -17,12 +17,17 @@
 #define NC_COCOA_BRIDGE(aNSObject) (void*)CFBridgingRetain(aNSObject)
 #define NC_COCOA_UNBRIDGE(aBridgedNSObject) CFBridgingRelease(aBridgedNSObject)
 
-#define GET_NS_OBJECT  ((__bridge NSObject*)m_cocoaObject) //only for use in derived classes
+//#define GET_NS_OBJECT  ((__bridge NSObject*)m_cocoaObject) //only for use in derived classes
 //#define GET_BOX_CONTENT(box) (NSObject *)CFBridgingRelease(box->getContent());
 
-#define MAKE_COCOA_BOX(nsObj) (new NCCocoaBox(NC_COCOA_BRIDGE(nsObj)))
+//#define MAKE_COCOA_BOX(nsObj) (new NCCocoaBox(NC_COCOA_BRIDGE(nsObj)))
 
-#define SAFE_GET_BOX_CONTENT(cocoabox) ((__bridge id)(cocoabox->getContent()))
+#define GET_NS_OBJECT [[NCCocoaMapper shared] objectForNCKeyString:getKey().c_str()]
+#define GET_NS_OBJECT_P(aNCObj) [[NCCocoaMapper shared] objectForNCKeyString:aNCObj->getKey().c_str()]
+#define LINK_COCOA_BOX(box, nsObj) [[NCCocoaMapper shared] setObject:nsObj withNCKeyString:box->getKey().c_str()]
+        
+
+//#define SAFE_GET_BOX_CONTENT(cocoabox) ((__bridge id)(cocoabox->getContent()))
 
 /*
  wrapper for cocoa objects
@@ -30,10 +35,13 @@
 class NCCocoaBox :public NCObject, public NCBracketAccessible, public NCFastEnumerable {
 protected:
     //wrapped cocoaObject. must use non-arc to ensure correct release?
-    void * m_cocoaObject;
+//    void * m_cocoaObject;
+    
+    string m_key;
 public:
+    string getKey();
     NCCocoaBox(){};
-    NCCocoaBox(void * cocoaObject);
+//    NCCocoaBox(void * cocoaObject);
     
     NCCocoaBox(const string &str); //wrap as nsstring
     NCCocoaBox(NCInt value); //wrap as nsnumber
@@ -53,7 +61,7 @@ public:
     virtual void setAttribute(const string & attrName, shared_ptr<NCStackElement> value);
     
     //USING THIS DIRECTLY IS NOT RECOMMENDED, USE SAFE_GET_BOX_CONTENT
-    void *getContent(){return m_cocoaObject;}
+//    void *getContent(){return m_cocoaObject;}
     
     virtual string getDescription();
     

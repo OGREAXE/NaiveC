@@ -22,6 +22,8 @@
 #import "NPEngine.h"
 #import "NPFunction.h"
 
+#import "NCCocoaMapper.h"
+
 @interface NPFunction(CodeEngine)
 @property (nonatomic) NCLambdaObject *blockObj;
 @end
@@ -182,7 +184,10 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
             //nsobject
             id val=va_arg(vl,id);
 
-            NCCocoaBox * box = new NCCocoaBox(NC_COCOA_BRIDGE(val));
+//            NCCocoaBox * box = new NCCocoaBox(NC_COCOA_BRIDGE(val));
+            NCCocoaBox * box = new NCCocoaBox();
+            LINK_COCOA_BOX(box, val);
+            
             NCStackPointerElement * pBox = new NCStackPointerElement(shared_ptr<NCObject>( box));
             argmuments.push_back(shared_ptr<NCStackElement>(pBox));
         } else if(COMP_TYPE(argumentType, Class)){
@@ -482,7 +487,7 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
                 if(payloadObj && dynamic_pointer_cast<NCCocoaBox>(payloadObj)){
                     auto cocoabox = dynamic_pointer_cast<NCCocoaBox>(payloadObj);
 //                    id cocoaObj = (id)CFBridgingRelease(cocoabox->getContent());
-                    id cocoaObj = SAFE_GET_BOX_CONTENT(cocoabox);
+                    id cocoaObj = GET_NS_OBJECT_P(cocoabox);
                     realObj = cocoaObj;
                     
                 }
@@ -587,7 +592,9 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
         
         [invocation getReturnValue:&result];
         
-        NCCocoaBox * box = new NCCocoaBox(NC_COCOA_BRIDGE(result));
+//        NCCocoaBox * box = new NCCocoaBox(NC_COCOA_BRIDGE(result));
+        NCCocoaBox * box = new NCCocoaBox();
+        LINK_COCOA_BOX(box, result);
         
         NCStackPointerElement * pRet = new NCStackPointerElement(shared_ptr<NCObject>( box));
         
@@ -787,7 +794,10 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
         ret = shared_ptr<NCStackPointerElement>(new NCStackPointerElement(pOcCls));
     } else {
         //id
-        NCCocoaBox * box = new NCCocoaBox(NC_COCOA_BRIDGE(val));
+//        NCCocoaBox * box = new NCCocoaBox(NC_COCOA_BRIDGE(val));
+        
+        NCCocoaBox * box = new NCCocoaBox();
+        LINK_COCOA_BOX(box, val);
         
         ret = shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(box)));
     }
@@ -800,15 +810,19 @@ NSObject *NSObjectFromStackElement(NCStackElement *e) {
     
     if (!p) return NULL;
     
-    auto box = dynamic_cast<NCCocoaBox *>(p->getPointedObject().get());
+//    auto box = dynamic_cast<NCCocoaBox *>(p->getPointedObject().get());
+    
+    auto box = dynamic_pointer_cast<NCCocoaBox>(p->getPointedObject());
     
     if (!box) return NULL;
     
-    auto c = box->getContent();
+//    auto c = box->getContent();
+//    
+//    NSObject *nso = (__bridge NSObject*)c;
     
-    NSObject *nso = (__bridge NSObject*)c;
+//    return nso;
     
-    return nso;
+    return GET_NS_OBJECT_P(box);
 }
 
 + (NSDictionary *)genObjectWithStackElement:(shared_ptr<NCStackElement>)element {
