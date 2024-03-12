@@ -137,6 +137,7 @@ public:
     virtual string toString();
     virtual NCInt toInt();
     virtual NCFloat toFloat();
+    virtual shared_ptr<NCObject> toObject();
     
     virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
     

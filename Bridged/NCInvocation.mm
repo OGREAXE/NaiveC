@@ -476,22 +476,31 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
         else if(COMP_ENCODE(argumentType, id)){
             auto& stackElement = arguments[i];
             id realObj = NULL;
-            if(dynamic_pointer_cast<NCStackStringElement>(stackElement)){
-                auto pstr = dynamic_pointer_cast<NCStackStringElement>(stackElement);
-                NSString * nsstr = [NSString stringWithUTF8String: pstr->toString().c_str()];
-                realObj = nsstr;
+//            if(dynamic_pointer_cast<NCStackStringElement>(stackElement)){
+//                auto pstr = dynamic_pointer_cast<NCStackStringElement>(stackElement);
+//                NSString * nsstr = [NSString stringWithUTF8String: pstr->toString().c_str()];
+//                realObj = nsstr;
+//            }
+//            else if(dynamic_pointer_cast<NCStackPointerElement>(stackElement)){
+//                auto pointerContainer = dynamic_pointer_cast<NCStackPointerElement>(stackElement);
+//                auto payloadObj = pointerContainer->getPointedObject();
+//                if(payloadObj && dynamic_pointer_cast<NCCocoaBox>(payloadObj)){
+//                    auto cocoabox = dynamic_pointer_cast<NCCocoaBox>(payloadObj);
+////                    id cocoaObj = (id)CFBridgingRelease(cocoabox->getContent());
+//                    id cocoaObj = GET_NS_OBJECT_P(cocoabox);
+//                    realObj = cocoaObj;
+//                    
+//                }
+//            }
+            
+            auto payloadObj = stackElement->toObject();
+            
+            if (payloadObj && dynamic_pointer_cast<NCCocoaBox>(payloadObj)){
+                auto cocoabox = dynamic_pointer_cast<NCCocoaBox>(payloadObj);
+                
+                realObj = GET_NS_OBJECT_P(cocoabox);
             }
-            else if(dynamic_pointer_cast<NCStackPointerElement>(stackElement)){
-                auto pointerContainer = dynamic_pointer_cast<NCStackPointerElement>(stackElement);
-                auto payloadObj = pointerContainer->getPointedObject();
-                if(payloadObj && dynamic_pointer_cast<NCCocoaBox>(payloadObj)){
-                    auto cocoabox = dynamic_pointer_cast<NCCocoaBox>(payloadObj);
-//                    id cocoaObj = (id)CFBridgingRelease(cocoabox->getContent());
-                    id cocoaObj = GET_NS_OBJECT_P(cocoabox);
-                    realObj = cocoaObj;
-                    
-                }
-            }
+            
             [invocation setArgument:&realObj atIndex:argPos];
         }
         else if(COMP_ENCODE(argumentType, Class)){

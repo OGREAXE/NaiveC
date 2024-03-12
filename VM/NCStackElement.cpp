@@ -346,3 +346,10 @@ bool NCFieldAccessor::invokeMethod(string methodName, vector<shared_ptr<NCStackE
 
     return invokeMethod(methodName, arguments, lastStack);
 }
+
+shared_ptr<NCObject> NCFieldAccessor::toObject() {
+    auto val = value();
+    if (val)return val->toObject();
+    
+    return nullptr;
+}
