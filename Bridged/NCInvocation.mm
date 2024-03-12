@@ -588,15 +588,27 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
     }
 //    else if(strcmp(returnType,@encode(id)) == 0){
     if(COMP_ENCODE(returnType, id)){
-        __unsafe_unretained id result;
+//        __unsafe_unretained id result;
+//        [invocation getReturnValue:&result];
+        NSString *selStr = NSStringFromSelector(selector);
         
-        [invocation getReturnValue:&result];
-        
-//        NCCocoaBox * box = new NCCocoaBox(NC_COCOA_BRIDGE(result));
         NCCocoaBox * box = new NCCocoaBox();
-        LINK_COCOA_BOX(box, result);
         
-        NCStackPointerElement * pRet = new NCStackPointerElement(shared_ptr<NCObject>( box));
+        if ([selStr hasPrefix:@"init"] || [selStr isEqualToString:@"new"]) {
+            //init/new doesn't put returned value into autoreleaspool, so use id to let ARC generate release correctly
+            id result;
+            [invocation getReturnValue:&result];
+            
+            LINK_COCOA_BOX(box, result);
+        } else {
+            //otherwise do not retain anything to avoid over-releasing
+            __unsafe_unretained id result;
+            [invocation getReturnValue:&result];
+            
+            LINK_COCOA_BOX(box, result);
+        }
+
+        NCStackPointerElement * pRet = new NCStackPointerElement(shared_ptr<NCObject>(box));
         
         lastStack.push_back(shared_ptr<NCStackElement>(pRet));
         

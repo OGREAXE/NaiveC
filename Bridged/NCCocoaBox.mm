@@ -32,7 +32,7 @@ NCCocoaBox::NCCocoaBox(const string &str) {
 } //wrap as nsstring
 
 NCCocoaBox::NCCocoaBox(NCInt value) {
-    NSNumber *num = [NSNumber numberWithInt:value];
+    NSNumber *num = [NSNumber numberWithLongLong:value];
 //    m_cocoaObject = NC_COCOA_BRIDGE(num);
     LINK_COCOA_BOX(this, num);
 } //wrap as nsnumber
@@ -45,6 +45,7 @@ NCCocoaBox::NCCocoaBox(NCFloat value) {
 
 NCCocoaBox::~NCCocoaBox(){
 //    NC_COCOA_UNBRIDGE(m_cocoaObject);
+    UNLINK_COCOA_BOX(this);
 }
 
 string NCCocoaBox::getKey() {

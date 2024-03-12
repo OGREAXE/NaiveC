@@ -51,6 +51,10 @@
     self.objectMap[[NSString stringWithUTF8String:key]] = obj;
 }
 
+- (void)removeObjectWithNCKey:(const char *)key {
+    [self.objectMap removeObjectForKey:[NSString stringWithUTF8String:key]];
+}
+
 - (void)clear {
     [self.objectMap removeAllObjects];
 }

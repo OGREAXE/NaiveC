@@ -341,3 +341,8 @@ bool NCFieldAccessor::invokeMethod(string methodName, vector<shared_ptr<NCStackE
     }
     return false;
 }
+
+bool NCFieldAccessor::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> &formatArguments,vector<shared_ptr<NCStackElement>> & lastStack) {
+
+    return invokeMethod(methodName, arguments, lastStack);
+}

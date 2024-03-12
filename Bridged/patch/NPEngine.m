@@ -41,8 +41,15 @@ static NSArray *_JSLastCallStack;
 JPBOXING_GEN(boxObj, obj, id)
 JPBOXING_GEN(boxPointer, pointer, void *)
 JPBOXING_GEN(boxClass, cls, Class)
-JPBOXING_GEN(boxWeakObj, weakObj, id)
+//JPBOXING_GEN(boxWeakObj, weakObj, id)
 JPBOXING_GEN(boxAssignObj, assignObj, id)
+
++ (instancetype)boxWeakObj:(id)obj
+{
+    JPBoxing *boxing = [[JPBoxing alloc] init];
+    boxing.weakObj = obj;
+    return boxing;
+}
 
 - (id)unbox
 {
@@ -315,7 +322,7 @@ static void JPForwardInvocation(__unsafe_unretained id assignSlf, SEL selector, 
             [argList addObject:[JPBoxing boxAssignObj:slf]];
             deallocFlag = YES;
         } else {
-            [argList addObject:[JPBoxing boxWeakObj:slf]];
+            [argList addObject:slf];
         }
     }
     

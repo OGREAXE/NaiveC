@@ -14,8 +14,8 @@
 
 //for nsobject bridging
 //used in objective-c source file only
-#define NC_COCOA_BRIDGE(aNSObject) (void*)CFBridgingRetain(aNSObject)
-#define NC_COCOA_UNBRIDGE(aBridgedNSObject) CFBridgingRelease(aBridgedNSObject)
+//#define NC_COCOA_BRIDGE(aNSObject) (void*)CFBridgingRetain(aNSObject)
+//#define NC_COCOA_UNBRIDGE(aBridgedNSObject) CFBridgingRelease(aBridgedNSObject)
 
 //#define GET_NS_OBJECT  ((__bridge NSObject*)m_cocoaObject) //only for use in derived classes
 //#define GET_BOX_CONTENT(box) (NSObject *)CFBridgingRelease(box->getContent());
@@ -25,6 +25,7 @@
 #define GET_NS_OBJECT [[NCCocoaMapper shared] objectForNCKeyString:getKey().c_str()]
 #define GET_NS_OBJECT_P(aNCObj) [[NCCocoaMapper shared] objectForNCKeyString:aNCObj->getKey().c_str()]
 #define LINK_COCOA_BOX(box, nsObj) [[NCCocoaMapper shared] setObject:nsObj withNCKeyString:box->getKey().c_str()]
+#define UNLINK_COCOA_BOX(box) [[NCCocoaMapper shared] removeObjectWithNCKey:box->getKey().c_str()]
         
 
 //#define SAFE_GET_BOX_CONTENT(cocoabox) ((__bridge id)(cocoabox->getContent()))

@@ -281,7 +281,7 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
 //        frame.stack_push(attrValue);
         
         auto accesor = new NCFieldAccessor(scope, node->field);
-        frame.stack_push(shared_ptr<NCStackElement> (accesor));
+        frame.stack_push(shared_ptr<NCStackElement>(accesor));
     }
     else if(dynamic_cast<NCBinaryExpression*>(currentNode.get())){
         auto node = dynamic_cast<NCBinaryExpression*>(currentNode.get());
@@ -530,12 +530,12 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
                 frame.insertVariable(var->name, pointerElement);
             }
         }
-        else if (dynamic_cast<NCAccessor*>(stackTop.get())) {
-            auto accessor = dynamic_cast<NCAccessor*>(stackTop.get());
+        else if (dynamic_pointer_cast<NCAccessor>(stackTop)) {
+            auto accessor = dynamic_pointer_cast<NCAccessor>(stackTop);
             visit(node->value,frame);
             auto value = frame.stack_popRealValue();
-            if (dynamic_cast<NCAccessor*>(value.get())) {
-                auto accessorValue = dynamic_cast<NCAccessor*>(value.get());
+            if (dynamic_pointer_cast<NCAccessor>(value)) {
+                auto accessorValue = dynamic_pointer_cast<NCAccessor>(value);
                 accessor->set(accessorValue->value());
             }
             else {

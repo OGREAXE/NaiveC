@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "NCAST.hpp"
 //#include "NCObject.hpp"
+#include <assert.h>
 
 #define NCAssert(cond, msg) if(!(cond)){throw  NCRuntimeException(0,msg);}
 
@@ -34,7 +35,9 @@ struct NCStackElement{
     virtual shared_ptr<NCStackElement> copy(){return nullptr;};
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){return false;}
-    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> &formatArguments,vector<shared_ptr<NCStackElement>> & lastStack){return false;}
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> &formatArguments,vector<shared_ptr<NCStackElement>> & lastStack) {
+        assert(0);
+    }
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments){return false;}
     virtual bool invokeMethod(const NCMethodCallExpr &call, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> &lastStack){
         return invokeMethod(call.name, arguments, lastStack);
@@ -142,6 +145,7 @@ public:
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand);
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
+    virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> &formatArguments,vector<shared_ptr<NCStackElement>> & lastStack);
 };
 
 #endif /* NCStackElement_hpp */

@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setObject:(id)obj withNCKeyString:(const char *)key;
 
+- (void)removeObjectWithNCKey:(const char *)key;
+
 - (void)clear;
 
 @end
