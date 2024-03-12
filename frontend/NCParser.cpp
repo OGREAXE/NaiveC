@@ -37,7 +37,7 @@ static unordered_set<string> keywords =
     "if","else",
     "while","for",
     "break","continue",
-    "return",
+    "return","in",
 };
 
 #define SE "\n"
@@ -1279,9 +1279,21 @@ shared_ptr<NCStatement> NCParser::for_statement(){
         //try parse fast enumeration
         //for(e:array){ statements }
         do {
-            string enumerator = word;
+            auto identifier = type_specifier();
+            
+            string enumerator = "";
+            
+            if (identifier.size()) {
+                enumerator = identifier;
+            }
+            
+            if (isIdentifier(word)) {
+                enumerator = word;
+            }
+            
             word = nextWord();
-            if(word != ":"){
+            
+            if(word != "in"){
                 POP_INDEX
 //                return nullptr;
                 break;
