@@ -23,8 +23,15 @@
 //#define MAKE_COCOA_BOX(nsObj) (new NCCocoaBox(NC_COCOA_BRIDGE(nsObj)))
 
 #define GET_NS_OBJECT [[NCCocoaMapper shared] objectForNCKeyString:getKey().c_str()]
+
 #define GET_NS_OBJECT_P(aNCObj) [[NCCocoaMapper shared] objectForNCKeyString:aNCObj->getKey().c_str()]
-#define LINK_COCOA_BOX(box, nsObj) [[NCCocoaMapper shared] setObject:nsObj withNCKeyString:box->getKey().c_str()]
+
+#define LINK_COCOA_BOX(box, nsObj) \
+[[NCCocoaMapper shared] setObject:nsObj withNCKeyString:box->getKey().c_str()];\
+void *p = (void *)CFBridgingRetain(nsObj);\
+box->setDebugPointer(p);\
+CFBridgingRelease(p);\
+
 #define UNLINK_COCOA_BOX(box) [[NCCocoaMapper shared] removeObjectWithNCKey:box->getKey().c_str()]
         
 
@@ -37,7 +44,7 @@ class NCCocoaBox :public NCObject, public NCBracketAccessible, public NCFastEnum
 protected:
     //wrapped cocoaObject. must use non-arc to ensure correct release?
 //    void * m_cocoaObject;
-    
+    void *mDebugPointer;
     string m_key;
 public:
     string getKey();
@@ -47,6 +54,8 @@ public:
     NCCocoaBox(const string &str); //wrap as nsstring
     NCCocoaBox(NCInt value); //wrap as nsnumber
     NCCocoaBox(NCFloat value); //wrap as nsnumber
+    
+    void setDebugPointer(void *p) {mDebugPointer = p;}
     
     static NCCocoaBox *selectorFromString(const string &str);
     
