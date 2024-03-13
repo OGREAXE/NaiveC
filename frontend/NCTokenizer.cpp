@@ -171,8 +171,12 @@ bool NCTokenizer::tokenize(const string&str){
                     token += "=";
                     status = Unknown;
                 }
-                else if (c == '+') {
+                else if (token == "+" && c == '+') {
                     token += "+";
+                    status = Unknown;
+                }
+                else if (token == "-" && c == '-') {
+                    token += "-";
                     status = Unknown;
                 }
             }
@@ -251,6 +255,11 @@ bool NCTokenizer::tokenize(const string&str){
                 addToken(tokens, token, i);
             }
             token = "@";
+            status = Unknown;
+        }
+        else if(c == '\xe2'){
+            //work arouond for strange double - input in iOS
+            addToken(tokens, "--", i);
             status = Unknown;
         }
         

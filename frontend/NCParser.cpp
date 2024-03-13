@@ -25,7 +25,7 @@ static unordered_set<string> keywords =
     //types
     //"int","float","void",
     //operator
-    "=","+=","-=","*=","/=","++",
+    "=","+=","-=","*=","/=","++","--",
     "+","-","*","/",
     "%",".","|","&","||","&&","!",
     //paren
@@ -903,6 +903,14 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
             if (lambdaFlag) {
                 lambdaCapturedSymbols.insert(name);
             }
+            
+            if (word == "++" || word == "--" ) {
+                int incrementor = word == "++"?1:-1;
+                word = nextWord();
+                
+                return shared_ptr<NCExpression>(new NCPostIncrement(name, incrementor));
+            }
+            
             return shared_ptr<NCExpression>(new NCNameExpression(name));
         }
         return shared_ptr<NCExpression>(new NCMethodCallExpr(args, name));
@@ -941,6 +949,20 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
         lambdaExpr->capturedSymbols = lambdaCapturedSymbols;
         lambdaExpr->blockStmt = blockSmt;
         return shared_ptr<NCExpression>(lambdaExpr);
+    }
+    
+    if (word == "++" || word == "--") {
+        int incrementor = word == "++"?1:-1;
+        
+        word = nextWord();
+        
+        if (isIdentifier(word)) {
+            string name = word;
+            
+            word = nextWord();
+            
+            return shared_ptr<NCExpression>(new NCPreIncrement(name, incrementor));
+        }
     }
     
     return nullptr;

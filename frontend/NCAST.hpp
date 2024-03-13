@@ -232,6 +232,24 @@ public:
     }
 };
 
+// ++i/--i
+class NCPreIncrement:public NCExpression{
+private:
+public:
+    string name;
+    NCInt incrementor = 1;
+    NCPreIncrement(const string &name, int incrementor):name(name), incrementor(incrementor){}
+};
+
+// i++/i--
+class NCPostIncrement:public NCExpression{
+private:
+public:
+    string name;
+    NCInt incrementor = 1;
+    NCPostIncrement(const string &name, int incrementor):name(name), incrementor(incrementor){}
+};
+
 class NCLiteral:public NCExpression{
 public:
     virtual ~NCLiteral(){}
@@ -242,7 +260,7 @@ class NCIntegerLiteral:public NCLiteral{
 public:
     int getValue(){return value;};
 //    NCIntegerLiteral(string & intStr);
-    NCIntegerLiteral(int val):value(val){};
+    NCIntegerLiteral(NCInt val):value(val){};
 };
 
 class NCFloatLiteral:public NCLiteral{

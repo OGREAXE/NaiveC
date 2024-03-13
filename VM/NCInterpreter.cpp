@@ -36,6 +36,8 @@ void NCFrame::insertVariable(string&name, NCInt value, const string &opcode) {
         newValue *= value;
     } else if (opcode == "/=") {
         newValue /= value;
+    } else {
+        newValue = value;
     }
     
     localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackIntElement(newValue));
@@ -52,6 +54,8 @@ void NCFrame::insertVariable(string&name, NCFloat value, const string &opcode) {
         newValue *= value;
     } else if (opcode == "/=") {
         newValue /= value;
+    }else {
+        newValue = value;
     }
     
     localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackFloatElement(newValue));
@@ -839,6 +843,40 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         auto exp = node->expression;
         visit(exp, frame);
         *shouldReturn = true;
+    }
+    else if(dynamic_pointer_cast<NCPreIncrement>(currentNode)){
+        auto node = dynamic_pointer_cast<NCPreIncrement>(currentNode);
+        
+        auto nameEpr = shared_ptr<NCExpression>(new NCNameExpression(node->name));
+        
+        visit(nameEpr, frame);
+        
+        auto val = stackPopInt(frame);
+        
+        auto incre = shared_ptr<NCExpression>(new NCIntegerLiteral(node->incrementor));
+        
+        auto assign = shared_ptr<NCExpression>(new NCAssignExpr(nameEpr, "+=", incre));
+        
+        visit(assign, frame);
+        
+        frame.stack_push(shared_ptr<NCStackElement>(new NCStackIntElement(val + node->incrementor)));
+    }
+    else if(dynamic_pointer_cast<NCPostIncrement>(currentNode)){
+        auto node = dynamic_pointer_cast<NCPostIncrement>(currentNode);
+        
+        auto nameEpr = shared_ptr<NCExpression>(new NCNameExpression(node->name));
+        
+        visit(nameEpr, frame);
+        
+        auto val = stackPopInt(frame);
+        
+        auto incre = shared_ptr<NCExpression>(new NCIntegerLiteral(node->incrementor));
+        
+        auto assign = shared_ptr<NCExpression>(new NCAssignExpr(nameEpr, "+=", incre));
+        
+        visit(assign, frame);
+        
+        frame.stack_push(shared_ptr<NCStackElement>(new NCStackIntElement(val)));
     }
     return true;
 }
