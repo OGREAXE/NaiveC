@@ -1095,8 +1095,8 @@ shared_ptr<NCExpression> NCParser::primary_suffix(shared_ptr<NCExpression> scope
 
 shared_ptr<NCExpression> NCParser::literal(){
     string val = word;
-    int intNum;
-    float fNum;
+    NCInt intNum;
+    NCFloat fNum;
     string str;
     if (isFloatLiteral(word, &fNum)) {
         word = nextWord();
@@ -1633,16 +1633,27 @@ bool NCParser::isIdentifier(string & word){
     return keywords.find(word) == keywords.end();
 }
 
-bool NCParser::isIntegerLiteral(string&word, int * num){
+bool NCParser::isIntegerLiteral(string&word, NCInt * num){
+    if (word.size()>2 && word[0]=='0' && word[1] == 'x') {
+        std::stringstream ss;
+        NCInt d;
+        
+        ss << std::hex << word;
+        ss >> d;
+        
+        *num = d;
+        return !ss.fail();
+    }
+    
     stringstream ss(word);
-    int d;
+    NCInt d;
     ss>>d;
     *num = d;
     return !ss.fail();
 }
-bool NCParser::isFloatLiteral(string&word, float *num){
+bool NCParser::isFloatLiteral(string&word, NCFloat *num){
     stringstream ss(word);
-    float d;
+    NCFloat d;
     ss>>d;
     *num = d;
     

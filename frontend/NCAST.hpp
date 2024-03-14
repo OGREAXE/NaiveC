@@ -256,9 +256,9 @@ public:
 };
 
 class NCIntegerLiteral:public NCLiteral{
-    int value;
+    NCInt value;
 public:
-    int getValue(){return value;};
+    NCInt getValue(){return value;};
 //    NCIntegerLiteral(string & intStr);
     NCIntegerLiteral(NCInt val):value(val){};
 };

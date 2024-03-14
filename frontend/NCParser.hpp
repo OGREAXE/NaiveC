@@ -65,8 +65,8 @@ private:
     void pushIndex();
     void popIndex();
     
-    bool isIntegerLiteral(string&word, int*);
-    bool isFloatLiteral(string&word, float*);
+    bool isIntegerLiteral(string&word, NCInt*);
+    bool isFloatLiteral(string&word, NCFloat*);
     bool isStringLiteral(string&word, string& parsed);
     
     bool isAssignOperator(string&word);

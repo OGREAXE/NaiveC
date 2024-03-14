@@ -23,6 +23,7 @@ BOOL isPrefixInt(NSString *searchedString) {
         @"o",
         @"u",
         @"ld",
+        @"lld",
         @"lu",
         @"llu",
         @"x",

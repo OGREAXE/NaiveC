@@ -366,8 +366,11 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
             }
         }
         else {
-            auto & elseBlock = node->elseStatement;
-            visit(elseBlock, frame,shouldReturn,shouldBreak);
+//            auto & elseBlock = node->elseStatement;
+//            visit(elseBlock, frame,shouldReturn,shouldBreak);
+            
+            NCLogInterpretor("if result is null");
+            return false;
         }
     }
     else if(dynamic_cast<WhileStatement*>(currentNode.get())){
@@ -1079,7 +1082,7 @@ bool NCInterpreter::isStackTopString(NCFrame & frame){
 }
 
 NCInt NCInterpreter::stackPopInt(NCFrame & frame){
-    int ret = 0;
+    NCInt ret = 0;
     
     if (frame.stack.size() <= 0) {
         return 0;

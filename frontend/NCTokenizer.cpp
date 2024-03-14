@@ -115,7 +115,11 @@ bool NCTokenizer::tokenize(const string&str){
             status = Unknown;
         }
         else if (isCharForIdentifier(c)) {
-            if (status != Identifier && token.length() > 0) {
+            if (status == Number) {
+                //for 0x123abc
+                token += c;
+            }
+            else if (status != Identifier && token.length() > 0) {
 //                tokens.push_back(token);
                 addToken(tokens, token, i);
                 token = c;
