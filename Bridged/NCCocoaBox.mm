@@ -18,6 +18,7 @@
 #import "NCInvocation.h"
 #include <sstream> //for std::stringstream
 #import "NCCocoaMapper.h"
+#import "NSCocoaSymbolStore.h"
 
 #pragma mark cocoaBox implementation
 
@@ -220,6 +221,17 @@ void NCCocoaBox::enumerate(std::function<bool (shared_ptr<NCStackElement> anObj)
 }
 
 NCInt NCCocoaBox::toInt(){
+    id obj = GET_NS_OBJECT;
+    
+    if ([obj isKindOfClass:NSNumber.class]) {
+        NSNumber *n = obj;
+        
+        if (n.isPrimitive) {
+            return n.longLongValue;
+        }
+//        return ((NSNumber *)obj).longLongValue;
+    }
+    
     return GET_NS_OBJECT != NULL;
 }
 
