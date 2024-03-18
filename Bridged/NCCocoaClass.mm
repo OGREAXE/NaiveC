@@ -196,6 +196,19 @@ shared_ptr<NCStackElement> NCCocoaClass::instantiate(vector<shared_ptr<NCStackEl
             
             return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(outbox));
         }
+    } else if (this->name == "NSLocalizedString") {
+        if (arguments.size() == 2) {
+#define NSStringFromArg(arg) [NSString stringWithUTF8String:arg->toString().c_str()]
+            
+            NSString *arg0 = NSStringFromArg(arguments[0]);
+            NSString *arg1 = NSStringFromArg(arguments[1]);
+            
+            NSString *result = NSLocalizedString(arg0, arg1);
+    
+            NCCocoaBox *outbox = MAKE_COCOA_BOX(result);
+            
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(outbox));
+        }
     }
     
     //instantiate NSObject subclass
