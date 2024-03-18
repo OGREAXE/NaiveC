@@ -18,11 +18,11 @@ shared_ptr<NCClass> NCStandardLibraryProvider::loadClass(const string & classNam
 }
 
 bool NCStandardLibraryProvider::classExist(const std::string & className){
-    static unordered_set<string> all_library_classes = {NC_CLASSNAME_ARRAY};
-    
-    auto findClass = all_library_classes.find(className);
-    if (findClass != all_library_classes.end()) {
-        return true;
-    }
+//    static unordered_set<string> all_library_classes = {NC_CLASSNAME_ARRAY};
+//    
+//    auto findClass = all_library_classes.find(className);
+//    if (findClass != all_library_classes.end()) {
+//        return true;
+//    }
     return false;
 }

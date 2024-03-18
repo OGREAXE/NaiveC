@@ -116,9 +116,9 @@ bool NCInterpreter::initWithRoot(shared_ptr<NCASTRoot> root){
 }
 
 bool NCInterpreter::isClassName(const string & name){
-    if (name == "array") {
-        return true;
-    }
+//    if (name == "array") {
+//        return true;
+//    }
     
     return false;
 }
@@ -829,12 +829,14 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         for (auto & capturedSymbol : capturedSymbols) {
             auto &localVar = frame.localVariableMap[capturedSymbol];
             
-            NCCapturedObject capture;
-            capture.signature = 0;
-            capture.name = capturedSymbol;
-            capture.object = localVar;
-            
-            lambdaObj->addCapture(capture);
+            if (localVar) {
+                NCCapturedObject capture;
+                capture.signature = 0;
+                capture.name = capturedSymbol;
+                capture.object = localVar;
+                
+                lambdaObj->addCapture(capture);
+            }
         }
         
         auto pLambdaObj = new NCStackPointerElement(lambdaObj);
@@ -1247,7 +1249,10 @@ shared_ptr<NCStackPointerElement>  NCInterpreter::stackPopObjectPointer(NCFrame 
     }
     else if (dynamic_pointer_cast<NCStackVariableElement>(pStackTop)) {
         auto pVar = dynamic_pointer_cast<NCStackVariableElement>(pStackTop);
-        while (1) {
+        
+        if (!pVar)return nullptr;
+        
+        while (pVar->valueElement) {
             if (dynamic_pointer_cast<NCStackPointerElement>(pVar->valueElement)) {
                 auto pRet = dynamic_pointer_cast<NCStackPointerElement> (pVar->valueElement);
                 

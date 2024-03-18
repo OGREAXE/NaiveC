@@ -9,10 +9,10 @@
 #include "NCStandardClass.hpp"
 
 shared_ptr<NCStackElement> NCStandardClass::instantiate(vector<shared_ptr<NCStackElement>> &arguments){
-    if(this->name == NC_CLASSNAME_ARRAY){
-        auto pInstance = shared_ptr<NCStackPointerElement>( new NCStackPointerElement(shared_ptr<NCObject>(new NCArray())));
-        return pInstance;
-    }
+//    if(this->name == NC_CLASSNAME_ARRAY){
+//        auto pInstance = shared_ptr<NCStackPointerElement>( new NCStackPointerElement(shared_ptr<NCObject>(new NCArray())));
+//        return pInstance;
+//    }
     return nullptr;
 }
 

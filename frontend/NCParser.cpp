@@ -921,6 +921,8 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
         auto lambdaExpr = new NCLambdaExpression();
         word = nextWord();
         
+        if (isIdentifier(word))word = nextWord();
+        
         if (word == "(") {
             word = nextWord();
             

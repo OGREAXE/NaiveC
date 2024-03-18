@@ -23,6 +23,7 @@
 #import "NPFunction.h"
 
 #import "NCCocoaMapper.h"
+#import "NSCocoaSymbolStore.h"
 
 @interface NPFunction(CodeEngine)
 @property (nonatomic) NCLambdaObject *blockObj;
@@ -872,6 +873,16 @@ NSObject *NSObjectFromStackElement(NCStackElement *e) {
         id nsObj = NSObjectFromStackElement(pStackTop);
         
         if (nsObj) {
+            if ([nsObj isKindOfClass:NSNumber.class]) {
+                NSNumber *num = nsObj;
+                
+                if (num.isPrimitive) {
+                    object = num;
+                    objectType = [NSString stringWithUTF8String:num.objCType];
+                    break;
+                }
+            }
+            
             object = nsObj;
             objectType = @"@";
         }

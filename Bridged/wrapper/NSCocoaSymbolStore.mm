@@ -48,6 +48,10 @@ NSNumber *createPrimitive(NSNumber *n) {
         @"DISPATCH_QUEUE_PRIORITY_DEFAULT":P(DISPATCH_QUEUE_PRIORITY_DEFAULT),
         @"DISPATCH_QUEUE_PRIORITY_LOW":P(DISPATCH_QUEUE_PRIORITY_LOW),
         @"DISPATCH_QUEUE_PRIORITY_BACKGROUND":P(DISPATCH_QUEUE_PRIORITY_BACKGROUND),
+        
+        @"NSOrderedAscending":P(NSOrderedAscending),
+        @"NSOrderedDescending":P(NSOrderedDescending),
+        @"NSOrderedSame":P(NSOrderedSame),
     };
     
     return store[name];
