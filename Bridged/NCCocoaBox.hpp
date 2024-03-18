@@ -32,6 +32,8 @@ void *p = (void *)CFBridgingRetain(nsObj);\
 box->setDebugPointer(p);\
 CFBridgingRelease(p);\
 
+#define MAKE_COCOA_BOX(nsObj) (NCCocoaBox *)makeCocoaBoxWith(nsObj)
+
 #define UNLINK_COCOA_BOX(box) [[NCCocoaMapper shared] removeObjectWithNCKey:box->getKey().c_str()]
         
 

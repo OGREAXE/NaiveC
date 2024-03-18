@@ -28,8 +28,8 @@
 		0D2264142B9B11B300BFA519 /* NCSymbolStore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D2264112B9B11B300BFA519 /* NCSymbolStore.mm */; };
 		0D2264152B9B11B400BFA519 /* NCSymbolStore.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0D2264122B9B11B300BFA519 /* NCSymbolStore.hpp */; };
 		0D22641A2B9F0B6E00BFA519 /* NCCocoaMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D2264182B9F0B6E00BFA519 /* NCCocoaMapper.h */; };
-		0D22641B2B9F0B6E00BFA519 /* NCCocoaMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2264192B9F0B6E00BFA519 /* NCCocoaMapper.m */; };
-		0D22641C2B9F0B6E00BFA519 /* NCCocoaMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2264192B9F0B6E00BFA519 /* NCCocoaMapper.m */; };
+		0D22641B2B9F0B6E00BFA519 /* NCCocoaMapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D2264192B9F0B6E00BFA519 /* NCCocoaMapper.mm */; };
+		0D22641C2B9F0B6E00BFA519 /* NCCocoaMapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D2264192B9F0B6E00BFA519 /* NCCocoaMapper.mm */; };
 		0D4F53022B4B8AEA003EF544 /* NCStringFormatter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D4F53002B4B8AEA003EF544 /* NCStringFormatter.mm */; };
 		0D4F53032B4B8AEA003EF544 /* NCStringFormatter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D4F53002B4B8AEA003EF544 /* NCStringFormatter.mm */; };
 		0D4F53042B4B8AEA003EF544 /* NCStringFormatter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0D4F53012B4B8AEA003EF544 /* NCStringFormatter.hpp */; };
@@ -276,7 +276,7 @@
 		0D2264112B9B11B300BFA519 /* NCSymbolStore.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCSymbolStore.mm; sourceTree = "<group>"; };
 		0D2264122B9B11B300BFA519 /* NCSymbolStore.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCSymbolStore.hpp; sourceTree = "<group>"; };
 		0D2264182B9F0B6E00BFA519 /* NCCocoaMapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCCocoaMapper.h; sourceTree = "<group>"; };
-		0D2264192B9F0B6E00BFA519 /* NCCocoaMapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NCCocoaMapper.m; sourceTree = "<group>"; };
+		0D2264192B9F0B6E00BFA519 /* NCCocoaMapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCCocoaMapper.mm; sourceTree = "<group>"; };
 		0D4F53002B4B8AEA003EF544 /* NCStringFormatter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCStringFormatter.mm; sourceTree = "<group>"; };
 		0D4F53012B4B8AEA003EF544 /* NCStringFormatter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCStringFormatter.hpp; sourceTree = "<group>"; };
 		0D7285A62B6781B8002DBE5C /* NPFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPFunction.h; sourceTree = "<group>"; };
@@ -443,7 +443,7 @@
 				0D2264112B9B11B300BFA519 /* NCSymbolStore.mm */,
 				0D2264122B9B11B300BFA519 /* NCSymbolStore.hpp */,
 				0D2264182B9F0B6E00BFA519 /* NCCocoaMapper.h */,
-				0D2264192B9F0B6E00BFA519 /* NCCocoaMapper.m */,
+				0D2264192B9F0B6E00BFA519 /* NCCocoaMapper.mm */,
 			);
 			path = wrapper;
 			sourceTree = "<group>";
@@ -911,7 +911,7 @@
 				0D7285A92B6781B8002DBE5C /* NPFunction.mm in Sources */,
 				D4E06EEE20371D910095F442 /* NCTokenizer.hpp in Sources */,
 				D4E06EE8203716140095F442 /* NCCodeEngine_iOS.mm in Sources */,
-				0D22641B2B9F0B6E00BFA519 /* NCCocoaMapper.m in Sources */,
+				0D22641B2B9F0B6E00BFA519 /* NCCocoaMapper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -992,7 +992,7 @@
 				0D7285AA2B6781B8002DBE5C /* NPFunction.mm in Sources */,
 				0D73F8C82B46B946003EA49B /* NCNSArrayWrapper.mm in Sources */,
 				F31D7F3E2122FA0700E11E5F /* libNaiveC.m in Sources */,
-				0D22641C2B9F0B6E00BFA519 /* NCCocoaMapper.m in Sources */,
+				0D22641C2B9F0B6E00BFA519 /* NCCocoaMapper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

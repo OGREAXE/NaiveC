@@ -188,12 +188,11 @@ shared_ptr<NCStackElement> NCCocoaClass::instantiate(vector<shared_ptr<NCStackEl
     } else if (this->name == "dispatch_get_global_queue") {
         if (arguments.size() == 2) {
             auto arg0 = arguments[0]->toInt();
-            auto arg1 = arguments[0]->toInt();
+            auto arg1 = arguments[1]->toInt();
             
             dispatch_queue_t q = dispatch_get_global_queue(arg0, arg1);
     
-            NCCocoaBox * outbox = new NCCocoaBox();
-            LINK_COCOA_BOX(outbox, q);
+            NCCocoaBox * outbox = MAKE_COCOA_BOX(q);
             
             return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(outbox));
         }

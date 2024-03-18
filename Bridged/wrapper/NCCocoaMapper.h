@@ -10,6 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+void *makeCocoaBoxWith(id obj);
+
 @interface NCCocoaMapper : NSObject
 
 + (NCCocoaMapper *)shared;

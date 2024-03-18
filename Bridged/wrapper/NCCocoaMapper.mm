@@ -7,6 +7,7 @@
 //
 
 #import "NCCocoaMapper.h"
+#include "NCCocoaBox.hpp"
 
 @interface NCCocoaMapper()
 
@@ -60,3 +61,15 @@
 }
 
 @end
+
+void *makeCocoaBoxWith(id nsObj) {
+    NCCocoaBox *box = new NCCocoaBox();
+    
+//    [[NCCocoaMapper shared] setObject:nsObj withNCKeyString:box->getKey().c_str()];
+//    void *p = (void *)CFBridgingRetain(nsObj);
+//    box->setDebugPointer(p);
+//    CFBridgingRelease(p);
+    LINK_COCOA_BOX(box, nsObj)
+    
+    return (void *)box;
+}
