@@ -34,15 +34,20 @@ NSNumber *createPrimitive(NSNumber *n) {
     return n;
 }
 
-#define P(n) createPrimitive(n)
+#define P(n) createPrimitive(@(n))
 
 +(id)symbolForName:(NSString *)name {
     static NSDictionary *store = @{
         @"DISPATCH_QUEUE_SERIAL":[NSNull new],
         @"DISPATCH_QUEUE_CONCURRENT":DISPATCH_QUEUE_CONCURRENT,
         
-        @"DISPATCH_TIME_NOW":P(@DISPATCH_TIME_NOW),
-        @"NSEC_PER_SEC":P(@NSEC_PER_SEC),
+        @"DISPATCH_TIME_NOW":P(DISPATCH_TIME_NOW),
+        @"NSEC_PER_SEC":P(NSEC_PER_SEC),
+        
+        @"DISPATCH_QUEUE_PRIORITY_HIGH":P(DISPATCH_QUEUE_PRIORITY_HIGH),
+        @"DISPATCH_QUEUE_PRIORITY_DEFAULT":P(DISPATCH_QUEUE_PRIORITY_DEFAULT),
+        @"DISPATCH_QUEUE_PRIORITY_LOW":P(DISPATCH_QUEUE_PRIORITY_LOW),
+        @"DISPATCH_QUEUE_PRIORITY_BACKGROUND":P(DISPATCH_QUEUE_PRIORITY_BACKGROUND),
     };
     
     return store[name];

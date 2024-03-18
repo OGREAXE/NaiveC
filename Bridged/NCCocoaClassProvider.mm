@@ -28,7 +28,8 @@ bool NCCocoaClassProvider::classExist(const std::string & className){
         ||className == "dispatch_after"
         ||className == "dispatch_time"
         ||className == "dispatch_async"
-        ||className == "dispatch_get_main_queue") {
+        ||className == "dispatch_get_main_queue"
+        ||className == "dispatch_get_global_queue") {
         return true;
     }
     
