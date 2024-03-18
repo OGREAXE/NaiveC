@@ -60,7 +60,11 @@ shared_ptr<NCStackElement> NCStackPointerElement::doOperator(const string&op, sh
         NCInt right = rightOperand->toInt();
         
         return shared_ptr<NCStackElement>(new NCStackIntElement(left || right));
+    } else  if (op == "&&") {
+        NCInt left = toInt();
+        NCInt right = rightOperand->toInt();
         
+        return shared_ptr<NCStackElement>(new NCStackIntElement(left && right));
     }
     return rightOperand;
 }
