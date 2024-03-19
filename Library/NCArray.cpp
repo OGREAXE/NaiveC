@@ -102,13 +102,25 @@ shared_ptr<NCStackElement> NCIndexedAccessor::doOperator(const string&op, shared
 }
 
 NCInt NCIndexedAccessor::toInt(){
-    return this->value()->toInt();
+    auto v = this->value();
+    
+    if (!v)return 0;
+    
+    return v->toInt();
 }
 NCFloat NCIndexedAccessor::toFloat(){
-    return this->value()->toFloat();
+    auto v = this->value();
+    
+    if (!v)return 0;
+    
+    return v->toFloat();
 }
 string NCIndexedAccessor::toString(){
-    return this->value()->toString();
+    auto v = this->value();
+    
+    if (!v)return "";
+    
+    return v->toString();
 }
 
 shared_ptr<NCStackElement> NCIndexedAccessor::copy(){

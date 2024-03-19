@@ -641,6 +641,10 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
             int *pret = (int *)buffer;
             lastStack.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement( (*pret))));
         }
+        else if(COMP_ENCODE(returnType, char) || COMP_ENCODE(returnType, unsigned char) || COMP_ENCODE(returnType, unichar)){
+            int *pret = (int *)buffer;
+            lastStack.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement( (*pret))));
+        }
         else if(COMP_ENCODE(returnType, unsigned long )){
             unsigned long *pret = (unsigned long *)buffer;
             lastStack.push_back(shared_ptr<NCStackIntElement>(new NCStackIntElement( (*pret))));

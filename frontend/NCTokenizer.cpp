@@ -261,6 +261,21 @@ bool NCTokenizer::tokenize(const string&str){
             token = "@";
             status = Unknown;
         }
+        else if (c == '\'') {
+            if (token.length()>0) {
+                addToken(tokens, token, i);
+            }
+            
+            if (i + 1 < str.size()) {
+                int charNum = str[i+1];
+                token = std::to_string(charNum);
+                addToken(tokens, token, i);
+                token = "";
+                i += 2;
+            }
+            
+            status = Unknown;
+        }
         else if(c == '\xe2'){
             //work arouond for strange double - input in iOS
             addToken(tokens, "--", i);
