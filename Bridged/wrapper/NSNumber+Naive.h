@@ -10,7 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#define P(n) [NSNumber createPrimitive:@(n)]
+
 @interface NSNumber (Naive)
+
+@property (nonatomic, readonly) BOOL isPrimitive;
+
++ (NSNumber *)createPrimitive:(NSNumber *)n;
 
 @end
 

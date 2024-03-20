@@ -24,6 +24,7 @@
 
 #import "NCCocoaMapper.h"
 #import "NSCocoaSymbolStore.h"
+#import "NSNumber+Naive.h"
 
 @interface NPFunction(CodeEngine)
 @property (nonatomic) NCLambdaObject *blockObj;

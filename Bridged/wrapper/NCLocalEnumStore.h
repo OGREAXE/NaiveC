@@ -1,5 +1,5 @@
 //
-//  NCCocoaEnumStore.h
+//  NCLocalEnumStore.h
 //  NaiveC
 //
 //  Created by mi on 2024/3/19.
@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NCCocoaEnumStore : NSObject
+@interface NCLocalEnumStore : NSObject
 +(id)enumForName:(NSString *)name;
 @end
 

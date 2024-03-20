@@ -19,6 +19,7 @@
 #include <sstream> //for std::stringstream
 #import "NCCocoaMapper.h"
 #import "NSCocoaSymbolStore.h"
+#import "NSNumber+Naive.h"
 
 #pragma mark cocoaBox implementation
 

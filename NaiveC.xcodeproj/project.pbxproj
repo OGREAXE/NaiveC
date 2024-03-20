@@ -51,8 +51,15 @@
 		0D73F8CD2B46C9F9003EA49B /* NCNSDictionaryWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D73F8CA2B46C9F9003EA49B /* NCNSDictionaryWrapper.mm */; };
 		0D73F8CE2B46C9F9003EA49B /* NCNSDictionaryWrapper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0D73F8CB2B46C9F9003EA49B /* NCNSDictionaryWrapper.hpp */; };
 		0DF2A76C2B99B5DE00810044 /* NSCocoaSymbolStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DF2A76A2B99B5DE00810044 /* NSCocoaSymbolStore.h */; };
-		0DF2A76D2B99B5DE00810044 /* NSCocoaSymbolStore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0DF2A76B2B99B5DE00810044 /* NSCocoaSymbolStore.mm */; };
-		0DF2A76E2B99B5DE00810044 /* NSCocoaSymbolStore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0DF2A76B2B99B5DE00810044 /* NSCocoaSymbolStore.mm */; };
+		0DF2A76D2B99B5DE00810044 /* NSCocoaSymbolStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF2A76B2B99B5DE00810044 /* NSCocoaSymbolStore.m */; };
+		0DF2A76E2B99B5DE00810044 /* NSCocoaSymbolStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF2A76B2B99B5DE00810044 /* NSCocoaSymbolStore.m */; };
+		43718D982BAB36C0003C0F5A /* NSNumber+Naive.h in Headers */ = {isa = PBXBuildFile; fileRef = 43718D962BAB36C0003C0F5A /* NSNumber+Naive.h */; };
+		43718D9E2BAB3805003C0F5A /* NCLocalEnumStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 43718D9A2BAB3805003C0F5A /* NCLocalEnumStore.h */; };
+		43718D9F2BAB3805003C0F5A /* NCCocoaEnumStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 43718D9B2BAB3805003C0F5A /* NCCocoaEnumStore.h */; };
+		43718DA02BAB3805003C0F5A /* NCCocoaEnumStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 43718D9C2BAB3805003C0F5A /* NCCocoaEnumStore.m */; };
+		43718DA12BAB3805003C0F5A /* NCCocoaEnumStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 43718D9C2BAB3805003C0F5A /* NCCocoaEnumStore.m */; };
+		43718DA22BAB3805003C0F5A /* NCLocalEnumStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 43718D9D2BAB3805003C0F5A /* NCLocalEnumStore.m */; };
+		43718DA32BAB3805003C0F5A /* NCLocalEnumStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 43718D9D2BAB3805003C0F5A /* NCLocalEnumStore.m */; };
 		D4439E4E2089EB1F005EE65B /* NCHeapMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4439E4C2089EB1F005EE65B /* NCHeapMemory.cpp */; };
 		D4439E4F2089EB1F005EE65B /* NCHeapMemory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D4439E4D2089EB1F005EE65B /* NCHeapMemory.hpp */; };
 		D44B8FFD204FD6610091B94C /* NCModuleCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44B8FFB204FD6610091B94C /* NCModuleCache.cpp */; };
@@ -290,7 +297,12 @@
 		0D73F8CA2B46C9F9003EA49B /* NCNSDictionaryWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCNSDictionaryWrapper.mm; sourceTree = "<group>"; };
 		0D73F8CB2B46C9F9003EA49B /* NCNSDictionaryWrapper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCNSDictionaryWrapper.hpp; sourceTree = "<group>"; };
 		0DF2A76A2B99B5DE00810044 /* NSCocoaSymbolStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSCocoaSymbolStore.h; sourceTree = "<group>"; };
-		0DF2A76B2B99B5DE00810044 /* NSCocoaSymbolStore.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NSCocoaSymbolStore.mm; sourceTree = "<group>"; };
+		0DF2A76B2B99B5DE00810044 /* NSCocoaSymbolStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSCocoaSymbolStore.m; sourceTree = "<group>"; };
+		43718D962BAB36C0003C0F5A /* NSNumber+Naive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Naive.h"; sourceTree = "<group>"; };
+		43718D9A2BAB3805003C0F5A /* NCLocalEnumStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NCLocalEnumStore.h; sourceTree = "<group>"; };
+		43718D9B2BAB3805003C0F5A /* NCCocoaEnumStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NCCocoaEnumStore.h; sourceTree = "<group>"; };
+		43718D9C2BAB3805003C0F5A /* NCCocoaEnumStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NCCocoaEnumStore.m; sourceTree = "<group>"; };
+		43718D9D2BAB3805003C0F5A /* NCLocalEnumStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NCLocalEnumStore.m; sourceTree = "<group>"; };
 		768A8E166425FEF0D0588FBB /* Pods-NaiveC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NaiveC.debug.xcconfig"; path = "Target Support Files/Pods-NaiveC/Pods-NaiveC.debug.xcconfig"; sourceTree = "<group>"; };
 		8566828DEBF6A96D03A90329 /* Pods-NaiveC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NaiveC.release.xcconfig"; path = "Target Support Files/Pods-NaiveC/Pods-NaiveC.release.xcconfig"; sourceTree = "<group>"; };
 		D3F118B0BC12705D1D82CFFE /* libPods-NaiveC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NaiveC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -434,16 +446,21 @@
 		0D73F8C42B46B8E3003EA49B /* wrapper */ = {
 			isa = PBXGroup;
 			children = (
+				43718D9B2BAB3805003C0F5A /* NCCocoaEnumStore.h */,
+				43718D9C2BAB3805003C0F5A /* NCCocoaEnumStore.m */,
+				43718D9A2BAB3805003C0F5A /* NCLocalEnumStore.h */,
+				43718D9D2BAB3805003C0F5A /* NCLocalEnumStore.m */,
 				0D73F8C52B46B946003EA49B /* NCNSArrayWrapper.mm */,
 				0D73F8C62B46B946003EA49B /* NCNSArrayWrapper.hpp */,
 				0D73F8CA2B46C9F9003EA49B /* NCNSDictionaryWrapper.mm */,
 				0D73F8CB2B46C9F9003EA49B /* NCNSDictionaryWrapper.hpp */,
 				0DF2A76A2B99B5DE00810044 /* NSCocoaSymbolStore.h */,
-				0DF2A76B2B99B5DE00810044 /* NSCocoaSymbolStore.mm */,
+				0DF2A76B2B99B5DE00810044 /* NSCocoaSymbolStore.m */,
 				0D2264112B9B11B300BFA519 /* NCSymbolStore.mm */,
 				0D2264122B9B11B300BFA519 /* NCSymbolStore.hpp */,
 				0D2264182B9F0B6E00BFA519 /* NCCocoaMapper.h */,
 				0D2264192B9F0B6E00BFA519 /* NCCocoaMapper.mm */,
+				43718D962BAB36C0003C0F5A /* NSNumber+Naive.h */,
 			);
 			path = wrapper;
 			sourceTree = "<group>";
@@ -638,6 +655,7 @@
 			files = (
 				D4439E4F2089EB1F005EE65B /* NCHeapMemory.hpp in Headers */,
 				0D00F7B82B8CC00F00A8E9AD /* ffi_x86_64.h in Headers */,
+				43718D9E2BAB3805003C0F5A /* NCLocalEnumStore.h in Headers */,
 				D4E06E6A2037015D0095F442 /* NaiveC.h in Headers */,
 				D4E06F21203972F90095F442 /* NCStandardClass.hpp in Headers */,
 				0DF2A76C2B99B5DE00810044 /* NSCocoaSymbolStore.h in Headers */,
@@ -652,6 +670,7 @@
 				D4E06F0F203871E10095F442 /* NCClass.hpp in Headers */,
 				0D2264152B9B11B400BFA519 /* NCSymbolStore.hpp in Headers */,
 				0D4F53042B4B8AEA003EF544 /* NCStringFormatter.hpp in Headers */,
+				43718D982BAB36C0003C0F5A /* NSNumber+Naive.h in Headers */,
 				0D00F7C42B8CC00F00A8E9AD /* NCObjCSourceParser.h in Headers */,
 				D496C710204AFFE500B6A041 /* NCException.hpp in Headers */,
 				D496C758204D2CB900B6A041 /* NCSourceFinder.hpp in Headers */,
@@ -672,6 +691,7 @@
 				0D00F7B62B8CC00F00A8E9AD /* ffi_i386.h in Headers */,
 				0D73F8C12B450DA3003EA49B /* NCInvocation.h in Headers */,
 				0D00F7BD2B8CC00F00A8E9AD /* ffi_arm64.h in Headers */,
+				43718D9F2BAB3805003C0F5A /* NCCocoaEnumStore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -886,6 +906,7 @@
 				D4E06EF620371D9E0095F442 /* NCStackElement.hpp in Sources */,
 				D496C70F204AFFE500B6A041 /* NCException.cpp in Sources */,
 				D4E06EF720371D9E0095F442 /* NCObject.cpp in Sources */,
+				43718DA02BAB3805003C0F5A /* NCCocoaEnumStore.m in Sources */,
 				D4E06EF820371D9E0095F442 /* NCObject.hpp in Sources */,
 				D4E06EF920371D9E0095F442 /* NCClassLoader.cpp in Sources */,
 				D4E06EFA20371D9E0095F442 /* NCClassLoader.hpp in Sources */,
@@ -893,6 +914,7 @@
 				D4E06EFB20371D9E0095F442 /* NCClassProvider.cpp in Sources */,
 				D4E06EFC20371D9E0095F442 /* NCClassProvider.hpp in Sources */,
 				D4E06EE920371D910095F442 /* NCAST.cpp in Sources */,
+				43718DA22BAB3805003C0F5A /* NCLocalEnumStore.m in Sources */,
 				0D73F8C22B450DA3003EA49B /* NCInvocation.mm in Sources */,
 				0D7285C82B68FF28002DBE5C /* NPPatchedClass.m in Sources */,
 				0D73F8CC2B46C9F9003EA49B /* NCNSDictionaryWrapper.mm in Sources */,
@@ -906,7 +928,7 @@
 				0D73F8C72B46B946003EA49B /* NCNSArrayWrapper.mm in Sources */,
 				D496C757204D2CB900B6A041 /* NCSourceFinder.mm in Sources */,
 				D4E06F20203972F90095F442 /* NCStandardClass.cpp in Sources */,
-				0DF2A76D2B99B5DE00810044 /* NSCocoaSymbolStore.mm in Sources */,
+				0DF2A76D2B99B5DE00810044 /* NSCocoaSymbolStore.m in Sources */,
 				D4E06EED20371D910095F442 /* NCTokenizer.cpp in Sources */,
 				0D7285A92B6781B8002DBE5C /* NPFunction.mm in Sources */,
 				D4E06EEE20371D910095F442 /* NCTokenizer.hpp in Sources */,
@@ -952,6 +974,7 @@
 				F31D7F532122FA7400E11E5F /* NCCode.hpp in Sources */,
 				F31D7F542122FA7400E11E5F /* NCInterpreter.cpp in Sources */,
 				F31D7F552122FA7400E11E5F /* NCInterpreter.hpp in Sources */,
+				43718DA12BAB3805003C0F5A /* NCCocoaEnumStore.m in Sources */,
 				F31D7F562122FA7400E11E5F /* NCStackElement.cpp in Sources */,
 				F31D7F572122FA7400E11E5F /* NCStackElement.hpp in Sources */,
 				F31D7F582122FA7400E11E5F /* NCObject.cpp in Sources */,
@@ -973,11 +996,12 @@
 				F31D7F672122FA7400E11E5F /* NCHeapMemory.cpp in Sources */,
 				F31D7F682122FA7400E11E5F /* NCHeapMemory.hpp in Sources */,
 				F31D7F692122FA7400E11E5F /* NCBuiltinFunction.mm in Sources */,
+				43718DA32BAB3805003C0F5A /* NCLocalEnumStore.m in Sources */,
 				F31D7F6A2122FA7400E11E5F /* NCLog.mm in Sources */,
 				F31D7F6B2122FA7400E11E5F /* NCCocoaClassProvider.mm in Sources */,
 				F31D7F6C2122FA7400E11E5F /* NCCocoaClassProvider.hpp in Sources */,
 				F31D7F6D2122FA7400E11E5F /* NCCocoaClass.mm in Sources */,
-				0DF2A76E2B99B5DE00810044 /* NSCocoaSymbolStore.mm in Sources */,
+				0DF2A76E2B99B5DE00810044 /* NSCocoaSymbolStore.m in Sources */,
 				F31D7F6E2122FA7400E11E5F /* NCCocoaClass.hpp in Sources */,
 				F31D7F6F2122FA7400E11E5F /* NCCocoaBox.mm in Sources */,
 				F31D7F702122FA7400E11E5F /* NCCocoaBox.hpp in Sources */,

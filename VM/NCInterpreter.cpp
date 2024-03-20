@@ -242,9 +242,10 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
                 
                 auto back =  frame.stack.back();
                 
-                if (dynamic_cast<NCStackVariableElement *>(back.get())) {
-                    auto pointerElement = stackPopObjectPointer(frame);
-                    frame.insertVariable(name, pointerElement);
+                if (dynamic_pointer_cast<NCStackVariableElement>(back)) {
+//                    auto pointerElement = stackPopObjectPointer(frame);
+                    auto var = dynamic_pointer_cast<NCStackVariableElement>(back);
+                    frame.insertVariable(name, var->valueElement);
                 } else {
                     auto top = frame.stack_pop();
                     frame.insertVariable(name, top);
@@ -1262,6 +1263,8 @@ shared_ptr<NCStackPointerElement>  NCInterpreter::stackPopObjectPointer(NCFrame 
             }
             else {
                 pVar = dynamic_pointer_cast<NCStackVariableElement>(pVar->valueElement);
+                
+                if (!pVar)return nullptr;
             }
         }
         

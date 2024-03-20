@@ -10,12 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSNumber (Naive)
-
-@property (nonatomic) BOOL isPrimitive;
-
-@end
-
 @interface NSCocoaSymbolStore : NSObject
 +(id)symbolForName:(NSString *)name;
 @end

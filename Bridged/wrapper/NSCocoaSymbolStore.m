@@ -9,20 +9,44 @@
 #import "NSCocoaSymbolStore.h"
 #import "NCCocoaEnumStore.h"
 #import "NCLocalEnumStore.h"
-#include <string>
+//#include <string>
 #import "NSNumber+Naive.h"
+#import <objc/runtime.h>
+//using namespace std;
 
-using namespace std;
+@implementation NSNumber (Naive)
+
+void *primitiveKey = NULL;
+
+- (BOOL)isPrimitive {
+    id k = objc_getAssociatedObject(self, &primitiveKey);
+    return k!= NULL;
+}
+
++ (NSNumber *)createPrimitive:(NSNumber *)n {
+    objc_setAssociatedObject(n, &primitiveKey, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    return n;
+}
+
+@end
 
 @implementation NSCocoaSymbolStore
 
-//+(id)symbolForString:(string &)name {
+//+(id)symbolForString:(string &d)name {
 //    NSString *key = [NSString stringWithUTF8String:name.c_str()];
 //    return [NSCocoaSymbolStore symbolForName:key];
 //}
 
 +(id)symbolForName:(NSString *)name {
-    static NSDictionary *store = @{
+    NSNumber *s = @(1);
+    
+    BOOL r = [s respondsToSelector:@selector(isPrimitive)];
+    
+    static NSDictionary *store = nil;
+    
+    if (!store)
+    store =
+    @{
         @"DISPATCH_QUEUE_SERIAL":[NSNull new],
         @"DISPATCH_QUEUE_CONCURRENT":DISPATCH_QUEUE_CONCURRENT,
         
