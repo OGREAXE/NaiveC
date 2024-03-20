@@ -7,34 +7,19 @@
 //
 
 #import "NSCocoaSymbolStore.h"
+#import "NCCocoaEnumStore.h"
+#import "NCLocalEnumStore.h"
 #include <string>
-#import <objc/runtime.h>
+#import "NSNumber+Naive.h"
+
 using namespace std;
-
-@implementation NSNumber (Naive)
-
-void *primitiveKey = NULL;
-
-- (BOOL)isPrimitive {
-    id k = objc_getAssociatedObject(self, &primitiveKey);
-    return k!= NULL;
-}
-
-@end
 
 @implementation NSCocoaSymbolStore
 
-+(id)symbolForString:(string &)name {
-    NSString *key = [NSString stringWithUTF8String:name.c_str()];
-    return [NSCocoaSymbolStore symbolForName:key];
-}
-
-NSNumber *createPrimitive(NSNumber *n) {
-    objc_setAssociatedObject(n, &primitiveKey, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    return n;
-}
-
-#define P(n) createPrimitive(@(n))
+//+(id)symbolForString:(string &)name {
+//    NSString *key = [NSString stringWithUTF8String:name.c_str()];
+//    return [NSCocoaSymbolStore symbolForName:key];
+//}
 
 +(id)symbolForName:(NSString *)name {
     static NSDictionary *store = @{
@@ -54,7 +39,17 @@ NSNumber *createPrimitive(NSNumber *n) {
         @"NSOrderedSame":P(NSOrderedSame),
     };
     
-    return store[name];
+    id result = store[name];
+    
+    if (!result) {
+        result = [NCCocoaEnumStore enumForName:name];
+    }
+    
+    if (!result) {
+        result = [NCLocalEnumStore enumForName:name];
+    }
+    
+    return result;
 }
 
 @end
