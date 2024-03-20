@@ -59,5 +59,7 @@ void NCLog(NCLogType type, const char*format, ...){
     
     NSString * logStr = [NSString stringWithUTF8String:copyOfStr.c_str()];
     
+    NSLog(@"[Naive] %@", logStr);
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"NCLogNotification" object:logStr];
 }

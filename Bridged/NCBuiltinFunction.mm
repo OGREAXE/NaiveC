@@ -30,6 +30,8 @@ bool NCBuiltinPrint::invoke(vector<shared_ptr<NCStackElement>> &arguments){
     NSString * nestedString = [NSString stringWithUTF8String:str.c_str()];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"NCPrintStringNotification" object:nestedString];
     
+    NSLog(@"[Naive] %@", nestedString);
+    
     return true;
 }
 
