@@ -56,7 +56,7 @@ def find_and_write_enums(headerpath, outpath, userealvalue = True):
              
         #print(data)
 
-        all_matches = re.findall("(NS_ENUM|NS_OPTIONS)\\(.*?,(.*?)\\) *\\s\\{((.|\\s)*?)\\}(.*?);\\s", data)
+        all_matches = re.findall("(NS_ENUM|NS_OPTIONS|NS_CLOSED_ENUM)\\(.*?,(.*?)\\) *\\s\\{((.|\\s)*?)\\}(.*?);\\s", data)
         #print(all_matches)
         
         if len(all_matches)>0:

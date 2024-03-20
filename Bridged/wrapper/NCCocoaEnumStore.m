@@ -8,29 +8,29 @@
     dispatch_once(&onceToken, ^{
     store = @{
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIDynamicBehavior.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIDynamicBehavior.h
 //   UIDynamicItemCollisionBoundsType
             @"UIDynamicItemCollisionBoundsTypeRectangle":P(UIDynamicItemCollisionBoundsTypeRectangle),
             @"UIDynamicItemCollisionBoundsTypeEllipse":P(UIDynamicItemCollisionBoundsTypeEllipse),
             @"UIDynamicItemCollisionBoundsTypePath":P(UIDynamicItemCollisionBoundsTypePath),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIVibrancyEffect.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIVibrancyEffect.h
 //   UIVibrancyEffectStyle
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIShape.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIShape.h
 //   UICornerCurve
             @"UICornerCurveAutomatic":P(UICornerCurveAutomatic),
             @"UICornerCurveCircular":P(UICornerCurveCircular),
             @"UICornerCurveContinuous":P(UICornerCurveContinuous),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIBandSelectionInteraction.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIBandSelectionInteraction.h
 //   UIBandSelectionInteractionState
             @"UIBandSelectionInteractionStatePossible":P(UIBandSelectionInteractionStatePossible),
             @"UIBandSelectionInteractionStateBegan":P(UIBandSelectionInteractionStateBegan),
             @"UIBandSelectionInteractionStateSelecting":P(UIBandSelectionInteractionStateSelecting),
             @"UIBandSelectionInteractionStateEnded":P(UIBandSelectionInteractionStateEnded),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/NSAttributedString.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/NSAttributedString.h
 //   NSUnderlineStyle
             @"NSUnderlineStyleNone":P(NSUnderlineStyleNone),
             @"NSUnderlineStyleSingle":P(NSUnderlineStyleSingle),
@@ -52,7 +52,7 @@
             @"NSTextWritingDirectionEmbedding":P(NSTextWritingDirectionEmbedding),
             @"NSTextWritingDirectionOverride":P(NSTextWritingDirectionOverride),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIBarButtonItem.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIBarButtonItem.h
 //   UIBarButtonItemStyle
             @"UIBarButtonItemStylePlain":P(UIBarButtonItemStylePlain),
             @"UIBarButtonItemStyleBordered":P(UIBarButtonItemStyleBordered),
@@ -84,7 +84,7 @@
             @"UIBarButtonSystemItemPageCurl":P(UIBarButtonSystemItemPageCurl),
             @"UIBarButtonSystemItemClose":P(UIBarButtonSystemItemClose),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIWebView.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIWebView.h
 //   UIWebViewNavigationType
             @"UIWebViewNavigationTypeLinkClicked":P(UIWebViewNavigationTypeLinkClicked),
             @"UIWebViewNavigationTypeFormSubmitted":P(UIWebViewNavigationTypeFormSubmitted),
@@ -102,7 +102,7 @@
             @"UIWebPaginationBreakingModePage":P(UIWebPaginationBreakingModePage),
             @"UIWebPaginationBreakingModeColumn":P(UIWebPaginationBreakingModeColumn),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/NSLayoutManager.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/NSLayoutManager.h
 //   NSTextLayoutOrientation
             @"NSTextLayoutOrientationHorizontal":P(NSTextLayoutOrientationHorizontal),
             @"NSTextLayoutOrientationVertical":P(NSTextLayoutOrientationVertical),
@@ -119,19 +119,19 @@
             @"NSControlCharacterActionParagraphBreak":P(NSControlCharacterActionParagraphBreak),
             @"NSControlCharacterActionContainerBreak":P(NSControlCharacterActionContainerBreak),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIProgressView.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIProgressView.h
 //   UIProgressViewStyle
             @"UIProgressViewStyleDefault":P(UIProgressViewStyleDefault),
             @"UIProgressViewStyleBar":P(UIProgressViewStyleBar),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UITimingCurveProvider.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UITimingCurveProvider.h
 //   UITimingCurveType
             @"UITimingCurveTypeBuiltin":P(UITimingCurveTypeBuiltin),
             @"UITimingCurveTypeCubic":P(UITimingCurveTypeCubic),
             @"UITimingCurveTypeSpring":P(UITimingCurveTypeSpring),
             @"UITimingCurveTypeComposed":P(UITimingCurveTypeComposed),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIPencilInteraction.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIPencilInteraction.h
 //   UIPencilPreferredAction
             @"UIPencilPreferredActionIgnore":P(UIPencilPreferredActionIgnore),
             @"UIPencilPreferredActionSwitchEraser":P(UIPencilPreferredActionSwitchEraser),
@@ -139,7 +139,7 @@
             @"UIPencilPreferredActionShowColorPalette":P(UIPencilPreferredActionShowColorPalette),
             @"UIPencilPreferredActionShowInkAttributes":P(UIPencilPreferredActionShowInkAttributes),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/NSParagraphStyle.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/NSParagraphStyle.h
 //   NSLineBreakMode
             @"NSLineBreakByWordWrapping":P(NSLineBreakByWordWrapping),
             @"NSLineBreakByCharWrapping":P(NSLineBreakByCharWrapping),
@@ -153,7 +153,7 @@
             @"NSLineBreakStrategyHangulWordPriority":P(NSLineBreakStrategyHangulWordPriority),
             @"NSLineBreakStrategyStandard":P(NSLineBreakStrategyStandard),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIAccessibilityConstants.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIAccessibilityConstants.h
 //   UIAccessibilityNavigationStyle
 //   UIAccessibilityContainerType
             @"UIAccessibilityContainerTypeNone":P(UIAccessibilityContainerTypeNone),
@@ -166,12 +166,12 @@
             @"UIAccessibilityDirectTouchOptionSilentOnTouch":P(UIAccessibilityDirectTouchOptionSilentOnTouch),
             @"UIAccessibilityDirectTouchOptionRequiresActivation":P(UIAccessibilityDirectTouchOptionRequiresActivation),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/NSTextStorage.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/NSTextStorage.h
 //   NSTextStorageEditActions
             @"NSTextStorageEditedAttributes":P(NSTextStorageEditedAttributes),
             @"NSTextStorageEditedCharacters":P(NSTextStorageEditedCharacters),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIMenu.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIMenu.h
 //   UIMenuOptions
             @"UIMenuOptionsDisplayInline":P(UIMenuOptionsDisplayInline),
             @"UIMenuOptionsDestructive":P(UIMenuOptionsDestructive),
@@ -183,7 +183,7 @@
             @"UIMenuElementSizeLarge":P(UIMenuElementSizeLarge),
             @"UIMenuElementSizeAutomatic":P(UIMenuElementSizeAutomatic),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIUserNotificationSettings.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIUserNotificationSettings.h
 //   UIUserNotificationType
             @"UIUserNotificationTypeNone":P(UIUserNotificationTypeNone),
             @"UIUserNotificationTypeBadge":P(UIUserNotificationTypeBadge),
@@ -199,10 +199,10 @@
             @"UIUserNotificationActionContextDefault":P(UIUserNotificationActionContextDefault),
             @"UIUserNotificationActionContextMinimal":P(UIUserNotificationActionContextMinimal),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIBlurEffect.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIBlurEffect.h
 //   UIBlurEffectStyle
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIPrintInteractionController.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIPrintInteractionController.h
 //   UIPrinterCutterBehavior
             @"UIPrinterCutterBehaviorNoCut":P(UIPrinterCutterBehaviorNoCut),
             @"UIPrinterCutterBehaviorPrinterDefault":P(UIPrinterCutterBehaviorPrinterDefault),
@@ -210,7 +210,7 @@
             @"UIPrinterCutterBehaviorCutAfterEachCopy":P(UIPrinterCutterBehaviorCutAfterEachCopy),
             @"UIPrinterCutterBehaviorCutAfterEachJob":P(UIPrinterCutterBehaviorCutAfterEachJob),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIPopoverSupport.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIPopoverSupport.h
 //   UIPopoverArrowDirection
             @"UIPopoverArrowDirectionUp":P(UIPopoverArrowDirectionUp),
             @"UIPopoverArrowDirectionDown":P(UIPopoverArrowDirectionDown),
@@ -219,7 +219,7 @@
             @"UIPopoverArrowDirectionAny":P(UIPopoverArrowDirectionAny),
             @"UIPopoverArrowDirectionUnknown":P(UIPopoverArrowDirectionUnknown),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UITouch.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UITouch.h
 //   UITouchPhase
             @"UITouchPhaseBegan":P(UITouchPhaseBegan),
             @"UITouchPhaseMoved":P(UITouchPhaseMoved),
@@ -245,7 +245,7 @@
             @"UITouchPropertyAltitude":P(UITouchPropertyAltitude),
             @"UITouchPropertyLocation":P(UITouchPropertyLocation),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIPageViewController.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIPageViewController.h
 //   UIPageViewControllerNavigationOrientation
             @"UIPageViewControllerNavigationOrientationHorizontal":P(UIPageViewControllerNavigationOrientationHorizontal),
             @"UIPageViewControllerNavigationOrientationVertical":P(UIPageViewControllerNavigationOrientationVertical),
@@ -261,7 +261,7 @@
             @"UIPageViewControllerTransitionStylePageCurl":P(UIPageViewControllerTransitionStylePageCurl),
             @"UIPageViewControllerTransitionStyleScroll":P(UIPageViewControllerTransitionStyleScroll),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIViewAnimating.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIViewAnimating.h
 //   UIViewAnimatingState
             @"UIViewAnimatingStateInactive":P(UIViewAnimatingStateInactive),
             @"UIViewAnimatingStateActive":P(UIViewAnimatingStateActive),
@@ -271,16 +271,16 @@
             @"UIViewAnimatingPositionStart":P(UIViewAnimatingPositionStart),
             @"UIViewAnimatingPositionCurrent":P(UIViewAnimatingPositionCurrent),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/NSItemProvider+UIKitAdditions.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/NSItemProvider+UIKitAdditions.h
 //   UIPreferredPresentationStyle
             @"UIPreferredPresentationStyleUnspecified":P(UIPreferredPresentationStyleUnspecified),
             @"UIPreferredPresentationStyleInline":P(UIPreferredPresentationStyleInline),
             @"UIPreferredPresentationStyleAttachment":P(UIPreferredPresentationStyleAttachment),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIMotionEffect.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIMotionEffect.h
 //   UIInterpolatingMotionEffectType
 
-//   Enum definitions in ./source_headers/UIKit/Headers/NSTextSelectionNavigation.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/NSTextSelectionNavigation.h
 //   NSTextSelectionNavigationDirection
             @"NSTextSelectionNavigationDirectionForward":P(NSTextSelectionNavigationDirectionForward),
             @"NSTextSelectionNavigationDirectionBackward":P(NSTextSelectionNavigationDirectionBackward),
@@ -307,7 +307,7 @@
             @"NSTextSelectionNavigationLayoutOrientationHorizontal":P(NSTextSelectionNavigationLayoutOrientationHorizontal),
             @"NSTextSelectionNavigationLayoutOrientationVertical":P(NSTextSelectionNavigationLayoutOrientationVertical),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIActivityIndicatorView.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIActivityIndicatorView.h
 //   UIActivityIndicatorViewStyle
             @"UIActivityIndicatorViewStyleMedium":P(UIActivityIndicatorViewStyleMedium),
             @"UIActivityIndicatorViewStyleLarge":P(UIActivityIndicatorViewStyleLarge),
@@ -315,7 +315,7 @@
             @"UIActivityIndicatorViewStyleWhite":P(UIActivityIndicatorViewStyleWhite),
             @"UIActivityIndicatorViewStyleGray":P(UIActivityIndicatorViewStyleGray),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIKeyConstants.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIKeyConstants.h
 //   UIKeyboardHIDUsage
             @"UIKeyboardHIDUsageKeyboardErrorRollOver":P(UIKeyboardHIDUsageKeyboardErrorRollOver),
             @"UIKeyboardHIDUsageKeyboardPOSTFail":P(UIKeyboardHIDUsageKeyboardPOSTFail),
@@ -358,7 +358,7 @@
             @"UIKeyboardHIDUsageKeyboardBackslash":P(UIKeyboardHIDUsageKeyboardBackslash),
             @"UIKeyboardHIDUsageKeyboardNonUSPound":P(UIKeyboardHIDUsageKeyboardNonUSPound),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIEditMenuInteraction.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIEditMenuInteraction.h
 //   UIEditMenuArrowDirection
             @"UIEditMenuArrowDirectionAutomatic":P(UIEditMenuArrowDirectionAutomatic),
             @"UIEditMenuArrowDirectionUp":P(UIEditMenuArrowDirectionUp),
@@ -366,13 +366,13 @@
             @"UIEditMenuArrowDirectionLeft":P(UIEditMenuArrowDirectionLeft),
             @"UIEditMenuArrowDirectionRight":P(UIEditMenuArrowDirectionRight),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIPasteControl.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIPasteControl.h
 //   UIPasteControlDisplayMode
             @"UIPasteControlDisplayModeIconAndLabel":P(UIPasteControlDisplayModeIconAndLabel),
             @"UIPasteControlDisplayModeIconOnly":P(UIPasteControlDisplayModeIconOnly),
             @"UIPasteControlDisplayModeLabelOnly":P(UIPasteControlDisplayModeLabelOnly),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UICollectionViewLayout.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UICollectionViewLayout.h
 //   UICollectionViewScrollDirection
             @"UICollectionViewScrollDirectionVertical":P(UICollectionViewScrollDirectionVertical),
             @"UICollectionViewScrollDirectionHorizontal":P(UICollectionViewScrollDirectionHorizontal),
@@ -381,7 +381,7 @@
             @"UICollectionElementCategorySupplementaryView":P(UICollectionElementCategorySupplementaryView),
             @"UICollectionElementCategoryDecorationView":P(UICollectionElementCategoryDecorationView),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UICloudSharingController.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UICloudSharingController.h
 //   UICloudSharingPermissionOptions
             @"UICloudSharingPermissionStandard":P(UICloudSharingPermissionStandard),
             @"UICloudSharingPermissionAllowPublic":P(UICloudSharingPermissionAllowPublic),
@@ -389,25 +389,25 @@
             @"UICloudSharingPermissionAllowReadOnly":P(UICloudSharingPermissionAllowReadOnly),
             @"UICloudSharingPermissionAllowReadWrite":P(UICloudSharingPermissionAllowReadWrite),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIResponder.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIResponder.h
 //   UIEditingInteractionConfiguration
             @"UIEditingInteractionConfigurationNone":P(UIEditingInteractionConfigurationNone),
             @"UIEditingInteractionConfigurationDefault":P(UIEditingInteractionConfigurationDefault),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIGraphicsImageRenderer.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIGraphicsImageRenderer.h
 //   UIGraphicsImageRendererFormatRange
             @"UIGraphicsImageRendererFormatRangeUnspecified":P(UIGraphicsImageRendererFormatRangeUnspecified),
             @"UIGraphicsImageRendererFormatRangeAutomatic":P(UIGraphicsImageRendererFormatRangeAutomatic),
             @"UIGraphicsImageRendererFormatRangeExtended":P(UIGraphicsImageRendererFormatRangeExtended),
             @"UIGraphicsImageRendererFormatRangeStandard":P(UIGraphicsImageRendererFormatRangeStandard),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UINotificationFeedbackGenerator.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UINotificationFeedbackGenerator.h
 //   UINotificationFeedbackType
             @"UINotificationFeedbackTypeSuccess":P(UINotificationFeedbackTypeSuccess),
             @"UINotificationFeedbackTypeWarning":P(UINotificationFeedbackTypeWarning),
             @"UINotificationFeedbackTypeError":P(UINotificationFeedbackTypeError),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIMenuElement.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIMenuElement.h
 //   UIMenuElementState
             @"UIMenuElementStateOff":P(UIMenuElementStateOff),
             @"UIMenuElementStateOn":P(UIMenuElementStateOn),
@@ -418,18 +418,18 @@
             @"UIMenuElementAttributesHidden":P(UIMenuElementAttributesHidden),
             @"UIMenuElementAttributesKeepsMenuPresented":P(UIMenuElementAttributesKeepsMenuPresented),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UILetterformAwareAdjusting.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UILetterformAwareAdjusting.h
 //   UILetterformAwareSizingRule
             @"UILetterformAwareSizingRuleTypographic":P(UILetterformAwareSizingRuleTypographic),
             @"UILetterformAwareSizingRuleOversize":P(UILetterformAwareSizingRuleOversize),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIPointerStyle.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIPointerStyle.h
 //   UIPointerEffectTintMode
             @"UIPointerEffectTintModeNone":P(UIPointerEffectTintModeNone),
             @"UIPointerEffectTintModeOverlay":P(UIPointerEffectTintModeOverlay),
             @"UIPointerEffectTintModeUnderlay":P(UIPointerEffectTintModeUnderlay),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UITextInput.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UITextInput.h
 //   UITextStorageDirection
             @"UITextStorageDirectionForward":P(UITextStorageDirectionForward),
             @"UITextStorageDirectionBackward":P(UITextStorageDirectionBackward),
@@ -449,7 +449,7 @@
             @"UITextAlternativeStyleNone":P(UITextAlternativeStyleNone),
             @"UITextAlternativeStyleLowConfidence":P(UITextAlternativeStyleLowConfidence),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UISearchBar.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UISearchBar.h
 //   UISearchBarIcon
             @"UISearchBarIconSearch":P(UISearchBarIconSearch),
             @"UISearchBarIconClear":P(UISearchBarIconClear),
@@ -460,7 +460,7 @@
             @"UISearchBarStyleProminent":P(UISearchBarStyleProminent),
             @"UISearchBarStyleMinimal":P(UISearchBarStyleMinimal),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIStringDrawing.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIStringDrawing.h
 //   UILineBreakMode
             @"UILineBreakModeWordWrap":P(UILineBreakModeWordWrap),
             @"UILineBreakModeCharacterWrap":P(UILineBreakModeCharacterWrap),
@@ -477,7 +477,7 @@
             @"UIBaselineAdjustmentAlignCenters":P(UIBaselineAdjustmentAlignCenters),
             @"UIBaselineAdjustmentNone":P(UIBaselineAdjustmentNone),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIDevice.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIDevice.h
 //   UIDeviceBatteryState
             @"UIDeviceBatteryStateUnknown":P(UIDeviceBatteryStateUnknown),
             @"UIDeviceBatteryStateUnplugged":P(UIDeviceBatteryStateUnplugged),
@@ -492,16 +492,16 @@
             @"UIUserInterfaceIdiomMac":P(UIUserInterfaceIdiomMac),
             @"UIUserInterfaceIdiomVision":P(UIUserInterfaceIdiomVision),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIWindowSceneGeometry.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIWindowSceneGeometry.h
 //   UIWindowSceneResizingRestrictions
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UICollectionViewFlowLayout.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UICollectionViewFlowLayout.h
 //   UICollectionViewFlowLayoutSectionInsetReference
             @"UICollectionViewFlowLayoutSectionInsetFromContentInset":P(UICollectionViewFlowLayoutSectionInsetFromContentInset),
             @"UICollectionViewFlowLayoutSectionInsetFromSafeArea":P(UICollectionViewFlowLayoutSectionInsetFromSafeArea),
             @"UICollectionViewFlowLayoutSectionInsetFromLayoutMargins":P(UICollectionViewFlowLayoutSectionInsetFromLayoutMargins),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIApplicationShortcutItem.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIApplicationShortcutItem.h
 //   UIApplicationShortcutIconType
             @"UIApplicationShortcutIconTypeCompose":P(UIApplicationShortcutIconTypeCompose),
             @"UIApplicationShortcutIconTypePlay":P(UIApplicationShortcutIconTypePlay),
@@ -533,7 +533,7 @@
             @"UIApplicationShortcutIconTypeAudio":P(UIApplicationShortcutIconTypeAudio),
             @"UIApplicationShortcutIconTypeUpdate":P(UIApplicationShortcutIconTypeUpdate),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIPress.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIPress.h
 //   UIPressPhase
             @"UIPressPhaseBegan":P(UIPressPhaseBegan),
             @"UIPressPhaseChanged":P(UIPressPhaseChanged),
@@ -549,7 +549,7 @@
             @"UIPressTypeMenu":P(UIPressTypeMenu),
             @"UIPressTypePlayPause":P(UIPressTypePlayPause),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIEvent.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIEvent.h
 //   UIEventType
             @"UIEventTypeTouches":P(UIEventTypeTouches),
             @"UIEventTypeMotion":P(UIEventTypeMotion),
@@ -575,7 +575,7 @@
             @"UIEventButtonMaskPrimary":P(UIEventButtonMaskPrimary),
             @"UIEventButtonMaskSecondary":P(UIEventButtonMaskSecondary),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UICommand.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UICommand.h
 //   UIKeyModifierFlags
             @"UIKeyModifierAlphaShift":P(UIKeyModifierAlphaShift),
             @"UIKeyModifierShift":P(UIKeyModifierShift),
@@ -584,12 +584,12 @@
             @"UIKeyModifierCommand":P(UIKeyModifierCommand),
             @"UIKeyModifierNumericPad":P(UIKeyModifierNumericPad),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIInputView.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIInputView.h
 //   UIInputViewStyle
             @"UIInputViewStyleDefault":P(UIInputViewStyleDefault),
             @"UIInputViewStyleKeyboard":P(UIInputViewStyleKeyboard),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIInterface.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIInterface.h
 //   UIBarStyle
             @"UIBarStyleDefault":P(UIBarStyleDefault),
             @"UIBarStyleBlack":P(UIBarStyleBlack),
@@ -640,7 +640,7 @@
             @"UIImageDynamicRangeConstrainedHigh":P(UIImageDynamicRangeConstrainedHigh),
             @"UIImageDynamicRangeHigh":P(UIImageDynamicRangeHigh),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIImagePickerController.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIImagePickerController.h
 //   UIImagePickerControllerSourceType
             @"UIImagePickerControllerSourceTypePhotoLibrary":P(UIImagePickerControllerSourceTypePhotoLibrary),
             @"UIImagePickerControllerSourceTypeCamera":P(UIImagePickerControllerSourceTypeCamera),
@@ -663,26 +663,26 @@
             @"UIImagePickerControllerImageURLExportPresetCompatible":P(UIImagePickerControllerImageURLExportPresetCompatible),
             @"UIImagePickerControllerImageURLExportPresetCurrent":P(UIImagePickerControllerImageURLExportPresetCurrent),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIPrintPageRenderer.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIPrintPageRenderer.h
 //   UIPrintRenderingQuality
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIAccessibilityZoom.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIAccessibilityZoom.h
 //   UIAccessibilityZoomType
             @"UIAccessibilityZoomTypeInsertionPoint":P(UIAccessibilityZoomTypeInsertionPoint),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIDocumentBrowserAction.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIDocumentBrowserAction.h
 //   UIDocumentBrowserActionAvailability
             @"UIDocumentBrowserActionAvailabilityMenu":P(UIDocumentBrowserActionAvailabilityMenu),
             @"UIDocumentBrowserActionAvailabilityNavigationBar":P(UIDocumentBrowserActionAvailabilityNavigationBar),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UISwipeGestureRecognizer.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UISwipeGestureRecognizer.h
 //   UISwipeGestureRecognizerDirection
             @"UISwipeGestureRecognizerDirectionRight":P(UISwipeGestureRecognizerDirectionRight),
             @"UISwipeGestureRecognizerDirectionLeft":P(UISwipeGestureRecognizerDirectionLeft),
             @"UISwipeGestureRecognizerDirectionUp":P(UISwipeGestureRecognizerDirectionUp),
             @"UISwipeGestureRecognizerDirectionDown":P(UISwipeGestureRecognizerDirectionDown),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIPrintInfo.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIPrintInfo.h
 //   UIPrintInfoOutputType
             @"UIPrintInfoOutputGeneral":P(UIPrintInfoOutputGeneral),
             @"UIPrintInfoOutputPhoto":P(UIPrintInfoOutputPhoto),
@@ -696,12 +696,12 @@
             @"UIPrintInfoDuplexLongEdge":P(UIPrintInfoDuplexLongEdge),
             @"UIPrintInfoDuplexShortEdge":P(UIPrintInfoDuplexShortEdge),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UITextDropProposal.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UITextDropProposal.h
 //   UITextDropAction
 //   UITextDropProgressMode
 //   UITextDropPerformer
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UITextField.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UITextField.h
 //   UITextBorderStyle
             @"UITextBorderStyleNone":P(UITextBorderStyleNone),
             @"UITextBorderStyleLine":P(UITextBorderStyleLine),
@@ -715,7 +715,7 @@
 //   UITextFieldDidEndEditingReason
             @"UITextFieldDidEndEditingReasonCommitted":P(UITextFieldDidEndEditingReasonCommitted),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/NSText.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/NSText.h
 //   NSTextAlignment
             @"NSTextAlignmentLeft":P(NSTextAlignmentLeft),
             @"NSTextAlignmentCenter":P(NSTextAlignmentCenter),
@@ -729,7 +729,7 @@
             @"NSWritingDirectionLeftToRight":P(NSWritingDirectionLeftToRight),
             @"NSWritingDirectionRightToLeft":P(NSWritingDirectionRightToLeft),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UICellAccessory.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UICellAccessory.h
 //   UICellAccessoryDisplayedState
             @"UICellAccessoryDisplayedAlways":P(UICellAccessoryDisplayedAlways),
             @"UICellAccessoryDisplayedWhenEditing":P(UICellAccessoryDisplayedWhenEditing),
@@ -742,12 +742,12 @@
             @"UICellAccessoryPlacementLeading":P(UICellAccessoryPlacementLeading),
             @"UICellAccessoryPlacementTrailing":P(UICellAccessoryPlacementTrailing),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UILabel.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UILabel.h
 //   UILabelVibrancy
             @"UILabelVibrancyNone":P(UILabelVibrancyNone),
             @"UILabelVibrancyAutomatic":P(UILabelVibrancyAutomatic),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIAlertController.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIAlertController.h
 //   UIAlertActionStyle
             @"UIAlertActionStyleDefault":P(UIAlertActionStyleDefault),
             @"UIAlertActionStyleCancel":P(UIAlertActionStyleCancel),
@@ -759,7 +759,7 @@
             @"UIAlertControllerSeverityDefault":P(UIAlertControllerSeverityDefault),
             @"UIAlertControllerSeverityCritical":P(UIAlertControllerSeverityCritical),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIScrollView.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIScrollView.h
 //   UIScrollViewIndicatorStyle
             @"UIScrollViewIndicatorStyleDefault":P(UIScrollViewIndicatorStyleDefault),
             @"UIScrollViewIndicatorStyleBlack":P(UIScrollViewIndicatorStyleBlack),
@@ -779,7 +779,7 @@
             @"UIScrollViewContentInsetAdjustmentNever":P(UIScrollViewContentInsetAdjustmentNever),
             @"UIScrollViewContentInsetAdjustmentAlways":P(UIScrollViewContentInsetAdjustmentAlways),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIContextMenuInteraction.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIContextMenuInteraction.h
 //   UIContextMenuInteractionCommitStyle
             @"UIContextMenuInteractionCommitStyleDismiss":P(UIContextMenuInteractionCommitStyleDismiss),
             @"UIContextMenuInteractionCommitStylePop":P(UIContextMenuInteractionCommitStylePop),
@@ -788,20 +788,20 @@
             @"UIContextMenuInteractionAppearanceRich":P(UIContextMenuInteractionAppearanceRich),
             @"UIContextMenuInteractionAppearanceCompact":P(UIContextMenuInteractionAppearanceCompact),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIDropInteraction.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIDropInteraction.h
 //   UIDropOperation
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIDragSession.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIDragSession.h
 //   UIDropSessionProgressIndicatorStyle
             @"UIDropSessionProgressIndicatorStyleNone":P(UIDropSessionProgressIndicatorStyleNone),
             @"UIDropSessionProgressIndicatorStyleDefault":P(UIDropSessionProgressIndicatorStyleDefault),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIPushBehavior.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIPushBehavior.h
 //   UIPushBehaviorMode
             @"UIPushBehaviorModeContinuous":P(UIPushBehaviorModeContinuous),
             @"UIPushBehaviorModeInstantaneous":P(UIPushBehaviorModeInstantaneous),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIViewController.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIViewController.h
 //   UIModalTransitionStyle
             @"UIModalTransitionStyleCoverVertical":P(UIModalTransitionStyleCoverVertical),
             @"UIModalTransitionStyleFlipHorizontal":P(UIModalTransitionStyleFlipHorizontal),
@@ -824,7 +824,7 @@
             @"UIPreviewActionStyleSelected":P(UIPreviewActionStyleSelected),
             @"UIPreviewActionStyleDestructive":P(UIPreviewActionStyleDestructive),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UITabBarItem.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UITabBarItem.h
 //   UITabBarSystemItem
             @"UITabBarSystemItemMore":P(UITabBarSystemItemMore),
             @"UITabBarSystemItemFavorites":P(UITabBarSystemItemFavorites),
@@ -839,7 +839,7 @@
             @"UITabBarSystemItemMostRecent":P(UITabBarSystemItemMostRecent),
             @"UITabBarSystemItemMostViewed":P(UITabBarSystemItemMostViewed),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/NSLayoutConstraint.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/NSLayoutConstraint.h
 //   NSLayoutRelation
             @"NSLayoutRelationLessThanOrEqual":P(NSLayoutRelationLessThanOrEqual),
             @"NSLayoutRelationEqual":P(NSLayoutRelationEqual),
@@ -883,13 +883,13 @@
             @"NSLayoutFormatAlignAllBaseline":P(NSLayoutFormatAlignAllBaseline),
             @"NSLayoutFormatAlignmentMask":P(NSLayoutFormatAlignmentMask),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UICollisionBehavior.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UICollisionBehavior.h
 //   UICollisionBehaviorMode
             @"UICollisionBehaviorModeItems":P(UICollisionBehaviorModeItems),
             @"UICollisionBehaviorModeBoundaries":P(UICollisionBehaviorModeBoundaries),
             @"UICollisionBehaviorModeEverything":P(UICollisionBehaviorModeEverything),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIDataDetectors.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIDataDetectors.h
 //   UIDataDetectorTypes
             @"UIDataDetectorTypePhoneNumber":P(UIDataDetectorTypePhoneNumber),
             @"UIDataDetectorTypeLink":P(UIDataDetectorTypeLink),
@@ -903,17 +903,17 @@
             @"UIDataDetectorTypeNone":P(UIDataDetectorTypeNone),
             @"UIDataDetectorTypeAll":P(UIDataDetectorTypeAll),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIAttachmentBehavior.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIAttachmentBehavior.h
 //   UIAttachmentBehaviorType
             @"UIAttachmentBehaviorTypeItems":P(UIAttachmentBehaviorTypeItems),
             @"UIAttachmentBehaviorTypeAnchor":P(UIAttachmentBehaviorTypeAnchor),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/NSTextContentManager.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/NSTextContentManager.h
 //   NSTextContentManagerEnumerationOptions
             @"NSTextContentManagerEnumerationOptionsNone":P(NSTextContentManagerEnumerationOptionsNone),
             @"NSTextContentManagerEnumerationOptionsReverse":P(NSTextContentManagerEnumerationOptionsReverse),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIImageSymbolConfiguration.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIImageSymbolConfiguration.h
 //   UIImageSymbolScale
             @"UIImageSymbolScaleDefault":P(UIImageSymbolScaleDefault),
             @"UIImageSymbolScaleUnspecified":P(UIImageSymbolScaleUnspecified),
@@ -932,7 +932,7 @@
             @"UIImageSymbolWeightHeavy":P(UIImageSymbolWeightHeavy),
             @"UIImageSymbolWeightBlack":P(UIImageSymbolWeightBlack),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIControl.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIControl.h
 //   UIControlEvents
             @"UIControlEventTouchDown":P(UIControlEventTouchDown),
             @"UIControlEventTouchDownRepeat":P(UIControlEventTouchDownRepeat),
@@ -976,7 +976,7 @@
             @"UIControlStateApplication":P(UIControlStateApplication),
             @"UIControlStateReserved":P(UIControlStateReserved),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIFocus.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIFocus.h
 //   UIFocusHeading
             @"UIFocusHeadingNone":P(UIFocusHeadingNone),
             @"UIFocusHeadingUp":P(UIFocusHeadingUp),
@@ -988,13 +988,13 @@
             @"UIFocusHeadingFirst":P(UIFocusHeadingFirst),
             @"UIFocusHeadingLast":P(UIFocusHeadingLast),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UICalendarViewDecoration.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UICalendarViewDecoration.h
 //   UICalendarViewDecorationSize
             @"UICalendarViewDecorationSizeSmall":P(UICalendarViewDecorationSizeSmall),
             @"UICalendarViewDecorationSizeMedium":P(UICalendarViewDecorationSizeMedium),
             @"UICalendarViewDecorationSizeLarge":P(UICalendarViewDecorationSizeLarge),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIDatePicker.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIDatePicker.h
 //   UIDatePickerMode
             @"UIDatePickerModeTime":P(UIDatePickerModeTime),
             @"UIDatePickerModeDate":P(UIDatePickerModeDate),
@@ -1006,7 +1006,7 @@
             @"UIDatePickerStyleCompact":P(UIDatePickerStyleCompact),
             @"UIDatePickerStyleInline":P(UIDatePickerStyleInline),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UICollectionLayoutList.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UICollectionLayoutList.h
 //   UICollectionLayoutListAppearance
             @"UICollectionLayoutListAppearancePlain":P(UICollectionLayoutListAppearancePlain),
             @"UICollectionLayoutListAppearanceGrouped":P(UICollectionLayoutListAppearanceGrouped),
@@ -1021,7 +1021,7 @@
             @"UICollectionLayoutListFooterModeNone":P(UICollectionLayoutListFooterModeNone),
             @"UICollectionLayoutListFooterModeSupplementary":P(UICollectionLayoutListFooterModeSupplementary),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UITextInputTraits.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UITextInputTraits.h
 //   UITextAutocapitalizationType
             @"UITextAutocapitalizationTypeNone":P(UITextAutocapitalizationTypeNone),
             @"UITextAutocapitalizationTypeWords":P(UITextAutocapitalizationTypeWords),
@@ -1084,11 +1084,11 @@
             @"UIReturnKeyEmergencyCall":P(UIReturnKeyEmergencyCall),
             @"UIReturnKeyContinue":P(UIReturnKeyContinue),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UITextDragging.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UITextDragging.h
 //   UITextDragOptions
             @"UITextDragOptionsNone":P(UITextDragOptionsNone),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UICellConfigurationState.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UICellConfigurationState.h
 //   UICellConfigurationDragState
             @"UICellConfigurationDragStateNone":P(UICellConfigurationDragStateNone),
             @"UICellConfigurationDragStateLifting":P(UICellConfigurationDragStateLifting),
@@ -1098,7 +1098,7 @@
             @"UICellConfigurationDropStateNotTargeted":P(UICellConfigurationDropStateNotTargeted),
             @"UICellConfigurationDropStateTargeted":P(UICellConfigurationDropStateTargeted),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UINavigationItem.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UINavigationItem.h
 //   UINavigationItemLargeTitleDisplayMode
             @"UINavigationItemLargeTitleDisplayModeAutomatic":P(UINavigationItemLargeTitleDisplayModeAutomatic),
             @"UINavigationItemLargeTitleDisplayModeAlways":P(UINavigationItemLargeTitleDisplayModeAlways),
@@ -1117,7 +1117,7 @@
             @"UINavigationItemStyleBrowser":P(UINavigationItemStyleBrowser),
             @"UINavigationItemStyleEditor":P(UINavigationItemStyleEditor),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIDocumentBrowserViewController.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIDocumentBrowserViewController.h
 //   UIDocumentBrowserImportMode
             @"UIDocumentBrowserImportModeNone":P(UIDocumentBrowserImportModeNone),
             @"UIDocumentBrowserImportModeCopy":P(UIDocumentBrowserImportModeCopy),
@@ -1127,7 +1127,7 @@
             @"UIDocumentBrowserUserInterfaceStyleLight":P(UIDocumentBrowserUserInterfaceStyleLight),
             @"UIDocumentBrowserUserInterfaceStyleDark":P(UIDocumentBrowserUserInterfaceStyleDark),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIPrinter.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIPrinter.h
 //   UIPrinterJobTypes
             @"UIPrinterJobTypeUnknown":P(UIPrinterJobTypeUnknown),
             @"UIPrinterJobTypeDocument":P(UIPrinterJobTypeDocument),
@@ -1139,7 +1139,7 @@
             @"UIPrinterJobTypeLargeFormat":P(UIPrinterJobTypeLargeFormat),
             @"UIPrinterJobTypePostcard":P(UIPrinterJobTypePostcard),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIImage.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIImage.h
 //   UIImageOrientation
             @"UIImageOrientationUp":P(UIImageOrientationUp),
             @"UIImageOrientationDown":P(UIImageOrientationDown),
@@ -1159,7 +1159,7 @@
             @"UIImageRenderingModeAlwaysOriginal":P(UIImageRenderingModeAlwaysOriginal),
             @"UIImageRenderingModeAlwaysTemplate":P(UIImageRenderingModeAlwaysTemplate),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIPanGestureRecognizer.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIPanGestureRecognizer.h
 //   UIScrollType
             @"UIScrollTypeDiscrete":P(UIScrollTypeDiscrete),
             @"UIScrollTypeContinuous":P(UIScrollTypeContinuous),
@@ -1168,20 +1168,20 @@
             @"UIScrollTypeMaskContinuous":P(UIScrollTypeMaskContinuous),
             @"UIScrollTypeMaskAll":P(UIScrollTypeMaskAll),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIBehavioralStyle.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIBehavioralStyle.h
 //   UIBehavioralStyle
             @"UIBehavioralStyleAutomatic":P(UIBehavioralStyleAutomatic),
             @"UIBehavioralStylePad":P(UIBehavioralStylePad),
             @"UIBehavioralStyleMac":P(UIBehavioralStyleMac),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UITextDropping.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UITextDropping.h
 //   UITextDropEditability
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UICollectionViewCell.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UICollectionViewCell.h
 //   UICollectionViewCellDragState
             @"UICollectionViewCellDragStateNone":P(UICollectionViewCellDragStateNone),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIMenuController.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIMenuController.h
 //   UIMenuControllerArrowDirection
             @"UIMenuControllerArrowDefault":P(UIMenuControllerArrowDefault),
             @"UIMenuControllerArrowUp":P(UIMenuControllerArrowUp),
@@ -1189,19 +1189,19 @@
             @"UIMenuControllerArrowLeft":P(UIMenuControllerArrowLeft),
             @"UIMenuControllerArrowRight":P(UIMenuControllerArrowRight),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UISpringLoadedInteraction.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UISpringLoadedInteraction.h
 //   UISpringLoadedInteractionEffectState
             @"UISpringLoadedInteractionEffectStateInactive":P(UISpringLoadedInteractionEffectStateInactive),
             @"UISpringLoadedInteractionEffectStatePossible":P(UISpringLoadedInteractionEffectStatePossible),
             @"UISpringLoadedInteractionEffectStateActivating":P(UISpringLoadedInteractionEffectStateActivating),
             @"UISpringLoadedInteractionEffectStateActivated":P(UISpringLoadedInteractionEffectStateActivated),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIDocumentMenuViewController.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIDocumentMenuViewController.h
 //   UIDocumentMenuOrder
             @"UIDocumentMenuOrderFirst":P(UIDocumentMenuOrderFirst),
             @"UIDocumentMenuOrderLast":P(UIDocumentMenuOrderLast),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIPageControl.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIPageControl.h
 //   UIPageControlInteractionState
             @"UIPageControlInteractionStateNone":P(UIPageControlInteractionStateNone),
             @"UIPageControlInteractionStateDiscrete":P(UIPageControlInteractionStateDiscrete),
@@ -1217,19 +1217,19 @@
             @"UIPageControlDirectionTopToBottom":P(UIPageControlDirectionTopToBottom),
             @"UIPageControlDirectionBottomToTop":P(UIPageControlDirectionBottomToTop),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIContentUnavailableConfiguration.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIContentUnavailableConfiguration.h
 //   UIContentUnavailableAlignment
             @"UIContentUnavailableAlignmentCenter":P(UIContentUnavailableAlignmentCenter),
             @"UIContentUnavailableAlignmentNatural":P(UIContentUnavailableAlignmentNatural),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UINavigationBar.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UINavigationBar.h
 //   UINavigationBarNSToolbarSection
             @"UINavigationBarNSToolbarSectionNone":P(UINavigationBarNSToolbarSectionNone),
             @"UINavigationBarNSToolbarSectionSidebar":P(UINavigationBarNSToolbarSectionSidebar),
             @"UINavigationBarNSToolbarSectionSupplementary":P(UINavigationBarNSToolbarSectionSupplementary),
             @"UINavigationBarNSToolbarSectionContent":P(UINavigationBarNSToolbarSectionContent),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIGuidedAccess.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIGuidedAccess.h
 //   UIGuidedAccessRestrictionState
             @"UIGuidedAccessRestrictionStateAllow":P(UIGuidedAccessRestrictionStateAllow),
             @"UIGuidedAccessRestrictionStateDeny":P(UIGuidedAccessRestrictionStateDeny),
@@ -1240,7 +1240,7 @@
             @"UIGuidedAccessAccessibilityFeatureInvertColors":P(UIGuidedAccessAccessibilityFeatureInvertColors),
             @"UIGuidedAccessAccessibilityFeatureGrayscaleDisplay":P(UIGuidedAccessAccessibilityFeatureGrayscaleDisplay),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIDocument.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIDocument.h
 //   UIDocumentChangeKind
             @"UIDocumentChangeDone":P(UIDocumentChangeDone),
             @"UIDocumentChangeUndone":P(UIDocumentChangeUndone),
@@ -1257,7 +1257,7 @@
             @"UIDocumentStateEditingDisabled":P(UIDocumentStateEditingDisabled),
             @"UIDocumentStateProgressAvailable":P(UIDocumentStateProgressAvailable),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIScreen.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIScreen.h
 //   UIScreenOverscanCompensation
             @"UIScreenOverscanCompensationScale":P(UIScreenOverscanCompensationScale),
             @"UIScreenOverscanCompensationInsetBounds":P(UIScreenOverscanCompensationInsetBounds),
@@ -1269,24 +1269,24 @@
             @"UIScreenReferenceDisplayModeStatusLimited":P(UIScreenReferenceDisplayModeStatusLimited),
             @"UIScreenReferenceDisplayModeStatusEnabled":P(UIScreenReferenceDisplayModeStatusEnabled),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIDocumentPickerViewController.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIDocumentPickerViewController.h
 //   UIDocumentPickerMode
             @"UIDocumentPickerModeImport":P(UIDocumentPickerModeImport),
             @"UIDocumentPickerModeOpen":P(UIDocumentPickerModeOpen),
             @"UIDocumentPickerModeExportToService":P(UIDocumentPickerModeExportToService),
             @"UIDocumentPickerModeMoveToService":P(UIDocumentPickerModeMoveToService),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/NSTextList.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/NSTextList.h
 //   NSTextListOptions
             @"NSTextListPrependEnclosingMarker":P(NSTextListPrependEnclosingMarker),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIContextMenuConfiguration.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIContextMenuConfiguration.h
 //   UIContextMenuConfigurationElementOrder
             @"UIContextMenuConfigurationElementOrderAutomatic":P(UIContextMenuConfigurationElementOrderAutomatic),
             @"UIContextMenuConfigurationElementOrderPriority":P(UIContextMenuConfigurationElementOrderPriority),
             @"UIContextMenuConfigurationElementOrderFixed":P(UIContextMenuConfigurationElementOrderFixed),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/NSTextSelection.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/NSTextSelection.h
 //   NSTextSelectionGranularity
             @"NSTextSelectionGranularityCharacter":P(NSTextSelectionGranularityCharacter),
             @"NSTextSelectionGranularityWord":P(NSTextSelectionGranularityWord),
@@ -1297,7 +1297,7 @@
             @"NSTextSelectionAffinityUpstream":P(NSTextSelectionAffinityUpstream),
             @"NSTextSelectionAffinityDownstream":P(NSTextSelectionAffinityDownstream),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIAccessibility.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIAccessibility.h
 //   UIAccessibilityScrollDirection
             @"UIAccessibilityScrollDirectionRight":P(UIAccessibilityScrollDirectionRight),
             @"UIAccessibilityScrollDirectionLeft":P(UIAccessibilityScrollDirectionLeft),
@@ -1311,13 +1311,13 @@
             @"UIAccessibilityHearingDeviceEarRight":P(UIAccessibilityHearingDeviceEarRight),
             @"UIAccessibilityHearingDeviceEarBoth":P(UIAccessibilityHearingDeviceEarBoth),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UITextSearching.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UITextSearching.h
 //   UITextSearchFoundTextStyle
             @"UITextSearchFoundTextStyleNormal":P(UITextSearchFoundTextStyleNormal),
             @"UITextSearchFoundTextStyleFound":P(UITextSearchFoundTextStyleFound),
             @"UITextSearchFoundTextStyleHighlighted":P(UITextSearchFoundTextStyleHighlighted),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UICollectionView.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UICollectionView.h
 //   UICollectionViewScrollPosition
             @"UICollectionViewScrollPositionNone":P(UICollectionViewScrollPositionNone),
             @"UICollectionViewScrollPositionTop":P(UICollectionViewScrollPositionTop),
@@ -1336,13 +1336,13 @@
             @"UICollectionViewSelfSizingInvalidationEnabledIncludingConstraints":P(UICollectionViewSelfSizingInvalidationEnabledIncludingConstraints),
 //   UICollectionViewDropIntent
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIWindowSceneActivationRequestOptions.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIWindowSceneActivationRequestOptions.h
 //   UIWindowScenePresentationStyle
             @"UIWindowScenePresentationStyleAutomatic":P(UIWindowScenePresentationStyleAutomatic),
             @"UIWindowScenePresentationStyleStandard":P(UIWindowScenePresentationStyleStandard),
             @"UIWindowScenePresentationStyleProminent":P(UIWindowScenePresentationStyleProminent),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UISceneDefinitions.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UISceneDefinitions.h
 //   UISceneActivationState
             @"UISceneActivationStateUnattached":P(UISceneActivationStateUnattached),
             @"UISceneActivationStateForegroundActive":P(UISceneActivationStateForegroundActive),
@@ -1353,7 +1353,7 @@
             @"UISceneCaptureStateInactive":P(UISceneCaptureStateInactive),
             @"UISceneCaptureStateActive":P(UISceneCaptureStateActive),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UICollectionViewUpdateItem.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UICollectionViewUpdateItem.h
 //   UICollectionUpdateAction
             @"UICollectionUpdateActionInsert":P(UICollectionUpdateActionInsert),
             @"UICollectionUpdateActionDelete":P(UICollectionUpdateActionDelete),
@@ -1361,7 +1361,7 @@
             @"UICollectionUpdateActionMove":P(UICollectionUpdateActionMove),
             @"UICollectionUpdateActionNone":P(UICollectionUpdateActionNone),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIBarCommon.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIBarCommon.h
 //   UIBarMetrics
             @"UIBarMetricsDefault":P(UIBarMetricsDefault),
             @"UIBarMetricsCompact":P(UIBarMetricsCompact),
@@ -1375,19 +1375,19 @@
             @"UIBarPositionTop":P(UIBarPositionTop),
             @"UIBarPositionTopAttached":P(UIBarPositionTopAttached),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIFocusEffect.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIFocusEffect.h
 //   UIFocusHaloEffectPosition
             @"UIFocusHaloEffectPositionAutomatic":P(UIFocusHaloEffectPositionAutomatic),
             @"UIFocusHaloEffectPositionOutside":P(UIFocusHaloEffectPositionOutside),
             @"UIFocusHaloEffectPositionInside":P(UIFocusHaloEffectPositionInside),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UINavigationController.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UINavigationController.h
 //   UINavigationControllerOperation
             @"UINavigationControllerOperationNone":P(UINavigationControllerOperationNone),
             @"UINavigationControllerOperationPush":P(UINavigationControllerOperationPush),
             @"UINavigationControllerOperationPop":P(UINavigationControllerOperationPop),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UITableViewCell.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UITableViewCell.h
 //   UITableViewCellStyle
             @"UITableViewCellStyleDefault":P(UITableViewCellStyleDefault),
             @"UITableViewCellStyleSubtitle":P(UITableViewCellStyleSubtitle),
@@ -1422,7 +1422,7 @@
             @"UITableViewCellDragStateLifting":P(UITableViewCellDragStateLifting),
             @"UITableViewCellDragStateDragging":P(UITableViewCellDragStateDragging),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIApplication.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIApplication.h
 //   UIStatusBarStyle
             @"UIStatusBarStyleDefault":P(UIStatusBarStyleDefault),
             @"UIStatusBarStyleLightContent":P(UIStatusBarStyleLightContent),
@@ -1452,7 +1452,7 @@
             @"UIApplicationStateInactive":P(UIApplicationStateInactive),
             @"UIApplicationStateBackground":P(UIApplicationStateBackground),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIFindSession.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIFindSession.h
 //   UIFindSessionSearchResultDisplayStyle
             @"UIFindSessionSearchResultDisplayStyleCurrentAndTotal":P(UIFindSessionSearchResultDisplayStyleCurrentAndTotal),
             @"UIFindSessionSearchResultDisplayStyleTotal":P(UIFindSessionSearchResultDisplayStyleTotal),
@@ -1462,13 +1462,13 @@
             @"UITextSearchMatchMethodStartsWith":P(UITextSearchMatchMethodStartsWith),
             @"UITextSearchMatchMethodFullWord":P(UITextSearchMatchMethodFullWord),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UISwitch.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UISwitch.h
 //   UISwitchStyle
             @"UISwitchStyleAutomatic":P(UISwitchStyleAutomatic),
             @"UISwitchStyleCheckbox":P(UISwitchStyleCheckbox),
             @"UISwitchStyleSliding":P(UISwitchStyleSliding),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIAccessibilityCustomRotor.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIAccessibilityCustomRotor.h
 //   UIAccessibilityCustomRotorDirection
             @"UIAccessibilityCustomRotorDirectionPrevious":P(UIAccessibilityCustomRotorDirectionPrevious),
             @"UIAccessibilityCustomRotorDirectionNext":P(UIAccessibilityCustomRotorDirectionNext),
@@ -1487,7 +1487,7 @@
             @"UIAccessibilityCustomSystemRotorTypeList":P(UIAccessibilityCustomSystemRotorTypeList),
             @"UIAccessibilityCustomSystemRotorTypeLandmark":P(UIAccessibilityCustomSystemRotorTypeLandmark),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIGestureRecognizer.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIGestureRecognizer.h
 //   UIGestureRecognizerState
             @"UIGestureRecognizerStatePossible":P(UIGestureRecognizerStatePossible),
             @"UIGestureRecognizerStateBegan":P(UIGestureRecognizerStateBegan),
@@ -1497,13 +1497,13 @@
             @"UIGestureRecognizerStateFailed":P(UIGestureRecognizerStateFailed),
             @"UIGestureRecognizerStateRecognized":P(UIGestureRecognizerStateRecognized),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIWindowScene.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIWindowScene.h
 //   UIWindowSceneDismissalAnimation
             @"UIWindowSceneDismissalAnimationStandard":P(UIWindowSceneDismissalAnimationStandard),
             @"UIWindowSceneDismissalAnimationCommit":P(UIWindowSceneDismissalAnimationCommit),
             @"UIWindowSceneDismissalAnimationDecline":P(UIWindowSceneDismissalAnimationDecline),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UITableView.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UITableView.h
 //   UITableViewStyle
             @"UITableViewStylePlain":P(UITableViewStylePlain),
             @"UITableViewStyleGrouped":P(UITableViewStyleGrouped),
@@ -1539,13 +1539,13 @@
             @"UITableViewDropIntentInsertIntoDestinationIndexPath":P(UITableViewDropIntentInsertIntoDestinationIndexPath),
             @"UITableViewDropIntentAutomatic":P(UITableViewDropIntentAutomatic),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UITextItemInteraction.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UITextItemInteraction.h
 //   UITextItemInteraction
             @"UITextItemInteractionInvokeDefaultAction":P(UITextItemInteractionInvokeDefaultAction),
             @"UITextItemInteractionPresentActions":P(UITextItemInteractionPresentActions),
             @"UITextItemInteractionPreview":P(UITextItemInteractionPreview),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UISplitViewController.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UISplitViewController.h
 //   UISplitViewControllerDisplayMode
             @"UISplitViewControllerDisplayModeAutomatic":P(UISplitViewControllerDisplayModeAutomatic),
             @"UISplitViewControllerDisplayModeSecondaryOnly":P(UISplitViewControllerDisplayModeSecondaryOnly),
@@ -1582,13 +1582,13 @@
             @"UISplitViewControllerDisplayModeButtonVisibilityNever":P(UISplitViewControllerDisplayModeButtonVisibilityNever),
             @"UISplitViewControllerDisplayModeButtonVisibilityAlways":P(UISplitViewControllerDisplayModeButtonVisibilityAlways),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UITextItem.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UITextItem.h
 //   UITextItemContentType
             @"UITextItemContentTypeLink":P(UITextItemContentTypeLink),
             @"UITextItemContentTypeTextAttachment":P(UITextItemContentTypeTextAttachment),
             @"UITextItemContentTypeTag":P(UITextItemContentTypeTag),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIListContentTextProperties.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIListContentTextProperties.h
 //   UIListContentTextAlignment
             @"UIListContentTextAlignmentNatural":P(UIListContentTextAlignmentNatural),
             @"UIListContentTextAlignmentCenter":P(UIListContentTextAlignmentCenter),
@@ -1599,7 +1599,7 @@
             @"UIListContentTextTransformLowercase":P(UIListContentTextTransformLowercase),
             @"UIListContentTextTransformCapitalized":P(UIListContentTextTransformCapitalized),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIButton.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIButton.h
 //   UIButtonType
             @"UIButtonTypeCustom":P(UIButtonTypeCustom),
             @"UIButtonTypeSystem":P(UIButtonTypeSystem),
@@ -1615,18 +1615,18 @@
             @"UIButtonRoleCancel":P(UIButtonRoleCancel),
             @"UIButtonRoleDestructive":P(UIButtonRoleDestructive),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/NSToolbar+UIKitAdditions.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/NSToolbar+UIKitAdditions.h
 //   UITitlebarSeparatorStyle
 //   UITitlebarTitleVisibility
 //   UITitlebarToolbarStyle
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UITabBarAppearance.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UITabBarAppearance.h
 //   UITabBarItemAppearanceStyle
             @"UITabBarItemAppearanceStyleStacked":P(UITabBarItemAppearanceStyleStacked),
             @"UITabBarItemAppearanceStyleInline":P(UITabBarItemAppearanceStyleInline),
             @"UITabBarItemAppearanceStyleCompactInline":P(UITabBarItemAppearanceStyleCompactInline),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/NSTextLayoutManager.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/NSTextLayoutManager.h
 //   NSTextLayoutManagerSegmentType
             @"NSTextLayoutManagerSegmentTypeStandard":P(NSTextLayoutManagerSegmentTypeStandard),
             @"NSTextLayoutManagerSegmentTypeSelection":P(NSTextLayoutManagerSegmentTypeSelection),
@@ -1639,12 +1639,12 @@
             @"NSTextLayoutManagerSegmentOptionsTailSegmentExtended":P(NSTextLayoutManagerSegmentOptionsTailSegmentExtended),
             @"NSTextLayoutManagerSegmentOptionsUpstreamAffinity":P(NSTextLayoutManagerSegmentOptionsUpstreamAffinity),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIContextualAction.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIContextualAction.h
 //   UIContextualActionStyle
             @"UIContextualActionStyleNormal":P(UIContextualActionStyleNormal),
             @"UIContextualActionStyleDestructive":P(UIContextualActionStyleDestructive),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIView.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIView.h
 //   UIViewAnimationCurve
             @"UIViewAnimationCurveEaseInOut":P(UIViewAnimationCurveEaseInOut),
             @"UIViewAnimationCurveEaseIn":P(UIViewAnimationCurveEaseIn),
@@ -1731,33 +1731,33 @@
             @"UILayoutConstraintAxisHorizontal":P(UILayoutConstraintAxisHorizontal),
             @"UILayoutConstraintAxisVertical":P(UILayoutConstraintAxisVertical),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UITabBar.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UITabBar.h
 //   UITabBarItemPositioning
             @"UITabBarItemPositioningAutomatic":P(UITabBarItemPositioningAutomatic),
             @"UITabBarItemPositioningFill":P(UITabBarItemPositioningFill),
             @"UITabBarItemPositioningCentered":P(UITabBarItemPositioningCentered),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIAlertView.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIAlertView.h
 //   UIAlertViewStyle
             @"UIAlertViewStyleDefault":P(UIAlertViewStyleDefault),
             @"UIAlertViewStyleSecureTextInput":P(UIAlertViewStyleSecureTextInput),
             @"UIAlertViewStylePlainTextInput":P(UIAlertViewStylePlainTextInput),
             @"UIAlertViewStyleLoginAndPasswordInput":P(UIAlertViewStyleLoginAndPasswordInput),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIListSeparatorConfiguration.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIListSeparatorConfiguration.h
 //   UIListSeparatorVisibility
             @"UIListSeparatorVisibilityAutomatic":P(UIListSeparatorVisibilityAutomatic),
             @"UIListSeparatorVisibilityVisible":P(UIListSeparatorVisibilityVisible),
             @"UIListSeparatorVisibilityHidden":P(UIListSeparatorVisibilityHidden),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIActionSheet.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIActionSheet.h
 //   UIActionSheetStyle
             @"UIActionSheetStyleAutomatic":P(UIActionSheetStyleAutomatic),
             @"UIActionSheetStyleDefault":P(UIActionSheetStyleDefault),
             @"UIActionSheetStyleBlackTranslucent":P(UIActionSheetStyleBlackTranslucent),
             @"UIActionSheetStyleBlackOpaque":P(UIActionSheetStyleBlackOpaque),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIOrientation.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIOrientation.h
 //   UIDeviceOrientation
             @"UIDeviceOrientationUnknown":P(UIDeviceOrientationUnknown),
             @"UIDeviceOrientationPortrait":P(UIDeviceOrientationPortrait),
@@ -1781,7 +1781,7 @@
             @"UIInterfaceOrientationMaskAll":P(UIInterfaceOrientationMaskAll),
             @"UIInterfaceOrientationMaskAllButUpsideDown":P(UIInterfaceOrientationMaskAllButUpsideDown),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIImpactFeedbackGenerator.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIImpactFeedbackGenerator.h
 //   UIImpactFeedbackStyle
             @"UIImpactFeedbackStyleLight":P(UIImpactFeedbackStyleLight),
             @"UIImpactFeedbackStyleMedium":P(UIImpactFeedbackStyleMedium),
@@ -1789,11 +1789,11 @@
             @"UIImpactFeedbackStyleSoft":P(UIImpactFeedbackStyleSoft),
             @"UIImpactFeedbackStyleRigid":P(UIImpactFeedbackStyleRigid),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIStackView.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIStackView.h
 //   UIStackViewDistribution
 //   UIStackViewAlignment
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UISegmentedControl.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UISegmentedControl.h
 //   UISegmentedControlStyle
             @"UISegmentedControlStylePlain":P(UISegmentedControlStylePlain),
             @"UISegmentedControlStyleBordered":P(UISegmentedControlStyleBordered),
@@ -1806,19 +1806,19 @@
             @"UISegmentedControlSegmentRight":P(UISegmentedControlSegmentRight),
             @"UISegmentedControlSegmentAlone":P(UISegmentedControlSegmentAlone),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/NSStringDrawing.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/NSStringDrawing.h
 //   NSStringDrawingOptions
             @"NSStringDrawingUsesLineFragmentOrigin":P(NSStringDrawingUsesLineFragmentOrigin),
             @"NSStringDrawingUsesFontLeading":P(NSStringDrawingUsesFontLeading),
             @"NSStringDrawingUsesDeviceMetrics":P(NSStringDrawingUsesDeviceMetrics),
             @"NSStringDrawingTruncatesLastVisibleLine":P(NSStringDrawingTruncatesLastVisibleLine),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIActivity.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIActivity.h
 //   UIActivityCategory
             @"UIActivityCategoryAction":P(UIActivityCategoryAction),
             @"UIActivityCategoryShare":P(UIActivityCategoryShare),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIButtonConfiguration.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIButtonConfiguration.h
 //   UIButtonConfigurationSize
             @"UIButtonConfigurationSizeMedium":P(UIButtonConfigurationSizeMedium),
             @"UIButtonConfigurationSizeSmall":P(UIButtonConfigurationSizeSmall),
@@ -1846,7 +1846,7 @@
             @"UIButtonConfigurationIndicatorNone":P(UIButtonConfigurationIndicatorNone),
             @"UIButtonConfigurationIndicatorPopup":P(UIButtonConfigurationIndicatorPopup),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIGeometry.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIGeometry.h
 //   UIRectEdge
             @"UIRectEdgeNone":P(UIRectEdgeNone),
             @"UIRectEdgeTop":P(UIRectEdgeTop),
@@ -1890,10 +1890,10 @@
             @"NSRectAlignmentTrailing":P(NSRectAlignmentTrailing),
             @"NSRectAlignmentTopTrailing":P(NSRectAlignmentTopTrailing),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UIFontDescriptor.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UIFontDescriptor.h
 //   UIFontDescriptorSymbolicTraits
 
-//   Enum definitions in ./source_headers/UIKit/Headers/NSTextLayoutFragment.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/NSTextLayoutFragment.h
 //   NSTextLayoutFragmentEnumerationOptions
             @"NSTextLayoutFragmentEnumerationOptionsNone":P(NSTextLayoutFragmentEnumerationOptionsNone),
             @"NSTextLayoutFragmentEnumerationOptionsReverse":P(NSTextLayoutFragmentEnumerationOptionsReverse),
@@ -1906,10 +1906,10 @@
             @"NSTextLayoutFragmentStateCalculatedUsageBounds":P(NSTextLayoutFragmentStateCalculatedUsageBounds),
             @"NSTextLayoutFragmentStateLayoutAvailable":P(NSTextLayoutFragmentStateLayoutAvailable),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UISceneOptions.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UISceneOptions.h
 //   UISceneCollectionJoinBehavior
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UICollectionViewCompositionalLayout.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UICollectionViewCompositionalLayout.h
 //   UIContentInsetsReference
             @"UIContentInsetsReferenceAutomatic":P(UIContentInsetsReferenceAutomatic),
             @"UIContentInsetsReferenceNone":P(UIContentInsetsReferenceNone),
@@ -1928,18 +1928,18 @@
             @"UICollectionLayoutSectionOrthogonalScrollingBounceAlways":P(UICollectionLayoutSectionOrthogonalScrollingBounceAlways),
             @"UICollectionLayoutSectionOrthogonalScrollingBounceNever":P(UICollectionLayoutSectionOrthogonalScrollingBounceNever),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UITextView.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UITextView.h
 //   UITextViewBorderStyle
             @"UITextViewBorderStyleNone":P(UITextViewBorderStyleNone),
 
-//   Enum definitions in ./source_headers/UIKit/Headers/UISearchController.h
+//   Enum definitions in ./enum_gen/UIKit/Headers/UISearchController.h
 //   UISearchControllerScopeBarActivation
             @"UISearchControllerScopeBarActivationAutomatic":P(UISearchControllerScopeBarActivationAutomatic),
             @"UISearchControllerScopeBarActivationManual":P(UISearchControllerScopeBarActivationManual),
             @"UISearchControllerScopeBarActivationOnTextEntry":P(UISearchControllerScopeBarActivationOnTextEntry),
             @"UISearchControllerScopeBarActivationOnSearchActivation":P(UISearchControllerScopeBarActivationOnSearchActivation),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSLocale.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSLocale.h
 //   NSLocaleLanguageDirection
             @"NSLocaleLanguageDirectionUnknown":P(NSLocaleLanguageDirectionUnknown),
             @"NSLocaleLanguageDirectionLeftToRight":P(NSLocaleLanguageDirectionLeftToRight),
@@ -1947,11 +1947,11 @@
             @"NSLocaleLanguageDirectionTopToBottom":P(NSLocaleLanguageDirectionTopToBottom),
             @"NSLocaleLanguageDirectionBottomToTop":P(NSLocaleLanguageDirectionBottomToTop),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSFileVersion.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSFileVersion.h
 //   NSFileVersionAddingOptions
 //   NSFileVersionReplacingOptions
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSAttributedString.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSAttributedString.h
 //   NSAttributedStringEnumerationOptions
             @"NSAttributedStringEnumerationReverse":P(NSAttributedStringEnumerationReverse),
             @"NSAttributedStringEnumerationLongestEffectiveRangeNotRequired":P(NSAttributedStringEnumerationLongestEffectiveRangeNotRequired),
@@ -1992,7 +1992,7 @@
             @"NSPresentationIntentTableColumnAlignmentCenter":P(NSPresentationIntentTableColumnAlignmentCenter),
             @"NSPresentationIntentTableColumnAlignmentRight":P(NSPresentationIntentTableColumnAlignmentRight),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSURL.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSURL.h
 //   NSURLBookmarkCreationOptions
             @"NSURLBookmarkCreationPreferFileIDResolution":P(NSURLBookmarkCreationPreferFileIDResolution),
             @"NSURLBookmarkCreationMinimalBookmark":P(NSURLBookmarkCreationMinimalBookmark),
@@ -2003,7 +2003,7 @@
             @"NSURLBookmarkResolutionWithoutMounting":P(NSURLBookmarkResolutionWithoutMounting),
             @"NSURLBookmarkResolutionWithoutImplicitStartAccessing":P(NSURLBookmarkResolutionWithoutImplicitStartAccessing),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSData.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSData.h
 //   NSDataReadingOptions
             @"NSDataReadingMappedIfSafe":P(NSDataReadingMappedIfSafe),
             @"NSDataReadingUncached":P(NSDataReadingUncached),
@@ -2031,19 +2031,19 @@
             @"NSDataCompressionAlgorithmLZMA":P(NSDataCompressionAlgorithmLZMA),
             @"NSDataCompressionAlgorithmZlib":P(NSDataCompressionAlgorithmZlib),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSHTTPCookieStorage.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSHTTPCookieStorage.h
 //   NSHTTPCookieAcceptPolicy
             @"NSHTTPCookieAcceptPolicyAlways":P(NSHTTPCookieAcceptPolicyAlways),
             @"NSHTTPCookieAcceptPolicyNever":P(NSHTTPCookieAcceptPolicyNever),
             @"NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain":P(NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSURLError.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSURLError.h
 //   NSURLErrorNetworkUnavailableReason
             @"NSURLErrorNetworkUnavailableReasonCellular":P(NSURLErrorNetworkUnavailableReasonCellular),
             @"NSURLErrorNetworkUnavailableReasonExpensive":P(NSURLErrorNetworkUnavailableReasonExpensive),
             @"NSURLErrorNetworkUnavailableReasonConstrained":P(NSURLErrorNetworkUnavailableReasonConstrained),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSPointerFunctions.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSPointerFunctions.h
 //   NSPointerFunctionsOptions
             @"NSPointerFunctionsStrongMemory":P(NSPointerFunctionsStrongMemory),
             @"NSPointerFunctionsOpaqueMemory":P(NSPointerFunctionsOpaqueMemory),
@@ -2058,7 +2058,7 @@
             @"NSPointerFunctionsIntegerPersonality":P(NSPointerFunctionsIntegerPersonality),
             @"NSPointerFunctionsCopyIn":P(NSPointerFunctionsCopyIn),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSURLSession.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSURLSession.h
 //   NSURLSessionTaskState
             @"NSURLSessionTaskStateRunning":P(NSURLSessionTaskStateRunning),
             @"NSURLSessionTaskStateSuspended":P(NSURLSessionTaskStateSuspended),
@@ -2112,7 +2112,7 @@
             @"NSURLSessionTaskMetricsDomainResolutionProtocolTLS":P(NSURLSessionTaskMetricsDomainResolutionProtocolTLS),
             @"NSURLSessionTaskMetricsDomainResolutionProtocolHTTPS":P(NSURLSessionTaskMetricsDomainResolutionProtocolHTTPS),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSOperation.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSOperation.h
 //   NSOperationQueuePriority
             @"NSOperationQueuePriorityVeryLow":P(NSOperationQueuePriorityVeryLow),
             @"NSOperationQueuePriorityLow":P(NSOperationQueuePriorityLow),
@@ -2120,11 +2120,11 @@
             @"NSOperationQueuePriorityHigh":P(NSOperationQueuePriorityHigh),
             @"NSOperationQueuePriorityVeryHigh":P(NSOperationQueuePriorityVeryHigh),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSNetServices.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSNetServices.h
 //   NSNetServicesError
 //   NSNetServiceOptions
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSURLRequest.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSURLRequest.h
 //   NSURLRequestCachePolicy
             @"NSURLRequestUseProtocolCachePolicy":P(NSURLRequestUseProtocolCachePolicy),
             @"NSURLRequestReloadIgnoringLocalCacheData":P(NSURLRequestReloadIgnoringLocalCacheData),
@@ -2147,7 +2147,7 @@
             @"NSURLRequestAttributionDeveloper":P(NSURLRequestAttributionDeveloper),
             @"NSURLRequestAttributionUser":P(NSURLRequestAttributionUser),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSExpression.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSExpression.h
 //   NSExpressionType
             @"NSConstantValueExpressionType":P(NSConstantValueExpressionType),
             @"NSEvaluatedObjectExpressionType":P(NSEvaluatedObjectExpressionType),
@@ -2163,12 +2163,12 @@
             @"NSBlockExpressionType":P(NSBlockExpressionType),
             @"NSConditionalExpressionType":P(NSConditionalExpressionType),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSCoder.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSCoder.h
 //   NSDecodingFailurePolicy
             @"NSDecodingFailurePolicyRaiseException":P(NSDecodingFailurePolicyRaiseException),
             @"NSDecodingFailurePolicySetErrorAndReturn":P(NSDecodingFailurePolicySetErrorAndReturn),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSByteCountFormatter.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSByteCountFormatter.h
 //   NSByteCountFormatterUnits
             @"NSByteCountFormatterUseDefault":P(NSByteCountFormatterUseDefault),
             @"NSByteCountFormatterUseBytes":P(NSByteCountFormatterUseBytes),
@@ -2187,7 +2187,7 @@
             @"NSByteCountFormatterCountStyleDecimal":P(NSByteCountFormatterCountStyleDecimal),
             @"NSByteCountFormatterCountStyleBinary":P(NSByteCountFormatterCountStyleBinary),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSLengthFormatter.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSLengthFormatter.h
 //   NSLengthFormatterUnit
             @"NSLengthFormatterUnitMillimeter":P(NSLengthFormatterUnitMillimeter),
             @"NSLengthFormatterUnitCentimeter":P(NSLengthFormatterUnitCentimeter),
@@ -2198,8 +2198,12 @@
             @"NSLengthFormatterUnitYard":P(NSLengthFormatterUnitYard),
             @"NSLengthFormatterUnitMile":P(NSLengthFormatterUnitMile),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSObjCRuntime.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSObjCRuntime.h
 //   NSComparisonResult
+//   NSComparisonResult
+            @"NSOrderedAscending":P(NSOrderedAscending),
+            @"NSOrderedSame":P(NSOrderedSame),
+            @"NSOrderedDescending":P(NSOrderedDescending),
 //   NSEnumerationOptions
             @"NSEnumerationConcurrent":P(NSEnumerationConcurrent),
             @"NSEnumerationReverse":P(NSEnumerationReverse),
@@ -2213,7 +2217,7 @@
             @"NSQualityOfServiceBackground":P(NSQualityOfServiceBackground),
             @"NSQualityOfServiceDefault":P(NSQualityOfServiceDefault),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSComparisonPredicate.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSComparisonPredicate.h
 //   NSComparisonPredicateOptions
             @"NSCaseInsensitivePredicateOption":P(NSCaseInsensitivePredicateOption),
             @"NSDiacriticInsensitivePredicateOption":P(NSDiacriticInsensitivePredicateOption),
@@ -2238,14 +2242,14 @@
             @"NSContainsPredicateOperatorType":P(NSContainsPredicateOperatorType),
             @"NSBetweenPredicateOperatorType":P(NSBetweenPredicateOperatorType),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSFileWrapper.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSFileWrapper.h
 //   NSFileWrapperReadingOptions
 //   NSFileWrapperWritingOptions
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSISO8601DateFormatter.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSISO8601DateFormatter.h
 //   NSISO8601DateFormatOptions
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSDateIntervalFormatter.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSDateIntervalFormatter.h
 //   NSDateIntervalFormatterStyle
             @"NSDateIntervalFormatterNoStyle":P(NSDateIntervalFormatterNoStyle),
             @"NSDateIntervalFormatterShortStyle":P(NSDateIntervalFormatterShortStyle),
@@ -2253,13 +2257,13 @@
             @"NSDateIntervalFormatterLongStyle":P(NSDateIntervalFormatterLongStyle),
             @"NSDateIntervalFormatterFullStyle":P(NSDateIntervalFormatterFullStyle),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSURLCache.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSURLCache.h
 //   NSURLCacheStoragePolicy
             @"NSURLCacheStorageAllowed":P(NSURLCacheStorageAllowed),
             @"NSURLCacheStorageAllowedInMemoryOnly":P(NSURLCacheStorageAllowedInMemoryOnly),
             @"NSURLCacheStorageNotAllowed":P(NSURLCacheStorageNotAllowed),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSDateComponentsFormatter.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSDateComponentsFormatter.h
 //   NSDateComponentsFormatterUnitsStyle
             @"NSDateComponentsFormatterUnitsStylePositional":P(NSDateComponentsFormatterUnitsStylePositional),
             @"NSDateComponentsFormatterUnitsStyleAbbreviated":P(NSDateComponentsFormatterUnitsStyleAbbreviated),
@@ -2276,7 +2280,7 @@
             @"NSDateComponentsFormatterZeroFormattingBehaviorDropAll":P(NSDateComponentsFormatterZeroFormattingBehaviorDropAll),
             @"NSDateComponentsFormatterZeroFormattingBehaviorPad":P(NSDateComponentsFormatterZeroFormattingBehaviorPad),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSDateFormatter.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSDateFormatter.h
 //   NSDateFormatterStyle
             @"NSDateFormatterNoStyle":P(NSDateFormatterNoStyle),
             @"NSDateFormatterShortStyle":P(NSDateFormatterShortStyle),
@@ -2286,7 +2290,7 @@
 //   NSDateFormatterBehavior
             @"NSDateFormatterBehaviorDefault":P(NSDateFormatterBehaviorDefault),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSTextCheckingResult.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSTextCheckingResult.h
 //   NSTextCheckingType
             @"NSTextCheckingTypeOrthography":P(NSTextCheckingTypeOrthography),
             @"NSTextCheckingTypeSpelling":P(NSTextCheckingTypeSpelling),
@@ -2302,7 +2306,7 @@
             @"NSTextCheckingTypePhoneNumber":P(NSTextCheckingTypePhoneNumber),
             @"NSTextCheckingTypeTransitInformation":P(NSTextCheckingTypeTransitInformation),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSStream.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSStream.h
 //   NSStreamStatus
             @"NSStreamStatusNotOpen":P(NSStreamStatusNotOpen),
             @"NSStreamStatusOpening":P(NSStreamStatusOpening),
@@ -2320,19 +2324,19 @@
             @"NSStreamEventErrorOccurred":P(NSStreamEventErrorOccurred),
             @"NSStreamEventEndEncountered":P(NSStreamEventEndEncountered),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSArray.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSArray.h
 //   NSBinarySearchingOptions
             @"NSBinarySearchingFirstEqual":P(NSBinarySearchingFirstEqual),
             @"NSBinarySearchingLastEqual":P(NSBinarySearchingLastEqual),
             @"NSBinarySearchingInsertionIndex":P(NSBinarySearchingInsertionIndex),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSPort.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSPort.h
 //   NSMachPortOptions
             @"NSMachPortDeallocateNone":P(NSMachPortDeallocateNone),
             @"NSMachPortDeallocateSendRight":P(NSMachPortDeallocateSendRight),
             @"NSMachPortDeallocateReceiveRight":P(NSMachPortDeallocateReceiveRight),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSFileManager.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSFileManager.h
 //   NSVolumeEnumerationOptions
 //   NSDirectoryEnumerationOptions
 //   NSFileManagerItemReplacementOptions
@@ -2342,17 +2346,17 @@
             @"NSURLRelationshipOther":P(NSURLRelationshipOther),
 //   NSFileManagerUnmountOptions
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSMeasurementFormatter.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSMeasurementFormatter.h
 //   NSMeasurementFormatterUnitOptions
             @"NSMeasurementFormatterUnitOptionsProvidedUnit":P(NSMeasurementFormatterUnitOptionsProvidedUnit),
             @"NSMeasurementFormatterUnitOptionsNaturalScale":P(NSMeasurementFormatterUnitOptionsNaturalScale),
             @"NSMeasurementFormatterUnitOptionsTemperatureWithoutUnit":P(NSMeasurementFormatterUnitOptionsTemperatureWithoutUnit),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSPersonNameComponentsFormatter.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSPersonNameComponentsFormatter.h
 //   NSPersonNameComponentsFormatterStyle
             @"NSPersonNameComponentsFormatterStyleDefault":P(NSPersonNameComponentsFormatterStyleDefault),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSNotificationQueue.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSNotificationQueue.h
 //   NSPostingStyle
             @"NSPostWhenIdle":P(NSPostWhenIdle),
             @"NSPostASAP":P(NSPostASAP),
@@ -2362,18 +2366,18 @@
             @"NSNotificationCoalescingOnName":P(NSNotificationCoalescingOnName),
             @"NSNotificationCoalescingOnSender":P(NSNotificationCoalescingOnSender),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSURLCredential.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSURLCredential.h
 //   NSURLCredentialPersistence
             @"NSURLCredentialPersistenceNone":P(NSURLCredentialPersistenceNone),
             @"NSURLCredentialPersistenceForSession":P(NSURLCredentialPersistenceForSession),
             @"NSURLCredentialPersistencePermanent":P(NSURLCredentialPersistencePermanent),
             @"NSURLCredentialPersistenceSynchronizable":P(NSURLCredentialPersistenceSynchronizable),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSFileCoordinator.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSFileCoordinator.h
 //   NSFileCoordinatorReadingOptions
 //   NSFileCoordinatorWritingOptions
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSTimeZone.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSTimeZone.h
 //   NSTimeZoneNameStyle
             @"NSTimeZoneNameStyleStandard":P(NSTimeZoneNameStyleStandard),
             @"NSTimeZoneNameStyleShortStandard":P(NSTimeZoneNameStyleShortStandard),
@@ -2382,12 +2386,12 @@
             @"NSTimeZoneNameStyleGeneric":P(NSTimeZoneNameStyleGeneric),
             @"NSTimeZoneNameStyleShortGeneric":P(NSTimeZoneNameStyleShortGeneric),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSOrderedCollectionChange.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSOrderedCollectionChange.h
 //   NSCollectionChangeType
             @"NSCollectionChangeInsert":P(NSCollectionChangeInsert),
             @"NSCollectionChangeRemove":P(NSCollectionChangeRemove),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSFormatter.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSFormatter.h
 //   NSFormattingContext
             @"NSFormattingContextUnknown":P(NSFormattingContextUnknown),
             @"NSFormattingContextDynamic":P(NSFormattingContextDynamic),
@@ -2400,7 +2404,7 @@
             @"NSFormattingUnitStyleMedium":P(NSFormattingUnitStyleMedium),
             @"NSFormattingUnitStyleLong":P(NSFormattingUnitStyleLong),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSLinguisticTagger.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSLinguisticTagger.h
 //   NSLinguisticTaggerUnit
             @"NSLinguisticTaggerUnitWord":P(NSLinguisticTaggerUnitWord),
             @"NSLinguisticTaggerUnitSentence":P(NSLinguisticTaggerUnitSentence),
@@ -2413,11 +2417,11 @@
             @"NSLinguisticTaggerOmitOther":P(NSLinguisticTaggerOmitOther),
             @"NSLinguisticTaggerJoinNames":P(NSLinguisticTaggerJoinNames),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSXPCConnection.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSXPCConnection.h
 //   NSXPCConnectionOptions
             @"NSXPCConnectionPrivileged":P(NSXPCConnectionPrivileged),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSItemProvider.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSItemProvider.h
 //   NSItemProviderRepresentationVisibility
             @"NSItemProviderRepresentationVisibilityAll":P(NSItemProviderRepresentationVisibilityAll),
             @"NSItemProviderRepresentationVisibilityTeam":P(NSItemProviderRepresentationVisibilityTeam),
@@ -2430,13 +2434,13 @@
             @"NSItemProviderUnexpectedValueClassError":P(NSItemProviderUnexpectedValueClassError),
             @"NSItemProviderUnavailableCoercionError":P(NSItemProviderUnavailableCoercionError),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSCompoundPredicate.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSCompoundPredicate.h
 //   NSCompoundPredicateType
             @"NSNotPredicateType":P(NSNotPredicateType),
             @"NSAndPredicateType":P(NSAndPredicateType),
             @"NSOrPredicateType":P(NSOrPredicateType),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSMorphology.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSMorphology.h
 //   NSGrammaticalGender
             @"NSGrammaticalGenderNotSet":P(NSGrammaticalGenderNotSet),
             @"NSGrammaticalGenderFeminine":P(NSGrammaticalGenderFeminine),
@@ -2501,7 +2505,7 @@
             @"NSGrammaticalDefinitenessIndefinite":P(NSGrammaticalDefinitenessIndefinite),
             @"NSGrammaticalDefinitenessDefinite":P(NSGrammaticalDefinitenessDefinite),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSJSONSerialization.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSJSONSerialization.h
 //   NSJSONReadingOptions
             @"NSJSONReadingMutableContainers":P(NSJSONReadingMutableContainers),
             @"NSJSONReadingMutableLeaves":P(NSJSONReadingMutableLeaves),
@@ -2511,14 +2515,14 @@
 //   NSJSONWritingOptions
             @"NSJSONWritingPrettyPrinted":P(NSJSONWritingPrettyPrinted),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSEnergyFormatter.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSEnergyFormatter.h
 //   NSEnergyFormatterUnit
             @"NSEnergyFormatterUnitJoule":P(NSEnergyFormatterUnitJoule),
             @"NSEnergyFormatterUnitKilojoule":P(NSEnergyFormatterUnitKilojoule),
             @"NSEnergyFormatterUnitCalorie":P(NSEnergyFormatterUnitCalorie),
             @"NSEnergyFormatterUnitKilocalorie":P(NSEnergyFormatterUnitKilocalorie),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSPathUtilities.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSPathUtilities.h
 //   NSSearchPathDirectory
             @"NSApplicationDirectory":P(NSApplicationDirectory),
             @"NSDemoApplicationDirectory":P(NSDemoApplicationDirectory),
@@ -2553,7 +2557,7 @@
             @"NSSystemDomainMask":P(NSSystemDomainMask),
             @"NSAllDomainsMask":P(NSAllDomainsMask),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSCalendar.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSCalendar.h
 //   NSCalendarUnit
             @"NSCalendarUnitEra":P(NSCalendarUnitEra),
             @"NSCalendarUnitYear":P(NSCalendarUnitYear),
@@ -2597,7 +2601,7 @@
             @"NSCalendarMatchFirst":P(NSCalendarMatchFirst),
             @"NSCalendarMatchLast":P(NSCalendarMatchLast),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSKeyValueObserving.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSKeyValueObserving.h
 //   NSKeyValueObservingOptions
 //   NSKeyValueChange
             @"NSKeyValueChangeSetting":P(NSKeyValueChangeSetting),
@@ -2610,7 +2614,7 @@
             @"NSKeyValueIntersectSetMutation":P(NSKeyValueIntersectSetMutation),
             @"NSKeyValueSetSetMutation":P(NSKeyValueSetSetMutation),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSMassFormatter.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSMassFormatter.h
 //   NSMassFormatterUnit
             @"NSMassFormatterUnitGram":P(NSMassFormatterUnitGram),
             @"NSMassFormatterUnitKilogram":P(NSMassFormatterUnitKilogram),
@@ -2618,13 +2622,13 @@
             @"NSMassFormatterUnitPound":P(NSMassFormatterUnitPound),
             @"NSMassFormatterUnitStone":P(NSMassFormatterUnitStone),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSOrderedCollectionDifference.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSOrderedCollectionDifference.h
 //   NSOrderedCollectionDifferenceCalculationOptions
             @"NSOrderedCollectionDifferenceCalculationOmitInsertedObjects":P(NSOrderedCollectionDifferenceCalculationOmitInsertedObjects),
             @"NSOrderedCollectionDifferenceCalculationOmitRemovedObjects":P(NSOrderedCollectionDifferenceCalculationOmitRemovedObjects),
             @"NSOrderedCollectionDifferenceCalculationInferMoves":P(NSOrderedCollectionDifferenceCalculationInferMoves),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSString.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSString.h
 //   NSStringCompareOptions
             @"NSCaseInsensitiveSearch":P(NSCaseInsensitiveSearch),
             @"NSLiteralSearch":P(NSLiteralSearch),
@@ -2650,7 +2654,7 @@
             @"NSStringEnumerationSubstringNotRequired":P(NSStringEnumerationSubstringNotRequired),
             @"NSStringEnumerationLocalized":P(NSStringEnumerationLocalized),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSDecimal.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSDecimal.h
 //   NSRoundingMode
             @"NSRoundPlain":P(NSRoundPlain),
             @"NSRoundDown":P(NSRoundDown),
@@ -2663,7 +2667,7 @@
             @"NSCalculationOverflow":P(NSCalculationOverflow),
             @"NSCalculationDivideByZero":P(NSCalculationDivideByZero),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSProcessInfo.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSProcessInfo.h
 //   NSActivityOptions
             @"NSActivityIdleDisplaySleepDisabled":P(NSActivityIdleDisplaySleepDisabled),
             @"NSActivityIdleSystemSleepDisabled":P(NSActivityIdleSystemSleepDisabled),
@@ -2682,7 +2686,7 @@
             @"NSProcessInfoThermalStateSerious":P(NSProcessInfoThermalStateSerious),
             @"NSProcessInfoThermalStateCritical":P(NSProcessInfoThermalStateCritical),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSRegularExpression.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSRegularExpression.h
 //   NSRegularExpressionOptions
             @"NSRegularExpressionCaseInsensitive":P(NSRegularExpressionCaseInsensitive),
             @"NSRegularExpressionAllowCommentsAndWhitespace":P(NSRegularExpressionAllowCommentsAndWhitespace),
@@ -2704,7 +2708,7 @@
             @"NSMatchingRequiredEnd":P(NSMatchingRequiredEnd),
             @"NSMatchingInternalError":P(NSMatchingInternalError),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSRelativeDateTimeFormatter.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSRelativeDateTimeFormatter.h
 //   NSRelativeDateTimeFormatterStyle
             @"NSRelativeDateTimeFormatterStyleNumeric":P(NSRelativeDateTimeFormatterStyleNumeric),
             @"NSRelativeDateTimeFormatterStyleNamed":P(NSRelativeDateTimeFormatterStyleNamed),
@@ -2714,7 +2718,7 @@
             @"NSRelativeDateTimeFormatterUnitsStyleShort":P(NSRelativeDateTimeFormatterUnitsStyleShort),
             @"NSRelativeDateTimeFormatterUnitsStyleAbbreviated":P(NSRelativeDateTimeFormatterUnitsStyleAbbreviated),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSXMLParser.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSXMLParser.h
 //   NSXMLParserExternalEntityResolvingPolicy
             @"NSXMLParserResolveExternalEntitiesNever":P(NSXMLParserResolveExternalEntitiesNever),
             @"NSXMLParserResolveExternalEntitiesNoNetwork":P(NSXMLParserResolveExternalEntitiesNoNetwork),
@@ -2815,7 +2819,7 @@
             @"NSXMLParserNoDTDError":P(NSXMLParserNoDTDError),
             @"NSXMLParserDelegateAbortedParseError":P(NSXMLParserDelegateAbortedParseError),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSNumberFormatter.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSNumberFormatter.h
 //   NSNumberFormatterBehavior
             @"NSNumberFormatterBehaviorDefault":P(NSNumberFormatterBehaviorDefault),
 //   NSNumberFormatterStyle
@@ -2843,7 +2847,7 @@
             @"NSNumberFormatterRoundHalfDown":P(NSNumberFormatterRoundHalfDown),
             @"NSNumberFormatterRoundHalfUp":P(NSNumberFormatterRoundHalfUp),
 
-//   Enum definitions in ./source_headers/Foundation/Headers/NSPropertyList.h
+//   Enum definitions in ./enum_gen/Foundation/Headers/NSPropertyList.h
 //   NSPropertyListMutabilityOptions
             @"NSPropertyListImmutable":P(NSPropertyListImmutable),
             @"NSPropertyListMutableContainers":P(NSPropertyListMutableContainers),
@@ -2851,7 +2855,7 @@
 //   NSPropertyListFormat
             @"NSPropertyListOpenStepFormat":P(NSPropertyListOpenStepFormat),
 
-//total entry count is 1993
+//total entry count is 1996
         };
     });
 
