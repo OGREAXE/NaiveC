@@ -104,9 +104,12 @@ def find_and_write_enums(headerpath, outpath, userealvalue = True):
                     iscommment = True
                     continue;
                 
-                if l.endswith('*/'):
+                if l.endswith('*/') and iscommment:
                     iscommment = False
                     continue;
+                    
+                if iscommment:
+                    continue
                 
                 if userealvalue:
                     e = l.split(",")[0].split("=")
@@ -118,7 +121,7 @@ def find_and_write_enums(headerpath, outpath, userealvalue = True):
                     
                     if not key[0].isalpha():
                         continue;
-                    
+                        
                     if len(e) == 1:
                         if e :
                             writeline('            @"' + key + f'":P({currentvalue}),')
@@ -127,9 +130,7 @@ def find_and_write_enums(headerpath, outpath, userealvalue = True):
                         currentvalue += 1
                         
                     elif len(e) == 2:
-                        rawvalue = e[1].strip().split("//")[0].strip()
-                        
-                        #print(rawvalue)
+                        rawvalue = e[1].strip().split("//")[0].split("/*")[0].strip()
                         
                         if "<<" in rawvalue:
                             writeline('            @"' + key + f'":P({rawvalue}),')
