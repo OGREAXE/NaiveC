@@ -4,7 +4,7 @@ import sys
 import getopt
 
 def writeline(line):
-    print(line)
+    #print(line)
     print(line, file=f)
   
 def find_and_write_enums(headerpath, outpath, userealvalue = True):
@@ -14,7 +14,8 @@ def find_and_write_enums(headerpath, outpath, userealvalue = True):
     all_filenames = []
     for (dirpath, dirnames, files) in os.walk(headerpath):
         for file in files:
-            all_filenames.append(os.path.join(dirpath, file))
+            if file.endswith(".h") or file.endswith(".m"):
+                all_filenames.append(os.path.join(dirpath, file))
         #break
         
     print("all header files :")
@@ -31,6 +32,7 @@ def find_and_write_enums(headerpath, outpath, userealvalue = True):
 
     writeline(f'#import "{classname}.h"');
     writeline('#import "UIKit/UIKit.h"');
+    writeline('#import "AVFoundation/AVFoundation.h"');
     writeline('')
     writeline(f'@implementation {classname}')
     writeline('+(id)enumForName:(NSString *)name {')
@@ -45,15 +47,14 @@ def find_and_write_enums(headerpath, outpath, userealvalue = True):
     ignore_enum_fields = ["UITextFieldDidEndEditingReasonCancelled", "NSItemProviderRepresentationVisibilityGroup"]
     
     for filename in all_filenames:
-        if not filename.endswith(".h"):
-            continue
-            
-        
-            
+         
         #with open("./Headers/UIControl.h") as f:
         with open(filename) as fin:
-            data = fin.read()
-             
+            try:
+                data = fin.read()
+            except UnicodeDecodeError as e:
+                print("decode error :" + filename)
+                continue
         #print(data)
 
         all_matches = re.findall("(NS_ENUM|NS_OPTIONS|NS_CLOSED_ENUM)\\(.*?,(.*?)\\) *\\s\\{((.|\\s)*?)\\}(.*?);\\s", data)
@@ -80,14 +81,14 @@ def find_and_write_enums(headerpath, outpath, userealvalue = True):
                         print (match[1] + ' is not available in iOS')
                         continue
             
+            #print(match[2])
+            
             lines = match[2].splitlines()
             iscommment = False
             
             currentvalue = 0
             
             for l in lines:
-                if iscommment:
-                    continue
                     
                 lunav = re.search("API_UNAVAILABLE\\((.*?)\\)", l)
                 if lunav:
@@ -101,36 +102,68 @@ def find_and_write_enums(headerpath, outpath, userealvalue = True):
                 
                 if l.startswith('/*'):
                     iscommment = True
+                    continue;
                 
                 if l.endswith('*/'):
                     iscommment = False
+                    continue;
                 
                 if userealvalue:
                     e = l.split(",")[0].split("=")
                     
+                    key = e[0].strip()
+                    
+                    if not key:
+                        continue
+                    
+                    if not key[0].isalpha():
+                        continue;
+                    
                     if len(e) == 1:
-                        if e and e[0].isalpha():
-                            writeline('            @"' + e[0] + f'":P({currentvalue}),')
+                        if e :
+                            writeline('            @"' + key + f'":P({currentvalue}),')
                             total += 1
                         
                         currentvalue += 1
                         
                     elif len(e) == 2:
-                        currentvalue = int(e[1])
+                        rawvalue = e[1].strip().split("//")[0].strip()
                         
-                        if e and e[0].isalpha():
-                            writeline('            @"' + e[0] + f'":P({currentvalue}),')
+                        #print(rawvalue)
+                        
+                        if "<<" in rawvalue:
+                            writeline('            @"' + key + f'":P({rawvalue}),')
                             total += 1
+                        elif rawvalue.isnumeric() or "0x" in rawvalue:
+                            if "0x" in rawvalue:
+                                currentvalue = int(rawvalue, 16)
+                            else:
+                                currentvalue = int(rawvalue)
                             
-                        currentvalue += 1
+                            if e :
+                                writeline('            @"' + key + f'":P({currentvalue}),')
+                                total += 1
+                                
+                            currentvalue += 1
+                        elif rawvalue.startswith("NS") or rawvalue.startswith("UI"):
+                            writeline('            @"' + key + f'":P({rawvalue}),')
                         
                     else:
                         print("fail to parse :" + l)
                     
                 else:
                     e = l.split(",")[0].split("=")[0].split()
-                    if e and e[0].isalpha() and e[0] != "return" and e[0] not in ignore_enum_fields:
-                        writeline('            @"' + e[0] + '":P(' + e[0] + '),')
+
+                    key = e[0].strip()
+                    
+                    if not key:
+                        continue
+                    
+                    if not key[0].isalpha():
+                        continue;
+                        
+                    if e and key != "return" and key not in ignore_enum_fields:
+                        writeline('            @"' + key + '":P(' + key + '),')
                         total += 1
 
     writeline("")
