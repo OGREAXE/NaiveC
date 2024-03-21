@@ -734,13 +734,20 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
             else {
                 //objective c ivar
                 if (node->name[0] == '_'){
+                     //put a accessor into the frame.stack
                     auto selfInstance = frame.localVariableMap["self"];
-                    auto ivar = selfInstance->getAttribute(node->name);
+                    auto accesor = new NCFieldAccessor(selfInstance, node->name);
+                    frame.stack_push(shared_ptr<NCStackElement>(accesor));
                     
-                    if (ivar) {
-                        frame.stack.push_back(shared_ptr<NCStackElement>(ivar));
-                        return true;
-                    }
+                    return true;
+//                    auto ivar = selfInstance->getAttribute(node->name);
+//                    
+//                    if (ivar) {
+//                        frame.stack.push_back(shared_ptr<NCStackElement>(ivar));
+//                        return true;
+//                    }
+                    
+                    
                 } else if (node->name == "super") {
                     auto superInstance = frame.localVariableMap["super"];
                     
@@ -829,6 +836,10 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         
         for (auto & capturedSymbol : capturedSymbols) {
             auto &localVar = frame.localVariableMap[capturedSymbol];
+            
+            if (capturedSymbol == "super") {
+                localVar = frame.localVariableMap["self"];
+            }
             
             if (localVar) {
                 NCCapturedObject capture;
