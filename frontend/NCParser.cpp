@@ -418,6 +418,17 @@ shared_ptr<NCExpression> NCParser::variable_declaration_expression(){
         return nullptr;
     }
     
+    while (peek(1) != "=") {
+        auto additional_type = type_specifier();
+        
+        if (additional_type.length() == 0) {
+            return nullptr;
+        }
+        
+        type += " ";
+        type += additional_type;
+    }
+    
     varExprStmt->type = type;
     
     if (word == "*"){
