@@ -14,12 +14,11 @@
     content = [self stringByRemovingCommentsInString:content];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"@implementation((.|\\s)*?)@end" options:NSRegularExpressionCaseInsensitive error:NULL];
-
     
     NSArray *myArray = [regex matchesInString:content options:0 range:NSMakeRange(0, [content length])] ;
     
     NSMutableArray *classes = [NSMutableArray array];
-
+    
     for (NSTextCheckingResult *match in myArray) {
         NSRange matchRange = [match rangeAtIndex:1];
         
@@ -27,17 +26,17 @@
         
         NSString *className = [[impContent componentsSeparatedByString:@"\n"] objectAtIndex:0];
         className = [className stringByTrimmingCharactersInSet:
-                                      [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                     [NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
         //for class {ivar _a};
         NSArray *classDefComps = [className componentsSeparatedByString:@"{"];
         if (classDefComps.count) {
             className = classDefComps[0];
         }
-//        [matches addObject:impContent];
-//         NSLog(@"%@", [matches lastObject]);
+        //        [matches addObject:impContent];
+        //         NSLog(@"%@", [matches lastObject]);
         
-//        NSString *methodRegexPattern = @"- *\\(.*?\\)((.|\\s)*?)\\{((.|\\s)*?)\\}";
+        //        NSString *methodRegexPattern = @"- *\\(.*?\\)((.|\\s)*?)\\{((.|\\s)*?)\\}";
         NSString *patchMethodRegexPattern = @" *#pragma  *mark  *patch *\n *([-|+] *\\(.*?\\)(.|\\s)*?)\\{((.|\\s)*?)\\}";
         NSRegularExpression *methodRegex = [NSRegularExpression regularExpressionWithPattern:patchMethodRegexPattern options:NSRegularExpressionCaseInsensitive error:NULL];
         
@@ -82,7 +81,86 @@
         [classes addObject:pClass];
     }
     
+    [self extractPatchedPropertiesWithClasses:classes withContent:content];
+    
     return classes;
+}
+
+- (void)extractPatchedPropertiesWithClasses:(NSMutableArray<NPPatchedClass *> *)classes withContent:(NSString *)content {
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"@interface((.|\\s)*?)@end"
+                                                                           options:NSRegularExpressionCaseInsensitive error:NULL];
+    
+    NSArray *myArray = [regex matchesInString:content options:0 range:NSMakeRange(0, [content length])];
+    
+    for (NSTextCheckingResult *match in myArray) {
+        NSRange matchRange = [match rangeAtIndex:1];
+        
+        NSString *impContent = [content substringWithRange:matchRange];
+        
+        NSString *className = [[impContent componentsSeparatedByString:@"\n"] objectAtIndex:0];
+        className = [className stringByTrimmingCharactersInSet:
+                     [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
+        NSString *patchMethodRegexPattern = @" *#pragma  *mark  *patch *\n *@property (.*?); *\\s";
+        NSRegularExpression *methodRegex = [NSRegularExpression regularExpressionWithPattern:patchMethodRegexPattern options:NSRegularExpressionCaseInsensitive error:NULL];
+        
+        NSArray *proArray = [methodRegex matchesInString:impContent options:0 range:NSMakeRange(0, [impContent length])] ;
+        
+        NSMutableArray *properties = [NSMutableArray array];
+        
+        for (NSTextCheckingResult *match in proArray) {
+            NSRange propertyMatchRange = [match rangeAtIndex:1];
+            
+            NSString *decl = [impContent substringWithRange:propertyMatchRange];
+            
+            NSRange rangeOfBraceEnd = [decl rangeOfString:@")"];
+            if (rangeOfBraceEnd.length > 0) {
+                decl = [decl substringFromIndex:rangeOfBraceEnd.location];
+            }
+            
+            BOOL isPointer = [decl containsString:@"*"];
+            
+            decl = [decl stringByReplacingOccurrencesOfString:@"*" withString:@" "];
+            
+            NSMutableArray *subparts = [NSMutableArray array];
+            [decl enumerateSubstringsInRange:NSMakeRange(0, [decl length]) options:NSStringEnumerationByWords usingBlock:^(NSString* word, NSRange wordRange, NSRange enclosingRange, BOOL* stop){
+                [subparts addObject:word];
+            }];
+            
+            NPPatchedProperty *property = [[NPPatchedProperty alloc] init];
+            
+            property.isPointer = isPointer;
+            
+            property.name = subparts.lastObject;
+            
+            NSMutableString *type = [NSMutableString string];
+            for (int i = 0; i < subparts.count - 1; i ++) {
+                [type appendString:subparts[i]];
+            }
+            
+            property.type = type;
+            
+            [properties addObject:property];
+        }
+        
+        BOOL classAlreadyDefined = NO;
+        
+        for (NPPatchedClass *class in classes) {
+            if ([class.name isEqualToString:className]) {
+                classAlreadyDefined = YES;
+                class.patchedProperties = properties;
+                break;
+            }
+        }
+        
+        if (!classAlreadyDefined) {
+            NPPatchedClass *pClass = [NPPatchedClass new];
+            pClass.name = className;
+            pClass.patchedProperties = properties;
+            
+            [classes addObject:pClass];
+        }
+    }
 }
 
 - (NSString *)selectorFromString:(NSString *)str andParamPairs:(NSArray<NPParamterPair *> *)pairs {

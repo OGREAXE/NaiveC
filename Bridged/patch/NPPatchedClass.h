@@ -34,9 +34,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface NPPatchedProperty : NSObject
+
+@property (nonatomic) BOOL isPointer;
+
+@property (nonatomic) NSString *type;
+
+@property (nonatomic) NSString *name;
+
+@end
+
 @interface NPPatchedClass : NSObject
 
 @property (nonatomic, copy) NSString *name;
+
+@property (nonatomic) NSArray<NPPatchedProperty *> *patchedProperties;
 
 @property (nonatomic) NSArray<NPPatchedMethod *> *patchedMethods;
 

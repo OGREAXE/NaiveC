@@ -24,6 +24,10 @@
 
 @end
 
+@implementation NPPatchedProperty
+
+@end
+
 @implementation NPPatchedClass
 
 @end
