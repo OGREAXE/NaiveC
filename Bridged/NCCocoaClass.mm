@@ -251,3 +251,19 @@ bool NCCocoaClass::invokeMethod(string methodName, vector<shared_ptr<NCStackElem
     
     return [NCInvocation invoke:methodStr object:nil orClass:thisClass arguments:arguments stack:lastStack];
 }
+
+shared_ptr<NCStackElement> NCCocoaClass::getAttribute(const string & attrName) {
+    NSString * methodStr = [NSString stringWithUTF8String:attrName.c_str()];
+    
+    vector<shared_ptr<NCStackElement>> args;
+    
+    vector<shared_ptr<NCStackElement>> formatArgs;
+    
+    vector<shared_ptr<NCStackElement>> lastStack;
+    
+    if(invokeMethod(attrName, args, formatArgs, lastStack)) {
+        return lastStack.back();
+    }
+    
+    return nullptr;
+}

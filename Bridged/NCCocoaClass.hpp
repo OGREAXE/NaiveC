@@ -30,6 +30,8 @@ public:
      */
     virtual shared_ptr<NCStackElement> instantiate(vector<shared_ptr<NCStackElement>> &arguments);
     
+    virtual shared_ptr<NCStackElement> getAttribute(const string & attrName);
+    
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
     
 //    bool invokeMethod(const NCMethodCallExpr &call, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> &lastStack);

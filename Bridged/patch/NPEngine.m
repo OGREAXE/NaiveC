@@ -186,6 +186,13 @@ static NSDictionary *defineClass(NSString *classDeclaration, NSArray<NPPatchedMe
                 overrideMethod(currCls, method.selector, ncMethod, !isInstance, NULL);
             } else {
                 NSLog(@"define method fail:(%@)-->(%@)",currCls, method.selector);
+                
+                NSMutableString *typeDescStr = [@"@@:" mutableCopy];
+                for (int i = 1; i < method.parameterPairs.count; i ++) {
+                    [typeDescStr appendString:@"@"];
+                }
+                overrideMethod(currCls, method.selector, ncMethod, !isInstance, [typeDescStr cStringUsingEncoding:NSUTF8StringEncoding]);
+                
 //                BOOL overrided = NO;
 //                for (NSString *protocolName in protocols) {
 //                    char *types = methodTypesInProtocol(protocolName, selectorName, isInstance, YES);
