@@ -100,7 +100,7 @@ def find_and_write_enums(headerpath, outpath, userealvalue = True):
                     
                 l = l.strip()
                 
-                if l.startswith('/*'):
+                if l.startswith('/*') and not l.endswith('*/'):
                     iscommment = True
                     continue;
                 
@@ -132,21 +132,14 @@ def find_and_write_enums(headerpath, outpath, userealvalue = True):
                     elif len(e) == 2:
                         rawvalue = e[1].strip().split("//")[0].split("/*")[0].strip()
                         
-                        if "<<" in rawvalue:
-                            writeline('            @"' + key + f'":P({rawvalue}),')
-                            total += 1
-                        elif rawvalue.isnumeric() or "0x" in rawvalue:
-                            if "0x" in rawvalue:
-                                currentvalue = int(rawvalue, 16)
-                            else:
-                                currentvalue = int(rawvalue)
+                        if rawvalue.isnumeric():
+                            currentvalue = int(rawvalue)
                             
-                            if e :
-                                writeline('            @"' + key + f'":P({currentvalue}),')
-                                total += 1
+                            writeline('            @"' + key + f'":P({currentvalue}),')
+                            total += 1
                                 
                             currentvalue += 1
-                        elif rawvalue.startswith("NS") or rawvalue.startswith("UI"):
+                        elif rawvalue.startswith("0x") or rawvalue.startswith("NS") or rawvalue.startswith("UI") or "<<" in rawvalue :  
                             writeline('            @"' + key + f'":P({rawvalue}),')
                         
                     else:
