@@ -20,6 +20,8 @@
 #define PUSH_INDEX2 int _saved_temp_index2 = index;
 #define POP_INDEX2 {index = _saved_temp_index2; word = (*tokens)[index].token;}
 
+
+
 static unordered_set<string> keywords =
 {
     //types
@@ -44,6 +46,8 @@ static unordered_set<string> keywords =
 
 #define MAKE_SMART_PTR(ret) ret
 
+#define PRINT_NEAR //printNearTokens();
+
 NCParser::NCParser(shared_ptr<const vector<NCToken>>& tokens):index(0){
     bool res = parse(tokens);
 }
@@ -52,6 +56,7 @@ bool NCParser::parse(shared_ptr<const vector<NCToken>>& tokens){
     this->tokens = tokens;
     
     if (tokens->size() <= 0) {
+        PRINT_NEAR
         return false;
     }
     
@@ -106,6 +111,30 @@ string NCParser::nextWord(){
         throw NCParseException(0,"parse fail:tokens exceeded");
     }
     return (*tokens)[index].token;
+}
+
+void NCParser::printNearTokens() {
+    int start = index, end = index;
+    
+    int range = 3;
+    
+    while (end < tokens->size()-1 && end - index < range) {
+        end ++;
+    }
+    
+    while (start > 0 && index - start < range) {
+        start --;
+    }
+    
+    string msg = "";
+    
+    for (int i = start; i <= end; i ++) {
+        msg = msg + (*tokens)[i].token;
+        
+        msg = msg + " ";
+    }
+    
+    NCLogParser("parse false near sequence: %s", msg.c_str());
 }
 
 string NCParser::priviousWord(){
@@ -172,6 +201,7 @@ MCParserReturnType NCParser::class_definition(){
 
 bool NCParser::class_body(vector<shared_ptr<NCBodyDeclaration>> & members){
     if (word != "{") {
+        PRINT_NEAR
         return false;
     }
     
@@ -179,6 +209,7 @@ bool NCParser::class_body(vector<shared_ptr<NCBodyDeclaration>> & members){
     while (word!="}") {
         auto member = class_body_declaration();
         if (!member) {
+            PRINT_NEAR
             return false;
         }
         members.push_back(member);
@@ -296,6 +327,7 @@ AstNodePtr NCParser::function_definition(){
 bool NCParser::parameterlist(vector<NCParameter> & parameters){
     NCParameter * para = nullptr;
     if(!parameter(&para)){
+        PRINT_NEAR
         return false;
     }
     parameters.push_back(*para);
@@ -303,6 +335,7 @@ bool NCParser::parameterlist(vector<NCParameter> & parameters){
         word = nextWord();
         NCParameter * para = nullptr;
         if(!parameter(&para)){
+            PRINT_NEAR
             return false;
         }
         parameters.push_back(*para);
@@ -318,15 +351,19 @@ bool NCParser::parameter(NCParameter ** ppp){
             word = nextWord();
             return true;
         }
+        
+        PRINT_NEAR
         return false;
     }
     
     string type = type_specifier();
     if (type.length() == 0) {
+        PRINT_NEAR
         return false;
     }
 
     if (!isIdentifier(word)) {
+        PRINT_NEAR
         return false;
     }
     
@@ -594,6 +631,7 @@ shared_ptr<NCExpression> NCParser::expression(){
 bool NCParser::expression_list(vector<shared_ptr<NCExpression>>& exprList){
     auto ret = expression();
     if (!ret) {
+        PRINT_NEAR
         return false;
     }
     
@@ -605,6 +643,7 @@ bool NCParser::expression_list(vector<shared_ptr<NCExpression>>& exprList){
         word = nextWord();
         ret = expression();
         if (!ret) {
+            PRINT_NEAR
             return false;
         }
         exprList.push_back(ret);
@@ -993,10 +1032,12 @@ bool NCParser::arguments_expression(vector<shared_ptr<NCExpression>> & args){
     }
     
     if (!arguments(args)) {
+        PRINT_NEAR
         return false;
     }
     
     if (word != ")") {
+        PRINT_NEAR
         return false;
     }
     word = nextWord();
@@ -1006,6 +1047,7 @@ bool NCParser::arguments_expression(vector<shared_ptr<NCExpression>> & args){
 bool NCParser::arguments(vector<shared_ptr<NCExpression>> & args){
     auto arg = expression();
     if (!arg) {
+        PRINT_NEAR
         return false;
     }
     while (arg) {
@@ -1016,6 +1058,7 @@ bool NCParser::arguments(vector<shared_ptr<NCExpression>> & args){
         word = nextWord();
         arg = expression();
         if (!arg) {
+            PRINT_NEAR
             return false;
         }
     }
@@ -1026,12 +1069,14 @@ bool NCParser::arguments(vector<shared_ptr<NCExpression>> & args){
     auto key = expression();
     
     if (!key) {
+        PRINT_NEAR
         return false;
     }
      
     kv.first = key;
     
     if (word != ":") {
+        PRINT_NEAR
         return false;
     }
      
@@ -1040,6 +1085,7 @@ bool NCParser::arguments(vector<shared_ptr<NCExpression>> & args){
     auto value = expression();
     
     if (!value) {
+        PRINT_NEAR
         return false;
     }
      
@@ -1069,6 +1115,7 @@ bool NCParser::keyValueList(vector<pair<shared_ptr<NCExpression>, shared_ptr<NCE
         res = keyvalue(kv);
         
         if (!res) {
+            PRINT_NEAR
             return false;
         }
     }
@@ -1135,6 +1182,8 @@ bool NCParser::vecInclude(vector<string>& operators, string op){
             return true;
         }
     }
+    
+    PRINT_NEAR
     return false;
 }
 
@@ -1412,6 +1461,7 @@ bool NCParser::for_init(vector<shared_ptr<NCExpression>>& init){
     POP_INDEX
     
     if (!expression_list(init)) {
+        PRINT_NEAR
         return false;
     }
     return true;

@@ -175,6 +175,18 @@ using namespace std;
     
     return NULL;
 }
+
+- (BOOL)canParseMethod:(NPPatchedMethod*)method error:(NSError**)error {
+    NSString * completedSource = [self completedMainSourceWithBody:method.body];
+    [self parseSourceCode:completedSource];
+    
+    if (_parser->getRoot()->functionList.size() == 0) {
+        NCLogParser("parse fail");
+        return NO;
+    }
+    
+    return TRUE;
+}
     
 - (id)runWithMethod:(NPPatchedMethod*)method arguments:(NSArray *)arguments error:(NSError**)error {
     NSString * completedSource = [self completedMainSourceWithBody:method.body];

@@ -44,6 +44,8 @@ private:
     
     string peek(int n);
     
+    void printNearTokens();
+    
     int index;
     string word;
     

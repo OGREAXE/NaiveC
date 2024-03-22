@@ -10,6 +10,7 @@
 #import <objc/runtime.h>
 #import <objc/message.h>
 #import "NCObjCSourceParser.h"
+#import "NCCodeEngine_iOS.h"
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIApplication.h>
@@ -99,12 +100,18 @@ static NSString *extractStructName(NSString *typeEncodeString)
     
     NSArray *patches = [parser extractPatchMethodFromContent:code];
     
+    if (patches.count == 0) {
+        NSLog(@"[Naive] Patch fail, nothing is patched, please check source code");
+    }
+    
     [self.class defineClasses:patches];
 }
 
 + (void)defineClasses:(NSArray<NPPatchedClass *> *)classes {
     for (NPPatchedClass *cls in classes) {
         if (!_NPClassDefitions)_NPClassDefitions = [NSMutableDictionary dictionary];
+        
+        if (!cls.name)continue;
         
         if (!_NPClassDefitions[cls.name]) {
             _NPClassDefitions[cls.name] = cls;
@@ -234,6 +241,11 @@ static NSDictionary *defineClass(NSString *classDeclaration, NSArray<NPPatchedMe
         Class currCls = isInstance ? cls: objc_getMetaClass(className.UTF8String);
         
         for (NPPatchedMethod *method in methods) {
+                        
+            if (![[NCCodeEngine_iOS defaultEngine] canParseMethod:method error:nil]) {
+                NSLog(@"[Naive] fail to parse method %@", method.selector);
+                continue;
+            }
             
             //todo init ncMethod
             NPFunction *ncMethod = [[NPFunction alloc] init];
@@ -243,8 +255,9 @@ static NSDictionary *defineClass(NSString *classDeclaration, NSArray<NPPatchedMe
             if (class_respondsToSelector(currCls, NSSelectorFromString(method.selector))) {
                 overrideMethod(currCls, method.selector, ncMethod, !isInstance, NULL);
             } else {
-                NSLog(@"define method fail:(%@)-->(%@)",currCls, method.selector);
-                
+                NSLog(@"[Naive] define method not exist:(%@)-->(%@)",currCls, method.selector);
+                NSLog(@"[Naive] add new method ..");
+                      
                 NSMutableString *typeDescStr = [@"@@:" mutableCopy];
                 for (int i = 1; i < method.parameterPairs.count; i ++) {
                     [typeDescStr appendString:@"@"];
@@ -337,6 +350,8 @@ static void overrideMethod(Class cls, NSString *selectorName, NPFunction *functi
     // Replace the original selector at last, preventing threading issus when
     // the selector get called during the execution of `overrideMethod`
     class_replaceMethod(cls, selector, msgForwardIMP, typeDescription);
+    
+    NSLog(@"[Naive] finish patching %@", selectorName);
 }
 
 static NPFunction *getJSFunctionInObjectHierachy(id slf, NSString *selectorName)

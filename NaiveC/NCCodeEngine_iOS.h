@@ -38,6 +38,8 @@ typedef NS_ENUM(NSUInteger, NCInterpretorMode) {
 //arguments type should be NPValue
 //-(id)runWithMethod:(NPPatchedMethod*)method arguments:(NSArray *)arguments error:(NSError**)error;
 
+- (BOOL)canParseMethod:(NPPatchedMethod*)method error:(NSError**)error;
+
 -(id)runWithFunction:(NPFunction*)function arguments:(NSArray *)arguments error:(NSError**)error;
 
 @end

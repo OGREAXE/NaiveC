@@ -282,7 +282,17 @@
 
 - (NSArray<NPParamterPair *> *)parameterPairFromString:(NSString *)str {
     str = [str stringByAppendingString:@" "];
-    NSString *patchMethodRegexPattern = @"\\) *([^ ]*) *: *\\(([^:]+)\\)([^ ]+) +";
+    
+    NSRange begin = [str rangeOfString:@")"];
+    
+    if (begin.length == 0) {
+        NSLog(@"parameterPairFromString fail");
+        return nil;
+    }
+    
+    str = [str substringFromIndex:begin.location + 1];
+    
+    NSString *patchMethodRegexPattern = @" *([^ ]*) *: *\\(([^:]+)\\)([^ ]+)[ |\\s|//|/*]+";
     NSRegularExpression *methodRegex = [NSRegularExpression regularExpressionWithPattern:patchMethodRegexPattern options:NSRegularExpressionCaseInsensitive error:NULL];
     
     NSArray *methodArray = [methodRegex matchesInString:str options:0 range:NSMakeRange(0, [str length])] ;
