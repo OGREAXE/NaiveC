@@ -97,9 +97,38 @@
         
         NSString *impContent = [content substringWithRange:matchRange];
         
-        NSString *className = [[impContent componentsSeparatedByString:@"\n"] objectAtIndex:0];
+        NSString *interfaceDef = [[impContent componentsSeparatedByString:@"\n"] objectAtIndex:0];
+        interfaceDef = [interfaceDef stringByTrimmingCharactersInSet:
+                     [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
+        NSScanner *scanner = [NSScanner scannerWithString:interfaceDef];
+        
+        NSString *className;
+        NSString *superClassName;
+        NSString *protocolNames;
+        
+        if ([interfaceDef containsString:@":"]) {
+            [scanner scanUpToString:@":" intoString:&className];
+        } else {
+            [scanner scanUpToString:@"(" intoString:&className];
+        }
+        
+        if (!scanner.isAtEnd) {
+            scanner.scanLocation = scanner.scanLocation + 1;
+            [scanner scanUpToString:@"<" intoString:&superClassName];
+            if (!scanner.isAtEnd) {
+                scanner.scanLocation = scanner.scanLocation + 1;
+                [scanner scanUpToString:@">" intoString:&protocolNames];
+            }
+        }
+        
         className = [className stringByTrimmingCharactersInSet:
                      [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        superClassName = [superClassName stringByTrimmingCharactersInSet:
+                     [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        protocolNames = [protocolNames stringByTrimmingCharactersInSet:
+                     [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        ///
         
         NSString *patchMethodRegexPattern = @" *#pragma  *mark  *patch *\n *@property (.*?); *\\s";
         NSRegularExpression *methodRegex = [NSRegularExpression regularExpressionWithPattern:patchMethodRegexPattern options:NSRegularExpressionCaseInsensitive error:NULL];

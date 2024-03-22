@@ -20,6 +20,16 @@
 #import "NCCocoaMapper.h"
 #import "NSCocoaSymbolStore.h"
 #import "NSNumber+Naive.h"
+#include "NCLog.hpp"
+#import "NPPatchedClass.h"
+
+#import "NPEngine.h"
+#import "NCPropertyWrapper.h"
+
+@interface NCPropertyWrapper ()
+- (void)setStackElement:(shared_ptr<NCStackElement>)element forName:(const string &)name;
+- (shared_ptr<NCStackElement>)stackElementForName:(const string &)name;
+@end
 
 #pragma mark cocoaBox implementation
 
@@ -115,10 +125,21 @@ bool NCCocoaBox::invokeMethod(string methodName, vector<shared_ptr<NCStackElemen
     return res;
 }
 
+void *kPropertyWrapperKey = nil;
+
 shared_ptr<NCStackElement> NCCocoaBox::getAttribute(const string & attrName){
     NSObject * wrappedObject = GET_NS_OBJECT;
     
     NSString * methodStr = [NSString stringWithUTF8String:attrName.c_str()];
+    
+    NPPatchedProperty *patchedProperty = [NPEngine patchedPropertyForName:methodStr withClass:wrappedObject.class];
+    
+    if (patchedProperty) {
+        //a dynamically patched property
+        NCPropertyWrapper *wrpper = objc_getAssociatedObject(wrappedObject, &kPropertyWrapperKey);
+        
+        return [wrpper stackElementForName:attrName];
+    }
     
     if ([methodStr hasPrefix:@"_"]) {
         //instance variable
@@ -134,13 +155,32 @@ shared_ptr<NCStackElement> NCCocoaBox::getAttribute(const string & attrName){
     if (resultContainer.size() > 0) {
         return resultContainer[0];
     }
-    NSLog(@"attribute %@ not found", methodStr);
+//    NSLog(@"attribute %@ not found", methodStr);
+    NCLogInterpretor("attribute %s not found", attrName.c_str());
     return nullptr;
 }
 
 void NCCocoaBox::setAttribute(const string & attrName, shared_ptr<NCStackElement> value){
     
     NSObject * wrappedObject = GET_NS_OBJECT;
+    
+    NPPatchedProperty *patchedProperty = [NPEngine patchedPropertyForName:[NSString stringWithUTF8String:attrName.c_str()]
+                                                                      withClass:wrappedObject.class];
+    
+    if (patchedProperty) {
+        //a dynamically patched property
+        NCPropertyWrapper *wrpper = objc_getAssociatedObject(wrappedObject, &kPropertyWrapperKey);
+        
+        if (!wrpper) {
+            wrpper = [[NCPropertyWrapper alloc] init];
+        }
+        
+        [wrpper setStackElement:value forName:attrName];
+        
+        objc_setAssociatedObject(wrappedObject, &kPropertyWrapperKey, wrpper, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        
+        return ;
+    }
     
     if (attrName[0] == '_') {
         [NCInvocation setInstanceVariable:value forName:[NSString stringWithUTF8String:attrName.c_str()] withObject:wrappedObject];

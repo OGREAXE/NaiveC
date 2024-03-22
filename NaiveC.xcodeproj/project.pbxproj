@@ -24,6 +24,9 @@
 		0D00F7C42B8CC00F00A8E9AD /* NCObjCSourceParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D00F7AF2B8CC00F00A8E9AD /* NCObjCSourceParser.h */; };
 		0D00F7C62B8CC17700A8E9AD /* NPEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D00F7AC2B8CC00E00A8E9AD /* NPEngine.m */; };
 		0D00F7C72B8CC19400A8E9AD /* NCObjCSourceParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D00F7AA2B8CC00E00A8E9AD /* NCObjCSourceParser.m */; };
+		0D1BDA8C2BAD20A300065246 /* NCPropertyWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D1BDA8A2BAD20A300065246 /* NCPropertyWrapper.h */; };
+		0D1BDA8D2BAD20A300065246 /* NCPropertyWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D1BDA8B2BAD20A300065246 /* NCPropertyWrapper.mm */; };
+		0D1BDA8E2BAD271700065246 /* NCPropertyWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D1BDA8B2BAD20A300065246 /* NCPropertyWrapper.mm */; };
 		0D2264132B9B11B300BFA519 /* NCSymbolStore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D2264112B9B11B300BFA519 /* NCSymbolStore.mm */; };
 		0D2264142B9B11B300BFA519 /* NCSymbolStore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0D2264112B9B11B300BFA519 /* NCSymbolStore.mm */; };
 		0D2264152B9B11B400BFA519 /* NCSymbolStore.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0D2264122B9B11B300BFA519 /* NCSymbolStore.hpp */; };
@@ -280,6 +283,8 @@
 		0D00F7AA2B8CC00E00A8E9AD /* NCObjCSourceParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NCObjCSourceParser.m; sourceTree = "<group>"; };
 		0D00F7AC2B8CC00E00A8E9AD /* NPEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPEngine.m; sourceTree = "<group>"; };
 		0D00F7AF2B8CC00F00A8E9AD /* NCObjCSourceParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NCObjCSourceParser.h; sourceTree = "<group>"; };
+		0D1BDA8A2BAD20A300065246 /* NCPropertyWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCPropertyWrapper.h; sourceTree = "<group>"; };
+		0D1BDA8B2BAD20A300065246 /* NCPropertyWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCPropertyWrapper.mm; sourceTree = "<group>"; };
 		0D2264112B9B11B300BFA519 /* NCSymbolStore.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NCSymbolStore.mm; sourceTree = "<group>"; };
 		0D2264122B9B11B300BFA519 /* NCSymbolStore.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NCSymbolStore.hpp; sourceTree = "<group>"; };
 		0D2264182B9F0B6E00BFA519 /* NCCocoaMapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCCocoaMapper.h; sourceTree = "<group>"; };
@@ -461,6 +466,8 @@
 				0D2264182B9F0B6E00BFA519 /* NCCocoaMapper.h */,
 				0D2264192B9F0B6E00BFA519 /* NCCocoaMapper.mm */,
 				43718D962BAB36C0003C0F5A /* NSNumber+Naive.h */,
+				0D1BDA8A2BAD20A300065246 /* NCPropertyWrapper.h */,
+				0D1BDA8B2BAD20A300065246 /* NCPropertyWrapper.mm */,
 			);
 			path = wrapper;
 			sourceTree = "<group>";
@@ -661,6 +668,7 @@
 				0DF2A76C2B99B5DE00810044 /* NSCocoaSymbolStore.h in Headers */,
 				D4E06F1920396FD10095F442 /* NCStandardLibraryProvider.hpp in Headers */,
 				D44B8FFE204FD6610091B94C /* NCModuleCache.hpp in Headers */,
+				0D1BDA8C2BAD20A300065246 /* NCPropertyWrapper.h in Headers */,
 				0D00F7B72B8CC00F00A8E9AD /* ffitarget_x86_64.h in Headers */,
 				0D7285C72B68FF28002DBE5C /* NPPatchedClass.h in Headers */,
 				0D00F7BE2B8CC00F00A8E9AD /* NPEngine.h in Headers */,
@@ -915,6 +923,7 @@
 				D4E06EFC20371D9E0095F442 /* NCClassProvider.hpp in Sources */,
 				D4E06EE920371D910095F442 /* NCAST.cpp in Sources */,
 				43718DA22BAB3805003C0F5A /* NCLocalEnumStore.m in Sources */,
+				0D1BDA8D2BAD20A300065246 /* NCPropertyWrapper.mm in Sources */,
 				0D73F8C22B450DA3003EA49B /* NCInvocation.mm in Sources */,
 				0D7285C82B68FF28002DBE5C /* NPPatchedClass.m in Sources */,
 				0D73F8CC2B46C9F9003EA49B /* NCNSDictionaryWrapper.mm in Sources */,
@@ -988,6 +997,7 @@
 				F31D7F5F2122FA7400E11E5F /* NCClass.hpp in Sources */,
 				F31D7F602122FA7400E11E5F /* NCLog.hpp in Sources */,
 				F31D7F612122FA7400E11E5F /* NCBuiltinFunctionStore.cpp in Sources */,
+				0D1BDA8E2BAD271700065246 /* NCPropertyWrapper.mm in Sources */,
 				F31D7F622122FA7400E11E5F /* NCBuiltinFunctionStore.hpp in Sources */,
 				F31D7F632122FA7400E11E5F /* NCException.cpp in Sources */,
 				F31D7F642122FA7400E11E5F /* NCException.hpp in Sources */,

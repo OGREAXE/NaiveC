@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (id)genCallbackBlock:(NSArray *)argTypes;
 
++ (NPPatchedProperty *)patchedPropertyForName:(NSString *)methodName withClass:(Class)cls;
+
 @end
 
 @interface JPBoxing : NSObject

@@ -24,6 +24,8 @@ static NSLock              *_JSMethodSignatureLock;
 static NSRecursiveLock     *_JSMethodForwardCallLock;
 static NSMutableArray      *_pointersToRelease;
 
+static NSMutableDictionary *_NPClassDefitions;
+
 #ifdef DEBUG
 static NSArray *_JSLastCallStack;
 #endif
@@ -102,10 +104,66 @@ static NSString *extractStructName(NSString *typeEncodeString)
 
 + (void)defineClasses:(NSArray<NPPatchedClass *> *)classes {
     for (NPPatchedClass *cls in classes) {
-        [self.class defineClass:cls.name 
+        if (!_NPClassDefitions)_NPClassDefitions = [NSMutableDictionary dictionary];
+        
+        if (!_NPClassDefitions[cls.name]) {
+            _NPClassDefitions[cls.name] = cls;
+        } else {
+            [self.class mergeExitingClassDefinition:cls];
+        }
+        
+        [self.class defineClass:cls.name
                 instanceMethods:cls.patchedMethods
                    classMethods:cls.patchedClassMethods];
     }
+}
+
+NSArray * mergeArray(NSArray *oldArray, NSArray *newArray, NSString *keyName) {
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    for (id obj in oldArray) {
+        NSString *key = [obj valueForKey:keyName];
+        
+        dict[key] = obj;
+    }
+    
+    for (id obj in newArray) {
+        NSString *key = [obj valueForKey:keyName];
+        
+        dict[key] = obj;
+    }
+    
+    
+    return dict.allValues;
+}
+
++ (void)mergeExitingClassDefinition:(NPPatchedClass *)cls {
+    NPPatchedClass *oldcls = _NPClassDefitions[cls.name];
+    
+    if (!oldcls)return;
+    
+//    oldcls.patchedMethods = [oldcls.patchedMethods arrayByAddingObjectsFromArray:cls.patchedMethods];
+//    oldcls.patchedClassMethods = [oldcls.patchedClassMethods arrayByAddingObjectsFromArray:cls.patchedClassMethods];
+//    oldcls.patchedProperties = [oldcls.patchedProperties arrayByAddingObjectsFromArray:cls.patchedProperties];
+    
+    oldcls.patchedMethods = mergeArray(oldcls.patchedMethods, cls.patchedMethods, @"selector");
+    oldcls.patchedClassMethods = mergeArray(oldcls.patchedClassMethods, cls.patchedClassMethods, @"selector");
+    oldcls.patchedProperties = mergeArray(oldcls.patchedProperties, cls.patchedProperties, @"name");
+}
+
++ (NPPatchedProperty *)patchedPropertyForName:(NSString *)methodName withClass:(Class)cls {
+    NSString *clsName = NSStringFromClass(cls);
+    
+    NPPatchedClass *patchedCls = _NPClassDefitions[clsName];
+    
+    for (NPPatchedProperty *property in patchedCls.patchedProperties) {
+        if ([property.name isEqualToString:methodName]) {
+            return property;
+        }
+    }
+    
+    return NULL;
 }
 
 + (NSDictionary *)defineClass:(NSString *)classDeclaration
