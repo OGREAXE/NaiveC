@@ -91,6 +91,8 @@ private:
     //type_specifier-> string|int|float|void
     MCType type_specifier();
     
+    MCType generic_specifier();
+    
     bool  parameterlist(vector<NCParameter> & );
     
     bool parameter(NCParameter**);

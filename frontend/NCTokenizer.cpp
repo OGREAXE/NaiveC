@@ -182,9 +182,14 @@ bool NCTokenizer::tokenize(const string&str){
                 else if (token == "-" && c == '-') {
                     token += "-";
                     status = Unknown;
-                }else if (token == "*" && c == '>') {
+                } else /*if (token == "*" && c == '>')*/ {
                     //something like <abc *>
-                    token += ">";
+                    addToken(tokens, token, i);
+                    
+                    string sc = "";
+                    sc += c;
+                    addToken(tokens, sc, i);
+                    token = "";
                     status = Unknown;
                 }
             }

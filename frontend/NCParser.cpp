@@ -1678,6 +1678,15 @@ MCType NCParser::type_specifier(){
         
         word = nextWord();
         
+        if (word == "<") {
+            string generic = generic_specifier();
+            
+            if (generic.size() == 0){
+                throw NCParseException(0,"parse fail:wrong genric type");
+                return "";
+            }
+        }
+        
         if (word == "*") {
             word = nextWord();
         }
@@ -1688,6 +1697,47 @@ MCType NCParser::type_specifier(){
         
         return ret;
     }
+    
+    return "";
+}
+
+MCType NCParser::generic_specifier() {
+    //start with <
+    string gen = "";
+    
+    do {
+        gen += word;
+        
+        word = nextWord();
+        
+        if (!isIdentifier(word))return "";
+        
+        gen += word;
+        
+        word = nextWord();
+        
+        if (word == "<") {
+            gen += word;
+            
+            string nextg = generic_specifier();
+            
+            if (nextg == "")return "";
+            
+            gen += nextg;
+        }
+        
+        if (word == "*") {
+            gen += "*";
+            word = nextWord();
+        }
+        
+        if (word == ">") {
+            gen += ">";
+            word = nextWord();
+            
+            return gen;
+        }
+    } while (word == ",");
     
     return "";
 }
