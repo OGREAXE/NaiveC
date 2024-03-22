@@ -7,17 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D00F7B32B8CC00F00A8E9AD /* ffitarget_arm64.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D00F79E2B8CC00E00A8E9AD /* ffitarget_arm64.h */; };
-		0D00F7B42B8CC00F00A8E9AD /* ffitarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D00F79F2B8CC00E00A8E9AD /* ffitarget.h */; };
-		0D00F7B52B8CC00F00A8E9AD /* ffi_arm.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D00F7A02B8CC00E00A8E9AD /* ffi_arm.h */; };
-		0D00F7B62B8CC00F00A8E9AD /* ffi_i386.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D00F7A12B8CC00E00A8E9AD /* ffi_i386.h */; };
-		0D00F7B72B8CC00F00A8E9AD /* ffitarget_x86_64.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D00F7A22B8CC00E00A8E9AD /* ffitarget_x86_64.h */; };
-		0D00F7B82B8CC00F00A8E9AD /* ffi_x86_64.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D00F7A32B8CC00E00A8E9AD /* ffi_x86_64.h */; };
-		0D00F7B92B8CC00F00A8E9AD /* ffitarget_arm.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D00F7A42B8CC00E00A8E9AD /* ffitarget_arm.h */; };
-		0D00F7BA2B8CC00F00A8E9AD /* ffitarget_i386.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D00F7A52B8CC00E00A8E9AD /* ffitarget_i386.h */; };
-		0D00F7BB2B8CC00F00A8E9AD /* libffi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D00F7A62B8CC00E00A8E9AD /* libffi.a */; };
-		0D00F7BC2B8CC00F00A8E9AD /* ffi.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D00F7A72B8CC00E00A8E9AD /* ffi.h */; };
-		0D00F7BD2B8CC00F00A8E9AD /* ffi_arm64.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D00F7A82B8CC00E00A8E9AD /* ffi_arm64.h */; };
 		0D00F7BE2B8CC00F00A8E9AD /* NPEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D00F7A92B8CC00E00A8E9AD /* NPEngine.h */; };
 		0D00F7BF2B8CC00F00A8E9AD /* NCObjCSourceParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D00F7AA2B8CC00E00A8E9AD /* NCObjCSourceParser.m */; };
 		0D00F7C12B8CC00F00A8E9AD /* NPEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D00F7AC2B8CC00E00A8E9AD /* NPEngine.m */; };
@@ -268,17 +257,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0D00F79E2B8CC00E00A8E9AD /* ffitarget_arm64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffitarget_arm64.h; sourceTree = "<group>"; };
-		0D00F79F2B8CC00E00A8E9AD /* ffitarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffitarget.h; sourceTree = "<group>"; };
-		0D00F7A02B8CC00E00A8E9AD /* ffi_arm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi_arm.h; sourceTree = "<group>"; };
-		0D00F7A12B8CC00E00A8E9AD /* ffi_i386.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi_i386.h; sourceTree = "<group>"; };
-		0D00F7A22B8CC00E00A8E9AD /* ffitarget_x86_64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffitarget_x86_64.h; sourceTree = "<group>"; };
-		0D00F7A32B8CC00E00A8E9AD /* ffi_x86_64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi_x86_64.h; sourceTree = "<group>"; };
-		0D00F7A42B8CC00E00A8E9AD /* ffitarget_arm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffitarget_arm.h; sourceTree = "<group>"; };
-		0D00F7A52B8CC00E00A8E9AD /* ffitarget_i386.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffitarget_i386.h; sourceTree = "<group>"; };
-		0D00F7A62B8CC00E00A8E9AD /* libffi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libffi.a; sourceTree = "<group>"; };
-		0D00F7A72B8CC00E00A8E9AD /* ffi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi.h; sourceTree = "<group>"; };
-		0D00F7A82B8CC00E00A8E9AD /* ffi_arm64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi_arm64.h; sourceTree = "<group>"; };
 		0D00F7A92B8CC00E00A8E9AD /* NPEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPEngine.h; sourceTree = "<group>"; };
 		0D00F7AA2B8CC00E00A8E9AD /* NCObjCSourceParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NCObjCSourceParser.m; sourceTree = "<group>"; };
 		0D00F7AC2B8CC00E00A8E9AD /* NPEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPEngine.m; sourceTree = "<group>"; };
@@ -387,7 +365,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4124ED51EB702F5D4264A9B /* libPods-NaiveC.a in Frameworks */,
-				0D00F7BB2B8CC00F00A8E9AD /* libffi.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,28 +393,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0D00F79D2B8CC00E00A8E9AD /* libffi */ = {
-			isa = PBXGroup;
-			children = (
-				0D00F79E2B8CC00E00A8E9AD /* ffitarget_arm64.h */,
-				0D00F79F2B8CC00E00A8E9AD /* ffitarget.h */,
-				0D00F7A02B8CC00E00A8E9AD /* ffi_arm.h */,
-				0D00F7A12B8CC00E00A8E9AD /* ffi_i386.h */,
-				0D00F7A22B8CC00E00A8E9AD /* ffitarget_x86_64.h */,
-				0D00F7A32B8CC00E00A8E9AD /* ffi_x86_64.h */,
-				0D00F7A42B8CC00E00A8E9AD /* ffitarget_arm.h */,
-				0D00F7A52B8CC00E00A8E9AD /* ffitarget_i386.h */,
-				0D00F7A62B8CC00E00A8E9AD /* libffi.a */,
-				0D00F7A72B8CC00E00A8E9AD /* ffi.h */,
-				0D00F7A82B8CC00E00A8E9AD /* ffi_arm64.h */,
-			);
-			path = libffi;
-			sourceTree = "<group>";
-		};
 		0D7285C42B68FF28002DBE5C /* patch */ = {
 			isa = PBXGroup;
 			children = (
-				0D00F79D2B8CC00E00A8E9AD /* libffi */,
 				0D00F7AF2B8CC00F00A8E9AD /* NCObjCSourceParser.h */,
 				0D00F7AA2B8CC00E00A8E9AD /* NCObjCSourceParser.m */,
 				0D00F7A92B8CC00E00A8E9AD /* NPEngine.h */,
@@ -661,7 +619,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4439E4F2089EB1F005EE65B /* NCHeapMemory.hpp in Headers */,
-				0D00F7B82B8CC00F00A8E9AD /* ffi_x86_64.h in Headers */,
 				43718D9E2BAB3805003C0F5A /* NCLocalEnumStore.h in Headers */,
 				D4E06E6A2037015D0095F442 /* NaiveC.h in Headers */,
 				D4E06F21203972F90095F442 /* NCStandardClass.hpp in Headers */,
@@ -669,12 +626,9 @@
 				D4E06F1920396FD10095F442 /* NCStandardLibraryProvider.hpp in Headers */,
 				D44B8FFE204FD6610091B94C /* NCModuleCache.hpp in Headers */,
 				0D1BDA8C2BAD20A300065246 /* NCPropertyWrapper.h in Headers */,
-				0D00F7B72B8CC00F00A8E9AD /* ffitarget_x86_64.h in Headers */,
 				0D7285C72B68FF28002DBE5C /* NPPatchedClass.h in Headers */,
 				0D00F7BE2B8CC00F00A8E9AD /* NPEngine.h in Headers */,
 				D4892EE420450A520052267E /* NCBuiltinFunctionStore.hpp in Headers */,
-				0D00F7B52B8CC00F00A8E9AD /* ffi_arm.h in Headers */,
-				0D00F7B92B8CC00F00A8E9AD /* ffitarget_arm.h in Headers */,
 				D4E06F0F203871E10095F442 /* NCClass.hpp in Headers */,
 				0D2264152B9B11B400BFA519 /* NCSymbolStore.hpp in Headers */,
 				0D4F53042B4B8AEA003EF544 /* NCStringFormatter.hpp in Headers */,
@@ -682,23 +636,17 @@
 				0D00F7C42B8CC00F00A8E9AD /* NCObjCSourceParser.h in Headers */,
 				D496C710204AFFE500B6A041 /* NCException.hpp in Headers */,
 				D496C758204D2CB900B6A041 /* NCSourceFinder.hpp in Headers */,
-				0D00F7BC2B8CC00F00A8E9AD /* ffi.h in Headers */,
 				0D22641A2B9F0B6E00BFA519 /* NCCocoaMapper.h in Headers */,
 				0D7285A82B6781B8002DBE5C /* NPFunction.h in Headers */,
 				D4E06F29203C3E1B0095F442 /* NCCocoaToolkit.hpp in Headers */,
-				0D00F7BA2B8CC00F00A8E9AD /* ffitarget_i386.h in Headers */,
-				0D00F7B42B8CC00F00A8E9AD /* ffitarget.h in Headers */,
 				D4E06F49204042100095F442 /* NCLog.hpp in Headers */,
 				D4E06EE7203716140095F442 /* NCCodeEngine_iOS.h in Headers */,
 				D4E06F1D203971280095F442 /* NCArray.hpp in Headers */,
 				0D73F8C92B46B946003EA49B /* NCNSArrayWrapper.hpp in Headers */,
 				F359ABE92150977100FE7D84 /* NCSourceManager.hpp in Headers */,
 				D4E06F2520397AAB0095F442 /* NCCocoaClass.hpp in Headers */,
-				0D00F7B32B8CC00F00A8E9AD /* ffitarget_arm64.h in Headers */,
 				0D73F8CE2B46C9F9003EA49B /* NCNSDictionaryWrapper.hpp in Headers */,
-				0D00F7B62B8CC00F00A8E9AD /* ffi_i386.h in Headers */,
 				0D73F8C12B450DA3003EA49B /* NCInvocation.h in Headers */,
-				0D00F7BD2B8CC00F00A8E9AD /* ffi_arm64.h in Headers */,
 				43718D9F2BAB3805003C0F5A /* NCCocoaEnumStore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
