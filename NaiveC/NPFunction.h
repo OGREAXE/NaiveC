@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NPValue : NSObject
 
 + (NPValue *)numberWithNumber:(NSNumber *)number type:(char)type;
++ (NPValue *)numberWithNumber:(NSNumber *)number type:(char)type isPointer:(BOOL)isPointer;
 
 + (NPValue *)valueWithRect:(CGRect)rect;
 + (NPValue *)valueWithPoint:(CGPoint)point;
@@ -25,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (NPValue *)valueWithInset:(UIEdgeInsets)inset;
 
 @property (nonatomic, readonly) NSString *objectType;
+
+@property (nonatomic) BOOL isRawPointer; // int *, BOOL *
 
 //@property (nonatomic, readonly) NCStackElement *stackElement;
 

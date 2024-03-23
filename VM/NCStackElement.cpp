@@ -8,6 +8,8 @@
 
 #include "NCStackElement.hpp"
 #include "NCObject.hpp"
+#include <sstream> //for std::stringstream
+#include <string>
 
 template <class T>
 T doOperatorPrimitive(T left, T right, const string&op){
@@ -354,4 +356,21 @@ shared_ptr<NCObject> NCFieldAccessor::toObject() {
     if (val)return val->toObject();
     
     return nullptr;
+}
+
+//pointer access
+void NCPointerAccessor::set(shared_ptr<NCStackElement> value) {
+    if (type == 'B' || type == 'b') {
+        bool* b = (bool *)address;
+        
+        *b = value->toInt();
+    }
+}
+
+NCInt NCPointerAccessor::toInt() {
+    return address;
+}
+
+string NCPointerAccessor::toString() {
+    return to_string(address);
 }

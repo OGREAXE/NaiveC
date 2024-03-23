@@ -408,13 +408,32 @@ static void JPForwardInvocation(__unsafe_unretained id assignSlf, SEL selector, 
     
     for (NSUInteger i = isBlock ? 1 : 2; i < numberOfArguments; i++) {
         const char *argumentType = [methodSignature getArgumentTypeAtIndex:i];
-        switch(argumentType[0] == 'r' ? argumentType[1] : argumentType[0]) {
+        
+        BOOL isRawPointer = NO; // int *, BOOL *
+        if (argumentType[0] == '^') {
+            //char type2 = argumentType[1];
+            
+            isRawPointer = YES;
+        }
+        
+        switch((argumentType[0] == 'r' || argumentType[0] == '^' )? argumentType[1] : argumentType[0]) {
         
             #define JP_FWD_ARG_CASE(_typeChar, _type) \
             case _typeChar: {   \
                 _type arg;  \
-                [invocation getArgument:&arg atIndex:i];    \
-                [argList addObject:[NPValue numberWithNumber:@(arg) type:_typeChar]]; \
+                if (!isRawPointer) {\
+                    [invocation getArgument:&arg atIndex:i];    \
+                    NPValue *npv = [NPValue numberWithNumber:@(arg) type:_typeChar]; \
+                    [argList addObject:npv]; \
+                }\
+                else {\
+                    void* arg; \
+                    [invocation getArgument:&arg atIndex:i];\
+                    long long adress = (long long)arg;\
+NPValue *npv = [NPValue numberWithNumber:@(adress) type:_typeChar isPointer:YES]; \
+                    npv.isRawPointer = isRawPointer;\
+                    [argList addObject:npv]; \
+                }\
                 break;  \
             }
             JP_FWD_ARG_CASE('c', char)
@@ -771,9 +790,13 @@ static id genCallbackBlock(NSArray *argTypes)
 
         JP_DEFINE_TYPE_SIGNATURE(id);
         JP_DEFINE_TYPE_SIGNATURE(BOOL);
+        JP_DEFINE_TYPE_SIGNATURE(BOOL*);
+        //JP_DEFINE_TYPE_SIGNATURE(BOOL *);
         JP_DEFINE_TYPE_SIGNATURE(int);
+        JP_DEFINE_TYPE_SIGNATURE(int*);
         JP_DEFINE_TYPE_SIGNATURE(void);
         JP_DEFINE_TYPE_SIGNATURE(char);
+        JP_DEFINE_TYPE_SIGNATURE(char*);
         JP_DEFINE_TYPE_SIGNATURE(short);
         JP_DEFINE_TYPE_SIGNATURE(unsigned short);
         JP_DEFINE_TYPE_SIGNATURE(unsigned int);

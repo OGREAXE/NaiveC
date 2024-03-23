@@ -895,6 +895,26 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         
         frame.stack_push(shared_ptr<NCStackElement>(new NCStackIntElement(val)));
     }
+    else if(dynamic_pointer_cast<NCPointerAccessExpression>(currentNode)){
+        auto node = dynamic_pointer_cast<NCPointerAccessExpression>(currentNode);
+        
+        auto nameEpr = shared_ptr<NCExpression>(new NCNameExpression(node->name));
+        
+        visit(nameEpr, frame);
+        
+        auto val = frame.stack_popRealValue();
+        auto e = dynamic_pointer_cast<NCStackIntElement>(val);
+        
+        if (!e) {
+            NCLogInterpretor("fail to get address for %s", node->name.c_str());
+            return false;
+        }
+        
+        auto accessor = new NCPointerAccessor(e->toInt());//get address
+        accessor->type = e->rawtype;
+        
+        frame.stack_push(shared_ptr<NCStackElement>(accessor));
+    }
     return true;
 }
 

@@ -22,6 +22,7 @@ struct NCStackElement{
     NCStackElement(){}
     virtual ~NCStackElement(){}
     string type;
+    char rawtype; //such as B for BOOL, i for int ..., maybe empty (actually empty in most cases)
     
     virtual shared_ptr<NCStackElement> doOperator(const string&op, shared_ptr<NCStackElement> rightOperand){return nullptr;};
     
@@ -147,6 +148,20 @@ public:
     
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack);
     virtual bool invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> &formatArguments,vector<shared_ptr<NCStackElement>> & lastStack);
+};
+
+class NCPointerAccessor: public NCAccessor{
+    NCInt address;
+public:
+//    void *pointer;
+    char type;
+    
+    NCPointerAccessor(NCInt address):address(address){};
+    
+    virtual void set(shared_ptr<NCStackElement> value);
+    virtual NCInt toInt();
+    
+    virtual string toString();
 };
 
 #endif /* NCStackElement_hpp */

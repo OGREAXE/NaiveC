@@ -993,6 +993,8 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
         lambdaCapturedSymbols.clear();
         auto blockSmt = block();
         if (!blockSmt) {
+            NCLogInterpretor("fail to parse block body");
+            printNearTokens();
             lambdaFlag = false;
             return nullptr;
         }
@@ -1014,6 +1016,17 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
             word = nextWord();
             
             return shared_ptr<NCExpression>(new NCPreIncrement(name, incrementor));
+        }
+    }
+    
+    if (word == "*") {
+        word = nextWord();
+        
+        if (isIdentifier(word)) {
+//            int i = 0;
+            auto name = word;
+            word = nextWord();
+            return shared_ptr<NCExpression>(new NCPointerAccessExpression(name));
         }
     }
     
@@ -1715,6 +1728,7 @@ MCType NCParser::type_specifier(){
         }
         
         if (word == "*") {
+            ret += word;
             word = nextWord();
         }
         

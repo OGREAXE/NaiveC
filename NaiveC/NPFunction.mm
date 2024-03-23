@@ -26,7 +26,19 @@
 extern NCStackElement *CreateStackElementFromRect(CGRect rect);
 
 + (NPValue *)numberWithNumber:(NSNumber *)number type:(char)type{
+    return [self.class numberWithNumber:number type:type isPointer:NO];
+}
+
++ (NPValue *)numberWithNumber:(NSNumber *)number type:(char)type isPointer:(BOOL)isPointer {
     NPValue *n = [NPValue new];
+    
+    if (isPointer) {
+        auto e = new NCStackIntElement(number.longLongValue);
+        e->rawtype = type;
+        n.stackElement = shared_ptr<NCStackElement>(e);
+        return n;
+    }
+    
     do {
 #define NP_MAKE_STACK_ELEMENT(_typeChar, _call, nctype, elementType) \
     if (type == _typeChar) {  \

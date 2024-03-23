@@ -250,6 +250,14 @@ public:
     NCPostIncrement(const string &name, int incrementor):name(name), incrementor(incrementor){}
 };
 
+//for BOOL *, int *, etc
+class NCPointerAccessExpression:public NCExpression{
+private:
+public:
+    string name;
+    NCPointerAccessExpression(const string &name):name(name){}
+};
+
 class NCLiteral:public NCExpression{
 public:
     virtual ~NCLiteral(){}
