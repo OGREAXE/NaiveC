@@ -173,7 +173,7 @@ extern NCStackElement *CreateStackElementFromRect(CGRect rect);
 
 @interface NPFunction()
 
-@property (nonatomic) NCLambdaObject *blockObj;
+@property (nonatomic) shared_ptr<NCLambdaObject> blockObj;
 
 @end
 

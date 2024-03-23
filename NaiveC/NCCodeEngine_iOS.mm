@@ -48,7 +48,7 @@ using namespace std;
 @end
 
 @interface NPFunction(CodeEngine)
-@property (nonatomic) NCLambdaObject *blockObj;
+@property (nonatomic) shared_ptr<NCLambdaObject> blockObj;
 @end
 
 @interface NCCodeEngine_iOS()
@@ -248,13 +248,18 @@ using namespace std;
     return nil;
 }
 
-- (id)runWithBlock:(NCLambdaObject *)block arguments:(NSArray *)arguments error:(NSError**)error {
+- (id)runWithBlock: (shared_ptr<NCLambdaObject>)block arguments:(NSArray *)arguments error:(NSError**)error {
     try {
         vector<string> argNames;
         
         vector<shared_ptr<NCStackElement>> args;
         
         auto lambdaExpr = block->getLambdaExpression();
+        
+        if (!lambdaExpr) {
+            NSLog(@"[Naive] error invoke null block");
+            return NULL;
+        }
         
         for (int i = 0; i < arguments.count; i ++) {
             id v = arguments[i];

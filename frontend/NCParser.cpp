@@ -1487,6 +1487,10 @@ shared_ptr<NCStatement> NCParser::continue_statement(){
     return nullptr;
 }
 
+shared_ptr<NCStatement> NCParser::switch_statement() {
+    return nullptr;
+}
+
 shared_ptr<NCStatement> NCParser::expression_statement(){
     auto expr = primary_expression();
     if (!expr) {
@@ -1675,6 +1679,29 @@ MCType NCParser::type_specifier(){
         }
         
         auto ret = word;
+        
+        if (word == "typeof") {
+            word = nextWord();
+            
+            if (word == "(") {
+                ret += word;
+                word = nextWord();
+            } else {
+                return "";
+            }
+            
+            if (!isIdentifier(word)) return "";
+            
+            ret += word;
+            word = nextWord();
+            
+            if (word == ")") {
+                ret += word;
+//                word = nextWord();
+            } else {
+                return "";
+            }
+        }
         
         word = nextWord();
         

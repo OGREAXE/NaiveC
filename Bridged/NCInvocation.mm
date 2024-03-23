@@ -27,7 +27,7 @@
 #import "NSNumber+Naive.h"
 
 @interface NPFunction(CodeEngine)
-@property (nonatomic) NCLambdaObject *blockObj;
+@property (nonatomic) shared_ptr<NCLambdaObject> blockObj;
 @end
 
 static NCInterpreter *g_interpretor = new NCInterpreter();
@@ -570,7 +570,7 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
                 id genBlock = [NPEngine genCallbackBlock:args];
                 
                 NPFunction *func = [[NPFunction alloc] init];
-                func.blockObj = lambaObj.get();
+                func.blockObj = lambaObj;
                 
                 objc_setAssociatedObject(genBlock, "_JSValue", func, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 

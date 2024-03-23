@@ -751,7 +751,11 @@ static id formatJSToOC(NPValue *jsval)
 
 static id genCallbackBlock(NSArray *argTypes)
 {
-    void (^block)(void) = ^(void){};
+    //block with empty body might lead to memory-access error when setting a custom invoke pointer
+    //possible explaination is Apple may generate a NSGlobalBlock in this case which seems to be readonly
+    //trying to capture something in the body makes Apple generate normal block instead of global one
+    __block int dummy = 0;
+    void (^block)(void) = ^(void){dummy = 2;};
     uint8_t *p = (uint8_t *)((__bridge void *)block);
     p += sizeof(void *) + sizeof(int32_t) *2;
     void(**invoke)(void) = (void (**)(void))p;
@@ -788,6 +792,7 @@ static id genCallbackBlock(NSArray *argTypes)
         JP_DEFINE_TYPE_SIGNATURE(CGVector);
         JP_DEFINE_TYPE_SIGNATURE(NSRange);
         JP_DEFINE_TYPE_SIGNATURE(NSInteger);
+        JP_DEFINE_TYPE_SIGNATURE(NSUInteger);
         JP_DEFINE_TYPE_SIGNATURE(Class);
         JP_DEFINE_TYPE_SIGNATURE(SEL);
         JP_DEFINE_TYPE_SIGNATURE(void*);

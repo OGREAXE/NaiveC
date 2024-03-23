@@ -170,6 +170,8 @@ private:
     
     shared_ptr<NCStatement> continue_statement();
     
+    shared_ptr<NCStatement> switch_statement();
+    
     shared_ptr<NCStatement> return_statement();
     
     shared_ptr<NCStatement> expression_statement();
