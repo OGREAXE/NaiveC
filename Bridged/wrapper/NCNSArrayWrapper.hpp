@@ -33,7 +33,7 @@ public:
 
      @param anObj <#anObj description#>
      */
-    virtual void enumerate(std::function<bool (shared_ptr<NCStackElement> anObj)> handler);
+//    virtual void enumerate(std::function<bool (shared_ptr<NCStackElement> anObj)> handler);
 };
 
 #endif /* NCNSArrayWrapper_hpp */

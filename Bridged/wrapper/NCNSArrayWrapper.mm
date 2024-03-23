@@ -94,6 +94,6 @@ void NCNSArrayWrapper::addElement(shared_ptr<NCStackElement>&e) {
 
  @param anObj <#anObj description#>
  */
-void NCNSArrayWrapper::enumerate(std::function<bool (shared_ptr<NCStackElement> anObj)> handler) {
-    
-}
+//void NCNSArrayWrapper::enumerate(std::function<bool (shared_ptr<NCStackElement> anObj)> handler) {
+//    
+//}
