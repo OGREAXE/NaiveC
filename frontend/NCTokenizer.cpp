@@ -301,11 +301,64 @@ bool NCTokenizer::tokenize(const string&str){
     }
     
     status = Unknown;
+    
+    preprocessTokens();
+    
     return true;
 }
 
 shared_ptr<const vector<NCToken>> NCTokenizer::getTokens(){
     return tokens;
+}
+
+#define WEAKIFY "XM_WS"
+#define STRONGIFY "XM_SS"
+
+void NCTokenizer::preprocessTokens() {
+    auto processed = shared_ptr<vector<NCToken>>(new vector<NCToken>());
+    
+    int index = 0;
+    
+    while (index < tokens->size()) {
+        auto t = (*tokens)[index];
+        
+        if (t.token == WEAKIFY) {
+            addToken(processed, "__weak", 0);
+            
+            addToken(processed, "typeof(self)", 0);
+            
+            auto ws = (*tokens)[index + 2];
+            
+            addToken(processed, ws.token, 0);
+            
+            addToken(processed, "=", 0);
+            
+            addToken(processed, "self", 0);
+            
+            index += 4;
+        } else if (t.token == STRONGIFY) {
+            addToken(processed, "__strong", 0);
+            
+            addToken(processed, "typeof(self)", 0);
+            
+            auto ss = (*tokens)[index + 2];
+            
+            addToken(processed, ss.token, 0);
+            
+            addToken(processed, "=", 0);
+            
+            auto ws = (*tokens)[index + 4];
+            
+            addToken(processed, ws.token, 0);
+            
+            index += 6;
+        } else {
+            addToken(processed, t.token, 0);
+            index ++;
+        }
+    }
+    
+    tokens = processed;
 }
 
 bool NCTokenizer::isCharForIdentifier(char c) {

@@ -46,6 +46,8 @@ public:
     NCTokenizer(string&str);
     bool tokenize(const string&str);
     shared_ptr<const vector<NCToken>> getTokens();
+    
+    void preprocessTokens();
 //    const vector<NCToken> & getTokens();
 protected:
     
