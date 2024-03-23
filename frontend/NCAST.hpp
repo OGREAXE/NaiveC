@@ -369,11 +369,11 @@ public:
                  shared_ptr<NCStatement> body):update(update),init(init),expr(expr),body(body){}
 };
 
-class SwitchStatemen:public NCStatement{
+class SwitchStatement:public NCStatement{
 public:
-    vector<shared_ptr<NCExpression>> switch_condition;
+    shared_ptr<NCExpression> switch_condition;
     
-    unordered_map<int, shared_ptr<NCStatement>> case_map;
+    unordered_map<string, shared_ptr<NCStatement>> case_map;
 };
 
 class BreakStatement:public NCStatement{

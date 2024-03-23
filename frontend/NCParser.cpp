@@ -40,6 +40,7 @@ static unordered_set<string> keywords =
     "while","for",
     "break","continue",
     "return","in",
+    "switch","case","default",
 };
 
 #define SE "\n"
@@ -1239,6 +1240,12 @@ shared_ptr<NCStatement> NCParser::statement(){
         return stmt;
     }
     
+    POP_INDEX
+    stmt = switch_statement();
+    if (stmt) {
+        return stmt;
+    }
+    
 //    popIndex();
     POP_INDEX
     stmt = expression_statement();
@@ -1501,6 +1508,83 @@ shared_ptr<NCStatement> NCParser::continue_statement(){
 }
 
 shared_ptr<NCStatement> NCParser::switch_statement() {
+    auto switch_expr = new SwitchStatement();
+    
+    if (word == "switch") {
+        word = nextWord();
+        
+        if (word!="(") {
+            return nullptr;
+        }
+        
+        word = nextWord();
+        auto cond = expression();
+        
+        if (!cond) {
+            printNearTokens();
+            throw NCParseException(0,"parse fail:switch condition");
+        }
+        
+        switch_expr->switch_condition = cond;
+        
+        if (word != ")") {
+            printNearTokens();
+            throw NCParseException(0,"parse fail:switch");
+        }
+        
+        word = nextWord();
+        
+        if (word != "{") {
+            printNearTokens();
+            throw NCParseException(0,"parse fail:switch");
+        }
+        
+        word = nextWord();
+        
+        while (1) {
+            string key = "";
+            if (word == "case") {
+                
+                word = nextWord();
+                
+                if (!isIdentifier(word) || !isIntegerLiteral(word, nullptr)) {
+//                    return nullptr;
+                    printNearTokens();
+                    throw NCParseException(0,"parse fail:switch case");
+                }
+                
+                key = word;
+                
+            } else if (word == "default") {
+                key = word;
+            } else {
+                printNearTokens();
+                throw NCParseException(0,"parse fail:switch case");
+            }
+            
+            word = nextWord();
+            
+            if (word!=":") {
+                throw NCParseException(0,"parse fail:switch");
+            }
+            
+            word = nextWord();
+            
+            vector<AstNodePtr> stmts;
+            if(!statements(stmts)){
+                throw NCParseException(0,"parse fail:switch case statement");
+            }
+            auto block = new NCBlock();
+            block->statement_list = stmts;
+            
+            (switch_expr->case_map)[key] = shared_ptr<NCBlock>(block);
+            
+            if (word == "}")break;
+        }
+        
+        return shared_ptr<NCStatement>(switch_expr);
+    }
+    
     return nullptr;
 }
 
@@ -1795,14 +1879,14 @@ bool NCParser::isIntegerLiteral(string&word, NCInt * num){
         ss << std::hex << word;
         ss >> d;
         
-        *num = d;
+        if (num) *num = d;
         return !ss.fail();
     }
     
     stringstream ss(word);
     NCInt d;
     ss>>d;
-    *num = d;
+    if (num) *num = d;
     return !ss.fail();
 }
 bool NCParser::isFloatLiteral(string&word, NCFloat *num){
