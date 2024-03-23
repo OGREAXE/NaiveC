@@ -50,6 +50,9 @@ NCInt doOperatorPrimitive(NCInt left, NCInt right, const string&op){
     else if (op == "&") {
         return left & right;
     }
+    else if (op == "%") {
+        return left % right;
+    }
     else {
         return left;
     }
