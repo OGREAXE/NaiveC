@@ -373,7 +373,9 @@ class SwitchStatement:public NCStatement{
 public:
     shared_ptr<NCExpression> switch_condition;
     
-    unordered_map<string, shared_ptr<NCStatement>> case_map;
+    vector<pair<int, shared_ptr<NCStatement>>> cases;
+    
+    shared_ptr<NCStatement> default_statement;
 };
 
 class BreakStatement:public NCStatement{

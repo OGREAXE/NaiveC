@@ -1565,6 +1565,7 @@ shared_ptr<NCStatement> NCParser::switch_statement() {
             word = nextWord();
             
             if (word!=":") {
+                printNearTokens();
                 throw NCParseException(0,"parse fail:switch");
             }
             
@@ -1572,14 +1573,24 @@ shared_ptr<NCStatement> NCParser::switch_statement() {
             
             vector<AstNodePtr> stmts;
             if(!statements(stmts)){
+                printNearTokens();
                 throw NCParseException(0,"parse fail:switch case statement");
             }
             auto block = new NCBlock();
             block->statement_list = stmts;
             
-            (switch_expr->case_map)[key] = shared_ptr<NCBlock>(block);
+            int iKey = 1;//getIntFromSymbol(key);
             
-            if (word == "}")break;
+            if (key == "default") {
+                switch_expr->default_statement = shared_ptr<NCBlock>(block);
+            } else {
+                switch_expr->cases.push_back(make_pair(iKey, shared_ptr<NCBlock>(block)));
+            }
+            
+            if (word == "}"){
+                word = nextWord();
+                break;
+            }
         }
         
         return shared_ptr<NCStatement>(switch_expr);
