@@ -914,6 +914,33 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         accessor->type = e->rawtype;
         
         frame.stack_push(shared_ptr<NCStackElement>(accessor));
+    } else if(dynamic_pointer_cast<NCSwitchStatement>(currentNode)){
+        auto node = dynamic_pointer_cast<NCSwitchStatement>(currentNode);
+        
+        visit(node->switch_condition, frame);
+        
+        auto key = stackPopInt(frame);
+        
+        bool hit = false;
+        bool isBreak = false;
+        
+        for (auto caseitem : node->cases) {
+            if (key == caseitem.first) {
+                hit = true;
+            }
+            
+            if (hit) {
+                visit(caseitem.second, frame, shouldReturn, &isBreak);
+                
+                if (isBreak) {
+                    break;
+                }
+            }
+        }
+        
+        if (!hit || !isBreak) {
+            visit(node->default_statement, frame, shouldReturn, nullptr);
+        }
     }
     return true;
 }

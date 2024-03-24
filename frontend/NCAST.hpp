@@ -369,7 +369,7 @@ public:
                  shared_ptr<NCStatement> body):update(update),init(init),expr(expr),body(body){}
 };
 
-class SwitchStatement:public NCStatement{
+class NCSwitchStatement:public NCStatement{
 public:
     shared_ptr<NCExpression> switch_condition;
     

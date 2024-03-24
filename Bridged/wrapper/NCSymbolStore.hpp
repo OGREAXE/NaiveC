@@ -15,6 +15,8 @@
 class NCSymbolStore {
 public:
     shared_ptr<NCStackElement> objectForName(string &name);
+    
+    shared_ptr<NCStackIntElement> intForName(string &name);
 };
 
 #endif /* NCSymbolStore_hpp */

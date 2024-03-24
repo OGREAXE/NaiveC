@@ -20,3 +20,14 @@ shared_ptr<NCStackElement> NCSymbolStore::objectForName(string &name) {
     
     return shared_ptr<NCStackElement>(new NCStackPointerElement(box));
 }
+
+shared_ptr<NCStackIntElement> NCSymbolStore::intForName(string &name) {
+    NSString *nsName = [NSString stringWithUTF8String:name.c_str()];
+    id obj = [NSCocoaSymbolStore symbolForName:nsName];
+    
+    if (!obj || ![obj isKindOfClass:NSNumber.class])return nullptr;
+    
+    NSNumber *num = obj;
+    
+    return shared_ptr<NCStackIntElement>(new NCStackIntElement(num.intValue));
+}

@@ -15,6 +15,8 @@
 #include <set>
 #include "NCAST.hpp"
 #include "NCTokenizer.hpp"
+#include "NCSymbolStore.hpp"
+
 
 using namespace std;
 
@@ -51,6 +53,8 @@ private:
     
     bool lambdaFlag;  //indicate a lambda parse phrase start
     set<string> lambdaCapturedSymbols;
+    
+    NCSymbolStore *_symbolStore = new NCSymbolStore();
     
     bool isIdentifier(string & word);
     

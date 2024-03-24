@@ -11,7 +11,7 @@
 #include <sstream>
 #include <unordered_set>
 #include "NCException.hpp"
-
+#include "NCSymbolStore.hpp"
 #include "NCLog.hpp"
 
 #define PUSH_INDEX int _saved_temp_index = index;
@@ -1508,7 +1508,7 @@ shared_ptr<NCStatement> NCParser::continue_statement(){
 }
 
 shared_ptr<NCStatement> NCParser::switch_statement() {
-    auto switch_expr = new SwitchStatement();
+    auto switch_expr = new NCSwitchStatement();
     
     if (word == "switch") {
         word = nextWord();
@@ -1542,21 +1542,30 @@ shared_ptr<NCStatement> NCParser::switch_statement() {
         word = nextWord();
         
         while (1) {
-            string key = "";
+            NCInt key = 0;
+            bool isDefault = false;
+            
             if (word == "case") {
                 
                 word = nextWord();
                 
-                if (!isIdentifier(word) || !isIntegerLiteral(word, nullptr)) {
-//                    return nullptr;
+                if (isIntegerLiteral(word, &key)) {
+                    
+                } else if (isIdentifier(word)) {
+                    auto keyVal = _symbolStore->intForName(word);
+                    
+                    if (!keyVal) {
+                        throw NCParseException(0,"parse fail:switch case can't find %s", word.c_str());
+                    }
+                    
+                    key = keyVal->value;
+                } else {
                     printNearTokens();
                     throw NCParseException(0,"parse fail:switch case");
                 }
                 
-                key = word;
-                
             } else if (word == "default") {
-                key = word;
+                isDefault = true;
             } else {
                 printNearTokens();
                 throw NCParseException(0,"parse fail:switch case");
@@ -1579,12 +1588,10 @@ shared_ptr<NCStatement> NCParser::switch_statement() {
             auto block = new NCBlock();
             block->statement_list = stmts;
             
-            int iKey = 1;//getIntFromSymbol(key);
-            
-            if (key == "default") {
-                switch_expr->default_statement = shared_ptr<NCBlock>(block);
+            if (!isDefault) {
+                switch_expr->cases.push_back(make_pair(key, shared_ptr<NCBlock>(block)));
             } else {
-                switch_expr->cases.push_back(make_pair(iKey, shared_ptr<NCBlock>(block)));
+                switch_expr->default_statement = shared_ptr<NCBlock>(block);
             }
             
             if (word == "}"){
