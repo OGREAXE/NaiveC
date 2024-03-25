@@ -24,6 +24,7 @@
 #include "NCCocoaBox.hpp"
 
 #include "NCCocoaMapper.h"
+#import "NCInvocation.h"
 
 #include <memory>
 
@@ -238,6 +239,16 @@ using namespace std;
         
         vector<shared_ptr<NCStackElement>> lastStack;
         _interpreter->invoke("main", argNames, args, lastStack);
+        
+        if (lastStack.size()) {
+            auto stacktop = lastStack[0];
+            
+            NPValue *ret = [[NPValue alloc] init];
+            ret.stackElement = stacktop;
+            
+            return ret;
+        }
+        
     } catch (NCRuntimeException & e) {
         string errMsg = "VM terminated: ";
         errMsg += e.getErrorMessage();

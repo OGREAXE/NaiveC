@@ -26,6 +26,8 @@
 #import "NSCocoaSymbolStore.h"
 #import "NSNumber+Naive.h"
 
+#import "NCCocoaMapper.h"
+
 @interface NPFunction(CodeEngine)
 @property (nonatomic) shared_ptr<NCLambdaObject> blockObj;
 @end
@@ -196,7 +198,7 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
             //class
             id val = va_arg(vl,Class);
 
-            NCOcClass * pCls = new NCOcClass((__bridge void *)(val));
+            auto pCls = MAKE_COCOA_BOX(val);
             NCStackPointerElement * pElement = new NCStackPointerElement(shared_ptr<NCObject>(pCls));
             argmuments.push_back(shared_ptr<NCStackElement>(pElement));
         }
@@ -509,9 +511,9 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
             if(dynamic_pointer_cast<NCStackPointerElement>(arguments[i])){
                 auto pFrameContainer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
                 auto pObject = pFrameContainer->getPointedObject();
-                if(pObject && dynamic_pointer_cast<NCOcClass>(pObject)){
-                    auto pCls = dynamic_pointer_cast<NCOcClass>(pObject);
-                    Class aCls = (__bridge Class)pCls->getClass();
+                if(pObject && dynamic_pointer_cast<NCCocoaBox>(pObject)){
+                    auto pCls = dynamic_pointer_cast<NCCocoaBox>(pObject);
+                    Class aCls = GET_NS_OBJECT_P(pCls);
                     [invocation setArgument:&aCls atIndex:argPos];
                 }
             }
@@ -698,7 +700,8 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
         else if(COMP_ENCODE(returnType, Class)){
             Class *pCls = (Class*)buffer;
             Class cls = *pCls;
-            auto pOcCls = new NCOcClass((__bridge void *)cls);
+//            auto pOcCls = new NCOcClass((__bridge void *)cls);
+            auto pOcCls = MAKE_COCOA_BOX(cls);
             lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(pOcCls)));
         }
     }
@@ -817,7 +820,8 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
         }
     } else if ([val isKindOfClass:NSValue.class]) {
         Class pCls = (Class)val;
-        auto pOcCls = new NCOcClass((__bridge void *)pCls);
+//        auto pOcCls = new NCOcClass((__bridge void *)pCls);
+        auto pOcCls = MAKE_COCOA_BOX(pCls);
         ret = shared_ptr<NCStackPointerElement>(new NCStackPointerElement(pOcCls));
     } else {
         //id
@@ -832,8 +836,14 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
     return ret;
 }
 
-NSObject *NSObjectFromStackElement(NCStackElement *e) {
-    auto p = dynamic_cast<NCStackPointerElement *>(e);
+NSObject *NSObjectFromStackElement(shared_ptr<NCStackElement> e) {
+    
+    if (dynamic_pointer_cast<NCStackVariableElement>(e)) {
+        auto v = dynamic_pointer_cast<NCStackVariableElement>(e);
+        e = v->valueElement;
+    }
+    
+    auto p = dynamic_pointer_cast<NCStackPointerElement>(e);
     
     if (!p) return NULL;
     
@@ -857,9 +867,9 @@ NSObject *NSObjectFromStackElement(NCStackElement *e) {
     id object;
     
     do{
-        auto pStackTop = element.get();
+        auto pStackTop = element;
  
-        auto intElement = dynamic_cast<NCStackIntElement*>(pStackTop);
+        auto intElement = dynamic_pointer_cast<NCStackIntElement>(pStackTop);
         
         if(intElement){
             object = @(intElement->value);
@@ -867,7 +877,7 @@ NSObject *NSObjectFromStackElement(NCStackElement *e) {
             break;
         }
         
-        auto floatElement = dynamic_cast<NCStackFloatElement*>(pStackTop);
+        auto floatElement = dynamic_pointer_cast<NCStackFloatElement>(pStackTop);
         
         if(floatElement){
             object = @(floatElement->value);

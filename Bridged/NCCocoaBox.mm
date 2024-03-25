@@ -156,7 +156,7 @@ shared_ptr<NCStackElement> NCCocoaBox::getAttribute(const string & attrName){
         return resultContainer[0];
     }
 //    NSLog(@"attribute %@ not found", methodStr);
-    NCLogInterpretor("attribute %s not found", attrName.c_str());
+    NCLogInterpretor("attribute %s not found on %s", attrName.c_str(), wrappedObject.description.UTF8String);
     return nullptr;
 }
 

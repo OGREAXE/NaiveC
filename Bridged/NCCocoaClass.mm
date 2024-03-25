@@ -223,13 +223,17 @@ shared_ptr<NCStackElement> NCCocoaClass::instantiate(vector<shared_ptr<NCStackEl
         if (arguments.size() == 1) {
             auto arg0 = arguments[0]->toObject();
             
-            auto ocCls = dynamic_pointer_cast<NCOcClass>(arg0);
+            auto box = dynamic_pointer_cast<NCCocoaBox>(arg0);
             
-            Class cls = (__bridge Class)ocCls->getClass();
-    
-            NCCocoaBox * outbox = MAKE_COCOA_BOX(NSStringFromClass(cls));
+            if (box) {
+                Class cls = GET_NS_OBJECT_P(box);
+                
+                NCCocoaBox *outbox = MAKE_COCOA_BOX(NSStringFromClass(cls));
+                
+                return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(outbox));
+            }
             
-            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(outbox));
+            return nullptr;
         }
     }
     

@@ -292,7 +292,8 @@
     
     str = [str substringFromIndex:begin.location + 1];
     
-    NSString *patchMethodRegexPattern = @" *([^ ]*) *: *\\(([^:]+)\\)([^ ]+)[ |\\s|//|/*]+";
+    NSString *patchMethodRegexPattern = @" *([^ ]*) *: *\\(([^:]+)\\)([^ \\s]+)[ |\\s|//|/*]+";
+    
     NSRegularExpression *methodRegex = [NSRegularExpression regularExpressionWithPattern:patchMethodRegexPattern options:NSRegularExpressionCaseInsensitive error:NULL];
     
     NSArray *methodArray = [methodRegex matchesInString:str options:0 range:NSMakeRange(0, [str length])] ;

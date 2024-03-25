@@ -45,10 +45,17 @@
 }
 
 - (void)setObject:(id)obj withNCKey:(NSString *)key {
+    if (!obj) {
+        NSLog(@"[Naive] box with NULL pointer");
+    }
     self.objectMap[key] = obj;
 }
 
 - (void)setObject:(id)obj withNCKeyString:(const char *)key {
+    if (!obj) {
+        NSLog(@"[Naive] box with NULL pointer");
+    }
+    
     self.objectMap[[NSString stringWithUTF8String:key]] = obj;
 }
 
@@ -65,10 +72,6 @@
 void *makeCocoaBoxWith(id nsObj) {
     NCCocoaBox *box = new NCCocoaBox();
     
-//    [[NCCocoaMapper shared] setObject:nsObj withNCKeyString:box->getKey().c_str()];
-//    void *p = (void *)CFBridgingRetain(nsObj);
-//    box->setDebugPointer(p);
-//    CFBridgingRelease(p);
     LINK_COCOA_BOX(box, nsObj)
     
     return (void *)box;
