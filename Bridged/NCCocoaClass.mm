@@ -209,6 +209,28 @@ shared_ptr<NCStackElement> NCCocoaClass::instantiate(vector<shared_ptr<NCStackEl
             
             return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(outbox));
         }
+    }  else if (this->name == "NSClassFromString") {
+        if (arguments.size() == 1) {
+            auto arg0 = arguments[0]->toString();
+            
+            Class cls = NSClassFromString([NSString stringWithUTF8String:arg0.c_str()]);
+    
+            NCCocoaBox * outbox = MAKE_COCOA_BOX(cls);
+            
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(outbox));
+        }
+    }  else if (this->name == "NSStringFromClass") {
+        if (arguments.size() == 1) {
+            auto arg0 = arguments[0]->toObject();
+            
+            auto ocCls = dynamic_pointer_cast<NCOcClass>(arg0);
+            
+            Class cls = (__bridge Class)ocCls->getClass();
+    
+            NCCocoaBox * outbox = MAKE_COCOA_BOX(NSStringFromClass(cls));
+            
+            return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(outbox));
+        }
     }
     
     //instantiate NSObject subclass

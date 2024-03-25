@@ -511,7 +511,7 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
                 auto pObject = pFrameContainer->getPointedObject();
                 if(pObject && dynamic_pointer_cast<NCOcClass>(pObject)){
                     auto pCls = dynamic_pointer_cast<NCOcClass>(pObject);
-                    Class aCls = (__bridge Class)pCls->getClass;
+                    Class aCls = (__bridge Class)pCls->getClass();
                     [invocation setArgument:&aCls atIndex:argPos];
                 }
             }

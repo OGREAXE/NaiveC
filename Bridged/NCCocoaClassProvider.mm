@@ -30,7 +30,9 @@ bool NCCocoaClassProvider::classExist(const std::string & className){
         ||className == "dispatch_async"
         ||className == "dispatch_get_main_queue"
         ||className == "dispatch_get_global_queue"
-        ||className == "NSLocalizedString") {
+        ||className == "NSLocalizedString"
+        ||className == "NSClassFromString"
+        ||className == "NSStringFromClass") {
         return true;
     }
     

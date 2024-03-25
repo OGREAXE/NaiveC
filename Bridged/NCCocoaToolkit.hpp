@@ -133,7 +133,7 @@ public:
     NCOcClass(){};
     NCOcClass(void * pClass):pClass(pClass){};
     
-    void * getClass;
+    void *getClass() {return pClass;}
     
     virtual string getDescription();
     
