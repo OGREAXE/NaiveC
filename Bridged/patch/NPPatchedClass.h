@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) NSString *body;
 
+@property (nonatomic) NSString *returnType;
+
 @end
 
 @interface NPPatchedProperty : NSObject

@@ -68,6 +68,8 @@
             pMethod.selector = [self selectorFromString:decl andParamPairs:pairs] ;
             pMethod.body = body;
             
+            pMethod.returnType = [self returnTypeFromString:decl];
+            
             if (pMethod.isClassMethod) {
                 [classMethods addObject:pMethod];
             } else {
@@ -99,7 +101,7 @@
         
         NSString *interfaceDef = [[impContent componentsSeparatedByString:@"\n"] objectAtIndex:0];
         interfaceDef = [interfaceDef stringByTrimmingCharactersInSet:
-                     [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                        [NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
         NSScanner *scanner = [NSScanner scannerWithString:interfaceDef];
         
@@ -125,9 +127,9 @@
         className = [className stringByTrimmingCharactersInSet:
                      [NSCharacterSet whitespaceAndNewlineCharacterSet]];
         superClassName = [superClassName stringByTrimmingCharactersInSet:
-                     [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                          [NSCharacterSet whitespaceAndNewlineCharacterSet]];
         protocolNames = [protocolNames stringByTrimmingCharactersInSet:
-                     [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                         [NSCharacterSet whitespaceAndNewlineCharacterSet]];
         ///
         
         NSString *patchMethodRegexPattern = @" *#pragma  *mark  *patch *\n *@property (.*?); *\\s";
@@ -206,14 +208,14 @@
             if (noParameterMethodArray.count > 1) {
                 NSString *methodName = noParameterMethodArray[1];
                 ret = [methodName stringByTrimmingCharactersInSet:
-                                              [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                       [NSCharacterSet whitespaceAndNewlineCharacterSet]];
             }
             
         }
         
         return ret;
     }
-
+    
     return [self methodFirstNameFromString:str];
 }
 
@@ -230,7 +232,7 @@
     
     BOOL isInIgnoreState = NO;
     int startIndex = 0, endIndex = 0;
-//    int lasti = 0;
+    //    int lasti = 0;
     for (int i = fromIndex; i < string.length; i ++) {
         unichar c = [string characterAtIndex:i];
         if (c == '"') {
@@ -280,13 +282,40 @@
     return nil;
 }
 
+- (NSString *)returnTypeFromString:(NSString *)str {
+    str = [str stringByAppendingString:@" "];
+    
+    NSRange end = [str rangeOfString:@")"];
+    
+    if (end.length == 0) {
+        NSLog(@"[naive] returnTypeFromString fail");
+        return nil;
+    }
+    
+    str = [str substringToIndex:end.location];
+    
+    NSRange start = [str rangeOfString:@"("];
+    
+    if (start.length == 0) {
+        NSLog(@"[naive] returnTypeFromString fail");
+        return nil;
+    }
+    
+    str = [str substringFromIndex:start.location + 1];
+    
+    str = [str stringByTrimmingCharactersInSet:
+                 [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    return str;
+}
+
 - (NSArray<NPParamterPair *> *)parameterPairFromString:(NSString *)str {
     str = [str stringByAppendingString:@" "];
     
     NSRange begin = [str rangeOfString:@")"];
     
     if (begin.length == 0) {
-        NSLog(@"parameterPairFromString fail");
+        NSLog(@"[naive] parameterPairFromString fail");
         return nil;
     }
     
