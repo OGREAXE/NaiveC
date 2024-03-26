@@ -20,7 +20,7 @@
 #define PUSH_INDEX2 int _saved_temp_index2 = index;
 #define POP_INDEX2 {index = _saved_temp_index2; word = (*tokens)[index].token;}
 
-
+#define check_semicolon if (word == ";"){word = nextWord();}
 
 static unordered_set<string> keywords =
 {
@@ -40,7 +40,7 @@ static unordered_set<string> keywords =
     "while","for",
     "break","continue",
     "return","in",
-    "switch","case","default",
+    "switch","case","default",";"
 };
 
 #define SE "\n"
@@ -438,6 +438,9 @@ shared_ptr<NCStatement> NCParser::blockStatement(){
     PUSH_INDEX
     
     auto varDecStmt = variable_declaration_expression();
+    
+    check_semicolon
+    
     if (!varDecStmt) {
 //        popIndex();
         POP_INDEX
@@ -1228,12 +1231,11 @@ shared_ptr<NCBinaryExpression> NCParser::addRight(shared_ptr<NCExpression> left,
 }
 
 shared_ptr<NCStatement> NCParser::statement(){
-    
-//    pushIndex();
     PUSH_INDEX
     
     shared_ptr<NCStatement> stmt = block();
     if (stmt) {
+        check_semicolon
         return stmt;
     }
     
@@ -1241,6 +1243,7 @@ shared_ptr<NCStatement> NCParser::statement(){
     POP_INDEX
     stmt = selection_statement();
     if (stmt) {
+        check_semicolon
         return stmt;
     }
     
@@ -1248,6 +1251,7 @@ shared_ptr<NCStatement> NCParser::statement(){
     POP_INDEX
     stmt = while_statement();
     if (stmt) {
+        check_semicolon
         return stmt;
     }
     
@@ -1255,12 +1259,14 @@ shared_ptr<NCStatement> NCParser::statement(){
     POP_INDEX
     stmt = for_statement();
     if (stmt) {
+        check_semicolon
         return stmt;
     }
     
     POP_INDEX
     stmt = switch_statement();
     if (stmt) {
+        check_semicolon
         return stmt;
     }
     
@@ -1268,6 +1274,7 @@ shared_ptr<NCStatement> NCParser::statement(){
     POP_INDEX
     stmt = expression_statement();
     if (stmt) {
+        check_semicolon
         return stmt;
     }
     
@@ -1275,6 +1282,7 @@ shared_ptr<NCStatement> NCParser::statement(){
     POP_INDEX
     stmt = break_statement();
     if (stmt) {
+        check_semicolon
         return stmt;
     }
     
@@ -1282,6 +1290,7 @@ shared_ptr<NCStatement> NCParser::statement(){
     POP_INDEX
     stmt = return_statement();
     if (stmt) {
+        check_semicolon
         return stmt;
     }
     
@@ -1467,7 +1476,7 @@ shared_ptr<NCStatement> NCParser::for_statement(){
 //        return nullptr;
 //    }
 //    word = nextWord();
-    
+    check_semicolon
     if(!for_update(forStmt->update)){
         return nullptr;
     }
@@ -1492,9 +1501,12 @@ bool NCParser::for_init(vector<shared_ptr<NCExpression>>& init){
     
     auto expr = variable_declaration_expression();
     if (expr) {
+        check_semicolon
         init.push_back(expr);
         return true;
     }
+    
+    check_semicolon
 //    popIndex();
     POP_INDEX
     
@@ -1502,6 +1514,8 @@ bool NCParser::for_init(vector<shared_ptr<NCExpression>>& init){
         PRINT_NEAR
         return false;
     }
+    
+    check_semicolon
     return true;
 }
 

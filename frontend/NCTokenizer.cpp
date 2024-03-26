@@ -100,6 +100,7 @@ bool NCTokenizer::tokenize(const string&str){
             if (token.length() > 0){
                 addToken(tokens, token, i);
             }
+            addToken(tokens, ";", i);
             token = "";
             status = Unknown;
         }
