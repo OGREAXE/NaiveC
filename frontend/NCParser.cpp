@@ -910,8 +910,18 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
         
         word = nextWord();
 
-        if (isTypeConvertExp)
-            return expression();
+        if (isTypeConvertExp) {
+            pushIndex();
+            
+            auto convertedExpr = expression();
+            
+            if (convertedExpr) return convertedExpr;
+            
+            popIndex();
+            
+            return exp;
+            
+        }
         else
             return exp;
     }
