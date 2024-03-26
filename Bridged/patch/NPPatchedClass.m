@@ -22,6 +22,16 @@
     return NO;
 }
 
+- (NSArray<NSString *> *)argTypes {
+    NSMutableArray *array = [NSMutableArray array];
+    
+    for (int i = 0; i < self.parameterPairs.count; i ++) {
+        [array addObject:self.parameterPairs[i].type];
+    }
+    
+    return array;
+}
+
 @end
 
 @implementation NPPatchedProperty

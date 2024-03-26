@@ -51,8 +51,8 @@ private:
     int index;
     string word;
     
-    bool lambdaFlag;  //indicate a lambda parse phrase start
-    set<string> lambdaCapturedSymbols;
+//    bool lambdaFlag;  //indicate a lambda parse phrase start
+    vector<set<string>> lambdaCapturedSymbols;
     
     NCSymbolStore *_symbolStore = new NCSymbolStore();
     

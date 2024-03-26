@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) NSArray<NPParamterPair *> *parameterPairs;
 
+@property (nonatomic, readonly) NSArray<NSString *> *argTypes;
+
 @property (nonatomic) NSString *declaration;
 
 @property (nonatomic) NSString *selector;

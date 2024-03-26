@@ -280,6 +280,8 @@ shared_ptr<NCConstructorDeclaration> NCParser::constructor_definition(){
 //function_definition-> type_specifier argumentlist compound_statement
 AstNodePtr NCParser::function_definition(){
     
+    lambdaCapturedSymbols.clear();
+    
     auto function = new NCASTFunctionDefinition();
     
     function->return_type = type_specifier();
@@ -951,8 +953,8 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
         if (!arguments_expression(args)) {
             //        popIndex();
             POP_INDEX2
-            if (lambdaFlag) {
-                lambdaCapturedSymbols.insert(name);
+            if (lambdaCapturedSymbols.size()) {
+                lambdaCapturedSymbols.back().insert(name);
             }
             
             if (word == "++" || word == "--" ) {
@@ -974,6 +976,8 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
         
         if (isIdentifier(word))word = nextWord();
         
+        if (word == "*")word = nextWord();
+        
         if (word == "(") {
             word = nextWord();
             
@@ -990,18 +994,22 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
             }
         }
         
-        lambdaFlag = true;
-        lambdaCapturedSymbols.clear();
+//        lambdaFlag = true;
+//        lambdaCapturedSymbols.clear();
+        set<string> capturedSymbos;
+        lambdaCapturedSymbols.push_back(capturedSymbos);
+        
         auto blockSmt = block();
         if (!blockSmt) {
             NCLogInterpretor("fail to parse block body");
             printNearTokens();
-            lambdaFlag = false;
+//            lambdaFlag = false;
             return nullptr;
         }
-        lambdaFlag = false;
+//        lambdaFlag = false;
         
-        lambdaExpr->capturedSymbols = lambdaCapturedSymbols;
+        lambdaExpr->capturedSymbols = lambdaCapturedSymbols.back();
+        lambdaCapturedSymbols.pop_back();
         lambdaExpr->blockStmt = blockSmt;
         return shared_ptr<NCExpression>(lambdaExpr);
     }

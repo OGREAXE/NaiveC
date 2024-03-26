@@ -11,12 +11,12 @@
 #include "NCInterpreter.hpp"
 #include "NCException.hpp"
 
-static NCInterpreter * g_subInterpretor = nullptr;
+static NCInterpreter * g_subInterpretor = new NCInterpreter();
 
 bool NCNativeObject::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack){
-    if (!g_subInterpretor) {
-        g_subInterpretor = new NCInterpreter();
-    }
+//    if (!g_subInterpretor) {
+//        g_subInterpretor = new NCInterpreter();
+//    }
 //    auto res = g_subInterpretor->invoke(methodName, arguments, lastStack);
 //    return res;
     auto func = classDefinition->methods[methodName];

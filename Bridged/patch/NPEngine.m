@@ -258,10 +258,13 @@ static NSDictionary *defineClass(NSString *classDeclaration, NSArray<NPPatchedMe
                 NSLog(@"[Naive] define method not exist:(%@)-->(%@)",currCls, method.selector);
                 NSLog(@"[Naive] add new method ..");
                       
-                NSMutableString *typeDescStr = [@"@@:" mutableCopy];
-                for (int i = 1; i < method.parameterPairs.count; i ++) {
-                    [typeDescStr appendString:@"@"];
-                }
+//                NSMutableString *typeDescStr = [@"@@:" mutableCopy];
+//                for (int i = 1; i < method.parameterPairs.count; i ++) {
+//                    [typeDescStr appendString:@"@"];
+//                }
+                
+                NSString *typeDescStr = [NPEngine methodSignatureForTypes:method.argTypes withReturnType:method.returnType isBlock:NO];
+                
                 overrideMethod(currCls, method.selector, ncMethod, !isInstance, [typeDescStr cStringUsingEncoding:NSUTF8StringEncoding]);
                 
 //                BOOL overrided = NO;
@@ -782,69 +785,71 @@ static id genCallbackBlock(NSArray *argTypes)
     p += sizeof(void *) + sizeof(uintptr_t) * 2;
     const char **signature = (const char **)p;
     
-    static NSMutableDictionary *typeSignatureDict;
-    if (!typeSignatureDict) {
-        typeSignatureDict  = [NSMutableDictionary new];
-        #define JP_DEFINE_TYPE_SIGNATURE(_type) \
-        [typeSignatureDict setObject:@[[NSString stringWithUTF8String:@encode(_type)], @(sizeof(_type))] forKey:@#_type];\
-
-        JP_DEFINE_TYPE_SIGNATURE(id);
-        JP_DEFINE_TYPE_SIGNATURE(BOOL);
-        JP_DEFINE_TYPE_SIGNATURE(BOOL*);
-        //JP_DEFINE_TYPE_SIGNATURE(BOOL *);
-        JP_DEFINE_TYPE_SIGNATURE(int);
-        JP_DEFINE_TYPE_SIGNATURE(int*);
-        JP_DEFINE_TYPE_SIGNATURE(void);
-        JP_DEFINE_TYPE_SIGNATURE(char);
-        JP_DEFINE_TYPE_SIGNATURE(char*);
-        JP_DEFINE_TYPE_SIGNATURE(short);
-        JP_DEFINE_TYPE_SIGNATURE(unsigned short);
-        JP_DEFINE_TYPE_SIGNATURE(unsigned int);
-        JP_DEFINE_TYPE_SIGNATURE(long);
-        JP_DEFINE_TYPE_SIGNATURE(unsigned long);
-        JP_DEFINE_TYPE_SIGNATURE(long long);
-        JP_DEFINE_TYPE_SIGNATURE(unsigned long long);
-        JP_DEFINE_TYPE_SIGNATURE(float);
-        JP_DEFINE_TYPE_SIGNATURE(double);
-        JP_DEFINE_TYPE_SIGNATURE(bool);
-        JP_DEFINE_TYPE_SIGNATURE(size_t);
-        JP_DEFINE_TYPE_SIGNATURE(CGFloat);
-        JP_DEFINE_TYPE_SIGNATURE(CGSize);
-        JP_DEFINE_TYPE_SIGNATURE(CGRect);
-        JP_DEFINE_TYPE_SIGNATURE(CGPoint);
-        JP_DEFINE_TYPE_SIGNATURE(CGVector);
-        JP_DEFINE_TYPE_SIGNATURE(NSRange);
-        JP_DEFINE_TYPE_SIGNATURE(NSInteger);
-        JP_DEFINE_TYPE_SIGNATURE(NSUInteger);
-        JP_DEFINE_TYPE_SIGNATURE(Class);
-        JP_DEFINE_TYPE_SIGNATURE(SEL);
-        JP_DEFINE_TYPE_SIGNATURE(void*);
-        JP_DEFINE_TYPE_SIGNATURE(void *);
-    }
-    
-//    NSString *types = [jsVal[@"args"] toString];
-//    NSString *types = jsVal.types;
+//    static NSMutableDictionary *typeSignatureDict;
+//    if (!typeSignatureDict) {
+//        typeSignatureDict  = [NSMutableDictionary new];
+//        #define JP_DEFINE_TYPE_SIGNATURE(_type) \
+//        [typeSignatureDict setObject:@[[NSString stringWithUTF8String:@encode(_type)], @(sizeof(_type))] forKey:@#_type];\
+//
+//        JP_DEFINE_TYPE_SIGNATURE(id);
+//        JP_DEFINE_TYPE_SIGNATURE(BOOL);
+//        JP_DEFINE_TYPE_SIGNATURE(BOOL*);
+//        //JP_DEFINE_TYPE_SIGNATURE(BOOL *);
+//        JP_DEFINE_TYPE_SIGNATURE(int);
+//        JP_DEFINE_TYPE_SIGNATURE(int*);
+//        JP_DEFINE_TYPE_SIGNATURE(void);
+//        JP_DEFINE_TYPE_SIGNATURE(char);
+//        JP_DEFINE_TYPE_SIGNATURE(char*);
+//        JP_DEFINE_TYPE_SIGNATURE(short);
+//        JP_DEFINE_TYPE_SIGNATURE(unsigned short);
+//        JP_DEFINE_TYPE_SIGNATURE(unsigned int);
+//        JP_DEFINE_TYPE_SIGNATURE(long);
+//        JP_DEFINE_TYPE_SIGNATURE(unsigned long);
+//        JP_DEFINE_TYPE_SIGNATURE(long long);
+//        JP_DEFINE_TYPE_SIGNATURE(unsigned long long);
+//        JP_DEFINE_TYPE_SIGNATURE(float);
+//        JP_DEFINE_TYPE_SIGNATURE(double);
+//        JP_DEFINE_TYPE_SIGNATURE(bool);
+//        JP_DEFINE_TYPE_SIGNATURE(size_t);
+//        JP_DEFINE_TYPE_SIGNATURE(CGFloat);
+//        JP_DEFINE_TYPE_SIGNATURE(CGSize);
+//        JP_DEFINE_TYPE_SIGNATURE(CGRect);
+//        JP_DEFINE_TYPE_SIGNATURE(CGPoint);
+//        JP_DEFINE_TYPE_SIGNATURE(CGVector);
+//        JP_DEFINE_TYPE_SIGNATURE(NSRange);
+//        JP_DEFINE_TYPE_SIGNATURE(NSInteger);
+//        JP_DEFINE_TYPE_SIGNATURE(NSUInteger);
+//        JP_DEFINE_TYPE_SIGNATURE(Class);
+//        JP_DEFINE_TYPE_SIGNATURE(SEL);
+//        JP_DEFINE_TYPE_SIGNATURE(void*);
+//        JP_DEFINE_TYPE_SIGNATURE(void *);
+//    }
 //    
-//    NSArray *lt = [types componentsSeparatedByString:@","];
+////    NSString *types = [jsVal[@"args"] toString];
+////    NSString *types = jsVal.types;
+////    
+////    NSArray *lt = [types componentsSeparatedByString:@","];
+//    
+//    NSArray *lt = argTypes;
+//    
+//    NSString *funcSignature = @"@?0";
+//    
+//    NSInteger size = sizeof(void *);
+//    for (NSInteger i = 1; i < lt.count;) {
+//        NSString *t = trim(lt[i]);
+//        NSString *tpe = typeSignatureDict[typeSignatureDict[t] ? t : @"id"][0];
+//        if (i == 0) {
+//            funcSignature  =[[NSString stringWithFormat:@"%@%@",tpe, [@(size) stringValue]] stringByAppendingString:funcSignature];
+//            break;
+//        }
+//        
+//        funcSignature = [funcSignature stringByAppendingString:[NSString stringWithFormat:@"%@%@", tpe, [@(size) stringValue]]];
+//        size += [typeSignatureDict[typeSignatureDict[t] ? t : @"id"][1] integerValue];
+//        
+//        i = (i != lt.count - 1) ? i + 1 : 0;
+//    }
     
-    NSArray *lt = argTypes;
-    
-    NSString *funcSignature = @"@?0";
-    
-    NSInteger size = sizeof(void *);
-    for (NSInteger i = 1; i < lt.count;) {
-        NSString *t = trim(lt[i]);
-        NSString *tpe = typeSignatureDict[typeSignatureDict[t] ? t : @"id"][0];
-        if (i == 0) {
-            funcSignature  =[[NSString stringWithFormat:@"%@%@",tpe, [@(size) stringValue]] stringByAppendingString:funcSignature];
-            break;
-        }
-        
-        funcSignature = [funcSignature stringByAppendingString:[NSString stringWithFormat:@"%@%@", tpe, [@(size) stringValue]]];
-        size += [typeSignatureDict[typeSignatureDict[t] ? t : @"id"][1] integerValue];
-        
-        i = (i != lt.count - 1) ? i + 1 : 0;
-    }
+    NSString *funcSignature = [NPEngine methodSignatureForTypes:argTypes withReturnType:NULL isBlock:YES];
     
     IMP msgForwardIMP = _objc_msgForward;
 #if !defined(__arm64__)
@@ -890,6 +895,99 @@ NSMethodSignature *block_methodSignatureForSelector(id self, SEL _cmd, SEL aSele
 
 + (id)genCallbackBlock:(NSArray *)argTypes {
     return genCallbackBlock(argTypes);
+}
+
+//if isBlock, returnType rest at first element of argTypes
+//returnType holds value only when !isBlock
++ (NSString *)methodSignatureForTypes:(NSArray *)argTypes withReturnType:(NSString *)returnType isBlock:(BOOL)isBlock {
+    static NSMutableDictionary *typeSignatureDict;
+    if (!typeSignatureDict) {
+        typeSignatureDict  = [NSMutableDictionary new];
+        #define JP_DEFINE_TYPE_SIGNATURE(_type) \
+        [typeSignatureDict setObject:@[[NSString stringWithUTF8String:@encode(_type)], @(sizeof(_type))] forKey:@#_type];\
+
+        JP_DEFINE_TYPE_SIGNATURE(id);
+        JP_DEFINE_TYPE_SIGNATURE(BOOL);
+        JP_DEFINE_TYPE_SIGNATURE(BOOL*);
+        //JP_DEFINE_TYPE_SIGNATURE(BOOL *);
+        JP_DEFINE_TYPE_SIGNATURE(int);
+        JP_DEFINE_TYPE_SIGNATURE(int*);
+        JP_DEFINE_TYPE_SIGNATURE(void);
+        JP_DEFINE_TYPE_SIGNATURE(char);
+        JP_DEFINE_TYPE_SIGNATURE(char*);
+        JP_DEFINE_TYPE_SIGNATURE(short);
+        JP_DEFINE_TYPE_SIGNATURE(unsigned short);
+        JP_DEFINE_TYPE_SIGNATURE(unsigned int);
+        JP_DEFINE_TYPE_SIGNATURE(long);
+        JP_DEFINE_TYPE_SIGNATURE(unsigned long);
+        JP_DEFINE_TYPE_SIGNATURE(long long);
+        JP_DEFINE_TYPE_SIGNATURE(unsigned long long);
+        JP_DEFINE_TYPE_SIGNATURE(float);
+        JP_DEFINE_TYPE_SIGNATURE(double);
+        JP_DEFINE_TYPE_SIGNATURE(bool);
+        JP_DEFINE_TYPE_SIGNATURE(size_t);
+        JP_DEFINE_TYPE_SIGNATURE(CGFloat);
+        JP_DEFINE_TYPE_SIGNATURE(CGSize);
+        JP_DEFINE_TYPE_SIGNATURE(CGRect);
+        JP_DEFINE_TYPE_SIGNATURE(CGPoint);
+        JP_DEFINE_TYPE_SIGNATURE(CGVector);
+        JP_DEFINE_TYPE_SIGNATURE(NSRange);
+        JP_DEFINE_TYPE_SIGNATURE(NSInteger);
+        JP_DEFINE_TYPE_SIGNATURE(NSUInteger);
+        JP_DEFINE_TYPE_SIGNATURE(Class);
+        JP_DEFINE_TYPE_SIGNATURE(SEL);
+        JP_DEFINE_TYPE_SIGNATURE(void*);
+        JP_DEFINE_TYPE_SIGNATURE(void *);
+    }
+    
+//    NSString *types = [jsVal[@"args"] toString];
+//    NSString *types = jsVal.types;
+//
+//    NSArray *lt = [types componentsSeparatedByString:@","];
+    
+    NSArray *lt = argTypes;
+    
+    if (isBlock) {
+        NSString *funcSignature = @"@?0";
+        
+        NSInteger size = sizeof(void *);
+        
+        for (NSInteger i = 1; i < lt.count;) {
+            NSString *t = trim(lt[i]);
+            NSString *tpe = typeSignatureDict[typeSignatureDict[t] ? t : @"id"][0];
+            if (i == 0) {
+                funcSignature  =[[NSString stringWithFormat:@"%@%@",tpe, [@(size) stringValue]] stringByAppendingString:funcSignature];
+                break;
+            }
+            
+            funcSignature = [funcSignature stringByAppendingString:[NSString stringWithFormat:@"%@%@", tpe, [@(size) stringValue]]];
+            size += [typeSignatureDict[typeSignatureDict[t] ? t : @"id"][1] integerValue];
+            
+            i = (i != lt.count - 1) ? i + 1 : 0;
+        }
+        
+        return funcSignature;
+    }
+    else {
+        NSString *bodySignature = @"@0:8";
+        
+        NSString *funcSignature = [NSString stringWithFormat:@"%@%@",
+                                   typeSignatureDict[typeSignatureDict[returnType] ? returnType : @"id"][0],
+                                   bodySignature
+        ];
+        
+        NSInteger size = sizeof(void *) * 2;
+        
+        for (NSInteger i = 1; i < lt.count; i ++) {
+            NSString *t = trim(lt[i]);
+            NSString *tpe = typeSignatureDict[typeSignatureDict[t] ? t : @"id"][0];
+            
+            funcSignature = [funcSignature stringByAppendingString:[NSString stringWithFormat:@"%@%@", tpe, [@(size) stringValue]]];
+            size += [typeSignatureDict[typeSignatureDict[t] ? t : @"id"][1] integerValue];
+        }
+        
+        return funcSignature;
+    }
 }
 
 @end
