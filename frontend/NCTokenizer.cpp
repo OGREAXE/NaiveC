@@ -99,6 +99,10 @@ bool NCTokenizer::tokenize(const string&str){
         else if (c == ';'  && status != String) {
             if (token.length() > 0){
                 addToken(tokens, token, i);
+                
+                if (token == ")") {
+                    addToken(tokens, ";", i);
+                }
             }
             token = "";
             status = Unknown;

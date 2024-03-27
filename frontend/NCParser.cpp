@@ -111,6 +111,14 @@ string NCParser::nextWord(){
     if (index >= tokens->size()) {
         throw NCParseException(0,"parse fail:tokens exceeded");
     }
+    
+    if ((*tokens)[index].token == ";") {
+        index ++;
+        if (index >= tokens->size()) {
+            throw NCParseException(0,"parse fail:tokens exceeded");
+        }
+    }
+    
     return (*tokens)[index].token;
 }
 
@@ -906,6 +914,11 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
         if (word!=")") {
 //            popIndex();
             return nullptr;
+        }
+        
+        if (peek(1) == ";"){
+            word = nextWord();
+            return exp;
         }
         
         word = nextWord();
