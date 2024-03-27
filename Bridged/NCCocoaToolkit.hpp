@@ -18,6 +18,11 @@
 #define NC_CLASSNAME_RANGE "Range"
 #define NC_CLASSNAME_EDGEINSET "EdgeInset"
 
+class NCCocoaToolkit {
+public:
+    static double getSystemVersion();
+};
+
 class NCRect : public NCObject{
 public:
     float x;

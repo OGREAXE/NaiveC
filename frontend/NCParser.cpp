@@ -13,6 +13,7 @@
 #include "NCException.hpp"
 #include "NCSymbolStore.hpp"
 #include "NCLog.hpp"
+#include <iostream>
 
 #define PUSH_INDEX int _saved_temp_index = index;
 #define POP_INDEX {index = _saved_temp_index; word = (*tokens)[index].token;}
@@ -643,6 +644,42 @@ shared_ptr<NCExpression> NCParser::ns_selector_initializer() {
     
     auto sel = new NCObjcSelectorExpr();
     sel->selectorString = selectorString;
+    
+    return shared_ptr<NCExpression>(sel);
+}
+
+shared_ptr<NCExpression> NCParser::ns_available_initializer() {
+    word = nextWord();
+    
+    if (word != "(")return nullptr;
+    
+    word = nextWord();
+    
+    auto sel = new NCObjcAvailableExpr();
+    
+    string availableString;
+    
+    string lastWord;
+    while (word.length() && word != ")") {
+        availableString += word;
+        
+        std::transform(lastWord.begin(), lastWord.end(), lastWord.begin(),
+            [](unsigned char c){ return std::tolower(c); });
+        
+        if ((lastWord) == "ios") {
+            double ver = std::stod(word);
+            sel->iosver = ver;
+        }
+        
+        lastWord = word;
+        word = nextWord();
+    }
+    
+    if (word != ")")return nullptr;
+    
+    word = nextWord();
+    
+    sel->availableString = availableString;
     
     return shared_ptr<NCExpression>(sel);
 }
@@ -1718,9 +1755,13 @@ shared_ptr<NCExpression> NCParser::objc_syntactic_sugar(){
         word = nextWord();
         
         return shared_ptr<NCExpression>(new NCObjcNumberExpr(exp));
-    }  else if (word == "selector") {
+    } else if (word == "selector") {
         //nsdictionary
         auto sel = ns_selector_initializer();
+        return shared_ptr<NCExpression>(sel);
+    } else if (word == "available") {
+        //nsdictionary
+        auto sel = ns_available_initializer();
         return shared_ptr<NCExpression>(sel);
     } else {
         return nullptr;

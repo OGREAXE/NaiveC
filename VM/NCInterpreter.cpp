@@ -16,6 +16,7 @@
 #include "NCHeapMemory.hpp"
 #include "NCNSArrayWrapper.hpp"
 #include "NCNSDictionaryWrapper.hpp"
+#include "NCCocoaToolkit.hpp"
 
 void NCFrame::insertVariable(string&name, NCInt value){
     localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackIntElement(value));
@@ -274,6 +275,13 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         auto box = NCCocoaBox::selectorFromString(node->selectorString);
         
         frame.stack_push(shared_ptr<NCStackElement>(new NCStackPointerElement(box)));
+    }
+    else if (dynamic_pointer_cast<NCObjcAvailableExpr>(currentNode)) {
+        auto node = dynamic_pointer_cast<NCObjcAvailableExpr>(currentNode);
+        
+        double currentver = NCCocoaToolkit::getSystemVersion();
+        
+        frame.stack_push(shared_ptr<NCStackElement>(new NCStackIntElement(currentver >= node->iosver)));
     }
     else if (dynamic_cast<NCFieldAccessExpr*>(currentNode.get())) {
         auto node = dynamic_cast<NCFieldAccessExpr*>(currentNode.get());

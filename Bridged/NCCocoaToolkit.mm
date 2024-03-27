@@ -10,6 +10,11 @@
 #include <sstream>
 #include <iostream>
 #include <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+double NCCocoaToolkit::getSystemVersion() {
+    return [UIDevice currentDevice].systemVersion.floatValue;
+}
 
 //rect
 string NCRect::getDescription(){

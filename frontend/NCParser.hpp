@@ -199,6 +199,8 @@ private:
     
     shared_ptr<NCExpression> ns_selector_initializer();
     
+    shared_ptr<NCExpression> ns_available_initializer();
+    
     bool expression_list(vector<shared_ptr<NCExpression>>& exprList);
     
     //multiplicative_expression-> cast_expression| multiplicative_expression '*' cast_expression| multiplicative_expression '/' cast_expression| multiplicative_expression '%' cast_expression

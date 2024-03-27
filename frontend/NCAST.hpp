@@ -167,6 +167,14 @@ public:
     string selectorString;
 };
 
+class NCObjcAvailableExpr:public NCObjcSyntacticSugarExpr{
+private:
+    
+public:
+    string availableString;
+    double iosver;
+};
+
 //support calling oc message [obj msg:para1:para2]
 class NCObjCSendMessageExpr:public NCPrimarySuffix{
 private:
