@@ -605,6 +605,11 @@ shared_ptr<NCExpression> NCParser::ns_dictionary_initializer(){
     
     auto dictInitializer = new NCObjcDictionaryInitializer();
     
+    if (word == "}") {
+        word = nextWord();
+        return shared_ptr<NCExpression>(dictInitializer);
+    }
+    
     if (!keyValueList(dictInitializer->keyValueList)) {
         return nullptr;
     }
