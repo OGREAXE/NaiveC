@@ -560,6 +560,11 @@ shared_ptr<NCArrayInitializer> NCParser::array_initializer(){
     
     auto arrayInitializer = new NCArrayInitializer();
     
+    if (word == "]") {
+        word = nextWord();
+        return shared_ptr<NCArrayInitializer>(arrayInitializer);
+    }
+    
     if (!arguments(arrayInitializer->elements)) {
         POP_INDEX
         return nullptr;
