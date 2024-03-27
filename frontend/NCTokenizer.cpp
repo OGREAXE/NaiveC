@@ -8,13 +8,44 @@
 
 #include "NCTokenizer.hpp"
 
+unordered_map<string, string> doubleTypeMap = {
+    {"long", "long"},
+    {"char", "unsigned"},
+    {"int", "unsigned"},
+    {"long", "unsigned"},
+    {"long long", "unsigned"},
+};
+
 void addToken(shared_ptr<vector<NCToken>> &tokens,string token, int i){
+//    if (token == "long" && tokens->size()) {
+//        auto lastToken = tokens->back();
+//        
+//        if (lastToken.token == "long") {
+//            lastToken.token = "long long";
+//            *(tokens->end()) = lastToken;
+//            
+//            return;
+//        }
+//    }
+    
+    if (doubleTypeMap.find(token) != doubleTypeMap.end() && tokens->size()) {
+        auto lastToken = tokens->back();
+        
+        if (doubleTypeMap[token] == lastToken.token) {
+            lastToken.token = lastToken.token + " " + token;
+            *(tokens->end()) = lastToken;
+            
+            return;
+        }
+    }
+    
     NCToken aToken;
     aToken.token = token;
     aToken.start = i -token.length();
     aToken.length = token.length();
     
     tokens->push_back(aToken);
+    
 }
 
 NCTokenizer::NCTokenizer(string&str){
