@@ -182,7 +182,7 @@ using namespace std;
     [self parseSourceCode:completedSource];
     
     if (_parser->getRoot()->functionList.size() == 0) {
-        NCLogParser("parse fail");
+        NCLogParser("parse fail for method %s", method.selector.UTF8String);
         return NO;
     }
     

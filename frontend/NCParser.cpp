@@ -74,6 +74,8 @@ bool NCParser::parse(shared_ptr<const vector<NCToken>>& tokens){
     bool parseOK = false;
     do{
         parseOK = false;
+        
+        indexStack.clear();
 //        pushIndex();
         PUSH_INDEX
         
@@ -373,16 +375,17 @@ bool NCParser::parameter(NCParameter ** ppp){
         return false;
     }
 
-    if (!isIdentifier(word)) {
-        PRINT_NEAR
-        return false;
-    }
+//    if (!isIdentifier(word)) {
+//        return false;
+//    }
     
     NCParameter * pp = new NCParameter();
     pp->type = type;
-    pp->name = word;
     
-    word = nextWord();
+    if (isIdentifier(word)) {
+        pp->name = word;
+        word = nextWord();
+    }
     
     *ppp = pp;
     
@@ -552,18 +555,18 @@ shared_ptr<NCArrayInitializer> NCParser::array_initializer(){
         return nullptr;
     }
     
-    pushIndex();
+    PUSH_INDEX
     word = nextWord();
     
     auto arrayInitializer = new NCArrayInitializer();
     
     if (!arguments(arrayInitializer->elements)) {
-        popIndex();
+        POP_INDEX
         return nullptr;
     }
     
     if (word != "]") {
-        popIndex();
+        POP_INDEX
         return nullptr;
     }
     word = nextWord();
@@ -917,6 +920,11 @@ shared_ptr<NCExpression> NCParser::primary_prefix(){
         }
         
         if (peek(1) == ";"){
+            word = nextWord();
+            return exp;
+        }
+        
+        if (peek(2) == ":"){
             word = nextWord();
             return exp;
         }
