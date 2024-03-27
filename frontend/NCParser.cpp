@@ -1306,6 +1306,12 @@ shared_ptr<NCStatement> NCParser::statement(){
         return stmt;
     }
     
+    POP_INDEX
+    stmt = continue_statement();
+    if (stmt) {
+        return stmt;
+    }
+    
     return nullptr;
 }
 
