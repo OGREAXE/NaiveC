@@ -1172,10 +1172,10 @@ bool NCParser::keyValueList(vector<pair<shared_ptr<NCExpression>, shared_ptr<NCE
         
         res = keyvalue(kv);
         
-        if (!res) {
-            PRINT_NEAR
-            return false;
-        }
+//        if (!res) {
+//            PRINT_NEAR
+//            return false;
+//        }
     }
     
     return true;
