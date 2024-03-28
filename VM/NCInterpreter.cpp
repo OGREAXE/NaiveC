@@ -161,7 +161,7 @@ bool NCInterpreter::invoke(string function, vector<string> &argumentNames, vecto
     
     if(!visit(funcDef->block, *frame))return false;
     if (frame->stack.size()>0) {
-        lastStack.push_back((frame->stack.back()));
+        lastStack.push_back((frame->stack_popRealValue()));
     }
     return true;
 }
@@ -804,8 +804,18 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
                 
             }
             else {
-                auto varElement = new NCStackVariableElement(node->name, var);
-                frame.stack.push_back(shared_ptr<NCStackElement>(varElement));
+                
+                if (var) {
+                    auto varElement = new NCStackVariableElement(node->name, var);
+                    frame.stack.push_back(shared_ptr<NCStackElement>(varElement));
+                } else {
+                    if (node->name[0] == '_'){
+                        //put a accessor into the frame.stack
+                        auto selfInstance = frame.localVariableMap["self"];
+                        auto accesor = new NCFieldAccessor(selfInstance, node->name);
+                        frame.stack_push(shared_ptr<NCStackElement>(accesor));
+                    }
+                }
             }
         }
     }
@@ -867,6 +877,18 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         
         auto exp = node->expression;
         visit(exp, frame);
+        
+        if (frame.stack.size()) {
+            auto retVal = frame.stack.back();
+            if (dynamic_pointer_cast<NCAccessor>(retVal)) {
+                frame.stack_pop();
+                
+                auto accessor = dynamic_pointer_cast<NCAccessor>(retVal);
+                frame.stack_push(accessor->value());
+            }
+        }
+        
+        
         *shouldReturn = true;
     }
     else if(dynamic_pointer_cast<NCPreIncrement>(currentNode)){
