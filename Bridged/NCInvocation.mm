@@ -34,7 +34,9 @@
 
 static NCInterpreter *g_interpretor = new NCInterpreter();
 
-#define COMP_ENCODE(type, type2) (strcmp(type,@encode(type2)) == 0)
+//#define COMP_ENCODE(type, type2) (strcmp(type,@encode(type2)) == 0)
+
+#define COMP_ENCODE(type, type2) (((type[0] == 'r' || type[0] == '^' )? type[1] : type[0]) == @encode(type2)[0])
 
 enum {
     CTBlockDescriptionFlagsHasCopyDispose = (1 << 25),
@@ -703,6 +705,16 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
 //            auto pOcCls = new NCOcClass((__bridge void *)cls);
             auto pOcCls = MAKE_COCOA_BOX(cls);
             lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(pOcCls)));
+        }
+        else if (strcmp("@?", returnType)==0){
+            id result;
+            [invocation getReturnValue:&result];
+                
+            NCCocoaBox * box = MAKE_COCOA_BOX(result);
+
+            NCStackPointerElement * pRet = new NCStackPointerElement(shared_ptr<NCObject>(box));
+            
+            lastStack.push_back(shared_ptr<NCStackElement>(pRet));
         }
     }
     
