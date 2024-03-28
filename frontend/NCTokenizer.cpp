@@ -349,14 +349,18 @@ shared_ptr<const vector<NCToken>> NCTokenizer::getTokens(){
 #define WEAKIFY "XM_WS"
 #define STRONGIFY "XM_SS"
 #define SCREEN_WIDTH "SCREEN_WIDTH"
+#define MAX "MAX"
+#define MIN "MIN"
 
 unordered_map<string, vector<string>> function_macro_map = {
     {WEAKIFY, {"__weak","typeof(self)", "#0", "=",  "self"}},
     {STRONGIFY, {"__strong","typeof(self)", "#0", "=",  "#1"}},
+    {MAX, {"#0",">", "#1", "?",  "#0", ":", "#1"}},
+    {MIN, {"#0","<", "#1", "?",  "#0", ":", "#1"}},
 };
 
 unordered_map<string, vector<string>> macro_map = {
-    {SCREEN_WIDTH, {"__weak","typeof(self)", "#0", "=",  "self"}},
+    {SCREEN_WIDTH, {"[","UIScreen", "mainScreen", "]", ".", "bounds",".","size",".","width"}}, //[UIScreen mainScreen].bounds.size.width;
 };
 
 void NCTokenizer::preprocessTokens() {
@@ -370,58 +374,65 @@ void NCTokenizer::preprocessTokens() {
         if (function_macro_map.find(t.token) != function_macro_map.end()) {
             auto expanded = function_macro_map[t.token];
             
-            int argCount = 0;
+            vector<vector<string>> argList;
+            
+            int braceCounter = 0;
+            
+            vector<string> argOneSquence; //try to parse (a + b) in ((a + b), c)
+            
+            index += 2; // go to token after '('
+            
+            while (index < tokens->size()) {
+                auto argFragment = (*tokens)[index].token;
+                
+                if (argFragment == "," && braceCounter == 0) {
+                    argList.push_back(argOneSquence);
+                    argOneSquence.clear();
+                } else if (argFragment == ")" && braceCounter == 0) {
+                    argList.push_back(argOneSquence);
+                    index ++; //go to token after ')'
+                    break;
+                } else {
+                    argOneSquence.push_back(argFragment);
+                }
+                
+                if (argFragment == "(") {
+                    braceCounter ++;
+                } else if (argFragment == ")") {
+                    if (braceCounter > 0)braceCounter --;
+                }
+                
+                index ++;
+            }
+            
+            //Macro((a+b), c) how?
             for (auto item : expanded) {
                 if (item[0] == '#') {
                     char pos = item[1] - '0';
-                    int argIndex = index + (pos + 1) * 2;
-                    auto arg = (*tokens)[argIndex];
-                    addToken(processed, arg.token, 0);
-                    argCount ++;
+                    
+                    if (argList.size()) {
+                        auto sequence = argList[pos];
+                        
+                        for (auto item : sequence) {
+                            addToken(processed, item, 0);
+                        }
+                    }
+                    
                 } else
                     addToken(processed, item, 0);
             }
+        } else if (macro_map.find(t.token) != macro_map.end()) {
+            auto expanded = macro_map[t.token];
             
-            index +=  argCount * 2 + 2;
+            for (auto item : expanded) {
+                addToken(processed, item, 0);
+            }
+            
+            index +=  1;
         } else {
             addToken(processed, t.token, 0);
             index ++;
         }
-        
-//        if (t.token == WEAKIFY) {
-//            addToken(processed, "__weak", 0);
-//            
-//            addToken(processed, "typeof(self)", 0);
-//            
-//            auto ws = (*tokens)[index + 2];
-//            
-//            addToken(processed, ws.token, 0);
-//            
-//            addToken(processed, "=", 0);
-//            
-//            addToken(processed, "self", 0);
-//            
-//            index += 4;
-//        } else if (t.token == STRONGIFY) {
-//            addToken(processed, "__strong", 0);
-//            
-//            addToken(processed, "typeof(self)", 0);
-//            
-//            auto ss = (*tokens)[index + 2];
-//            
-//            addToken(processed, ss.token, 0);
-//            
-//            addToken(processed, "=", 0);
-//            
-//            auto ws = (*tokens)[index + 4];
-//            
-//            addToken(processed, ws.token, 0);
-//            
-//            index += 6;
-//        } else {
-//            addToken(processed, t.token, 0);
-//            index ++;
-//        }
     }
     
     tokens = processed;
