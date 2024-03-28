@@ -706,16 +706,6 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
             auto pOcCls = MAKE_COCOA_BOX(cls);
             lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(pOcCls)));
         }
-        else if (strcmp("@?", returnType)==0){
-            id result;
-            [invocation getReturnValue:&result];
-                
-            NCCocoaBox * box = MAKE_COCOA_BOX(result);
-
-            NCStackPointerElement * pRet = new NCStackPointerElement(shared_ptr<NCObject>(box));
-            
-            lastStack.push_back(shared_ptr<NCStackElement>(pRet));
-        }
     }
     
     return YES;

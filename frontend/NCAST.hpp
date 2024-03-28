@@ -115,6 +115,8 @@ public:
 //class.method(...)
 class NCMethodCallExpr:public NCPrimarySuffix{
 public:
+    bool CStyleCall = false; //like a.call()
+    
     string name;
     
     shared_ptr<NCExpression> scope;

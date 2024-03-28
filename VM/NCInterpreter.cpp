@@ -258,6 +258,8 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         auto node = dynamic_cast<NCMethodCallExpr*>(currentNode.get());
         
         if (node->scope) {
+            //object.call(), could be block invoke in OC
+            node->CStyleCall = true;
             tree_doClassMehothodCall(frame, node);
         }
         else {
@@ -1155,9 +1157,22 @@ bool NCInterpreter::tree_doClassMehothodCall(NCFrame & frame, NCMethodCallExpr*n
     }
     
     auto rScope = frame.stack_pop();
-    bool res = rScope->invokeMethod(node->name, arguments, formtArguments, frame.stack);
     
-    return res;
+    if (!node->CStyleCall) {
+        bool res = rScope->invokeMethod(node->name, arguments, formtArguments, frame.stack);
+        
+        return res;
+    } else {
+        bool res = rScope->invokeMethod(node->name, arguments, formtArguments, frame.stack);
+        
+        if (frame.stack.size()) {
+            auto next = frame.stack_pop();
+            
+            next->invokeMethod("invoke", arguments, formtArguments, frame.stack);
+        }
+        
+        return res;
+    }
 }
 
 bool NCInterpreter::isStackTopInt(NCFrame & frame){
