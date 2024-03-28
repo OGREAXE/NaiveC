@@ -70,7 +70,13 @@
 @end
 
 void *makeCocoaBoxWith(id nsObj) {
-    NCCocoaBox *box = new NCCocoaBox();
+    NCCocoaBox *box = nullptr;
+    
+    if ([nsObj isKindOfClass:NSClassFromString(@"MASConstraint")]) {
+        box = new NCMasonaryBox();
+    } else {
+        box = new NCCocoaBox();
+    }
     
     LINK_COCOA_BOX(box, nsObj)
     

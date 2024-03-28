@@ -28,9 +28,12 @@ bool NCNativeObject::invokeMethod(string methodName, vector<shared_ptr<NCStackEl
     auto frame = shared_ptr<NCFrame>(new NCFrame());
     for (int i = 0; i<arguments.size(); i++) {
         auto & var = arguments[i];
-        frame->localVariableMap.insert(make_pair(funcDef->parameters[i].name, var));
+//        frame->localVariableMap.insert(make_pair(funcDef->parameters[i].name, var));
+        frame->insertVariable(funcDef->parameters[i].name, var);
     }
-    frame->localVariableMap.insert(make_pair("self",  shared_ptr<NCStackElement>(new NCStackPointerElement(shared_from_this()))));
+//    frame->localVariableMap.insert(make_pair("self",  shared_ptr<NCStackElement>(new NCStackPointerElement(shared_from_this()))));
+    auto selfvar = shared_ptr<NCStackElement>(new NCStackPointerElement(shared_from_this()));
+    frame->insertVariable("self", selfvar);
     
     if(!g_subInterpretor->visit(funcDef->block, *frame))return false;
     if (frame->stack.size()>0) {
@@ -148,12 +151,14 @@ bool NCStackPointerElement::invokeMethod(string methodName, vector<shared_ptr<NC
      
      for (int i = 0; i < arguments.size(); i++) {
          auto & var = arguments[i];
-         frame->localVariableMap.insert(make_pair(m_lambdaExpr->parameters[i].name, var));
+//         frame->localVariableMap.insert(make_pair(m_lambdaExpr->parameters[i].name, var));
+         frame->insertVariable(m_lambdaExpr->parameters[i].name, var);
      }
      
      for (int i = 0; i < m_capturedObjects.size(); i++) {
          auto & cap = m_capturedObjects[i];
-         frame->localVariableMap.insert(make_pair(cap.name, cap.object));
+//         frame->localVariableMap.insert(make_pair(cap.name, cap.object));
+         frame->insertVariable(cap.name, cap.object);
      }
      
      if (!g_subInterpretor->visit(m_lambdaExpr->blockStmt, *frame))return false;

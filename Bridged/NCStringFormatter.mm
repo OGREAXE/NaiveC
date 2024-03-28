@@ -135,9 +135,10 @@ shared_ptr<NCStackElement> stringWithFormat(shared_ptr<NCStackElement> &strforma
     
     NSString *nsstr = stringWithFormat(str, arguments);
     
-//    auto box = MAKE_COCOA_BOX(nsstr);
-    auto box = new NCCocoaBox();
-    LINK_COCOA_BOX(box, nsstr);
+//    auto box = new NCCocoaBox();
+//    LINK_COCOA_BOX(box, nsstr);
+    
+    auto box = MAKE_COCOA_BOX(nsstr);
     
     return shared_ptr<NCStackElement>(new NCStackPointerElement(box));
 }

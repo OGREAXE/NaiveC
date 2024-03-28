@@ -39,12 +39,14 @@ shared_ptr<NCStackElement>  NCNativeClass::instantiate(vector<shared_ptr<NCStack
     auto frame = shared_ptr<NCFrame>(new NCFrame());
     for (int i = 0; i<arguments.size(); i++) {
         auto & var = arguments[i];
-        frame->localVariableMap.insert(make_pair(constructorDef->parameters[i].name, var));
+//        frame->localVariableMap.insert(make_pair(constructorDef->parameters[i].name, var));
+        frame->insertVariable(constructorDef->parameters[i].name, var);
     }
     
     frame->objectScopeFlag = true;
     
-    frame->localVariableMap.insert(make_pair("self",  shared_ptr<NCStackElement>(new NCStackPointerElement(shared_ptr<NCObject> (newObject)))));
+//    frame->localVariableMap.insert(make_pair("self",  shared_ptr<NCStackElement>(new NCStackPointerElement(shared_ptr<NCObject> (newObject)))));
+    frame->insertVariable("self", shared_ptr<NCStackElement>(new NCStackPointerElement(shared_ptr<NCObject> (newObject))));
     
     if(!g_interpretor->visit(constructorDef->block, *frame)){
         throw NCRuntimeException(0, "fail to instantiate object %s", m_classDef->name.c_str());

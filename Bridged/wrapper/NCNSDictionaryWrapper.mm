@@ -16,7 +16,6 @@ extern NSObject *getNsObjectFromStackElement(shared_ptr<NCStackElement> &e);
 NCNSDictionaryWrapper::NCNSDictionaryWrapper() {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     LINK_COCOA_BOX(this, dict);
-//    m_cocoaObject = NC_COCOA_BRIDGE(dict);
 }
 
 /*
@@ -61,8 +60,10 @@ shared_ptr<NCStackElement> NCNSDictionaryWrapper::br_getValue(shared_ptr<NCStack
     NSObject *obj = arr[nk];
     
 //    NCCocoaBox *box = new NCCocoaBox(NC_COCOA_BRIDGE(obj));
-    auto box = new NCCocoaBox();
-    LINK_COCOA_BOX(box, obj);
+//    auto box = new NCCocoaBox();
+//    LINK_COCOA_BOX(box, obj);
+    
+    auto box = MAKE_COCOA_BOX(obj);
     
     return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(box));
 }

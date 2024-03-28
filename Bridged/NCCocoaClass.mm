@@ -98,9 +98,11 @@ shared_ptr<NCStackElement> NCCocoaClass::instantiate(vector<shared_ptr<NCStackEl
             }
             
             dispatch_queue_t q = dispatch_queue_create(arg0.c_str(), attr);
-//            auto outbox = MAKE_COCOA_BOX(q);
-            auto outbox = new NCCocoaBox();
-            LINK_COCOA_BOX(outbox, q);
+
+//            auto outbox = new NCCocoaBox();
+//            LINK_COCOA_BOX(outbox, q);
+            
+            auto outbox = MAKE_COCOA_BOX(q);
             
             return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(outbox));
         }
@@ -180,9 +182,11 @@ shared_ptr<NCStackElement> NCCocoaClass::instantiate(vector<shared_ptr<NCStackEl
         }
     } else if (this->name == "dispatch_get_main_queue") {
         dispatch_queue_t q = dispatch_get_main_queue();
-//        auto outbox = MAKE_COCOA_BOX(q);
-        NCCocoaBox * outbox = new NCCocoaBox();
-        LINK_COCOA_BOX(outbox, q);
+
+//        NCCocoaBox * outbox = new NCCocoaBox();
+//        LINK_COCOA_BOX(outbox, q);
+        
+        auto outbox = MAKE_COCOA_BOX(q);
         
         return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(outbox));
     } else if (this->name == "dispatch_get_global_queue") {
@@ -242,9 +246,10 @@ shared_ptr<NCStackElement> NCCocoaClass::instantiate(vector<shared_ptr<NCStackEl
     Class thisClass = NSClassFromString(thisClassName);
     id allocedObject = [thisClass alloc];
     
-//    NCCocoaBox * box = new NCCocoaBox(NC_COCOA_BRIDGE(allocedObject));
-    NCCocoaBox * box = new NCCocoaBox();
-    LINK_COCOA_BOX(box, allocedObject);
+//    NCCocoaBox * box = new NCCocoaBox();
+//    LINK_COCOA_BOX(box, allocedObject);
+    
+    auto box = MAKE_COCOA_BOX(allocedObject);
     
     return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(box)));
 }

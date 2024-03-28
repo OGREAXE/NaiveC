@@ -84,10 +84,8 @@ bool NCBuiltinGetObject::invoke(vector<shared_ptr<NCStackElement>> &arguments,ve
         return false;
     }
     
-//    NCCocoaBox * cbox = new NCCocoaBox((void*)ullAddr);
-    NCCocoaBox * cbox = new NCCocoaBox();
     NSNumber *addr = [NSNumber numberWithUnsignedLongLong:ullAddr];
-    LINK_COCOA_BOX(cbox, addr);
+    auto cbox = MAKE_COCOA_BOX(addr);
     
     lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(cbox))));
     
@@ -133,9 +131,10 @@ bool NCBuiltinQueryView::invoke(vector<shared_ptr<NCStackElement>> &arguments,ve
     
     UIView * ret = queryViewDFS(root, type, argumentsCopy);
     
-//    NCCocoaBox * cbox = new NCCocoaBox(NC_COCOA_BRIDGE(ret));
-    NCCocoaBox * cbox = new NCCocoaBox();
-    LINK_COCOA_BOX(cbox, ret);
+//    NCCocoaBox * cbox = new NCCocoaBox();
+//    LINK_COCOA_BOX(cbox, ret);
+    
+    auto cbox = MAKE_COCOA_BOX(ret);
     
     lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(cbox))));
     
@@ -308,9 +307,10 @@ bool NCBuiltinQueryViews::invoke(vector<shared_ptr<NCStackElement>> &arguments,v
     
     NSArray * ret = queryMultipleViewDFS(root, type, argumentsCopy);
     
-//    NCCocoaBox * cbox = new NCCocoaBox(NC_COCOA_BRIDGE(ret));
-    NCCocoaBox * cbox = new NCCocoaBox();
-    LINK_COCOA_BOX(cbox, ret);
+//    NCCocoaBox * cbox = new NCCocoaBox();
+//    LINK_COCOA_BOX(cbox, ret);
+    
+    auto cbox = MAKE_COCOA_BOX(ret);
     
     lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(cbox))));
     
@@ -339,9 +339,11 @@ bool NCBuiltin_NSSearchPathForDirectoriesInDomains::invoke(vector<shared_ptr<NCS
     auto arg1 = arguments[1]->toInt();
     auto arg2 = arguments[2]->toInt();
     NSArray * ret = NSSearchPathForDirectoriesInDomains((NSSearchPathDirectory)arg0,(NSSearchPathDomainMask)arg1,(BOOL)arg2);
-//    NCCocoaBox * cbox = new NCCocoaBox(NC_COCOA_BRIDGE(ret));
-    NCCocoaBox * cbox = new NCCocoaBox();
-    LINK_COCOA_BOX(cbox, ret);
+
+//    NCCocoaBox * cbox = new NCCocoaBox();
+//    LINK_COCOA_BOX(cbox, ret);
+    
+    auto cbox = MAKE_COCOA_BOX(ret);
     
     lastStack.push_back(shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(cbox))));
     return true;

@@ -191,8 +191,10 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
             id val=va_arg(vl,id);
 
 //            NCCocoaBox * box = new NCCocoaBox(NC_COCOA_BRIDGE(val));
-            NCCocoaBox * box = new NCCocoaBox();
-            LINK_COCOA_BOX(box, val);
+//            NCCocoaBox * box = new NCCocoaBox();
+//            LINK_COCOA_BOX(box, val);
+            
+            auto box = MAKE_COCOA_BOX(val);
             
             NCStackPointerElement * pBox = new NCStackPointerElement(shared_ptr<NCObject>( box));
             argmuments.push_back(shared_ptr<NCStackElement>(pBox));
@@ -374,7 +376,53 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
             return NO;
         }
         
-        if(COMP_ENCODE(argumentType, int)){
+        if (strcmp("@?", argumentType)==0){
+            auto pointerContainer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
+            
+            BOOL buildBlockSuccess = YES;
+            do{
+                if (!pointerContainer) {
+                    buildBlockSuccess = NO;
+                    break;
+                }
+                
+                auto lambaObj = dynamic_pointer_cast<NCLambdaObject>(pointerContainer->getPointedObject());
+                
+                if (!lambaObj) {
+                    buildBlockSuccess = NO;
+                    break;
+                }
+                
+                auto lambdaExpr = lambaObj->getLambdaExpression();
+                
+                NSMutableArray *args = [NSMutableArray array];
+                
+                [args addObject:@"block"];
+                
+                for (int i=0; i<lambdaExpr->parameters.size(); i++) {
+                    auto argumentType = lambdaExpr->parameters[i].type;
+                    NSString *typeStr = [NSString stringWithUTF8String:argumentType.c_str()];
+                    
+                    [args addObject:typeStr];
+                }
+                
+                id genBlock = [NPEngine genCallbackBlock:args];
+                
+                NPFunction *func = [[NPFunction alloc] init];
+                func.blockObj = lambaObj;
+                
+                objc_setAssociatedObject(genBlock, "_JSValue", func, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                
+                [invocation setArgument:&genBlock atIndex:argPos];
+            }
+            while (0);
+            
+            if (!buildBlockSuccess) {
+                id argnil = NULL;
+                [invocation setArgument:&argnil atIndex:argPos];
+            }
+        }
+        else if(COMP_ENCODE(argumentType, int)){
             unsigned long long num = arguments[i]->toInt();
             [invocation setArgument:&num atIndex:argPos];
         }
@@ -531,62 +579,6 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
                 [invocation setArgument:&selector atIndex:argPos];
             }
         }
-        else if (strcmp("@?", argumentType)==0){
-            auto pointerContainer = dynamic_pointer_cast<NCStackPointerElement>(arguments[i]);
-            
-            BOOL buildBlockSuccess = YES;
-            do{
-                if (!pointerContainer) {
-                    buildBlockSuccess = NO;
-                    break;
-                }
-                
-                auto lambaObj = dynamic_pointer_cast<NCLambdaObject>(pointerContainer->getPointedObject());
-                
-                if (!lambaObj) {
-                    buildBlockSuccess = NO;
-                    break;
-                }
-                
-//                NCLambdaObject * lambdaObjectCopy = new NCLambdaObject(lambaObj->getLambdaExpression());
-//                auto lambdaObjectCopy = lambaObj->copy();
-                
-//                auto block_literal_1 = new __block_literal_1;
-//                block_literal_1->isa = _NSConcreteGlobalBlock;
-//                block_literal_1->flags = CTBlockDescriptionFlagsIsGlobal;
-//                block_literal_1->invoke =  __block_invoke_1;
-//                block_literal_1->stored_obj = (void*)lambdaObjectCopy;
-//                [invocation setArgument:&block_literal_1 atIndex:argPos];
-                
-                auto lambdaExpr = lambaObj->getLambdaExpression();
-                
-                NSMutableArray *args = [NSMutableArray array];
-                
-                [args addObject:@"block"];
-                
-                for (int i=0; i<lambdaExpr->parameters.size(); i++) {
-                    auto argumentType = lambdaExpr->parameters[i].type;
-                    NSString *typeStr = [NSString stringWithUTF8String:argumentType.c_str()];
-                    
-                    [args addObject:typeStr];
-                }
-                
-                id genBlock = [NPEngine genCallbackBlock:args];
-                
-                NPFunction *func = [[NPFunction alloc] init];
-                func.blockObj = lambaObj;
-                
-                objc_setAssociatedObject(genBlock, "_JSValue", func, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-                
-                [invocation setArgument:&genBlock atIndex:argPos];
-            }
-            while (0);
-            
-            if (!buildBlockSuccess) {
-                id argnil = NULL;
-                [invocation setArgument:&argnil atIndex:argPos];
-            }
-        }
         else {
             id argnil = NULL;
             [invocation setArgument:&argnil atIndex:argPos];
@@ -607,20 +599,21 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
 //        [invocation getReturnValue:&result];
         NSString *selStr = NSStringFromSelector(selector);
         
-        NCCocoaBox * box = new NCCocoaBox();
+        NCCocoaBox * box =  nullptr; //new NCCocoaBox();
         
         if ([selStr hasPrefix:@"init"] || [selStr isEqualToString:@"new"]) {
             //init/new doesn't put returned value into autoreleaspool, so use id to let ARC generate release correctly
             id result;
             [invocation getReturnValue:&result];
             
-            LINK_COCOA_BOX(box, result);
+            box = MAKE_COCOA_BOX(result);
         } else {
             //otherwise do not retain anything to avoid over-releasing
             __unsafe_unretained id result;
             [invocation getReturnValue:&result];
             
-            LINK_COCOA_BOX(box, result);
+//            LINK_COCOA_BOX(box, result);
+            box = MAKE_COCOA_BOX(result);
         }
 
         NCStackPointerElement * pRet = new NCStackPointerElement(shared_ptr<NCObject>(box));
@@ -829,8 +822,10 @@ int __block_invoke_1(struct __block_literal_1 *_block, ...) {
         //id
 //        NCCocoaBox * box = new NCCocoaBox(NC_COCOA_BRIDGE(val));
         
-        NCCocoaBox * box = new NCCocoaBox();
-        LINK_COCOA_BOX(box, val);
+//        NCCocoaBox * box = new NCCocoaBox();
+//        LINK_COCOA_BOX(box, val);
+        
+        auto box = MAKE_COCOA_BOX(val);
         
         ret = shared_ptr<NCStackPointerElement>(new NCStackPointerElement(shared_ptr<NCObject>(box)));
     }

@@ -66,7 +66,11 @@ void NCFrame::insertVariable(string&name, string& value){
     localVariableMap[name] = shared_ptr<NCStackElement>(new NCStackStringElement(value));
 }
 
-void NCFrame::insertVariable(string&name, shared_ptr<NCStackElement> pObject){
+void NCFrame::insertVariable(const string&name, shared_ptr<NCStackElement> pObject){
+    if (name == "self") {
+        int i = 0;
+    }
+    
     localVariableMap[name] = pObject;
 }
 
@@ -152,7 +156,8 @@ bool NCInterpreter::invoke(string function, vector<string> &argumentNames, vecto
         auto & var = arguments[i];
         
         auto name = argumentNames.size()?argumentNames[i]:funcDef->parameters[i].name;
-        frame->localVariableMap.insert(make_pair(name, var));
+//        frame->localVariableMap.insert(make_pair(name, var));
+        frame->insertVariable(name, var);
     }
 //    for (auto var :arguments) {
 ////        frame->localVariableMap.insert(make_pair(var->name, var));
@@ -853,6 +858,16 @@ bool NCInterpreter::visit(shared_ptr<NCASTNode> currentNode, NCFrame & frame, bo
         auto &capturedSymbols = lambdaExpr->capturedSymbols;
         
         auto lambdaObj = new NCLambdaObject(lambdaExpr);
+        
+        bool needCaptureSelf = false;
+        
+        for (auto & capturedSymbol : capturedSymbols) {
+            if (capturedSymbol[0] == '_') {
+                needCaptureSelf = true;
+            }
+        }
+        
+        if (needCaptureSelf)capturedSymbols.insert("self");
         
         for (auto & capturedSymbol : capturedSymbols) {
             auto &localVar = frame.localVariableMap[capturedSymbol];

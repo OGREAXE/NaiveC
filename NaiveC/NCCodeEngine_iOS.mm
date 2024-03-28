@@ -216,16 +216,19 @@ using namespace std;
             else if ([v isKindOfClass:JPBoxing.class]) {
                 JPBoxing *v = arguments[i];
                 
-                auto box = new NCCocoaBox();
-                LINK_COCOA_BOX(box, v);
+//                auto box = new NCCocoaBox();
+//                LINK_COCOA_BOX(box, v);
+                
+                auto box = MAKE_COCOA_BOX(v);
                 
                 NCStackElement *e = MAKE_COCOA_POINTER(box);
                 args.push_back(shared_ptr<NCStackElement>(e));
             }
             else if ([v isKindOfClass:NSObject.class]) {
-//                NCStackElement *e = MAKE_COCOA_POINTER(v);
-                auto box = new NCCocoaBox();
-                LINK_COCOA_BOX(box, v);
+//                auto box = new NCCocoaBox();
+//                LINK_COCOA_BOX(box, v);
+                
+                auto box = MAKE_COCOA_BOX(v);
                 
                 NCStackElement *e = MAKE_COCOA_POINTER(box);
                 
@@ -283,15 +286,19 @@ using namespace std;
             else if ([v isKindOfClass:JPBoxing.class]) {
                 JPBoxing *v = arguments[i];
                 
-                auto box = new NCCocoaBox();
-                LINK_COCOA_BOX(box, v);
+//                auto box = new NCCocoaBox();
+//                LINK_COCOA_BOX(box, v);
+                
+                auto box = MAKE_COCOA_BOX(v);
                 
                 NCStackElement *e = MAKE_COCOA_POINTER(box);
                 args.push_back(shared_ptr<NCStackElement>(e));
             }
             else if ([v isKindOfClass:NSObject.class]) {
-                auto box = new NCCocoaBox();
-                LINK_COCOA_BOX(box, v);
+//                auto box = new NCCocoaBox();
+//                LINK_COCOA_BOX(box, v);
+                
+                auto box = MAKE_COCOA_BOX(v);
                 
                 NCStackElement *e = MAKE_COCOA_POINTER(box);
                 args.push_back(shared_ptr<NCStackElement>(e));

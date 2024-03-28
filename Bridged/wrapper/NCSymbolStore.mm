@@ -15,8 +15,10 @@ shared_ptr<NCStackElement> NCSymbolStore::objectForName(string &name) {
     NSString *nsName = [NSString stringWithUTF8String:name.c_str()];
     id obj = [NSCocoaSymbolStore symbolForName:nsName];
     
-    auto box = new NCCocoaBox();
-    LINK_COCOA_BOX(box, obj);
+//    auto box = new NCCocoaBox();
+//    LINK_COCOA_BOX(box, obj);
+    
+    auto box = MAKE_COCOA_BOX(obj);
     
     return shared_ptr<NCStackElement>(new NCStackPointerElement(box));
 }

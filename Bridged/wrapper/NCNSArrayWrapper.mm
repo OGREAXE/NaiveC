@@ -73,8 +73,10 @@ shared_ptr<NCStackElement> NCNSArrayWrapper::br_getValue(shared_ptr<NCStackEleme
     
     NSObject *obj = arr[k->value];
     
-    NCCocoaBox *box = new NCCocoaBox();
-    LINK_COCOA_BOX(box, obj);
+//    NCCocoaBox *box = new NCCocoaBox();
+//    LINK_COCOA_BOX(box, obj);
+    
+    auto box = MAKE_COCOA_BOX(obj);
     
     return shared_ptr<NCStackPointerElement>(new NCStackPointerElement(box));
 }

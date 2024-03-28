@@ -48,7 +48,7 @@ public:
     void insertVariable(string&name, NCInt value, const string &opcode);
     void insertVariable(string&name, NCFloat value, const string &opcode);
     void insertVariable(string&name, string& value);
-    void insertVariable(string&name, shared_ptr<NCStackElement> pObject);
+    void insertVariable(const string&name, shared_ptr<NCStackElement> pObject);
     void insertVariable(string&name, NCStackPointerElement & pObject);
 
     unordered_map<string, shared_ptr<NCStackElement>> localVariableMap;

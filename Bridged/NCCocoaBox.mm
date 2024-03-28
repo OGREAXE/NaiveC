@@ -39,7 +39,7 @@
 
 NCCocoaBox::NCCocoaBox(const string &str) {
     NSString *nsstr = [NSString stringWithUTF8String:str.c_str()];
-//    m_cocoaObject = NC_COCOA_BRIDGE(nsstr);
+
     LINK_COCOA_BOX(this, nsstr);
 } //wrap as nsstring
 
@@ -249,8 +249,10 @@ void NCCocoaBox::enumerate(std::function<bool (shared_ptr<NCStackElement> anObj)
         NSArray *array = (NSArray*)wrappedObject;
         [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
-            NCCocoaBox * box = new NCCocoaBox();
-            LINK_COCOA_BOX(box, obj);
+//            NCCocoaBox * box = new NCCocoaBox();
+//            LINK_COCOA_BOX(box, obj);
+            
+            auto box = MAKE_COCOA_BOX(obj);
             
             NCStackPointerElement * pval = new NCStackPointerElement(shared_ptr<NCObject>(box));
             bool res = handler(shared_ptr<NCStackElement> (pval));
@@ -277,10 +279,55 @@ NCInt NCCocoaBox::toInt(){
 }
 
 NCObject* NCCocoaBox::copy() {
-//    return new NCCocoaBox(this->m_cocoaObject);
-    auto cp = new NCCocoaBox();
+//    auto cp = new NCCocoaBox();
+//    LINK_COCOA_BOX(cp, GET_NS_OBJECT);
     
-    LINK_COCOA_BOX(cp, GET_NS_OBJECT);
+    auto cp = MAKE_COCOA_BOX(GET_NS_OBJECT);
     
     return cp;
+}
+
+
+//masonary
+bool NCMasonaryBox::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> & lastStack) {
+    vector<shared_ptr<NCStackElement>> formatArguments;
+    
+    return invokeMethod(methodName, arguments, formatArguments, lastStack);
+}
+
+bool NCMasonaryBox::invokeMethod(string methodName, vector<shared_ptr<NCStackElement>> &arguments,vector<shared_ptr<NCStackElement>> &formatArguments,vector<shared_ptr<NCStackElement>> & lastStack) {
+    
+    if (methodName == "mas_equalTo" && arguments.size()) {
+        //re-interprete argument as object
+        do {
+            auto argAsInt = dynamic_pointer_cast<NCStackIntElement>(arguments[0]);
+            
+            if (argAsInt) {
+                arguments.clear();
+                
+                auto newArgAsObject = new NCCocoaBox(argAsInt->value);
+                
+                arguments.push_back(shared_ptr<NCStackElement>(new NCStackPointerElement(newArgAsObject)));
+                
+                break;
+            }
+            
+            auto argAsDouble = dynamic_pointer_cast<NCStackFloatElement>(arguments[0]);
+            
+            if (argAsDouble) {
+                arguments.clear();
+                
+                auto newArgAsObject = new NCCocoaBox(argAsDouble->value);
+                
+                arguments.push_back(shared_ptr<NCStackElement>(new NCStackPointerElement(newArgAsObject)));
+                
+                break;
+            }
+            
+        } while(0);
+        
+    }
+    
+    return NCCocoaBox::invokeMethod(methodName, arguments, formatArguments, lastStack);
+    
 }
